@@ -29,7 +29,7 @@
       "settings": {
         "products_per_page": 50,
         "card_size_mobile": "small",
-        "card_size": "small",
+        "card_size": "medium",
         "show_layout_toggle": true,
         "enable_filtering": true,
         "filters_open_lg": true,
