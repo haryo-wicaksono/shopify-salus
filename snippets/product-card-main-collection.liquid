@@ -125,8 +125,6 @@
           style="padding-top: {{ 1 | divided_by: image_ratio | times: 100 }}%;"
           tabindex="-1"
         >
-
-        
           {%- if product.featured_media -%}
             {% assign media_ext = product.featured_media
               | img_url
@@ -272,7 +270,9 @@
                       {%- endfor -%}
 
                       {%- if option.values.size > swatch_limit -%}
-                        <span class="self-center text-end text-sm">+{{ option.values.size | minus: swatch_limit }}</span>
+                        <span class="self-center text-end text-sm"
+                          >+{{ option.values.size | minus: swatch_limit -}}
+                        </span>
                       {%- endif -%}
                     </div>
                   {%- else -%}
@@ -329,14 +329,16 @@
               {%- endif -%}
             {% endcomment %}
             <!-- Start of Judge.me code -->
-            {%- if settings.card_show_rating -%}
-              <div class="product_ratings">
-                <div class="jdgm-widget jdgm-preview-badge">
-                  <span class="rating-counter">{{ product.metafields.reviews.rating.value }}</span>
-                  {{ product.metafields.judgeme.badge }}
+            {% comment %}
+              {%- if settings.card_show_rating -%}
+                <div class="product_ratings">
+                  <div class="jdgm-widget jdgm-preview-badge">
+                    <span class="rating-counter">{{ product.metafields.reviews.rating.value }}</span>
+                    {{ product.metafields.judgeme.badge }}
+                  </div>
                 </div>
-              </div>
-            {% endif %}
+              {% endif %}
+            {% endcomment %}
             <!-- End of Judge.me code -->
 
             {% if show_delivery_tag or show_person_tag %}
@@ -433,7 +435,7 @@
             {%- endif -%}
           </div>
         </div>
-        {% if enable_quick_add and btn_label != blank  %}
+        {% if enable_quick_add and btn_label != blank %}
           <div class="card_redirect">
             <a href="{{ product.url }}">{{ btn_label }}</a>
           </div>
