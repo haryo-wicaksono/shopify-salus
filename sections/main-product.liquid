@@ -220,20 +220,21 @@
                 </div>
               {%- endif -%}
 
-              {% if block.settings.reviews_text != blank %}
-                <div class="product-page-section-header__reviews">
-                  {% if block.settings.show_stars %}
-                    <span class="product-page-section-header__star-rating">
-                      {% render 'icon-star' %}
-                      {% render 'icon-star' %}
-                      {% render 'icon-star' %}
-                      {% render 'icon-star' %}
-                      {% render 'icon-star' %}
-                    </span>
-                  {% endif %}
+            {%- when 'star_reviews' -%}
+              <div class="product-page-section-header__reviews" {{ block.shopify_attributes }}>
+                {% if block.settings.show_stars %}
+                  <span class="product-page-section-header__star-rating">
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                  </span>
+                {% endif %}
+                {% if block.settings.reviews_text != blank %}
                   <p class="product-page-section-header__reviews-text">{{ block.settings.reviews_text }}</p>
-                </div>
-              {% endif %}
+                {% endif %}
+              </div>
 
             {%- when 'title' -%}
               <div
@@ -2327,6 +2328,25 @@
       "type": "pay_hsa_fsa",
       "name": "Pay With HSA/FSA",
       "limit": 2
+    },
+    {
+      "type": "star_reviews",
+      "name": "Star Reviews",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_stars",
+          "label": "Show 5-star rating icon",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "reviews_text",
+          "label": "Reviews Text",
+          "default": "Hundreds of verified 5-star reviews"
+        }
+      ]
     },
     {
       "type": "copy_link",
