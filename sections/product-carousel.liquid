@@ -67,14 +67,16 @@
                   </div>
                 {%- endif -%}
               {% endcomment %}
-              {%- if settings.card_show_rating -%}
-                <div class="product_ratings">
-                  <div class="jdgm-widget jdgm-preview-badge">
-                    <span class="rating-counter">{{ product.metafields.reviews.rating.value }}</span>
-                    {{ product.metafields.judgeme.badge }}
+              {% comment %}
+                {%- if settings.card_show_rating -%}
+                  <div class="product_ratings">
+                    <div class="jdgm-widget jdgm-preview-badge">
+                      <span class="rating-counter">{{ product.metafields.reviews.rating.value }}</span>
+                      {{ product.metafields.judgeme.badge }}
+                    </div>
                   </div>
-                </div>
-              {% endif %}
+                {% endif %}
+              {% endcomment %}
               <div class="price">
                 <span class="current-price">{{ product.price | money }}</span>
                 {%- if product.compare_at_price > product.price -%}
