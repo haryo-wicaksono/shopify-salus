@@ -220,6 +220,21 @@
                 </div>
               {%- endif -%}
 
+              {% if block.settings.reviews_text != blank %}
+                <div class="product-page-section-header__reviews">
+                  {% if block.settings.show_stars %}
+                    <span class="product-page-section-header__star-rating">
+                      {% render 'icon-star' %}
+                      {% render 'icon-star' %}
+                      {% render 'icon-star' %}
+                      {% render 'icon-star' %}
+                      {% render 'icon-star' %}
+                    </span>
+                  {% endif %}
+                  <p class="product-page-section-header__reviews-text">{{ block.settings.reviews_text }}</p>
+                </div>
+              {% endif %}
+
             {%- when 'title' -%}
               <div
                 class="product-info__block product-info__block--sm product-info__title"
@@ -305,8 +320,7 @@
                   {% endif %}
                 </div>
               {% endif %}
-            
-              
+
             {% when 'pay_hsa_fsa' %}
               <div
                 class="product-info__block product-info__block--sm product-info__pay"
@@ -875,10 +889,9 @@
                   {{ block.shopify_attributes }}
                 >
                   <div class="product-detail-title">
-                    <h3>{{ block.settings.heading }}
-                      <a href="#product-accordion" class="product-accordion-scroll-link">
-                        See more details
-                      </a>
+                    <h3>
+                      {{ block.settings.heading }}
+                      <a href="#product-accordion" class="product-accordion-scroll-link"> See more details </a>
                     </h3>
                   </div>
                   <div class="product-detail-cntnt">
@@ -2522,7 +2535,21 @@
     {
       "type": "type",
       "name": "Product type",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_stars",
+          "label": "Show 5-star rating icon",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "reviews_text",
+          "label": "Reviews Text",
+          "default": "Hundreds of verified 5-star reviews"
+        }
+      ]
     },
     {
       "type": "message",
