@@ -99,6 +99,13 @@
   endif
 -%}
 
+<link
+  rel="stylesheet"
+  href="{{ 'product-card-main-collection.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'"
+>
+
 {%- if product and product != empty -%}
   <product-card class="card card--product{{ card_class }} h-full{% if settings.card_contain %} card--product-contained{% endif %}{% unless settings.show_dividers %} card--no-lines{% endunless %}{% if show_compare %} card--product-compare{% endif %} relative flex">
     <a href="{{ product.url }}">
@@ -355,6 +362,7 @@
             {%- if settings.card_price_bottom == false -%}
               {%- render 'price', product: product, class: 'price--top' -%}
             {%- endif -%}
+
             {% if enable_learn_more %}
               <div class="product_learn_more">
                 <a href="{{ product.url }}">Learn more</a>
@@ -520,6 +528,9 @@
         {%- endif -%}
       </div>
     </a>
+    <div class="collection-page-main-sauna-feature-item__financing">
+      {% render 'affirm-messaging', product: product %}
+    </div>
   </product-card>
 {%- else -%}
   <div class="card">
