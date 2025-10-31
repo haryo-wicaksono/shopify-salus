@@ -496,6 +496,10 @@
     /* Forces the color to match the button text */
 }
 
+.homepage-hero-carousel__slide--dark .homepage-hero-carousel__feature-item svg {
+    fill: #33B6AB;
+}
+
 /* Ensure content column covers full width on mobile stacked layout */
 @media screen and (max-width: 768px) {
     .homepage-hero-carousel__slide--dark .homepage-hero-carousel__content-column {
