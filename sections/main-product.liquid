@@ -221,7 +221,7 @@
               {%- endif -%}
 
             {%- when 'star_reviews' -%}
-              <div class="product-page-section-header__reviews" {{ block.shopify_attributes }}>
+              <div class="product-page-section-header__reviews">
                 {% if block.settings.show_stars %}
                   <span class="product-page-section-header__star-rating">
                     {% render 'icon-star' %}
@@ -232,7 +232,9 @@
                   </span>
                 {% endif %}
                 {% if block.settings.reviews_text != blank %}
-                  <p class="product-page-section-header__reviews-text">{{ block.settings.reviews_text }}</p>
+                  <a href="/pages/reviews">
+                    <p class="product-page-section-header__reviews-text">{{ block.settings.reviews_text }}</p>
+                  </a>
                 {% endif %}
               </div>
 
