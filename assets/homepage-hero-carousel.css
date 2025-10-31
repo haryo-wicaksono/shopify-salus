@@ -496,7 +496,7 @@
     /* Forces the color to match the button text */
 }
 
-.homepage-hero-carousel__slide--dark .homepage-hero-carousel__feature-item svg {
+.homepage-hero-carousel__slide--dark .homepage-hero-carousel__feature-item svg path {
     fill: #33B6AB;
 }
 
