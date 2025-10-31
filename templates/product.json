@@ -16,6 +16,13 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "star_reviews_8rWEzf": {
+          "type": "star_reviews",
+          "settings": {
+            "show_stars": true,
+            "reviews_text": "Hundreds of verified 5-star reviews"
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
@@ -175,6 +182,7 @@
         }
       },
       "block_order": [
+        "star_reviews_8rWEzf",
         "title",
         "vendor_sku_pLKcrj",
         "product_tags_WenhVX",
