@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "collection-banner": {
@@ -18,9 +27,9 @@
     "collection-products": {
       "type": "main-collection-products",
       "settings": {
-        "products_per_page": 15,
+        "products_per_page": 50,
         "card_size_mobile": "small",
-        "card_size": "medium",
+        "card_size": "small",
         "show_layout_toggle": true,
         "enable_filtering": true,
         "filters_open_lg": true,
