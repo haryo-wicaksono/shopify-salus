@@ -11,14 +11,12 @@
   {% render 'product-card', product: product %}
 {%- endcomment -%}
 
-{% if image_as_link == nil %}
+{% if image_as_link == null %}
   {% assign image_as_link = true %}
 {% endif %}
-{% if title_as_link == nil %}
+{% if title_as_link == null %}
   {% assign title_as_link = true %}
 {% endif %}
-
-
 
 {%- liquid
   if collection and settings.card_url_within_coll and product.collections contains collection
@@ -127,7 +125,7 @@
       {% if show_category_tag and product.metafields.custom.product_tag != blank %}
         <span class="product-category-badge">{{ product.metafields.custom.product_tag }}</span>
       {% endif %}
-      {% if image_as_link == true %} 
+      {% if image_as_link == true %}
         <a
           href="{{ product_url }}"
           aria-label="{{ product.title | escape }}"
@@ -143,66 +141,66 @@
           tabindex="-1"
         >
       {% endif %}
-       
-        {%- if product.featured_media -%}
-          {% assign media_ext = product.featured_media
-            | img_url
-            | split: '.'
-            | last
-            | split: '?'
-            | first
-            | append: '_type'
-          %}
-          {% assign class = class | append: media_ext %}
-          {%- capture attributes %}data-media-id="{{ product.featured_media.id }}"{% endcapture -%}
+
+      {%- if product.featured_media -%}
+        {% assign media_ext = product.featured_media
+          | img_url
+          | split: '.'
+          | last
+          | split: '?'
+          | first
+          | append: '_type'
+        %}
+        {% assign class = class | append: media_ext %}
+        {%- capture attributes %}data-media-id="{{ product.featured_media.id }}"{% endcapture -%}
+        {% render 'image',
+          image: product.featured_media.preview_image,
+          widths: '320, 460, 600, 700, 800, 900, 1200',
+          src_width: 460,
+          src_placeholder: true,
+          sizes: sizes,
+          class: class,
+          attributes: attributes,
+          disable_focal_point: true,
+          quality: image_quality
+        %}
+
+        {%- if settings.card_colors_style == 'swatches' or settings.card_colors_style == 'variant-images' -%}
+          {%- assign variant_media = product.variants | map: 'featured_media' -%}
+          {%- for media in variant_media -%}
+            {%- unless media == product.featured_media -%}
+              {%- capture attributes %}data-media-id="{{ media.id }}" hidden{% endcapture -%}
+              {% render 'image',
+                image: media,
+                widths: '320, 460, 600, 700, 800, 900, 1200',
+                src_width: 460,
+                sizes: sizes,
+                class: class,
+                attributes: attributes,
+                disable_focal_point: true,
+                quality: image_quality
+              %}
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endif -%}
+
+        {%- if show_hover_image -%}
+          {%- assign class = class | replace: 'card__main-image', 'card__hover-image' -%}
           {% render 'image',
-            image: product.featured_media.preview_image,
+            image: hover_image,
             widths: '320, 460, 600, 700, 800, 900, 1200',
             src_width: 460,
             src_placeholder: true,
             sizes: sizes,
             class: class,
-            attributes: attributes,
             disable_focal_point: true,
             quality: image_quality
           %}
-
-          {%- if settings.card_colors_style == 'swatches' or settings.card_colors_style == 'variant-images' -%}
-            {%- assign variant_media = product.variants | map: 'featured_media' -%}
-            {%- for media in variant_media -%}
-              {%- unless media == product.featured_media -%}
-                {%- capture attributes %}data-media-id="{{ media.id }}" hidden{% endcapture -%}
-                {% render 'image',
-                  image: media,
-                  widths: '320, 460, 600, 700, 800, 900, 1200',
-                  src_width: 460,
-                  sizes: sizes,
-                  class: class,
-                  attributes: attributes,
-                  disable_focal_point: true,
-                  quality: image_quality
-                %}
-              {%- endunless -%}
-            {%- endfor -%}
-          {%- endif -%}
-
-          {%- if show_hover_image -%}
-            {%- assign class = class | replace: 'card__main-image', 'card__hover-image' -%}
-            {% render 'image',
-              image: hover_image,
-              widths: '320, 460, 600, 700, 800, 900, 1200',
-              src_width: 460,
-              src_placeholder: true,
-              sizes: sizes,
-              class: class,
-              disable_focal_point: true,
-              quality: image_quality
-            %}
-          {%- endif -%}
-        {%- else -%}
-          {{ 'image' | placeholder_svg_tag: 'media__placeholder img-fit' }}
         {%- endif -%}
-      {% if image_as_link == true %} 
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'media__placeholder img-fit' }}
+      {%- endif -%}
+      {% if image_as_link == true %}
         </a>
       {% else %}
         </div>
@@ -319,15 +317,15 @@
 
           <div class="product-title-wrapper">
             <p class="truncate-two-lines card__title font-bold{% if settings.show_dividers %} mb-1{% else %} mt-1 mb-0{% endif %}">
-             {% if title_as_link == true %}
+              {% if title_as_link == true %}
                 <a href="{{ product_url }}" class="card-link text-current js-prod-link">
                   {{- product.title | escape -}}
                 </a>
-             {% else %}
+              {% else %}
                 <span class="card-link text-current js-prod-link">
                   {{- product.title | escape -}}
                 </span>
-             {% endif %}
+              {% endif %}
               {% render 'product-label', product: product, is_product_card: true, limit: 1 %}
             </p>
           </div>
@@ -355,14 +353,16 @@
             {%- endif -%}
           {% endcomment %}
           <!-- Start of Judge.me code -->
-          {%- if settings.card_show_rating and template.name != 'index'-%}
-            <div class="product_ratings">
-              <div class="jdgm-widget jdgm-preview-badge">
-                <span class="rating-counter">{{ product.metafields.reviews.rating.value }}</span>
-                {{ product.metafields.judgeme.badge }}
+          {% comment %}
+            {%- if settings.card_show_rating and template.name != 'index'-%}
+              <div class="product_ratings">
+                <div class="jdgm-widget jdgm-preview-badge">
+                  <span class="rating-counter">{{ product.metafields.reviews.rating.value }}</span>
+                  {{ product.metafields.judgeme.badge }}
+                </div>
               </div>
-            </div>
-          {% endif %}
+            {% endif %}
+          {% endcomment %}
           <!-- End of Judge.me code -->
 
           {% if show_delivery_tag or show_person_tag %}
@@ -458,7 +458,7 @@
             </div>
           {%- endif -%}
 
-          {% if enable_quick_add and btn_label != blank  %}
+          {% if enable_quick_add and btn_label != blank %}
             <div class="card_redirect">
               <a href="{{ product.url }}">{{ btn_label }}</a>
             </div>
