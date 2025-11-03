@@ -15,10 +15,10 @@
       "type": "homepage-announcement-banner",
       "name": "Homepage Announcement Banner",
       "settings": {
-        "text": "Give us a call",
+        "text": "Black Friday Starts Now - All Saunas on Sale    |   Call",
         "phone_number": "(888) 287-0111",
-        "background_color": "#FFFFFF",
-        "text_color": "#000000"
+        "background_color": "#f03636",
+        "text_color": "#ffffff"
       }
     },
     "announcement": {
