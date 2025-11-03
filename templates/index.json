@@ -77,7 +77,7 @@
         "hero_slide_fXR8VU": {
           "type": "hero-slide",
           "settings": {
-            "slide_image_desktop": "shopify://shop_images/Sauna_Stock_Images_4_2.png",
+            "slide_image_desktop": "shopify://shop_images/light-mode-hero-section-slide-image-black-friday-desktop.png",
             "desktop_image_alt": "Hello",
             "slide_image_mobile": "shopify://shop_images/Sauna_Stock_Images_4_2_mobile.png",
             "mobile_image_alt": "Hello",
@@ -101,7 +101,7 @@
         "hero_slide_gQxa68": {
           "type": "hero-slide",
           "settings": {
-            "slide_image_desktop": "shopify://shop_images/dark_mode_slide_hero_section_sauna.png",
+            "slide_image_desktop": "shopify://shop_images/dark-mode-hero-section-slide-image-black-friday-desktop.png",
             "desktop_image_alt": "Hello",
             "slide_image_mobile": "shopify://shop_images/dark_mode_slide_hero_section_sauna.png",
             "mobile_image_alt": "Hello",
