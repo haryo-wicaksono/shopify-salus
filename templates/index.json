@@ -79,7 +79,7 @@
           "settings": {
             "slide_image_desktop": "shopify://shop_images/light-mode-hero-section-slide-image-black-friday-desktop.png",
             "desktop_image_alt": "Hello",
-            "slide_image_mobile": "shopify://shop_images/Sauna_Stock_Images_4_2_mobile.png",
+            "slide_image_mobile": "shopify://shop_images/light-mode-hero-section-slide-image-black-friday-mobile.png",
             "mobile_image_alt": "Hello",
             "show_stars": true,
             "show_house_icon": false,
@@ -103,7 +103,7 @@
           "settings": {
             "slide_image_desktop": "shopify://shop_images/dark-mode-hero-section-slide-image-black-friday-desktop.png",
             "desktop_image_alt": "Hello",
-            "slide_image_mobile": "shopify://shop_images/dark_mode_slide_hero_section_sauna.png",
+            "slide_image_mobile": "shopify://shop_images/dark-mode-hero-section-slide-image-black-friday-mobile.png",
             "mobile_image_alt": "Hello",
             "show_stars": false,
             "show_house_icon": true,
