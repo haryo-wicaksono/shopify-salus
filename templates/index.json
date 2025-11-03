@@ -131,7 +131,7 @@
       "settings": {
         "content_background_color": "#fdf7f1",
         "enable_autoplay": true,
-        "autoplay_speed": 5000,
+        "autoplay_speed": 9900,
         "enable_loop": true,
         "show_navigation_arrows": true,
         "show_pagination_dots": true,
