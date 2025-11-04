@@ -58,7 +58,7 @@
   margin-bottom: 30px;
 }
 
-.product-info__block.product-details__block.product-details__text.rte .product-detail-cntnt p{
+.product-info__block.product-details__block.product-details__text.rte .product-detail-cntnt p {
   margin-bottom: 0px;
 }
 
@@ -308,12 +308,18 @@
 }
 
 .product-accordion-scroll-link {
-  color: #0000ee;              /* blue */
-  text-decoration: underline;  /* underline */
-  font-weight: normal;         /* optional: remove bold if theme applies it */
-  background: none;            /* removes any button background */
-  border: none;                /* removes button borders if theme applies */
-  padding: 0;                  /* remove button padding */
+  color: #0000ee;
+  /* blue */
+  text-decoration: underline;
+  /* underline */
+  font-weight: normal;
+  /* optional: remove bold if theme applies it */
+  background: none;
+  /* removes any button background */
+  border: none;
+  /* removes button borders if theme applies */
+  padding: 0;
+  /* remove button padding */
   font-weight: 500;
   font-size: 18px;
   margin-left: 5px;
@@ -1225,4 +1231,84 @@ product-recommendations .card__quick-add .btn:hover {
 
 .sticky-atc-panel {
   display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .atc-banner-price {
+    margin-right: 20px;
+    height: 35px;
+  }
+
+  .atc-banner-price .price__default .price__current {
+    font-size: 14px !important;
+    font-weight: 600;
+    line-height: 27px;
+    color: #fff;
+  }
+
+  .atc-banner-price .price__default .discount__price {
+    font-size: 14px !important;
+    font-weight: 600;
+    line-height: 27px;
+  }
+
+  .atc-banner-price .price__default .price__was {
+    font-size: 14px !important;
+    font-weight: 300;
+    line-height: 27px;
+    color: #fff;
+  }
+
+  .price__default {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .atc-banner-button button {
+    background: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 200px;
+    font-weight: 600;
+    line-height: 27px;
+    width: 120px;
+  }
+
+  .product-page-section-header__reviews-text {
+    font-size: 14px;
+  }
+
+  .product-page-section-header__star-rating svg {
+    width: 16px;
+    height: 15px;
+  }
+
+  .template--product .product-info .product-title {
+    font-size: 24px;
+  }
+
+  .product-info__block.product-vendor-sku span {
+    font-size: 12px;
+  }
+
+  .product-info__delivery p {
+    font-size: 16px !important;
+    padding: 15px 20px !important;
+  }
+
+  .product-info__block.product-info__block--sm.product-info__pay {
+    font-size: 16px;
+  }
+
+  .product-info__pay .truemed-entry-text,
+  .product-info__pay .truemed-entry-link {
+    font-size: 16px !important;
+  }
+
+  .product-info__block.product-info__block--sm.product-message__box+.product__atc-price.product-price .product-info__price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
