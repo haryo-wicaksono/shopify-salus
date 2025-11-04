@@ -319,6 +319,10 @@
 
 /* --- Mobile Styles (max-width: 767px) --- */
 @media screen and (max-width: 767px) {
+    .swiper-wrapper {
+        background-color: #FDF7F1 !important;
+    }
+
     .homepage-hero-carousel {
         padding-top: var(--homepage-hero-carousel-padding-top-mobile);
         padding-bottom: var(--homepage-hero-carousel-padding-bottom-mobile);
