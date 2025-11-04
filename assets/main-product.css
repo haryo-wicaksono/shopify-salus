@@ -1233,6 +1233,12 @@ product-recommendations .card__quick-add .btn:hover {
   display: none;
 }
 
+.product-info__block.product-info__block--sm.product-message__box+.product__atc-price.product-price .product-info__price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media screen and (max-width: 768px) {
   .template--product .atc-banner-inner .atc-title h3 {
     font-size: 18px;
@@ -1335,11 +1341,5 @@ product-recommendations .card__quick-add .btn:hover {
   .product-info__pay .truemed-entry-text,
   .product-info__pay .truemed-entry-link {
     font-size: 14px !important;
-  }
-
-  .product-info__block.product-info__block--sm.product-message__box+.product__atc-price.product-price .product-info__price {
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 }
