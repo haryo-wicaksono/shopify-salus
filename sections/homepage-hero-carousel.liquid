@@ -178,10 +178,10 @@
         {{ 'no_content' | t }}
       </div>
     {% endif %}
+    {% if section.settings.show_pagination_dots %}
+      <div class="swiper-pagination homepage-hero-carousel__pagination"></div>
+    {% endif %}
   </div>
-  {% if section.settings.show_pagination_dots %}
-    <div class="swiper-pagination homepage-hero-carousel__pagination"></div>
-  {% endif %}
 </section>
 
 <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
@@ -231,7 +231,7 @@
           nextEl: '.carousel-arrow.arrow-right',
           prevEl: '.carousel-arrow.arrow-left',
         },
-
+        {% comment %} autoHeight: true, {% endcomment %}
         a11y: {
           enabled: true,
           prevSlideMessage: 'Previous slide',
