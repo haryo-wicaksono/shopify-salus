@@ -1236,7 +1236,7 @@ product-recommendations .card__quick-add .btn:hover {
 @media screen and (max-width: 768px) {
   .atc-banner-price {
     margin-right: 20px;
-    height: 35px;
+    height: 27px;
   }
 
   .atc-banner-price .price__default .price__current {
@@ -1244,19 +1244,29 @@ product-recommendations .card__quick-add .btn:hover {
     font-weight: 600;
     line-height: 27px;
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .atc-banner-price .price__default .discount__price {
-    font-size: 14px !important;
+    font-size: 12px !important;
     font-weight: 600;
     line-height: 27px;
+    padding: 5px 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .atc-banner-price .price__default .price__was {
-    font-size: 14px !important;
+    font-size: 16px !important;
     font-weight: 300;
     line-height: 27px;
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .price__default {
@@ -1273,6 +1283,16 @@ product-recommendations .card__quick-add .btn:hover {
     font-weight: 600;
     line-height: 27px;
     width: 120px;
+  }
+
+  .template--product .discount__price {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 27px;
+  }
+
+  .template--product .product-info .price__was {
+    font-size: 16px;
   }
 
   .product-page-section-header__reviews-text {
