@@ -1234,6 +1234,11 @@ product-recommendations .card__quick-add .btn:hover {
 }
 
 @media screen and (max-width: 768px) {
+  .template--product .atc-banner-inner .atc-title h3 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
   .atc-banner-price {
     margin-right: 20px;
     height: 27px;
@@ -1260,7 +1265,7 @@ product-recommendations .card__quick-add .btn:hover {
   }
 
   .atc-banner-price .price__default .price__was {
-    font-size: 16px !important;
+    font-size: 14px !important;
     font-weight: 300;
     line-height: 27px;
     color: #fff;
@@ -1285,6 +1290,10 @@ product-recommendations .card__quick-add .btn:hover {
     width: 120px;
   }
 
+  .template--product .price__default .price__current {
+    font-size: 16px;
+  }
+
   .template--product .discount__price {
     font-size: 12px;
     font-weight: 600;
@@ -1305,7 +1314,9 @@ product-recommendations .card__quick-add .btn:hover {
   }
 
   .template--product .product-info .product-title {
-    font-size: 24px;
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 28px;
   }
 
   .product-info__block.product-vendor-sku span {
@@ -1313,17 +1324,17 @@ product-recommendations .card__quick-add .btn:hover {
   }
 
   .product-info__delivery p {
-    font-size: 16px !important;
-    padding: 15px 20px !important;
+    font-size: 12px !important;
+    padding: 10px 15px !important;
   }
 
   .product-info__block.product-info__block--sm.product-info__pay {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .product-info__pay .truemed-entry-text,
   .product-info__pay .truemed-entry-link {
-    font-size: 16px !important;
+    font-size: 14px !important;
   }
 
   .product-info__block.product-info__block--sm.product-message__box+.product__atc-price.product-price .product-info__price {
