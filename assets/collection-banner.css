@@ -21,6 +21,7 @@
 }
 
 .collection-secondary-nav .col-nav li {
+<<<<<<< HEAD
   border-width: 1px;
   border-radius: 5px;
   border-style: solid;
@@ -29,6 +30,16 @@
 
 .collection-secondary-nav .col-nav li:has(.active) {
   border: 1px solid #1F8A81;
+=======
+  border-width: 2px;
+  border-radius: 5px;
+  border-style: solid;
+  padding: 7px 10px;
+}
+
+.collection-secondary-nav .col-nav li:has(.active) {
+  border: 2px solid #1F8A81;
+>>>>>>> 6298ebe (feat: collection page secondary nav button)
   fill: #1F8A81;
   background-color: #1F8A81;
 }
@@ -37,6 +48,7 @@
   text-decoration: none;
 }
 
+<<<<<<< HEAD
 .collection-secondary-nav .col-nav li:hover {
   border: 1px solid #1B413E;
   fill: #1B413E;
@@ -48,6 +60,8 @@
   color: #FFFFFF;
 }
 
+=======
+>>>>>>> 6298ebe (feat: collection page secondary nav button)
 @media (min-width: 600px) {
   .collection-banner__content--with-media {
     padding-inline-end: calc(8 * var(--space-unit));
