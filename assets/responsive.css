@@ -3361,6 +3361,8 @@
 
   .template--product .main-product-wrapper .product.js-product {
     flex-wrap: wrap !important;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .template--product .product-main .product-info {

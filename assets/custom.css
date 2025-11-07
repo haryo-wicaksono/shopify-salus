@@ -2446,6 +2446,8 @@ div.gpo-group.gpo-form__group.gpo-col-12 {
 .template--product .main-product-wrapper .product.js-product {
   display: flex;
   position: relative;
+  padding-left: 70px;
+  padding-right: 70px;
 }
 
 .main-product-wrapper {
