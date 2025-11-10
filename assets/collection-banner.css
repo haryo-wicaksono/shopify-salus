@@ -37,6 +37,17 @@
   text-decoration: none;
 }
 
+.collection-secondary-nav .col-nav li:hover {
+  border: 2px solid #1B413E;
+  fill: #1B413E;
+  background-color: #1B413E;
+}
+
+.collection-secondary-nav .col-nav li:hover a {
+  text-decoration: none !important;
+  color: #FFFFFF;
+}
+
 @media (min-width: 600px) {
   .collection-banner__content--with-media {
     padding-inline-end: calc(8 * var(--space-unit));

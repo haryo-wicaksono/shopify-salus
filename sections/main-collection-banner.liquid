@@ -40,7 +40,7 @@
 <div
   class="collection-banner {% unless color_scheme == 'default' %} color-scheme color-scheme--{{ color_scheme }}{% endunless %}"
 >
-  <div class="container">
+  <div class="container main-collection-container">
     <div class="flex flex-col md:flex-row{% if collection_image and collection_image_size != "fill" %} collection-banner--natural{% endif %}{% unless collection_image %} {{ section.settings.text_align }}{% endunless %}{% if section.settings.color_scheme == "default" %} gap-y-6{% endif %}">
       {% if collection_image %}
         {%- capture sizes %}{% render 'sizes-attribute', grid: true, min: 1, md: 2 %}{% endcapture -%}
@@ -109,7 +109,7 @@
 
 {% if section.settings.collection_menu != blank and show_collection_nav %}
   <div class="collection-secondary-nav">
-    <div class="container">
+    <div class="container main-collection-container">
       <div class="collection-nav-inner">
         {% comment %} <h2>Collections</h2> {% endcomment %}
         <div class="col-nav">

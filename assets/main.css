@@ -9656,3 +9656,10 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
 .jdgm-rev__timestamp {
   color: #585858 !important;
 }
+
+.main-collection-container {
+  width: 100%;
+  max-width: calc(var(--page-width, 1320px) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 calc(var(--gutter) + 70px);
+}
