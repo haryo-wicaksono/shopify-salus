@@ -39,7 +39,7 @@
     display: none !important;
   }
 
-  .gpo-ov-item.gpo-hidden-original {
+  .gpo-ov-item {
     display: none !important;
   }
 
@@ -436,7 +436,6 @@
       const ovItem = input.closest('.gpo-ov-item');
       if (ovItem && ovItem.parentElement) {
         ovItem.parentElement.insertBefore(card, ovItem);
-        ovItem.classList.add('gpo-hidden-original');
         processedVariants.add(variantId);
         newCardsCreated++;
       }
@@ -504,23 +503,14 @@
   // Main initialization
   document.addEventListener("DOMContentLoaded", function () {
     console.log('DOM Content Loaded');
-      
-    // Wait for inputs, then do a QUICK initial render
+    
+    // Wait for inputs with proper price loading
     waitForElement('input[gpo-data-variant-id]', () => {
-      console.log('Found Globo inputs, doing quick initial render...');
+      console.log('Found Globo inputs, waiting for ALL prices to load...');
       
-      // 1) Grab whatever prices we can right now
-      extractAndCachePrices();
-      // 2) Build cards immediately so UI appears fast
-      processVariantInputs();
-      // 3) Allow mutation observer to start reacting
-      isInitialLoad = false;
-
-      // Optional refinement: run waitForPrices in the background
-      // to update any late-loading prices (doesn't block the first render)
       waitForPrices(() => {
-        console.log('Refining prices after async load');
-        extractAndCachePrices();
+        console.log('Initial processing - prices fully loaded');
+        isInitialLoad = false;
         processVariantInputs();
       });
     });
