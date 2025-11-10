@@ -49,8 +49,13 @@
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .collection-secondary-nav .col-nav li:hover {
   border: 1px solid #1B413E;
+=======
+.collection-secondary-nav .col-nav li:hover {
+  border: 2px solid #1B413E;
+>>>>>>> f5b2857 (feat: collection page overall horizontal padding)
   fill: #1B413E;
   background-color: #1B413E;
 }
@@ -60,8 +65,11 @@
   color: #FFFFFF;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 6298ebe (feat: collection page secondary nav button)
+=======
+>>>>>>> f5b2857 (feat: collection page overall horizontal padding)
 @media (min-width: 600px) {
   .collection-banner__content--with-media {
     padding-inline-end: calc(8 * var(--space-unit));
