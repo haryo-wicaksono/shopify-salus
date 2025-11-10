@@ -1343,3 +1343,688 @@ product-recommendations .card__quick-add .btn:hover {
     font-size: 14px !important;
   }
 }
+
+/* --- GPO CARD OVERHAUL --- */
+
+/* Target the specific option wrapper to force vertical stack */
+.gpo-element[data-element-id="image-swatches-1"] .gpo-ov-wrapper.horizontal {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Container Styles */
+.gpo-element[data-element-id="image-swatches-1"] .gpo-ov-item {
+  width: 100%;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s, background-color 0.2s;
+  background-color: #fff;
+}
+
+/* Selected State */
+.gpo-element[data-element-id="image-swatches-1"] .gpo-ov-item.is-selected {
+  border-color: #008080; /* Teal/Green border */
+}
+
+/* Hide original elements and fix layout issues */
+.gpo-element[data-element-id="image-swatches-1"] .gpo-ov-item input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  cursor: pointer;
+}
+.gpo-element[data-element-id="image-swatches-1"] .gpo-ov-item .checkmark {
+  display: none;
+}
+.gpo-tooltip {
+  display: none !important; /* Hide all tooltips */
+}
+
+/* --- CUSTOM HEADER/TAG STYLES --- */
+.custom-option-header {
+  padding: 10px 20px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+}
+.custom-option-header.for-starters {
+  background-color: #333;
+}
+.custom-option-header.best-value {
+  background-color: #008080; /* Teal/Green */
+}
+.custom-option-header.for-pros {
+  background-color: #222120;
+}
+.custom-option-header .star-icon {
+  margin-left: 5px;
+  font-size: 1.2em;
+}
+
+/* --- CONTENT LAYOUT --- */
+.gpo-element[data-element-id="image-swatches-1"] .gpo-ov-item label {
+  display: flex;
+  align-items: flex-start;
+  padding: 15px 20px;
+  cursor: pointer;
+  position: relative; /* For absolutely positioned children if needed */
+}
+
+.custom-option-content-wrapper {
+  display: flex;
+  gap: 15px;
+}
+
+.custom-option-img-wrapper {
+  flex-shrink: 0;
+  width: 100px;
+  height: auto;
+}
+.custom-option-img-wrapper .gpo-swatch__inner {
+  width: 100%;
+  height: auto;
+}
+.custom-option-img-wrapper .swatch-image {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  object-fit: contain;
+}
+
+.custom-option-info {
+  flex-grow: 1;
+}
+
+.custom-option-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+/* --- PRICE & FREE TEXT STYLES --- */
+.custom-option-price-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.custom-option-price-details .price__current {
+  font-weight: 700;
+  font-size: 1.1em;
+}
+.custom-option-price-details .discount__price {
+  /* Reusing existing green/teal badge style */
+  background: #008080;
+  padding: 2px 8px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8em;
+  line-height: 1;
+}
+.custom-option-price-details .price__was {
+  color: #f03636; /* Red strikethrough price */
+  text-decoration: line-through;
+}
+
+.custom-option-price-free {
+  font-weight: 500;
+  font-style: italic;
+  color: #555;
+  margin: 0;
+}
+
+/* --- GPO CARD OVERHAUL --- */
+
+/* Target the specific option wrapper to force vertical stack */
+.gpo-element[data-element-id="image-swatches-1"] .gpo-ov-wrapper.horizontal {
+  /* This is correct */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Container Styles */
+.gpo-element[data-element-id="image-swatches-1"] .gpo-ov-item {
+  /* Remove width:100% here as the parent flex does this, and fix margin */
+  /* Keep: border-radius, overflow, transition */
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s, background-color 0.2s;
+  background-color: #f6f6f6; /* Set a subtle background to match the empty state */
+}
+
+/* Fix the label padding for the image-right layout. */
+.gpo-element[data-element-id="image-swatches-1"] .gpo-ov-item label {
+  /* Set minimal padding as we are adding content to take up space. */
+  padding: 0;
+  display: block; /* Change to block to allow full width for content wrappers */
+  width: 100%;
+  height: 100%;
+}
+
+/* Ensure the main content wrapper has the padding */
+.custom-option-content-wrapper {
+  display: flex;
+  padding: 15px 20px; /* Apply padding here instead of on label */
+  align-items: center; /* Align items vertically in the center */
+  gap: 15px;
+  /* Add flex-direction: row; if needed, but flex-direction: row is default */
+}
+
+/* Fix image display, GPO uses circle crop by default on swatch inner */
+.custom-option-img-wrapper {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px; /* Explicit height for the circle area */
+}
+.custom-option-img-wrapper .gpo-swatch__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.custom-option-img-wrapper .swatch-image {
+    /* Set image to full size of the container, letting the original CSS handle the circle border. */
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+}
+
+.gpo-ov-wrapper.horizontal {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Container Styles */
+.gpo-ov-item {
+  width: 100%;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s, background-color 0.2s;
+  background-color: #f6f6f6; /* Set a subtle background */
+}
+
+/* Selected State */
+.gpo-ov-item.is-selected {
+  border-color: #008080; /* Teal/Green border */
+}
+
+/* Hide original GPO elements and fix layout issues */
+.gpo-ov-item input[type="radio"],
+.gpo-ov-item input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  cursor: pointer;
+}
+.gpo-ov-item .checkmark,
+.gpo-tooltip {
+  display: none !important; 
+}
+/* Aggressively remove the circular GPO swatch background and white space */
+.gpo-ov-item .gpo-swatch__inner {
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+
+/* --- CUSTOM HEADER/TAG STYLES --- */
+.custom-option-header {
+  padding: 10px 20px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+}
+.custom-option-header.for-starters {
+  background-color: #333;
+}
+.custom-option-header.best-value {
+  background-color: #008080; /* Teal/Green */
+}
+.custom-option-header.for-pros {
+  background-color: #222120;
+}
+.custom-option-header .star-icon {
+  margin-left: 5px;
+  font-size: 1.2em;
+}
+
+/* --- CONTENT LAYOUT --- */
+.gpo-ov-item label {
+  padding: 0;
+  display: block; 
+  width: 100%;
+  height: 100%;
+}
+
+.custom-option-content-wrapper {
+  display: flex;
+  padding: 15px 20px; 
+  align-items: center; 
+  gap: 15px;
+}
+
+.custom-option-img-wrapper {
+  flex-shrink: 0;
+  width: 100px; /* Image column width */
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-option-img-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 0 !important; /* Remove GPO's default circle border radius */
+}
+
+.custom-option-info {
+  flex-grow: 1;
+}
+
+.custom-option-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+/* --- PRICE & FREE TEXT STYLES --- */
+.custom-option-price-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.custom-option-price-details .price__current {
+  font-weight: 700;
+  font-size: 1.1em;
+}
+.custom-option-price-details .discount__price {
+  background: #008080;
+  padding: 2px 8px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8em;
+  line-height: 1;
+}
+.custom-option-price-details .price__was {
+  color: #f03636; 
+  text-decoration: line-through;
+}
+
+.custom-option-price-free {
+  font-weight: 500;
+  font-style: italic;
+  color: #555;
+  margin: 0;
+}
+
+/* Target the option wrappers to force vertical stack */
+.gpo-ov-wrapper.horizontal {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Container Styles */
+.gpo-ov-item {
+  width: 100%;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s, background-color 0.2s;
+  background-color: #f6f6f6; /* Set a subtle background */
+}
+
+/* Selected State */
+.gpo-ov-item.is-selected {
+  border-color: #008080; /* Teal/Green border */
+}
+
+/* Hide original GPO elements and fix layout issues */
+.gpo-ov-item input[type="radio"],
+.gpo-ov-item input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  cursor: pointer;
+}
+.gpo-ov-item .checkmark,
+.gpo-tooltip {
+  display: none !important; 
+}
+
+/* Fix 4: Aggressively remove the circular GPO swatch background and white space */
+.gpo-ov-item .gpo-swatch__inner {
+  /* CRITICAL: Remove all visual effects from the element that carries the oval */
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  
+  /* Kill the GPO padding/margin that causes the offset */
+  width: 100% !important;
+  height: 100% !important;
+  display: flex; /* Ensure inner elements are contained */
+  align-items: center;
+  justify-content: center;
+}
+/* This targets the original image now being injected inside the new swatch inner */
+.custom-option-img-wrapper img {
+  border-radius: 0 !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  /* CRITICAL: Remove any residual absolute positioning/transform from GPO */
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+}
+
+
+/* --- CUSTOM HEADER/TAG STYLES --- */
+.custom-option-header {
+  padding: 10px 20px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+}
+.custom-option-header.for-starters {
+  background-color: #333;
+}
+.custom-option-header.best-value {
+  background-color: #008080; /* Teal/Green */
+}
+.custom-option-header.for-pros {
+  background-color: #222120;
+}
+.custom-option-header .star-icon {
+  margin-left: 5px;
+  font-size: 1.2em;
+}
+
+/* --- CONTENT LAYOUT --- */
+.gpo-ov-item label {
+  padding: 0;
+  display: block; 
+  width: 100%;
+  height: 100%;
+}
+
+.custom-option-content-wrapper {
+  display: flex;
+  padding: 15px 20px; 
+  align-items: center; 
+  gap: 15px;
+}
+
+.custom-option-img-wrapper {
+  flex-shrink: 0;
+  width: 100px; /* Image column width */
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-option-info {
+  flex-grow: 1;
+}
+
+.custom-option-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+/* --- PRICE & FREE TEXT STYLES --- */
+.custom-option-price-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.custom-option-price-details .price__current {
+  font-weight: 700;
+  font-size: 1.1em;
+}
+.custom-option-price-details .discount__price {
+  background: #008080;
+  padding: 2px 8px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8em;
+  line-height: 1;
+}
+.custom-option-price-details .price__was {
+  color: #f03636; 
+  text-decoration: line-through;
+}
+
+.custom-option-price-free {
+  font-weight: 500;
+  font-style: italic;
+  color: #555;
+  margin: 0;
+}
+
+.gpo-ov-item label {
+  /* This is the container that holds the oval styling */
+  /* Remove any GPO specific backgrounds/shadows that might form the oval */
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Aggressive oval removal from pseudo-elements (common GPO pattern) */
+.gpo-ov-item label::before,
+.gpo-ov-item label::after {
+  content: none !important;
+  border: none !important;
+  background-color: transparent !important;
+}
+
+/* Ensure the image container itself does not have a residual circle or large border */
+.gpo-ov-item .gpo-swatch__inner {
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  /* Make sure GPO's own styling doesn't add padding to create the white space */
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Ensure the image itself doesn't have a residual GPO effect */
+.gpo-ov-item .gpo-swatch__inner img {
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.gpo-ov-item label {
+  background-image: none !important;
+  box-shadow: none !important;
+  /* Ensure position isn't interfering with injected content */
+  position: relative !important; 
+}
+.gpo-ov-item label::before,
+.gpo-ov-item label::after {
+  content: none !important;
+  border: none !important;
+  background-image: none !important;
+}
+
+/* Ensure the image container itself does not have a residual circle or large border */
+.gpo-ov-item .gpo-swatch__inner {
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  /* Remove GPO flex positioning which creates the empty space */
+  display: block !important; 
+}
+/* Ensure our injected content is visible */
+.custom-option-content-wrapper {
+  z-index: 20; /* Ensure our content is on top of any residual GPO layers */
+}
+
+.gpo-ov-wrapper.horizontal {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Container Styles */
+.gpo-ov-item {
+  width: 100%;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s, background-color 0.2s;
+  background-color: #f6f6f6; /* Set a subtle background */
+}
+
+/* Selected State */
+.gpo-ov-item.is-selected {
+  border-color: #008080; /* Teal/Green border */
+}
+
+/* Hide original GPO elements and fix layout issues */
+.gpo-ov-item input[type="radio"],
+.gpo-ov-item input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  cursor: pointer;
+}
+.gpo-ov-item .checkmark,
+.gpo-tooltip {
+  display: none !important; 
+}
+
+/* Fix 4: Aggressively remove the circular GPO swatch background and white space */
+.gpo-ov-item label {
+  /* CRITICAL: Remove all GPO visual artifacts from the label */
+  background-image: none !important;
+  box-shadow: none !important;
+  position: relative !important; /* Ensure injected content can use z-index */
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.gpo-ov-item label::before,
+.gpo-ov-item label::after {
+  content: none !important;
+  border: none !important;
+  background-image: none !important;
+}
+
+/* Target the immediate parent of the image (swatch inner) */
+.gpo-ov-item .gpo-swatch__inner {
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: block !important; /* Overwrite GPO flex styling that causes empty space */
+}
+/* Ensure our injected content is visible and on top */
+.custom-option-content-wrapper {
+  display: flex; /* Keep our flex layout for image/text */
+  padding: 15px 20px; 
+  align-items: center; 
+  gap: 15px;
+  z-index: 20; 
+}
+
+/* Ensure the image inside is rectangular and contained */
+.custom-option-img-wrapper {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-option-img-wrapper img {
+  border-radius: 0 !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  /* CRITICAL: Remove any residual absolute positioning/transform from GPO */
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+}
+
+.custom-option-info {
+  flex-grow: 1;
+}
+
+.custom-option-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+
+/* --- CUSTOM HEADER/TAG STYLES (NO CHANGE) --- */
+.custom-option-header {
+  padding: 10px 20px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+}
+.custom-option-header.for-starters { background-color: #333; }
+.custom-option-header.best-value { background-color: #008080; }
+.custom-option-header.for-pros { background-color: #222120; }
+.custom-option-header .star-icon {
+  margin-left: 5px;
+  font-size: 1.2em;
+}
+
+/* --- PRICE & FREE TEXT STYLES (NO CHANGE) --- */
+.custom-option-price-details { display: flex; align-items: center; gap: 10px; }
+.custom-option-price-details .price__current { font-weight: 700; font-size: 1.1em; }
+.custom-option-price-details .discount__price {
+  background: #008080; padding: 2px 8px; border-radius: 5px; color: #fff;
+  font-weight: 600; font-size: 0.8em; line-height: 1;
+}
+.custom-option-price-details .price__was { color: #f03636; text-decoration: line-through; }
+.custom-option-price-free { font-weight: 500; font-style: italic; color: #555; margin: 0; }
