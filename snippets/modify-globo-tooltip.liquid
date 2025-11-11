@@ -31,440 +31,294 @@
 {% endif %}
 
 {%  style  %}
-  .gpo-tooltip.zoom-image {
-    display: none !important;
-  }
-
-  .gpo-swatch__image {
-    display: none !important;
-  }
-
-  .gpo-ov-item {
-    display: none !important;
-  }
-
-  .custom-variant-card {
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    padding: 16px;
-    margin-bottom: 12px;
-    background: white;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    position: relative;
-  }
-
-  .custom-variant-card:hover {
-    border-color: #9ca3af;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .custom-variant-card.selected {
-    border-color: #16a085;
-    border-width: 2px;
-    padding: 15px;
-    background-color: #f0fdf9;
-  }
-
-  .card-image-container {
-    flex-shrink: 0;
-    width: 64px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f9fafb;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .card-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-
-  .card-content {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .card-title {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 4px 0;
-    color: #111827;
-    line-height: 1.4;
-  }
-
-  .card-price-section {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 6px;
-  }
-
-  .card-price-current {
-    font-size: 16px;
-    font-weight: 700;
-    color: #111827;
-  }
-
-  .card-save-badge {
-    background: #16a085;
+  .globo-popup {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
     color: white;
-    padding: 2px 8px;
-    border-radius: 3px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
   }
 
-  .card-price-was {
-    font-size: 13px;
-    color: #9ca3af;
-    text-decoration: line-through;
+  .globo-popup .price__was {
+    color: #595959 ;
   }
 
-  .card-free-badge {
-    color: #16a085;
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  input[gpo-data-variant-id] {
+  .globoPopUp-content {
     position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  @media (max-width: 768px) {
-    .custom-variant-card {
-      flex-direction: row;
-      text-align: left;
-    }
-
-    .card-image-container {
-      width: 56px;
-      height: 56px;
-    }
-
-    .card-title {
-      font-size: 14px;
-    }
-
-    .card-price-current {
-      font-size: 15px;
-    }
-  }
-
-  .freebies .custom-variant-card {
-    background: #f5f5f5;
-    border-color: #000;
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-
-  .freebies .custom-variant-card.selected {
-    opacity: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #212C36;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 92%;
+    max-height: 450px;
+    transition: transform 0.3s ease;
+    padding: 15px
   }
 {% endstyle %}
 
 <script>
-  const vmsString = {{variant_metafields_string | json}};
-  const vrpString = {{variant_real_price_string | json}};
+  const vmsString = {{variant_metafields_string |  json}};
+  const vrpString = {{variant_real_price_string |  json}};
   const vmMap = new Map();
   const vrpMap = new Map();
-  const priceCache = new Map();
-  const processedVariants = new Set();
-  let isInitialLoad = true;
+  let variantIds = {
+    value: [],
+  };
 
   vrpString
     .split("<delimiter_second>")
     .map((val) => val.split("<delimiter_first>"))
     .forEach(([id, price]) => {
-      if (id && price) vrpMap.set(id, price);
+      vrpMap.set(id, price);
     });
 
   vmsString
     .split("<delimiter_second>")
     .map((val) => val.split("<delimiter_first>"))
     .forEach(([id, description]) => {
-      if (id && description) vmMap.set(id, description);
+      vmMap.set(id, description);
     });
 
-  function isFreebieInput(input) {
-    const inFreebiesContainer = input.closest('.freebies') !== null;
-    const parentHasFreebieClass = input.parentElement?.classList.contains('freebies') || 
-                                   input.parentElement?.parentElement?.classList.contains('freebies');
-    
-    const fieldName = input.getAttribute('data-field-name')?.toLowerCase() || '';
-    const dataName = input.getAttribute('data-name')?.toLowerCase() || '';
-    
-    return inFreebiesContainer || 
-           parentHasFreebieClass || 
-           fieldName.includes('freebie') || 
-           dataName.includes('freebie');
+  // Utility function to compare two arrays for equality (ignores order)
+  function areArraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+    return arr1.every((value, index) => value === arr2[index]);
   }
 
-  function isSingleOptionRadio(input) {
-    if (input.type !== 'radio') return false;
-    
-    const name = input.name;
-    const siblings = document.querySelectorAll(`input[type="radio"][name="${name}"][gpo-data-variant-id]`);
-    const count = siblings.length;
-    
-    console.log(`Radio ${name} has ${count} options`);
-    return count === 1;
-  }
-
-  function hasAllPrices() {
-    const inputs = document.querySelectorAll('input[gpo-data-variant-id]');
-    let nonFreebieCount = 0;
-    let addOnCount = 0;
-    
-    inputs.forEach(input => {
-      if (!isFreebieInput(input)) {
-        nonFreebieCount++;
-        const addOn = input.nextElementSibling?.querySelector('.addOn');
-        if (addOn) {
-          addOnCount++;
+  // Function to trigger on array change
+  function onArrayChange(newArray) {
+    for (let val of newArray) {
+      if (!vmMap.has(val)) {
+        continue;
+      }
+      const tooltipParent = document
+        .querySelector(`input[gpo-data-variant-id="${val}"]`)
+        ?.nextElementSibling?.querySelector("div.gpo-tooltip.zoom-image")
+      
+      tooltipParent.style.width = '500px'
+      const childDivs = tooltipParent?.querySelectorAll("div");
+      for (let i = 0; i < childDivs.length; i++) {
+        if (childDivs[i].classList.contains('gpo-tooltip__title')) {
+          childDivs[i].style.textAlign = 'left'
+          childDivs[i].style.fontSize = '16px'
+          childDivs[i].style.paddingTop = '5px'
+          childDivs[i].style.paddingBottom = '5px'
+        }
+        if (i === childDivs.length - 1) {
+          // Inject a span after the last div
+          const lastDiv = childDivs[i];
+          const newSpan = document.createElement("span");
+          newSpan.innerHTML = vmMap.get(val); // Add content to the new span as needed
+          
+          let newDiv = document.createElement('div');
+          newDiv.style.textAlign = "left"
+          newDiv.style.fontSize = "14px"
+          newDiv.style.lineHeight = 1.5
+          newDiv.style.margin = "10px 0px"
+          newDiv.style.overflowY = "auto"
+          newDiv.style.maxHeight = "170px"
+          
+          newDiv.appendChild(newSpan)
+          // Insert the new span after the last div
+          lastDiv.parentNode.insertBefore(newDiv, lastDiv.nextSibling);
         }
       }
-    });
-    
-    console.log(`Price check: ${addOnCount}/${nonFreebieCount} non-freebie items have prices`);
-    
-    // Need at least 80% of prices loaded
-    return addOnCount > 0 && (addOnCount / nonFreebieCount) > 0.8;
+    }
   }
 
-  function extractAndCachePrices() {
-    const inputs = document.querySelectorAll('input[gpo-data-variant-id]');
-    let extracted = 0;
-    
-    inputs.forEach(input => {
-      const variantId = input.getAttribute('gpo-data-variant-id');
-      
-      if (isFreebieInput(input)) {
-        if (!priceCache.has(variantId)) {
-          priceCache.set(variantId, '0');
-          extracted++;
-        }
-        return;
+  // Create a proxy to watch for\ changes to the array
+  const arrayProxyHandler = {
+    set(target, property, value) {
+      // If the property being set is "value" or an index, check for changes
+      if (property === "value" && !isNaN(property)) {
+        return false;
       }
-      
-      const addOn = input.nextElementSibling?.querySelector('.addOn');
-      
-      if (addOn) {
-        const text = addOn.textContent.trim();
-        
-        if (text.toLowerCase().includes('free')) {
-          priceCache.set(variantId, '0');
-          extracted++;
-        } else {
-          const match = text.match(/[\d,]+/);
-          if (match) {
-            const price = match[0].replace(/,/g, '');
-            priceCache.set(variantId, price);
-            extracted++;
+      // Temporarily modify the array to reflect the change
+      const tempArray = target[property];
+      // Compare arrays
+      if (!areArraysEqual(tempArray, value)) {
+        // If there is a change in content or size, update the array and trigger the function
+        onArrayChange(value);
+      }
+      target[property] = value;
+      return true;
+    },
+  };
+
+  // Create a proxy around the original array
+  const newarr = new Proxy(variantIds, arrayProxyHandler);
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Select the target node where new elements might be added (could be 'body' or a more specific container)
+    const targetNode = document.body;
+    // Create a callback function to execute when mutations are observed
+    const callback = function (mutationsList, observer) {
+      mutationsList.forEach((mutation) => {
+        const freebiesElement = document.querySelector(".freebies")
+        const childElements = freebiesElement.querySelectorAll(".gpo-ov-item")
+
+        for (const val of childElements) {
+            val.style.background = '#f5f5f5'
+            
+            const v = val.querySelectorAll("label")
+            v[0].style.borderColor = '#000'
+        }
+
+        freebiesElement.addEventListener("click", e => {
+            e.preventDefault();
+            e.stopPropagation();
+        })
+        // Check if any new nodes were added
+        mutation.addedNodes.forEach((addedNode) => {
+          // Check if the added node has the class 'gpo-tooltip' or contains children with that class
+          const newVariantIds = [];
+          if (
+            addedNode.nodeType === 1 &&
+            (addedNode.classList.contains("gpo-swatches") ||
+              addedNode.querySelector(".gpo-swatches"))
+          ) {
+            // Select and log all elements with the class '.gpo-swatches'
+            const inputs = document.querySelectorAll(
+              "input[gpo-data-variant-id]"
+            );
+            inputs.forEach((input) => {
+              const variantId = input.getAttribute("gpo-data-variant-id");
+              newVariantIds.push(variantId);
+            });
           }
+          newarr.value = newVariantIds;
+        });
+      });
+    };
+    // Create a MutationObserver instance linked to the callback function
+    const observer = new MutationObserver(callback);
+    // Define the configuration for the observer (observe child nodes and subtree)
+    const config = { childList: true, subtree: true };
+    // Start observing the target node for configured mutations
+    observer.observe(targetNode, config);
+  });
+
+  const priceCompareAndBuildModal = () => {
+    let variantIds = [];
+    const inputs = document.querySelectorAll("input[gpo-data-variant-id]");
+    inputs.forEach((input) => {
+      const variantId = input.getAttribute("gpo-data-variant-id");
+      variantIds.push(variantId);
+    });
+
+    variantIds = variantIds.filter(val => vmMap.has(val))
+    
+    const variantIdsSet = [... new Set(variantIds)]
+
+    for (let val of variantIdsSet) {
+      const tooltipParent = document
+        .querySelector(`input[gpo-data-variant-id="${val}"]`)
+        ?.nextElementSibling?.querySelector("div.gpo-tooltip.zoom-image")
+
+      const childDivs = tooltipParent?.querySelectorAll("div");
+      for (let i = 0; i < childDivs.length; i++) {
+        if (!childDivs[i].classList.contains('gpo-tooltip__title')) {
+          continue
+        }
+
+        childDivs[i].style.marginBottom = '0px'
+        childDivs[i].style.fontWeight = '600'
+        const addOn = childDivs[i].querySelector(".addOn");
+
+        if (addOn) {
+          addOn.remove();
+
+          const newDiv = document.createElement("div");
+          const secondDiv = document.createElement("div");
+
+          const priceCurr = document.createElement("strong");
+          const savePrice = document.createElement("span");
+          const priceWas = document.createElement("s");
+
+          childDivs[i].insertAdjacentElement('afterend', newDiv);
+          newDiv.appendChild(secondDiv);
+          secondDiv.classList.add("price__default", "gpo-tooltip__price-comparison");
+
+          const value = addOn?.textContent.trim();
+          const valNum = value?.match(/[\d,]+/)[0].replace(/,/g, "");
+          
+          secondDiv.appendChild(priceCurr);
+          priceCurr.textContent = "$" + parseInt(valNum).toLocaleString("en-US") +" USD";
+          priceCurr.classList.add("price__current");
+
+          if (!vrpMap.has(val)) continue
+          
+          secondDiv.appendChild(priceWas);
+          priceWas.textContent = `$${parseInt(vrpMap.get(val)).toLocaleString("en-US")} USD`;
+          priceWas.classList.add("price__was");
+          
+          secondDiv.appendChild(savePrice);
+          savePrice.textContent = `SAVE $${(parseInt(vrpMap.get(val)) - parseInt(valNum)).toLocaleString("en-US")}`;
+          savePrice.classList.add("discount__price");
         }
       }
-    });
-    
-    return extracted > 0;
-  }
-
-  function getImageUrl(input) {
-    const swatchImage = input.nextElementSibling?.querySelector('.gpo-swatch__image');
-    if (swatchImage) {
-      return swatchImage.src || swatchImage.getAttribute('data-src');
     }
 
-    const tooltipImage = input.nextElementSibling?.querySelector('.gpo-tooltip__image img');
-    if (tooltipImage) {
-      return tooltipImage.src || tooltipImage.getAttribute('data-src');
-    }
+    for (let [index, val] of variantIdsSet.entries()) {
+      const parentInput = document.querySelector(`input[gpo-data-variant-id="${val}"]`)
+      const parentTooltip = parentInput?.nextElementSibling
+        ?.querySelector("div.gpo-tooltip.zoom-image")
 
-    return '';
-  }
+      const copyParentTooltip = parentTooltip.cloneNode(true)
 
-  function getProductName(input) {
-    const tooltipTitle = input.nextElementSibling?.querySelector('.gpo-tooltip__title');
-    if (tooltipTitle) {
-      const clone = tooltipTitle.cloneNode(true);
-      const addon = clone.querySelector('.addOn');
-      if (addon) addon.remove();
-      return clone.textContent.trim();
-    }
-    return 'Product Option';
-  }
-
-  function createVariantCard(input, variantId) {
-    const imageUrl = getImageUrl(input);
-    const productName = getProductName(input);
-    const currentPriceRaw = priceCache.get(variantId);
-    const realPrice = vrpMap.get(variantId);
-    const isFreebie = isFreebieInput(input);
-    const isSingleRadio = isSingleOptionRadio(input);
-
-    const card = document.createElement('div');
-    card.className = 'custom-variant-card';
-    card.setAttribute('data-variant-id', variantId);
-
-    let priceHTML = '';
-    
-    if (!currentPriceRaw || currentPriceRaw === '0' || currentPriceRaw === '' || isFreebie) {
-      priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
-    } else {
-      const currentPrice = parseInt(currentPriceRaw);
-      const currentPriceFormatted = `$${currentPrice.toLocaleString("en-US")}`;
+      parentTooltip.classList.add('mobile-hidden')
       
-      if (realPrice) {
-        const realPriceNum = parseInt(realPrice);
-        const savings = realPriceNum - currentPrice;
-        priceHTML = `
-          <div class="card-price-section">
-            <span class="card-price-current">${currentPriceFormatted}</span>
-            <span class="card-save-badge">Save $${savings.toLocaleString("en-US")}</span>
-            <span class="card-price-was">$${realPriceNum.toLocaleString("en-US")} USD</span>
-          </div>
-        `;
-      } else {
-        priceHTML = `
-          <div class="card-price-section">
-            <span class="card-price-current">${currentPriceFormatted}</span>
-          </div>
-        `;
+      copyParentTooltip.classList.remove('gpo-tooltip')
+      if (copyParentTooltip instanceof Element) {
+        // Remove style attribute from the root element itself
+        copyParentTooltip.removeAttribute("style");
       }
-    }
 
-    card.innerHTML = `
-      ${imageUrl ? `
-        <div class="card-image-container">
-          <img src="${imageUrl}" alt="${productName}" class="card-image">
-        </div>
-      ` : ''}
-      <div class="card-content">
-        <h3 class="card-title">${productName}</h3>
-        ${priceHTML}
+      const popup = createPopup(index)
+      document.body.appendChild(popup)
+
+      const globoPopup = document.getElementById(`globo-order-${index}`)
+      const globoPopupChild = globoPopup?.querySelector('#globoPopUp-close')
+
+      globoPopupChild.insertAdjacentElement('afterend',copyParentTooltip)
+
+      parentInput.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) { 
+          globoPopup.style.display = "block";
+        }
+      })
+
+      globoPopupChild.addEventListener('click', () => {
+        globoPopup.style.display = "none";
+      })
+    }
+  }
+
+  function createPopup(index) {
+    const div = document.createElement('div');
+    div.className = 'globo-popup desktop-hidden';
+    div.id = `globo-order-${index}`
+    div.innerHTML = `
+      <div class="globoPopUp-content">
+        <span id="globoPopUp-close" class="close generalPopUp-close ">&times;</span>
       </div>
     `;
-
-    card.addEventListener('click', (e) => {
-      e.preventDefault();
-      
-      if (isFreebie) {
-        console.log('Freebies cannot be toggled');
-        return;
-      }
-      
-      if (input.type === 'checkbox') {
-        input.checked = !input.checked;
-        console.log(`Checkbox toggled: ${input.checked}`);
-      } else if (input.type === 'radio') {
-        if (isSingleRadio) {
-          // For single-option radios, allow unchecking
-          input.checked = !input.checked;
-          console.log(`Single-option radio toggled: ${input.checked}`);
-        } else {
-          input.checked = true;
-          console.log(`Multi-option radio checked`);
-        }
-      }
-      
-      const event = new Event('change', { bubbles: true });
-      input.dispatchEvent(event);
-      updateSelectedStates(input);
-    });
-
-    return card;
+    return div;
   }
 
-  function updateSelectedStates(selectedInput) {
-    const inputName = selectedInput.name;
-    const groupInputs = document.querySelectorAll(`input[name="${inputName}"]`);
-    
-    groupInputs.forEach(input => {
-      const variantId = input.getAttribute('gpo-data-variant-id');
-      const card = document.querySelector(`.custom-variant-card[data-variant-id="${variantId}"]`);
-      
-      if (card) {
-        if (input.checked) {
-          card.classList.add('selected');
-        } else {
-          card.classList.remove('selected');
-        }
-      }
-    });
-  }
-
-  function removeCardsForMissingInputs() {
-    const existingCards = document.querySelectorAll('.custom-variant-card');
-    
-    existingCards.forEach(card => {
-      const variantId = card.getAttribute('data-variant-id');
-      const input = document.querySelector(`input[gpo-data-variant-id="${variantId}"]`);
-      
-      if (!input) {
-        console.log(`Removing card for missing input: ${variantId}`);
-        card.remove();
-        processedVariants.delete(variantId);
-      }
-    });
-  }
-
-  function processVariantInputs() {
-    const inputs = document.querySelectorAll('input[gpo-data-variant-id]');
-    
-    let newCardsCreated = 0;
-    
-    inputs.forEach(input => {
-      const variantId = input.getAttribute('gpo-data-variant-id');
-      
-      if (processedVariants.has(variantId)) {
-        return;
-      }
-
-      const card = createVariantCard(input, variantId);
-      
-      const ovItem = input.closest('.gpo-ov-item');
-      if (ovItem && ovItem.parentElement) {
-        ovItem.parentElement.insertBefore(card, ovItem);
-        processedVariants.add(variantId);
-        newCardsCreated++;
-      }
-
-      if (input.checked) {
-        card.classList.add('selected');
-      }
-
-      input.addEventListener('change', () => {
-        updateSelectedStates(input);
-      });
-    });
-    
-    if (newCardsCreated > 0) {
-      console.log(`Created ${newCardsCreated} new cards`);
-    }
-  }
-
-  function waitForElement(selector, callback, timeout = 10000) {
-    const startTime = Date.now();
-    
+  function waitForElement(selector, callback) {
     const observer = new MutationObserver(() => {
       const el = document.querySelector(selector);
       if (el) {
         observer.disconnect();
         callback(el);
-      } else if (Date.now() - startTime > timeout) {
-        observer.disconnect();
-        console.warn(`Timeout waiting for ${selector}`);
       }
     });
 
@@ -472,112 +326,27 @@
       childList: true,
       subtree: true,
     });
-
-    const el = document.querySelector(selector);
-    if (el) {
-      observer.disconnect();
-      callback(el);
-    }
   }
 
-  function waitForPrices(callback, maxRetries = 20, delay = 300) {
-    let retries = 0;
-    
-    const checkPrices = () => {
-      const extracted = extractAndCachePrices();
-      const hasPrices = hasAllPrices();
-      
-      if ((extracted && hasPrices) || retries >= maxRetries) {
-        console.log(`Prices ready: extracted=${extracted}, hasPrices=${hasPrices}, retries=${retries}`);
-        callback();
-      } else {
-        retries++;
-        console.log(`Waiting for prices... retry ${retries}/${maxRetries}`);
-        setTimeout(checkPrices, delay);
-      }
-    };
-    
-    checkPrices();
-  }
-
-  // Main initialization
-  document.addEventListener("DOMContentLoaded", function () {
-    console.log('DOM Content Loaded');
-    
-    // Wait for inputs with proper price loading
-    waitForElement('input[gpo-data-variant-id]', () => {
-      console.log('Found Globo inputs, waiting for ALL prices to load...');
-      
-      waitForPrices(() => {
-        console.log('Initial processing - prices fully loaded');
-        isInitialLoad = false;
-        processVariantInputs();
-      });
-    });
-
-    // Watch for dynamic additions
-    let processingTimeout = null;
-    
-    const observer = new MutationObserver((mutations) => {
-      // Skip during initial load
-      if (isInitialLoad) return;
-      
-      let hasNewElements = false;
-      let hasFreebieChanges = false;
-      let hasRemovals = false;
-      
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === 1) {
-            if (node.classList?.contains('addOn') || node.querySelector?.('.addOn')) {
-              hasNewElements = true;
-            }
-            
-            if (node.classList?.contains('freebies') || node.querySelector?.('.freebies')) {
-              hasFreebieChanges = true;
-              console.log('🎁 Freebies container added');
-            }
-            
-            if (node.classList?.contains('gpo-swatches') || 
-                node.querySelector?.('.gpo-swatches') ||
-                node.getAttribute?.('gpo-data-variant-id')) {
-              hasNewElements = true;
-            }
-          }
-        });
-        
-        mutation.removedNodes.forEach((node) => {
-          if (node.nodeType === 1) {
-            if (node.classList?.contains('gpo-ov-item') || node.querySelector?.('.gpo-ov-item')) {
-              hasRemovals = true;
-            }
-          }
-        });
-      });
-
-      if (hasNewElements || hasFreebieChanges || hasRemovals) {
-        if (processingTimeout) {
-          clearTimeout(processingTimeout);
+  function addAltTextToImages (selector) {
+    return () => {
+      const divImages = document.querySelectorAll(selector);
+      divImages.forEach((divImg) => {
+        let img = null;
+        if (divImg.tagName.toLowerCase() === 'img') {
+          img = divImg;
+        } else {
+          img = divImg.querySelector('img');
         }
-        
-        const delay = hasFreebieChanges ? 1000 : 300;
-        
-        processingTimeout = setTimeout(() => {
-          console.log('Processing changes...');
-          
-          if (hasRemovals) {
-            removeCardsForMissingInputs();
-          }
-          
-          extractAndCachePrices();
-          processVariantInputs();
-        }, delay);
-      }
-    });
+        if (img && img.tagName.toLowerCase() === 'img' && !img.hasAttribute('alt')) {
+          img.setAttribute('alt', 'Product Image');
+        }
+      });
+    };
+  }
 
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-  });
+  // Example usage:
+  waitForElement('.addOn', priceCompareAndBuildModal);
+  waitForElement('.gpo-swatch__image', addAltTextToImages('.gpo-swatch__image'));
+  waitForElement('.gpo-tooltip__image', addAltTextToImages('.gpo-tooltip__image'));
 </script>

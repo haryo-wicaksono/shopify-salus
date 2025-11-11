@@ -82,9 +82,26 @@
                 {{- collection.title | escape -}}
               </h1>
 
-              {% if section.settings.show_product_count %}
+              {% comment %} {% if section.settings.show_product_count %}
                 <span class="font-heading collection-banner__count{% unless section.settings.text_align == "text-start" %} block {{ section.settings.text_align }}{% endunless %}">
                   ({{ collection.all_products_count | append: ' ' | append: section.settings.counter_text }})
+                </span>
+              {% endif %} {% endcomment %}
+              {% if section.settings.show_product_count %}
+                {%- comment -%}
+                  Use full collection count when no filters.
+                  When viewing a child link that filters by tag (e.g. /collections/all-saunas/traditional-sauna),
+                  use the current filtered products_count instead.
+                {%- endcomment -%}
+
+                {% assign product_count = collection.all_products_count %}
+
+                {% if current_tags and current_tags.size > 0 %}
+                  {% assign product_count = collection.products_count %}
+                {% endif %}
+
+                <span class="font-heading collection-banner__count{% unless section.settings.text_align == "text-start" %} block {{ section.settings.text_align }}{% endunless %}">
+                  ({{ product_count | append: ' ' | append: section.settings.counter_text }})
                 </span>
               {% endif %}
             </div>
@@ -128,7 +145,7 @@
                     {{- link.title -}}
                   </a>
                 </li>
-                {% if link.links != blank %}
+                {% comment %} {% if link.links != blank %}
                   {% assign curr_handle =  link.url | split: '/' | last %}
                   {% assign curr_collection = collections[curr_handle] %}
                   
@@ -163,6 +180,25 @@
                         </a>
                       </li>
                     {% endif %}
+                  {% endfor %}
+                {% endif %} {% endcomment %}
+
+                {% if link.links != blank %}
+                  {% assign childlink_request_path = request.path | split: '/' | last %}
+
+                  {% for childlink in link.links %}
+                    {% assign childlink_handle = childlink.url | split: '/' | last %}
+
+                    <li>
+                      <a
+                        href="{{ childlink.url }}"
+                        {% if childlink_request_path == childlink_handle %}
+                          class="active"
+                        {% endif %}
+                      >
+                        {{- childlink.title -}}
+                      </a>
+                    </li>
                   {% endfor %}
                 {% endif %}
               {% endif %}
