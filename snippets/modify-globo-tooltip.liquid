@@ -2,323 +2,502 @@
 {% for product in collections['uncategorized'].products %}
   {% for variant in product.variants %}
     {% if variant.metafields.global.description != blank %}
-      {% assign variant_metafields_string = variant_metafields_string | append: variant.id | append: '<delimiter_first>' | append: variant.metafields.global.description | append: '<delimiter_second>' %}
+      {% assign variant_metafields_string = variant_metafields_string
+        | append: variant.id
+        | append: '<delimiter_first>'
+        | append: variant.metafields.global.description
+        | append: '<delimiter_second>'
+      %}
     {% endif %}
   {% endfor %}
 {% endfor %}
-{% liquid
-  assign last_character = variant_metafields_string | slice: -1
-  assign vms_length_min_one = variant_metafields_string.size | minus: 1
-%}
-{% if last_character == '<delimiter_second>' %}
-  {% assign variant_metafields_string = variant_metafields_string | slice: 0, vms_length_min_one %}
-{% endif %}
 
 {% assign variant_real_price_string = '' %}
 {% for product in collections['uncategorized'].products %}
   {% for variant in product.variants %}
     {% if variant.metafields.custom.real_price != blank %}
-      {% assign variant_real_price_string = variant_real_price_string | append: variant.id | append: '<delimiter_first>' | append: variant.metafields.custom.real_price | append: '<delimiter_second>' %}
+      {% assign variant_real_price_string = variant_real_price_string
+        | append: variant.id
+        | append: '<delimiter_first>'
+        | append: variant.metafields.custom.real_price
+        | append: '<delimiter_second>'
+      %}
     {% endif %}
   {% endfor %}
 {% endfor %}
-{% liquid
-  assign last_character_vrp = variant_real_price_string | slice: -1
-  assign vrp_length_min_one = variant_real_price_string.size | minus: 1
-%}
-{% if last_character_vrp == '<delimiter_second>' %}
-  {% assign variant_real_price_string = variant_real_price_string | slice: 0, vrp_length_min_one %}
-{% endif %}
 
 {%  style  %}
-  .globo-popup {
-    display: none;
-    /* Hidden by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 100;
+  /* Hide original Globo tooltips and swatches */
+  .gpo-tooltip.zoom-image {
+    display: none !important;
+  }
+
+  .gpo-swatch__image {
+    display: none !important;
+  }
+
+  /* Hide original labels */
+  .gpo-ov-item label {
+    display: none !important;
+  }
+
+  /* Custom Card Styles */
+  .custom-variant-card {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+  }
+
+  .custom-variant-card:hover {
+    border-color: #9ca3af;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .custom-variant-card.selected {
+    border-color: #16a085;
+    border-width: 2px;
+    padding: 15px;
+    background-color: #f0fdf9;
+  }
+
+  .card-image-container {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9fafb;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .card-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #111827;
+    line-height: 1.4;
+  }
+
+  .card-price-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+
+  .card-price-current {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .card-save-badge {
+    background: #16a085;
     color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
-  .globo-popup .price__was {
-    color: #595959 ;
+  .card-price-was {
+    font-size: 13px;
+    color: #9ca3af;
+    text-decoration: line-through;
   }
 
-  .globoPopUp-content {
+  .card-free-badge {
+    color: #16a085;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  input[gpo-data-variant-id] {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #212C36;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 92%;
-    max-height: 450px;
-    transition: transform 0.3s ease;
-    padding: 15px
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .custom-variant-card {
+      flex-direction: row;
+      text-align: left;
+    }
+
+    .card-image-container {
+      width: 56px;
+      height: 56px;
+    }
+
+    .card-title {
+      font-size: 14px;
+    }
+
+    .card-price-current {
+      font-size: 15px;
+    }
+  }
+
+  .freebies .custom-variant-card {
+    background: #f5f5f5;
+    border-color: #000;
   }
 {% endstyle %}
 
 <script>
-  const vmsString = {{variant_metafields_string |  json}};
-  const vrpString = {{variant_real_price_string |  json}};
+  const vmsString = {{ variant_metafields_string | default: '' | json }};
+  const vrpString = {{ variant_real_price_string | default: '' | json }};
+
   const vmMap = new Map();
   const vrpMap = new Map();
-  let variantIds = {
-    value: [],
-  };
+  const processedCards = new Set();
+  const inputCache = new Map();
 
-  vrpString
-    .split("<delimiter_second>")
-    .map((val) => val.split("<delimiter_first>"))
-    .forEach(([id, price]) => {
-      vrpMap.set(id, price);
-    });
-
-  vmsString
-    .split("<delimiter_second>")
-    .map((val) => val.split("<delimiter_first>"))
-    .forEach(([id, description]) => {
-      vmMap.set(id, description);
-    });
-
-  // Utility function to compare two arrays for equality (ignores order)
-  function areArraysEqual(arr1, arr2) {
-    if (arr1.length !== arr2.length) return false;
-    return arr1.every((value, index) => value === arr2[index]);
+  // Parse metafields
+  if (vrpString) {
+    vrpString
+      .split("<delimiter_second>")
+      .forEach((segment) => {
+        const [id, price] = segment.split("<delimiter_first>");
+        if (id && price) vrpMap.set(id, price);
+      });
   }
 
-  // Function to trigger on array change
-  function onArrayChange(newArray) {
-    for (let val of newArray) {
-      if (!vmMap.has(val)) {
-        continue;
+  if (vmsString) {
+    vmsString
+      .split("<delimiter_second>")
+      .forEach((segment) => {
+        const [id, description] = segment.split("<delimiter_first>");
+        if (id && description) vmMap.set(id, description);
+      });
+  }
+
+  function getCachedInput(variantId) {
+    if (inputCache.has(variantId)) {
+      return inputCache.get(variantId);
+    }
+    const input = document.querySelector(`input[gpo-data-variant-id="${variantId}"]`);
+    if (input) {
+      inputCache.set(variantId, input);
+    }
+    return input;
+  }
+
+  // 🔧 IMPROVED: Better image detection with multiple fallbacks
+  function getImageUrl(input) {
+    if (!input || !input.nextElementSibling) return '';
+
+    const container = input.nextElementSibling;
+
+    // Try 1: .swatch-image in label (for simple swatches without tooltips) - ADDED FIRST
+    let img = container.querySelector('.gpo-swatch__inner .swatch-image');
+    if (img && img.src) {
+      return img.src;
+    }
+
+    // Try 2: .gpo-swatch__image (for radio/image swatches)
+    img = container.querySelector('.gpo-swatch__image');
+    if (img) {
+      return img.src || img.getAttribute('data-src') || '';
+    }
+
+    // Try 3: .gpo-tooltip__image img (for tooltips)
+    img = container.querySelector('.gpo-tooltip__image img');
+    if (img) {
+      return img.src || img.getAttribute('data-src') || '';
+    }
+
+    // Try 4: Direct img tag in label
+    img = container.querySelector('img');
+    if (img) {
+      return img.src || img.getAttribute('data-src') || '';
+    }
+
+    // Try 5: Look in the label itself
+    const label = container.querySelector('label');
+    if (label) {
+      img = label.querySelector('img');
+      if (img) {
+        return img.src || img.getAttribute('data-src') || '';
       }
-      const tooltipParent = document
-        .querySelector(`input[gpo-data-variant-id="${val}"]`)
-        ?.nextElementSibling?.querySelector("div.gpo-tooltip.zoom-image")
-      
-      tooltipParent.style.width = '500px'
-      const childDivs = tooltipParent?.querySelectorAll("div");
-      for (let i = 0; i < childDivs.length; i++) {
-        if (childDivs[i].classList.contains('gpo-tooltip__title')) {
-          childDivs[i].style.textAlign = 'left'
-          childDivs[i].style.fontSize = '16px'
-          childDivs[i].style.paddingTop = '5px'
-          childDivs[i].style.paddingBottom = '5px'
-        }
-        if (i === childDivs.length - 1) {
-          // Inject a span after the last div
-          const lastDiv = childDivs[i];
-          const newSpan = document.createElement("span");
-          newSpan.innerHTML = vmMap.get(val); // Add content to the new span as needed
-          
-          let newDiv = document.createElement('div');
-          newDiv.style.textAlign = "left"
-          newDiv.style.fontSize = "14px"
-          newDiv.style.lineHeight = 1.5
-          newDiv.style.margin = "10px 0px"
-          newDiv.style.overflowY = "auto"
-          newDiv.style.maxHeight = "170px"
-          
-          newDiv.appendChild(newSpan)
-          // Insert the new span after the last div
-          lastDiv.parentNode.insertBefore(newDiv, lastDiv.nextSibling);
+    }
+
+    // Try 6: Background image on any element
+    const elementsWithBg = container.querySelectorAll('[style*="background-image"]');
+    for (const el of elementsWithBg) {
+      const bgImage = el.style.backgroundImage;
+      if (bgImage) {
+        const match = bgImage.match(/url\(['"]?(.*?)['"]?\)/);
+        if (match && match[1]) {
+          return match[1];
         }
       }
     }
+
+    return '';
   }
 
-  // Create a proxy to watch for\ changes to the array
-  const arrayProxyHandler = {
-    set(target, property, value) {
-      // If the property being set is "value" or an index, check for changes
-      if (property === "value" && !isNaN(property)) {
-        return false;
-      }
-      // Temporarily modify the array to reflect the change
-      const tempArray = target[property];
-      // Compare arrays
-      if (!areArraysEqual(tempArray, value)) {
-        // If there is a change in content or size, update the array and trigger the function
-        onArrayChange(value);
-      }
-      target[property] = value;
-      return true;
-    },
-  };
-
-  // Create a proxy around the original array
-  const newarr = new Proxy(variantIds, arrayProxyHandler);
-
-  document.addEventListener("DOMContentLoaded", function () {
-    // Select the target node where new elements might be added (could be 'body' or a more specific container)
-    const targetNode = document.body;
-    // Create a callback function to execute when mutations are observed
-    const callback = function (mutationsList, observer) {
-      mutationsList.forEach((mutation) => {
-        const freebiesElement = document.querySelector(".freebies")
-        const childElements = freebiesElement.querySelectorAll(".gpo-ov-item")
-
-        for (const val of childElements) {
-            val.style.background = '#f5f5f5'
-            
-            const v = val.querySelectorAll("label")
-            v[0].style.borderColor = '#000'
-        }
-
-        freebiesElement.addEventListener("click", e => {
-            e.preventDefault();
-            e.stopPropagation();
-        })
-        // Check if any new nodes were added
-        mutation.addedNodes.forEach((addedNode) => {
-          // Check if the added node has the class 'gpo-tooltip' or contains children with that class
-          const newVariantIds = [];
-          if (
-            addedNode.nodeType === 1 &&
-            (addedNode.classList.contains("gpo-swatches") ||
-              addedNode.querySelector(".gpo-swatches"))
-          ) {
-            // Select and log all elements with the class '.gpo-swatches'
-            const inputs = document.querySelectorAll(
-              "input[gpo-data-variant-id]"
-            );
-            inputs.forEach((input) => {
-              const variantId = input.getAttribute("gpo-data-variant-id");
-              newVariantIds.push(variantId);
-            });
-          }
-          newarr.value = newVariantIds;
-        });
-      });
-    };
-    // Create a MutationObserver instance linked to the callback function
-    const observer = new MutationObserver(callback);
-    // Define the configuration for the observer (observe child nodes and subtree)
-    const config = { childList: true, subtree: true };
-    // Start observing the target node for configured mutations
-    observer.observe(targetNode, config);
-  });
-
-  const priceCompareAndBuildModal = () => {
-    let variantIds = [];
+  function buildVariantCards() {
     const inputs = document.querySelectorAll("input[gpo-data-variant-id]");
+    if (inputs.length === 0) return;
+
+    inputCache.clear();
+
+    const variantIds = new Set();
     inputs.forEach((input) => {
       const variantId = input.getAttribute("gpo-data-variant-id");
-      variantIds.push(variantId);
+      if (variantId) variantIds.add(variantId);
     });
 
-    variantIds = variantIds.filter(val => vmMap.has(val))
-    
-    const variantIdsSet = [... new Set(variantIds)]
+    let cardsCreated = 0;
 
-    for (let val of variantIdsSet) {
-      const tooltipParent = document
-        .querySelector(`input[gpo-data-variant-id="${val}"]`)
-        ?.nextElementSibling?.querySelector("div.gpo-tooltip.zoom-image")
+    variantIds.forEach((variantId) => {
+      if (processedCards.has(variantId)) return;
 
-      const childDivs = tooltipParent?.querySelectorAll("div");
+      const input = getCachedInput(variantId);
+      if (!input) return;
+
+      const tooltipParent = input.nextElementSibling?.querySelector("div.gpo-tooltip");
+      if (!tooltipParent) return;
+
+      const childDivs = tooltipParent.querySelectorAll("div");
+      if (childDivs.length === 0) return;
+
+      let productName = '';
+      let priceHTML = '';
+      const imageUrl = getImageUrl(input);
+
       for (let i = 0; i < childDivs.length; i++) {
-        if (!childDivs[i].classList.contains('gpo-tooltip__title')) {
-          continue
-        }
+        if (childDivs[i].classList.contains('gpo-tooltip__title')) {
+          const titleClone = childDivs[i].cloneNode(true);
+          const addOn = titleClone.querySelector(".addOn");
 
-        childDivs[i].style.marginBottom = '0px'
-        childDivs[i].style.fontWeight = '600'
-        const addOn = childDivs[i].querySelector(".addOn");
+          if (addOn) {
+            const value = addOn.textContent.trim();
+            const match = value.match(/[\d,]+/);
+            
+            addOn.remove();
+            productName = titleClone.textContent.trim();
 
-        if (addOn) {
-          addOn.remove();
+            if (match) {
+              const valNum = match[0].replace(/,/g, "");
+              if (valNum && valNum !== '0') {
+                const currentPrice = parseInt(valNum, 10);
+                const currentPriceFormatted = `$${currentPrice.toLocaleString("en-US")}`;
 
-          const newDiv = document.createElement("div");
-          const secondDiv = document.createElement("div");
+                if (vrpMap.has(variantId)) {
+                  const realPriceNum = parseInt(vrpMap.get(variantId), 10);
+                  const savings = realPriceNum - currentPrice;
 
-          const priceCurr = document.createElement("strong");
-          const savePrice = document.createElement("span");
-          const priceWas = document.createElement("s");
-
-          childDivs[i].insertAdjacentElement('afterend', newDiv);
-          newDiv.appendChild(secondDiv);
-          secondDiv.classList.add("price__default", "gpo-tooltip__price-comparison");
-
-          const value = addOn?.textContent.trim();
-          const valNum = value?.match(/[\d,]+/)[0].replace(/,/g, "");
-          
-          secondDiv.appendChild(priceCurr);
-          priceCurr.textContent = "$" + parseInt(valNum).toLocaleString("en-US") +" USD";
-          priceCurr.classList.add("price__current");
-
-          if (!vrpMap.has(val)) continue
-          
-          secondDiv.appendChild(priceWas);
-          priceWas.textContent = `$${parseInt(vrpMap.get(val)).toLocaleString("en-US")} USD`;
-          priceWas.classList.add("price__was");
-          
-          secondDiv.appendChild(savePrice);
-          savePrice.textContent = `SAVE $${(parseInt(vrpMap.get(val)) - parseInt(valNum)).toLocaleString("en-US")}`;
-          savePrice.classList.add("discount__price");
+                  priceHTML = `
+                    <div class="card-price-section">
+                      <span class="card-price-current">${currentPriceFormatted}</span>
+                      <span class="card-save-badge">Save $${savings.toLocaleString("en-US")}</span>
+                      <span class="card-price-was">$${realPriceNum.toLocaleString("en-US")} USD</span>
+                    </div>
+                  `;
+                } else {
+                  priceHTML = `
+                    <div class="card-price-section">
+                      <span class="card-price-current">${currentPriceFormatted}</span>
+                    </div>
+                  `;
+                }
+              } else {
+                priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
+              }
+            } else {
+              priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
+            }
+          } else {
+            productName = childDivs[i].textContent.trim();
+            priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
+          }
+          break;
         }
       }
+
+      if (!productName) return;
+
+      const card = document.createElement('div');
+      card.className = 'custom-variant-card';
+      card.setAttribute('data-variant-id', variantId);
+
+      card.innerHTML = `
+        ${imageUrl ? `
+          <div class="card-image-container">
+            <img src="${imageUrl}" alt="${productName}" class="card-image">
+          </div>
+        ` : ''}
+        <div class="card-content">
+          <h3 class="card-title">${productName}</h3>
+          ${priceHTML}
+        </div>
+      `;
+
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const inFreebies = input.closest('.freebies') !== null;
+        if (inFreebies) return;
+
+        if (input.type === 'checkbox') {
+          input.checked = !input.checked;
+        } else if (input.type === 'radio') {
+          const siblings = document.querySelectorAll(`input[type="radio"][name="${input.name}"][gpo-data-variant-id]`);
+          if (siblings.length === 1 && input.checked) {
+            input.checked = false;
+          } else {
+            input.checked = true;
+          }
+        }
+
+        const event = new Event('change', { bubbles: true });
+        input.dispatchEvent(event);
+
+        const groupInputs = document.querySelectorAll(`input[name="${input.name}"]`);
+        groupInputs.forEach(inp => {
+          const vId = inp.getAttribute('gpo-data-variant-id');
+          const c = document.querySelector(`.custom-variant-card[data-variant-id="${vId}"]`);
+          if (c) {
+            if (inp.checked) {
+              c.classList.add('selected');
+            } else {
+              c.classList.remove('selected');
+            }
+          }
+        });
+      });
+
+      const ovItem = input.closest('.gpo-ov-item');
+      if (ovItem && ovItem.parentElement) {
+        ovItem.parentElement.insertBefore(card, ovItem);
+        processedCards.add(variantId);
+        cardsCreated++;
+      }
+
+      if (input.checked) {
+        card.classList.add('selected');
+      }
+    });
+
+    if (cardsCreated > 0) {
+      console.log(`✅ Created ${cardsCreated} cards`);
     }
+  }
 
-    for (let [index, val] of variantIdsSet.entries()) {
-      const parentInput = document.querySelector(`input[gpo-data-variant-id="${val}"]`)
-      const parentTooltip = parentInput?.nextElementSibling
-        ?.querySelector("div.gpo-tooltip.zoom-image")
+  let freebiesStyled = false;
+  function styleFreebies() {
+    if (freebiesStyled) return;
 
-      const copyParentTooltip = parentTooltip.cloneNode(true)
+    const freebiesElement = document.querySelector(".freebies");
+    if (!freebiesElement) return;
 
-      parentTooltip.classList.add('mobile-hidden')
+    const childElements = freebiesElement.querySelectorAll(".gpo-ov-item");
+    childElements.forEach((val) => {
+      val.style.background = "#f5f5f5";
+      const label = val.querySelector("label");
+      if (label) {
+        label.style.borderColor = "#000";
+      }
+    });
+
+    freebiesStyled = true;
+  }
+
+  function addAltTextToImages() {
+    const images = document.querySelectorAll('.gpo-swatch__image img, .gpo-tooltip__image img, .card-image');
+    images.forEach((img) => {
+      if (!img.hasAttribute('alt')) {
+        img.setAttribute('alt', 'Product Image');
+      }
+    });
+  }
+
+  function initialize() {
+    // Wait for both .addOn AND images to be ready
+    let checkCount = 0;
+    const maxChecks = 1;
+    
+    const checkReady = setInterval(() => {
+      checkCount++;
       
-      copyParentTooltip.classList.remove('gpo-tooltip')
-      if (copyParentTooltip instanceof Element) {
-        // Remove style attribute from the root element itself
-        copyParentTooltip.removeAttribute("style");
+      const addOns = document.querySelectorAll('.addOn');
+      const swatchImages = document.querySelectorAll('.swatch-image');
+      
+      if (addOns.length > 0 && swatchImages.length > 0) {
+        clearInterval(checkReady);
+        console.log('✅ Elements ready, building cards...');
+        buildVariantCards();
+        styleFreebies();
+        addAltTextToImages();
+      } else if (checkCount >= maxChecks) {
+        clearInterval(checkReady);
+        console.warn('⚠️ Timeout waiting for elements. AddOns:', addOns.length, 'Images:', swatchImages.length);
+        // Try to build anyway
+        buildVariantCards();
+        styleFreebies();
+        addAltTextToImages();
+      }
+    }, 100);
+  }
+
+  let mutationTimeout;
+  function handleMutations() {
+    clearTimeout(mutationTimeout);
+    mutationTimeout = setTimeout(() => {
+      buildVariantCards();
+      styleFreebies();
+      addAltTextToImages();
+    }, 150);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initialize();
+
+    const observer = new MutationObserver((mutations) => {
+      let shouldUpdate = false;
+
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node.nodeType === 1) {
+            if (node.classList?.contains("gpo-swatches") || 
+                node.querySelector?.(".gpo-swatches") ||
+                node.classList?.contains("addOn") ||
+                node.querySelector?.(".swatch-image")) {
+              shouldUpdate = true;
+              break;
+            }
+          }
+        }
+        if (shouldUpdate) break;
       }
 
-      const popup = createPopup(index)
-      document.body.appendChild(popup)
-
-      const globoPopup = document.getElementById(`globo-order-${index}`)
-      const globoPopupChild = globoPopup?.querySelector('#globoPopUp-close')
-
-      globoPopupChild.insertAdjacentElement('afterend',copyParentTooltip)
-
-      parentInput.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768) { 
-          globoPopup.style.display = "block";
-        }
-      })
-
-      globoPopupChild.addEventListener('click', () => {
-        globoPopup.style.display = "none";
-      })
-    }
-  }
-
-  function createPopup(index) {
-    const div = document.createElement('div');
-    div.className = 'globo-popup desktop-hidden';
-    div.id = `globo-order-${index}`
-    div.innerHTML = `
-      <div class="globoPopUp-content">
-        <span id="globoPopUp-close" class="close generalPopUp-close ">&times;</span>
-      </div>
-    `;
-    return div;
-  }
-
-  function waitForElement(selector, callback) {
-    const observer = new MutationObserver(() => {
-      const el = document.querySelector(selector);
-      if (el) {
-        observer.disconnect();
-        callback(el);
+      if (shouldUpdate) {
+        handleMutations();
       }
     });
 
@@ -326,27 +505,5 @@
       childList: true,
       subtree: true,
     });
-  }
-
-  function addAltTextToImages (selector) {
-    return () => {
-      const divImages = document.querySelectorAll(selector);
-      divImages.forEach((divImg) => {
-        let img = null;
-        if (divImg.tagName.toLowerCase() === 'img') {
-          img = divImg;
-        } else {
-          img = divImg.querySelector('img');
-        }
-        if (img && img.tagName.toLowerCase() === 'img' && !img.hasAttribute('alt')) {
-          img.setAttribute('alt', 'Product Image');
-        }
-      });
-    };
-  }
-
-  // Example usage:
-  waitForElement('.addOn', priceCompareAndBuildModal);
-  waitForElement('.gpo-swatch__image', addAltTextToImages('.gpo-swatch__image'));
-  waitForElement('.gpo-tooltip__image', addAltTextToImages('.gpo-tooltip__image'));
+  });
 </script>
