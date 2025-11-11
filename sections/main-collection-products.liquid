@@ -98,6 +98,28 @@
       , results: collection %}
   {%- endif -%}
 
+  {%- comment -%}
+    Always force products A → Z by title,
+    regardless of ?sort_by or toolbar selection.
+  {%- endcomment -%}
+  {% assign collection_products_sorted = collection.products | sort: 'title' %}
+
+  {%- comment -%}
+    Decide how to order products:
+    - If sort = Featured/manual → force A → Z by title
+    - Otherwise → use whatever Shopify sort_by selected (price, best selling, etc.)
+  {%- endcomment -%}
+
+  {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
+
+  {% if current_sort == blank or current_sort == 'manual' or current_sort == 'featured' %}
+    {%- comment -%}Featured/manual → A → Z{%- endcomment -%}
+    {% assign collection_products_sorted = collection.products | sort: 'title' %}
+  {% else %}
+    {%- comment -%}All other sorts → leave order as Shopify gives it{%- endcomment -%}
+    {% assign collection_products_sorted = collection.products %}
+  {% endif %}
+
   {%- paginate collection.products by section.settings.products_per_page -%}
     <custom-pagination
       class="main-products-grid{% if settings.card_contain %} main-products-grid--contained{% endif %} flex"
@@ -171,7 +193,7 @@
             {%- endfor -%}
 
             {%- assign rendered_product_ids = '' -%}
-            {%- for product in collection.products -%}
+            {%- for product in collection_products_sorted -%}
               {%- assign product_index = forloop.index -%}
               {%- for block in section.blocks -%}
                 {%- liquid
@@ -183,7 +205,7 @@
                       if paginate.pages == 0 or paginate.current_page == 1
                         if active_filters_count == 0 or block.settings.hide_on_filter == false
                           assign show_promo = true
-                          if product_index == collection.products.size and block.settings.position > product_index
+                          if product_index == collection_products_sorted.size and block.settings.position > product_index
                             assign is_last_position = true
                           endif
                         endif
