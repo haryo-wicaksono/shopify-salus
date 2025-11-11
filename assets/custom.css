@@ -3749,3 +3749,16 @@ a.secondary-nav__item.secondary-nav__cta {
 .margin-bottom-20 {
   margin-bottom: 20px;
 }
+
+.gpo-swatches.image-swatches.gpo-ov-item {
+  display: none;
+}
+
+.gpo-ov-wrapper.horizontal {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Creates two equally sized columns */
+}
+
+.custom-variant-card {
+  width: 100%;
+}
