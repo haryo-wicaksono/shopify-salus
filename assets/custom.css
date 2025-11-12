@@ -3762,3 +3762,82 @@ a.secondary-nav__item.secondary-nav__cta {
 .custom-variant-card {
   width: 100%;
 }
+
+.collection-banner.color-scheme, .collection-secondary-nav {
+  background-color: #F9F9F9;
+  padding: 30px 0px;
+}
+
+.collection-secondary-nav {
+  border-bottom: 1px solid #B4B4B4;
+}
+
+.collection-nav-inner {
+  padding: 0px 0px;
+}
+
+.collection-banner__heading {
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.collection-banner__content .rte.mt-4 {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.main-products-grid .card-shipping-tag span{
+  font-size: 16px;
+  font-weight: 600;
+  padding: 7px 10px;
+  gap: 5px;
+}
+
+.main-products-grid .card-shipping-tag span img{
+  height: 21px;
+  width: 18px;
+}
+
+.main-products-grid .card--product .card__info-inner .card__title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  margin-bottom: 0px;
+}
+
+.main-products-grid .product-ext-tags span {
+  font-size: 14px;
+  padding: 6px 12px;
+}
+
+.main-products-grid .product-title-wrapper .product-label {
+  display: none;
+}
+
+.main-products-grid .card--product .card__info-inner .price .price__default {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.main-products-grid .card--product .card__info-inner .price .price__current {
+  font-size: 18px !important;
+  padding: 0px;
+}
+
+.main-products-grid .card--product .card__info-inner .price .discount__price {
+  font-size: 16px;
+  font-weight: 600;
+  display: inline-block;
+  padding: 2px 4px;
+  border: 1px solid #208B81;
+  background-color: #208B81;
+  color: #FFFFFF;
+  border-radius: 5px;
+  line-height: 20px;
+}
+
+.main-products-grid .card--product .card__info-inner .price .price__was {
+  font-size: 18px;
+}
