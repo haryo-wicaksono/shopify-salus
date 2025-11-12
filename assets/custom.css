@@ -3751,30 +3751,42 @@ a.secondary-nav__item.secondary-nav__cta {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* .gpo-swatches.image-swatches.gpo-ov-item {
 =======
 .gpo-swatches.image-swatches.gpo-ov-item {
 >>>>>>> c8ebdc0 (feat: product page globo further styling)
+=======
+/* .gpo-swatches.image-swatches.gpo-ov-item {
+>>>>>>> ec16652 (chore: reverted globo product options to initial condition)
   display: none;
 }
 
 .gpo-ov-wrapper.horizontal {
   display: grid;
 <<<<<<< HEAD
+<<<<<<< HEAD
   grid-template-columns: 1fr 1fr;
 =======
   grid-template-columns: 1fr 1fr; /* Creates two equally sized columns */
 >>>>>>> c8ebdc0 (feat: product page globo further styling)
+=======
+  grid-template-columns: 1fr 1fr;
+>>>>>>> ec16652 (chore: reverted globo product options to initial condition)
 }
 
 .custom-variant-card {
   width: 100%;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 } */
 =======
 }
 >>>>>>> 4afe255 (fix and feat: collection page remove alphabetical order and further styling)
+=======
+} */
+>>>>>>> ec16652 (chore: reverted globo product options to initial condition)
 
 .collection-banner.color-scheme, .collection-secondary-nav {
   background-color: #F9F9F9;
