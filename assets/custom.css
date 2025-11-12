@@ -3800,12 +3800,18 @@ a.secondary-nav__item.secondary-nav__cta {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 .main-products-grid .card-shipping-tag span{
   display: none;
 =======
 .main-products-grid .card-shipping-tag span{
 >>>>>>> 4afe255 (fix and feat: collection page remove alphabetical order and further styling)
+=======
+
+.main-products-grid .card-shipping-tag span{
+  display: none;
+>>>>>>> 1ea04f2 (feat: collection page further styling)
   font-size: 16px;
   font-weight: 600;
   padding: 7px 10px;
@@ -3818,6 +3824,9 @@ a.secondary-nav__item.secondary-nav__cta {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1ea04f2 (feat: collection page further styling)
 .main-products-grid .product-page-card__reviews {
   display: flex;
   align-items: center;
@@ -3840,17 +3849,24 @@ a.secondary-nav__item.secondary-nav__cta {
   margin: 0px;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 4afe255 (fix and feat: collection page remove alphabetical order and further styling)
+=======
+>>>>>>> 1ea04f2 (feat: collection page further styling)
 .main-products-grid .card--product .card__info-inner .card__title {
   font-size: 18px;
   font-weight: 600;
   line-height: 24px;
   margin-bottom: 0px;
 <<<<<<< HEAD
+<<<<<<< HEAD
   margin-top: 7px;
 =======
 >>>>>>> 4afe255 (fix and feat: collection page remove alphabetical order and further styling)
+=======
+  margin-top: 7px;
+>>>>>>> 1ea04f2 (feat: collection page further styling)
 }
 
 .main-products-grid .product-ext-tags span {
@@ -3889,6 +3905,9 @@ a.secondary-nav__item.secondary-nav__cta {
 .main-products-grid .card--product .card__info-inner .price .price__was {
   font-size: 18px;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1ea04f2 (feat: collection page further styling)
 }
 
 .card--product .product-category-badge {
@@ -3965,8 +3984,11 @@ a.secondary-nav__item.secondary-nav__cta {
     left: 8px;
     letter-spacing: -0.1px;
   }
+<<<<<<< HEAD
 =======
 >>>>>>> c8ebdc0 (feat: product page globo further styling)
 =======
 >>>>>>> 4afe255 (fix and feat: collection page remove alphabetical order and further styling)
+=======
+>>>>>>> 1ea04f2 (feat: collection page further styling)
 }
