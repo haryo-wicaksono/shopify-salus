@@ -3770,7 +3770,11 @@ a.secondary-nav__item.secondary-nav__cta {
 .custom-variant-card {
   width: 100%;
 <<<<<<< HEAD
+<<<<<<< HEAD
 } */
+=======
+}
+>>>>>>> 4afe255 (fix and feat: collection page remove alphabetical order and further styling)
 
 .collection-banner.color-scheme, .collection-secondary-nav {
   background-color: #F9F9F9;
@@ -3795,9 +3799,13 @@ a.secondary-nav__item.secondary-nav__cta {
   font-weight: 400;
 }
 
+<<<<<<< HEAD
 
 .main-products-grid .card-shipping-tag span{
   display: none;
+=======
+.main-products-grid .card-shipping-tag span{
+>>>>>>> 4afe255 (fix and feat: collection page remove alphabetical order and further styling)
   font-size: 16px;
   font-weight: 600;
   padding: 7px 10px;
@@ -3809,6 +3817,7 @@ a.secondary-nav__item.secondary-nav__cta {
   width: 18px;
 }
 
+<<<<<<< HEAD
 .main-products-grid .product-page-card__reviews {
   display: flex;
   align-items: center;
@@ -3831,12 +3840,17 @@ a.secondary-nav__item.secondary-nav__cta {
   margin: 0px;
 }
 
+=======
+>>>>>>> 4afe255 (fix and feat: collection page remove alphabetical order and further styling)
 .main-products-grid .card--product .card__info-inner .card__title {
   font-size: 18px;
   font-weight: 600;
   line-height: 24px;
   margin-bottom: 0px;
+<<<<<<< HEAD
   margin-top: 7px;
+=======
+>>>>>>> 4afe255 (fix and feat: collection page remove alphabetical order and further styling)
 }
 
 .main-products-grid .product-ext-tags span {
@@ -3874,6 +3888,7 @@ a.secondary-nav__item.secondary-nav__cta {
 
 .main-products-grid .card--product .card__info-inner .price .price__was {
   font-size: 18px;
+<<<<<<< HEAD
 }
 
 .card--product .product-category-badge {
@@ -3952,4 +3967,6 @@ a.secondary-nav__item.secondary-nav__cta {
   }
 =======
 >>>>>>> c8ebdc0 (feat: product page globo further styling)
+=======
+>>>>>>> 4afe255 (fix and feat: collection page remove alphabetical order and further styling)
 }
