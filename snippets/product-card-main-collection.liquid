@@ -313,6 +313,17 @@
               </p>
             </div>
 
+            <div class="product-page-card__reviews">
+              <span class="product-page-card__star-rating">
+                {% render 'icon-star' %}
+                {% render 'icon-star' %}
+                {% render 'icon-star' %}
+                {% render 'icon-star' %}
+                {% render 'icon-star' %}
+              </span>
+              <p class="product-page-card__reviews-text">Rated 5-stars by hundreds</p>
+            </div>
+
             {%- if settings.card_show_subtitle and product.metafields.descriptors.subtitle != blank -%}
               <p class="card__subtitle text-sm text-current mb-1{% unless settings.show_dividers %} mt-1{% endunless %}">
                 {{ product.metafields.descriptors.subtitle }}
@@ -350,6 +361,7 @@
 
             {% if show_delivery_tag or show_person_tag %}
               <div class="product-ext-tags">
+                <span class="free-shipping-tag">Free Shipping</span>
                 {% if show_delivery_tag and product.metafields.custom.delivery != blank %}
                   <span class="pd-delivery">{{ product.metafields.custom.delivery | append: ' Delivery' }}</span>
                 {% endif %}

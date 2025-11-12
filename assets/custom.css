@@ -3786,7 +3786,9 @@ a.secondary-nav__item.secondary-nav__cta {
   font-weight: 400;
 }
 
+
 .main-products-grid .card-shipping-tag span{
+  display: none;
   font-size: 16px;
   font-weight: 600;
   padding: 7px 10px;
@@ -3798,11 +3800,34 @@ a.secondary-nav__item.secondary-nav__cta {
   width: 18px;
 }
 
+.main-products-grid .product-page-card__reviews {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 15px;
+}
+
+.main-products-grid .product-page-card__star-rating {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  margin-right: 5px;
+}
+.main-products-grid .product-page-card__star-rating svg{
+  height: 17px;
+  width: 15px;
+}
+
+.main-products-grid .product-page-card__reviews-text {
+  margin: 0px;
+}
+
 .main-products-grid .card--product .card__info-inner .card__title {
   font-size: 18px;
   font-weight: 600;
   line-height: 24px;
   margin-bottom: 0px;
+  margin-top: 7px;
 }
 
 .main-products-grid .product-ext-tags span {
@@ -3840,4 +3865,80 @@ a.secondary-nav__item.secondary-nav__cta {
 
 .main-products-grid .card--product .card__info-inner .price .price__was {
   font-size: 18px;
+}
+
+.card--product .product-category-badge {
+  top: 15px;
+  left: 15px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .collection-banner__content .rte.mt-4 {
+    font-size: 14px;
+  }
+  .collection-banner.color-scheme {
+    padding: 30px 0px 15px 0px;
+  }
+  .collection-secondary-nav {
+    padding-top: 0px;
+    padding-bottom: 10px;
+  }
+  .collection-nav-inner {
+    padding: 10px 0px;
+  }
+  .collection-nav-inner .col-nav ul{
+    gap: 10px;
+  }
+
+  .main-products-grid .card--product .card__info-inner .card__title {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .main-products-grid .product-page-card__reviews {
+    display: block;
+    margin-top: 10px;
+  }
+  .main-products-grid .product-page-card__star-rating {
+    display: block;
+    width: 100%;
+  }
+  .main-products-grid .product-page-card__reviews-text {
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .main-products-grid .product-ext-tags span {
+    font-size: 12px;
+  }
+  .main-products-grid .card--product .card__info-inner .price .price__default {
+    margin-top: 10px;
+    gap: 4px;
+  }
+
+  .main-products-grid .card--product .card__info-inner .price .price__current {
+    font-size: 13px !important;
+  }
+  .main-products-grid .card--product .card__info-inner .price .discount__price{
+    font-size: 12px !important;
+    padding: 1px 3px;
+  }
+  .main-products-grid .card--product .card__info-inner .price .price__was {
+    font-size: 13px !important;
+  }
+
+  .collection-page-main-sauna-feature-item__financing .affirm-as-low-as.custom-affirm {
+    font-size: 12px !important;
+  }
+
+  .card--product .product-category-badge {
+    padding: 2px 8px;
+    font-size: 12px;
+    top: 8px;
+    left: 8px;
+    letter-spacing: -0.1px;
+  }
 }
