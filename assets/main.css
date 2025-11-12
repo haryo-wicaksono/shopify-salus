@@ -6387,7 +6387,7 @@ body .products-card-sec .product_ratings .jdgm-preview-badge .jdgm-star {
 }
 
 .card--product .card__info-inner .card__title {
-  font-size: 21px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 31.5px;
   margin-bottom: 5px;
@@ -6529,7 +6529,7 @@ body .products-card-sec .product_ratings .jdgm-preview-badge .jdgm-star {
 
 .col-nav ul {
   display: flex;
-  gap: 30px;
+  gap: 15px;
   overflow-x: auto;
   white-space: nowrap;
   padding-bottom: 10px;

@@ -21,14 +21,14 @@
 }
 
 .collection-secondary-nav .col-nav li {
-  border-width: 2px;
+  border-width: 1px;
   border-radius: 5px;
   border-style: solid;
-  padding: 7px 10px;
+  padding: 7px 14px;
 }
 
 .collection-secondary-nav .col-nav li:has(.active) {
-  border: 2px solid #1F8A81;
+  border: 1px solid #1F8A81;
   fill: #1F8A81;
   background-color: #1F8A81;
 }
@@ -38,7 +38,7 @@
 }
 
 .collection-secondary-nav .col-nav li:hover {
-  border: 2px solid #1B413E;
+  border: 1px solid #1B413E;
   fill: #1B413E;
   background-color: #1B413E;
 }
