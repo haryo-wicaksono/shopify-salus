@@ -37,8 +37,8 @@
 
   /* Card styles - simplified to match target */
   .custom-variant-card {
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    border: 1px solid #B4B4B4;
+    border-radius: 10px;
     padding: 16px;
     margin-bottom: 0;
     background: #fff;
@@ -51,14 +51,14 @@
     width: 100%;
   }
   .custom-variant-card:hover { 
-    border-color: #d1d5db; 
+    border-color: #B4B4B4; 
     box-shadow: 0 1px 2px rgba(0,0,0,.05); 
   }
   .custom-variant-card.selected { 
-    border-color: #16a085; 
-    border-width: 2px; 
+    border-color: #000000; 
+    border-width: 1px; 
     padding: 15px; 
-    background: #f0fdf9; 
+    background: #FFFFFF; 
   }
 
   .card-image-container {
@@ -156,8 +156,13 @@
   .gpo-element .gpo-ov-wrapper.horizontal {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .gpo-element .gpo-ov-wrapper.horizontal:has(.gpo-help-header) {
     gap: 0px !important;
   }
+
   @media (max-width:768px){
     .gpo-element .gpo-ov-wrapper.horizontal { 
       grid-template-columns: 1fr !important; 
@@ -174,16 +179,42 @@
     font-size: 13px;
     letter-spacing: 0.5px;
     padding: 10px 16px;
-    border-radius: 6px 6px 0 0;
+    border-radius: 10px 10px 0 0;
     margin: 16px 0 0 0;
     color: #fff;
     text-align: center;
     text-transform: uppercase;
     grid-column: 1 / -1;
+    border-top: 1px solid #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+    border-right: 1px solid #B4B4B4;
   }
-  .gpo-help-starters { background: #0f766e; }
-  .gpo-help-best     { background: #0ea5e9; }
-  .gpo-help-pros     { background: #111827; }
+  .gpo-help-starters { 
+    background: #FFFFFF;
+    border-top: 1px solid #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+    border-right: 1px solid #B4B4B4;
+    /* border-bottom: 1px solid #B4B4B4; */
+    color: #222120;
+  }
+  .gpo-help-best     { 
+    background: #1F8A81; 
+    border-top: 1px solid #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+    border-right: 1px solid #B4B4B4; 
+    color: #FFFFFF;}
+  .gpo-help-pros     { 
+    background: #222120; 
+    border-top: 1px solid #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+    border-right: 1px solid #B4B4B4;
+    color: #FFFFFF;}
+
+  .gpo-help-starters:has(+ .custom-variant-card.selected) {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+  }
 
   /* Card directly after header connects to it */
   .gpo-help-header + .custom-variant-card {
@@ -196,6 +227,61 @@
   /* First header in the wrapper has no top margin */
   .gpo-ov-wrapper.horizontal > .gpo-help-header:first-child {
     margin-top: 0;
+  }
+
+  /* Wood Type specific styling */
+  .wood-type-group .gpo-ov-wrapper.horizontal {
+    display: block !important; /* Override grid to allow auto width */
+  }
+
+  .wood-type-group .custom-variant-card {
+    border: 1px solid #000000;
+    background: #F1F1F1;
+    border-radius: 10px;
+    padding: 15px 10px;
+    gap: 10px;
+    width: auto; /* Fit content instead of full width */
+    display: inline-flex; /* Allow auto width */
+  }
+
+  /* Wood Type image - circular and smaller */
+  .wood-type-group .card-image-container {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* Circular */
+    background: transparent;
+  }
+
+  .wood-type-group .card-image {
+    border-radius: 50%; /* Circular image */
+  }
+
+  /* Wood Type title styling */
+  .wood-type-group .card-title {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Hide "FREE - Included with your order" for Wood Type */
+  .wood-type-group .card-free-badge {
+    display: none;
+  }
+
+  /* Wood Type hover state */
+  .wood-type-group .custom-variant-card:hover {
+    border-color: #000000;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  }
+
+  /* Wood Type selected state */
+  .wood-type-group .custom-variant-card.selected {
+    border-color: #000000;
+    border-width: 1px;
+    padding: 10px 15px; /* Adjust for thicker border */
+    background: #F1F1F1;
   }
 {% endstyle %}
 
@@ -464,7 +550,12 @@
     function markFullWidth(){
       document.querySelectorAll('.gpo-element.gpo-form__group').forEach(group => {
         const title = (group.querySelector('.gpo-label .label-content')?.textContent || '').toLowerCase();
+        
+        // Mark full-width groups
         group.classList.toggle('fullwidth', title.includes('wood type') || title.includes('heater size'));
+        
+        // Mark Wood Type for special styling
+        group.classList.toggle('wood-type-group', title.includes('wood type'));
       });
     }
 
