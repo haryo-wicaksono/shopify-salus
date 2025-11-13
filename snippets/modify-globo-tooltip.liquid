@@ -26,148 +26,181 @@
   {% endfor %}
 {% endfor %}
 
-{%  style  %}
-  /* Hide original Globo tooltips and swatches */
-  .gpo-tooltip.zoom-image {
-    display: none !important;
-  }
+{% style %}
+  /* Hide original Globo tooltips, swatch images, and labels (we render cards) */
+  .gpo-tooltip.zoom-image,
+  .gpo-swatch__image,
+  .gpo-ov-item label { display: none !important; }
 
-  .gpo-swatch__image {
-    display: none !important;
-  }
+  /* Also hide the original GPO items (keep in DOM for data scraping) */
+  .gpo-swatches.image-swatches.gpo-ov-item { display: none; }
 
-  /* Hide original labels */
-  .gpo-ov-item label {
-    display: none !important;
-  }
-
-  /* Custom Card Styles */
+  /* Card styles - simplified to match target */
   .custom-variant-card {
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
     padding: 16px;
-    margin-bottom: 12px;
-    background: white;
+    margin-bottom: 0;
+    background: #fff;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all .2s ease;
     display: flex;
     align-items: center;
     gap: 16px;
     position: relative;
+    width: 100%;
   }
-
-  .custom-variant-card:hover {
-    border-color: #9ca3af;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  .custom-variant-card:hover { 
+    border-color: #d1d5db; 
+    box-shadow: 0 1px 2px rgba(0,0,0,.05); 
   }
-
-  .custom-variant-card.selected {
-    border-color: #16a085;
-    border-width: 2px;
-    padding: 15px;
-    background-color: #f0fdf9;
+  .custom-variant-card.selected { 
+    border-color: #16a085; 
+    border-width: 2px; 
+    padding: 15px; 
+    background: #f0fdf9; 
   }
 
   .card-image-container {
-    flex-shrink: 0;
-    width: 64px;
+    flex-shrink: 0; 
+    width: 64px; 
     height: 64px;
-    display: flex;
-    align-items: center;
+    display: flex; 
+    align-items: center; 
     justify-content: center;
-    background: #f9fafb;
-    border-radius: 4px;
+    background: #f9fafb; 
+    border-radius: 6px; 
     overflow: hidden;
   }
-
-  .card-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+  .card-image { 
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
   }
 
-  .card-content {
-    flex: 1;
-    min-width: 0;
+  .card-content { 
+    flex: 1; 
+    min-width: 0; 
+  }
+  .card-title { 
+    font-size: 15px; 
+    font-weight: 600; 
+    margin: 0 0 6px; 
+    color: #111827; 
+    line-height: 1.4; 
   }
 
-  .card-title {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 4px 0;
-    color: #111827;
-    line-height: 1.4;
+  .card-price-section { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    flex-wrap: wrap; 
+    margin-top: 4px; 
+  }
+  .card-price-current { 
+    font-size: 15px; 
+    font-weight: 700; 
+    color: #111827; 
+  }
+  .card-save-badge { 
+    background: #16a085; 
+    color: #fff; 
+    padding: 3px 8px; 
+    border-radius: 3px; 
+    font-size: 10px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+  }
+  .card-price-was { 
+    font-size: 13px; 
+    color: #ef4444;
+    text-decoration: line-through; 
+    font-weight: 500;
+  }
+  .card-free-badge { 
+    color: #16a085; 
+    font-size: 13px; 
+    font-weight: 600; 
   }
 
-  .card-price-section {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 6px;
+  input[gpo-data-variant-id] { 
+    position: absolute; 
+    opacity: 0; 
+    pointer-events: none; 
   }
 
-  .card-price-current {
-    font-size: 15px;
+  @media (max-width:768px){
+    .custom-variant-card { 
+      flex-direction: row; 
+      text-align: left; 
+    }
+    .card-image-container { 
+      width: 56px; 
+      height: 56px; 
+    }
+    .card-title { 
+      font-size: 14px; 
+    }
+    .card-price-current { 
+      font-size: 15px; 
+    }
+  }
+
+  /* Freebies visual tweak */
+  .freebies .custom-variant-card { 
+    background: #f5f5f5; 
+    border-color: #000; 
+  }
+
+  /* Layout: default 2 columns for groups, 1 col on mobile */
+  .gpo-element .gpo-ov-wrapper.horizontal {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    gap: 0px !important;
+  }
+  @media (max-width:768px){
+    .gpo-element .gpo-ov-wrapper.horizontal { 
+      grid-template-columns: 1fr !important; 
+    }
+  }
+  /* Only Wood Type & Heater Size become full-width */
+  .gpo-element.fullwidth .gpo-ov-wrapper.horizontal { 
+    grid-template-columns: 1fr !important; 
+  }
+
+  /* Tier headers - each card gets its own header */
+  .gpo-help-header {
     font-weight: 700;
-    color: #111827;
-  }
-
-  .card-save-badge {
-    background: #16a085;
-    color: white;
-    padding: 2px 8px;
-    border-radius: 3px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  .card-price-was {
-    font-size: 12px;
-    color: #9ca3af;
-    text-decoration: line-through;
-  }
-
-  .card-free-badge {
-    color: #16a085;
     font-size: 13px;
-    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 10px 16px;
+    border-radius: 6px 6px 0 0;
+    margin: 16px 0 0 0;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    grid-column: 1 / -1;
+  }
+  .gpo-help-starters { background: #0f766e; }
+  .gpo-help-best     { background: #0ea5e9; }
+  .gpo-help-pros     { background: #111827; }
+
+  /* Card directly after header connects to it */
+  .gpo-help-header + .custom-variant-card {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: 0;
+    margin-bottom: 16px;
   }
 
-  input[gpo-data-variant-id] {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  @media (max-width: 768px) {
-    .custom-variant-card {
-      flex-direction: row;
-      text-align: left;
-    }
-
-    .card-image-container {
-      width: 56px;
-      height: 56px;
-    }
-
-    .card-title {
-      font-size: 14px;
-    }
-
-    .card-price-current {
-      font-size: 15px;
-    }
-  }
-
-  .freebies .custom-variant-card {
-    background: #f5f5f5;
-    border-color: #000;
+  /* First header in the wrapper has no top margin */
+  .gpo-ov-wrapper.horizontal > .gpo-help-header:first-child {
+    margin-top: 0;
   }
 {% endstyle %}
 
 <script>
+  /* === Build cards from GPO tooltips (kept as-is, minor safety tweaks) === */
   const vmsString = {{ variant_metafields_string | default: '' | json }};
   const vrpString = {{ variant_real_price_string | default: '' | json }};
 
@@ -176,100 +209,65 @@
   const processedCards = new Set();
   const inputCache = new Map();
 
-  // Parse metafields
   if (vrpString) {
-    vrpString
-      .split("<delimiter_second>")
-      .forEach((segment) => {
-        const [id, price] = segment.split("<delimiter_first>");
-        if (id && price) vrpMap.set(id, price);
-      });
+    vrpString.split("<delimiter_second>").forEach((segment) => {
+      const [id, price] = segment.split("<delimiter_first>");
+      if (id && price) vrpMap.set(id, price);
+    });
   }
-
   if (vmsString) {
-    vmsString
-      .split("<delimiter_second>")
-      .forEach((segment) => {
-        const [id, description] = segment.split("<delimiter_first>");
-        if (id && description) vmMap.set(id, description);
-      });
+    vmsString.split("<delimiter_second>").forEach((segment) => {
+      const [id, description] = segment.split("<delimiter_first>");
+      if (id && description) vmMap.set(id, description);
+    });
   }
 
-  function getCachedInput(variantId) {
-    if (inputCache.has(variantId)) {
-      return inputCache.get(variantId);
-    }
+  function getCachedInput(variantId){
+    if (inputCache.has(variantId)) return inputCache.get(variantId);
     const input = document.querySelector(`input[gpo-data-variant-id="${variantId}"]`);
-    if (input) {
-      inputCache.set(variantId, input);
-    }
+    if (input) inputCache.set(variantId, input);
     return input;
   }
 
-  // 🔧 IMPROVED: Better image detection with multiple fallbacks
-  function getImageUrl(input) {
+  function getImageUrl(input){
     if (!input || !input.nextElementSibling) return '';
-
     const container = input.nextElementSibling;
 
-    // Try 1: .swatch-image in label (for simple swatches without tooltips) - ADDED FIRST
     let img = container.querySelector('.gpo-swatch__inner .swatch-image');
-    if (img && img.src) {
-      return img.src;
-    }
+    if (img?.src) return img.src;
 
-    // Try 2: .gpo-swatch__image (for radio/image swatches)
     img = container.querySelector('.gpo-swatch__image');
-    if (img) {
-      return img.src || img.getAttribute('data-src') || '';
-    }
+    if (img) return img.src || img.getAttribute('data-src') || '';
 
-    // Try 3: .gpo-tooltip__image img (for tooltips)
     img = container.querySelector('.gpo-tooltip__image img');
-    if (img) {
-      return img.src || img.getAttribute('data-src') || '';
-    }
+    if (img) return img.src || img.getAttribute('data-src') || '';
 
-    // Try 4: Direct img tag in label
     img = container.querySelector('img');
-    if (img) {
-      return img.src || img.getAttribute('data-src') || '';
-    }
+    if (img) return img.src || img.getAttribute('data-src') || '';
 
-    // Try 5: Look in the label itself
     const label = container.querySelector('label');
-    if (label) {
+    if (label){
       img = label.querySelector('img');
-      if (img) {
-        return img.src || img.getAttribute('data-src') || '';
-      }
+      if (img) return img.src || img.getAttribute('data-src') || '';
     }
 
-    // Try 6: Background image on any element
-    const elementsWithBg = container.querySelectorAll('[style*="background-image"]');
-    for (const el of elementsWithBg) {
-      const bgImage = el.style.backgroundImage;
-      if (bgImage) {
-        const match = bgImage.match(/url\(['"]?(.*?)['"]?\)/);
-        if (match && match[1]) {
-          return match[1];
-        }
-      }
+    const withBg = container.querySelectorAll('[style*="background-image"]');
+    for (const el of withBg){
+      const m = (el.style.backgroundImage || '').match(/url\(['"]?(.*?)['"]?\)/);
+      if (m?.[1]) return m[1];
     }
-
     return '';
   }
 
-  function buildVariantCards() {
-    const inputs = document.querySelectorAll("input[gpo-data-variant-id]");
-    if (inputs.length === 0) return;
+  function buildVariantCards(){
+    const inputs = document.querySelectorAll('input[gpo-data-variant-id]');
+    if (!inputs.length) return;
 
     inputCache.clear();
-
     const variantIds = new Set();
-    inputs.forEach((input) => {
-      const variantId = input.getAttribute("gpo-data-variant-id");
-      if (variantId) variantIds.add(variantId);
+    inputs.forEach(i => {
+      const id = i.getAttribute('gpo-data-variant-id');
+      if (id) variantIds.add(id);
     });
 
     let cardsCreated = 0;
@@ -280,51 +278,47 @@
       const input = getCachedInput(variantId);
       if (!input) return;
 
-      const tooltipParent = input.nextElementSibling?.querySelector("div.gpo-tooltip");
+      const tooltipParent = input.nextElementSibling?.querySelector('div.gpo-tooltip');
       if (!tooltipParent) return;
 
-      const childDivs = tooltipParent.querySelectorAll("div");
-      if (childDivs.length === 0) return;
+      const childDivs = tooltipParent.querySelectorAll('div');
+      if (!childDivs.length) return;
 
       let productName = '';
       let priceHTML = '';
       const imageUrl = getImageUrl(input);
 
-      for (let i = 0; i < childDivs.length; i++) {
+      for (let i=0; i<childDivs.length; i++){
         if (childDivs[i].classList.contains('gpo-tooltip__title')) {
           const titleClone = childDivs[i].cloneNode(true);
-          const addOn = titleClone.querySelector(".addOn");
+          const addOn = titleClone.querySelector('.addOn');
 
           if (addOn) {
             const value = addOn.textContent.trim();
             const match = value.match(/[\d,]+/);
-            
             addOn.remove();
             productName = titleClone.textContent.trim();
 
-            if (match) {
-              const valNum = match[0].replace(/,/g, "");
+            if (match){
+              const valNum = match[0].replace(/,/g, '');
               if (valNum && valNum !== '0') {
                 const currentPrice = parseInt(valNum, 10);
-                const currentPriceFormatted = `$${currentPrice.toLocaleString("en-US")}`;
+                const currentPriceFormatted = `$${currentPrice.toLocaleString('en-US')}`;
 
                 if (vrpMap.has(variantId)) {
                   const realPriceNum = parseInt(vrpMap.get(variantId), 10);
                   const savings = realPriceNum - currentPrice;
-
                   priceHTML = `
                     <div class="card-price-section">
                       <span class="card-price-current">${currentPriceFormatted}</span>
-                      <span class="card-save-badge">Save $${savings.toLocaleString("en-US")}</span>
-                      <span class="card-price-was">$${realPriceNum.toLocaleString("en-US")} USD</span>
-                    </div>
-                  `;
+                      <span class="card-save-badge">Save $${savings.toLocaleString('en-US')}</span>
+                      <span class="card-price-was">$${realPriceNum.toLocaleString('en-US')} USD</span>
+                    </div>`;
                 } else {
                   priceHTML = `
                     <div class="card-price-section">
                       <span class="card-price-current">${currentPriceFormatted}</span>
-                    </div>
-                  `;
+                    </div>`;
                 }
               } else {
                 priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
@@ -345,18 +339,12 @@
       const card = document.createElement('div');
       card.className = 'custom-variant-card';
       card.setAttribute('data-variant-id', variantId);
-
       card.innerHTML = `
-        ${imageUrl ? `
-          <div class="card-image-container">
-            <img src="${imageUrl}" alt="${productName}" class="card-image">
-          </div>
-        ` : ''}
+        ${imageUrl ? `<div class="card-image-container"><img src="${imageUrl}" alt="${productName}" class="card-image"></div>` : ``}
         <div class="card-content">
           <h3 class="card-title">${productName}</h3>
           ${priceHTML}
-        </div>
-      `;
+        </div>`;
 
       card.addEventListener('click', (e) => {
         e.preventDefault();
@@ -368,142 +356,188 @@
           input.checked = !input.checked;
         } else if (input.type === 'radio') {
           const siblings = document.querySelectorAll(`input[type="radio"][name="${input.name}"][gpo-data-variant-id]`);
-          if (siblings.length === 1 && input.checked) {
-            input.checked = false;
-          } else {
-            input.checked = true;
-          }
+          if (siblings.length === 1 && input.checked) input.checked = false;
+          else input.checked = true;
         }
 
-        const event = new Event('change', { bubbles: true });
-        input.dispatchEvent(event);
+        input.dispatchEvent(new Event('change', { bubbles:true }));
 
         const groupInputs = document.querySelectorAll(`input[name="${input.name}"]`);
         groupInputs.forEach(inp => {
           const vId = inp.getAttribute('gpo-data-variant-id');
           const c = document.querySelector(`.custom-variant-card[data-variant-id="${vId}"]`);
-          if (c) {
-            if (inp.checked) {
-              c.classList.add('selected');
-            } else {
-              c.classList.remove('selected');
-            }
-          }
+          if (c) c.classList.toggle('selected', !!inp.checked);
         });
       });
 
       const ovItem = input.closest('.gpo-ov-item');
-      if (ovItem && ovItem.parentElement) {
+      if (ovItem?.parentElement) {
         ovItem.parentElement.insertBefore(card, ovItem);
         processedCards.add(variantId);
         cardsCreated++;
       }
 
-      if (input.checked) {
-        card.classList.add('selected');
-      }
+      if (input.checked) card.classList.add('selected');
     });
 
-    if (cardsCreated > 0) {
-      console.log(`✅ Created ${cardsCreated} cards`);
-    }
+    if (cardsCreated > 0) console.log(`✅ Created ${cardsCreated} cards`);
   }
 
   let freebiesStyled = false;
-  function styleFreebies() {
+  function styleFreebies(){
     if (freebiesStyled) return;
-
-    const freebiesElement = document.querySelector(".freebies");
+    const freebiesElement = document.querySelector('.freebies');
     if (!freebiesElement) return;
-
-    const childElements = freebiesElement.querySelectorAll(".gpo-ov-item");
-    childElements.forEach((val) => {
-      val.style.background = "#f5f5f5";
-      const label = val.querySelector("label");
-      if (label) {
-        label.style.borderColor = "#000";
-      }
+    freebiesElement.querySelectorAll('.gpo-ov-item').forEach((val) => {
+      val.style.background = '#f5f5f5';
+      const label = val.querySelector('label');
+      if (label) label.style.borderColor = '#000';
     });
-
     freebiesStyled = true;
   }
 
-  function addAltTextToImages() {
-    const images = document.querySelectorAll('.gpo-swatch__image img, .gpo-tooltip__image img, .card-image');
-    images.forEach((img) => {
-      if (!img.hasAttribute('alt')) {
-        img.setAttribute('alt', 'Product Image');
-      }
-    });
+  function addAltTextToImages(){
+    document.querySelectorAll('.gpo-swatch__image img, .gpo-tooltip__image img, .card-image')
+      .forEach((img) => { if (!img.hasAttribute('alt')) img.setAttribute('alt','Product Image'); });
   }
 
-  function initialize() {
-    // Wait for both .addOn AND images to be ready
-    let checkCount = 0;
-    const maxChecks = 1;
-    
-    const checkReady = setInterval(() => {
-      checkCount++;
-      
+  function initialize(){
+    // wait at least once for GPO internals, then build
+    let tried = 0, maxTries = 1;
+    const t = setInterval(() => {
+      tried++;
       const addOns = document.querySelectorAll('.addOn');
       const swatchImages = document.querySelectorAll('.swatch-image');
-      
       if (addOns.length > 0 && swatchImages.length > 0) {
-        clearInterval(checkReady);
-        console.log('✅ Elements ready, building cards...');
-        buildVariantCards();
-        styleFreebies();
-        addAltTextToImages();
-      } else if (checkCount >= maxChecks) {
-        clearInterval(checkReady);
-        console.warn('⚠️ Timeout waiting for elements. AddOns:', addOns.length, 'Images:', swatchImages.length);
-        // Try to build anyway
-        buildVariantCards();
-        styleFreebies();
-        addAltTextToImages();
+        clearInterval(t);
+        buildVariantCards(); styleFreebies(); addAltTextToImages();
+      } else if (tried >= maxTries) {
+        clearInterval(t);
+        buildVariantCards(); styleFreebies(); addAltTextToImages();
       }
     }, 100);
   }
 
   let mutationTimeout;
-  function handleMutations() {
+  function handleMutations(){
     clearTimeout(mutationTimeout);
     mutationTimeout = setTimeout(() => {
-      buildVariantCards();
-      styleFreebies();
-      addAltTextToImages();
+      buildVariantCards(); styleFreebies(); addAltTextToImages();
     }, 150);
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener('DOMContentLoaded', function(){
     initialize();
-
     const observer = new MutationObserver((mutations) => {
       let shouldUpdate = false;
-
-      for (const mutation of mutations) {
-        for (const node of mutation.addedNodes) {
-          if (node.nodeType === 1) {
-            if (node.classList?.contains("gpo-swatches") || 
-                node.querySelector?.(".gpo-swatches") ||
-                node.classList?.contains("addOn") ||
-                node.querySelector?.(".swatch-image")) {
-              shouldUpdate = true;
-              break;
-            }
+      for (const m of mutations){
+        for (const n of m.addedNodes){
+          if (n.nodeType === 1){
+            if (n.classList?.contains('gpo-swatches') ||
+                n.querySelector?.('.gpo-swatches') ||
+                n.classList?.contains('addOn') ||
+                n.querySelector?.('.swatch-image')) { shouldUpdate = true; break; }
           }
         }
         if (shouldUpdate) break;
       }
-
-      if (shouldUpdate) {
-        handleMutations();
-      }
+      if (shouldUpdate) handleMutations();
     });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
+    const gpoContainer = document.querySelector('.gpo-element') || document.body;
+    observer.observe(gpoContainer, { childList:true, subtree:true });
   });
+</script>
+
+<script>
+  /* === Full-width groups + Tier headers/badges (uses .gpo-ov-helptext) === */
+  (function(){
+    // TEMP: map "test" → Best Value so you can see it without changing GPO admin
+    function tierFrom(text){
+      const t = (text || '').toLowerCase().trim();
+      if (t.includes('test'))   return { key:'best',     header:'BEST VALUE!',  headerClass:'gpo-help-best',     badgeClass:'gpo-badge-best' };
+      if (t.includes('starter'))return { key:'starters', header:'FOR STARTERS', headerClass:'gpo-help-starters', badgeClass:'gpo-badge-starters' };
+      if (t.includes('best'))   return { key:'best',     header:'BEST VALUE!',  headerClass:'gpo-help-best',     badgeClass:'gpo-badge-best' };
+      if (t.includes('pro'))    return { key:'pros',     header:'FOR PROS',     headerClass:'gpo-help-pros',     badgeClass:'gpo-badge-pros' };
+      return null;
+    }
+
+    function markFullWidth(){
+      document.querySelectorAll('.gpo-element.gpo-form__group').forEach(group => {
+        const title = (group.querySelector('.gpo-label .label-content')?.textContent || '').toLowerCase();
+        group.classList.toggle('fullwidth', title.includes('wood type') || title.includes('heater size'));
+      });
+    }
+
+    function buildTierMap(group){
+      const map = new Map();
+      group.querySelectorAll('.gpo-swatches.gpo-ov-item').forEach(item => {
+        const input = item.querySelector('input[gpo-data-variant-id]');
+        if (!input) return;
+        const vid = input.getAttribute('gpo-data-variant-id');
+
+        let key = input.getAttribute('data-tier');
+        if (key === null){
+          const helpEl = item.querySelector('.gpo-tooltip__title .gpo-ov-helptext');
+          const tier = tierFrom(helpEl ? helpEl.textContent : '');
+          key = tier ? tier.key : '';
+          input.setAttribute('data-tier', key);
+        }
+        if (key){
+          if (key === 'starters') map.set(vid, { key, header:'FOR STARTERS', headerClass:'gpo-help-starters' });
+          if (key === 'best')     map.set(vid, { key, header:'BEST VALUE!',  headerClass:'gpo-help-best'});
+          if (key === 'pros')     map.set(vid, { key, header:'FOR PROS',     headerClass:'gpo-help-pros'});
+        }
+      });
+      return map;
+    }
+
+    function applyTiers(group){
+      const wrap = group.querySelector('.gpo-ov-wrapper.horizontal');
+      if (!wrap) return;
+
+      const tierMap = buildTierMap(group);
+      if (!tierMap.size) return;
+
+      const cards = Array.from(wrap.querySelectorAll('.custom-variant-card[data-variant-id]'));
+      if (!cards.length) return;
+
+      // Insert a header before EACH card (not just first of each tier)
+      cards.forEach(card => {
+        const vid = card.getAttribute('data-variant-id');
+        const tier = tierMap.get(vid);
+        if (!tier) return;
+
+        // Check if there's already a header directly before this card
+        const prev = card.previousElementSibling;
+        const hasHeader = prev && prev.classList && prev.classList.contains('gpo-help-header');
+        
+        if (!hasHeader) {
+          const h = document.createElement('div');
+          h.className = `gpo-help-header ${tier.headerClass}`;
+          h.textContent = tier.header;
+          wrap.insertBefore(h, card);
+          console.log(`📌 Added header "${tier.header}" before card ${vid}`);
+        }
+      });
+    }
+
+    function run(){
+      markFullWidth();
+      document.querySelectorAll('.gpo-element.gpo-form__group').forEach(group => applyTiers(group));
+    }
+
+    const ready = () => {
+      run();
+      // retry a few times to catch late tooltip internals
+      let tries = 0, maxTries = 10;
+      const int = setInterval(() => { run(); if (++tries >= maxTries) clearInterval(int); }, 200);
+      const mo = new MutationObserver(() => run());
+      mo.observe(document.body, { childList:true, subtree:true });
+      setTimeout(() => {
+        console.log('[GPO tiers] help spans found:', document.querySelectorAll('.gpo-tooltip__title .gpo-ov-helptext').length);
+      }, 1200);
+    };
+
+    (document.readyState === 'loading') ? document.addEventListener('DOMContentLoaded', ready) : ready();
+  })();
 </script>
