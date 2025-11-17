@@ -283,6 +283,20 @@
     padding: 10px 15px; /* Adjust for thicker border */
     background: #F5F5F5;
   }
+
+  .has-star {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gpo-help-header.gpo-help-pros svg {
+    width: 17px;
+    height: 17px;
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+  }
 {% endstyle %}
 
 <script>
@@ -675,4 +689,42 @@
 
     (document.readyState === 'loading') ? document.addEventListener('DOMContentLoaded', ready) : ready();
   })();
+  // Inject SVG star next to every GPO "FOR PROS" header
+  document.querySelectorAll('.gpo-help-header.gpo-help-pros').forEach(header => {
+    if (!header.classList.contains('has-star')) {
+      fetch('/snippets/icon-star.liquid')
+        .then(response => response.text())
+        .then(svg => {
+          header.insertAdjacentHTML('beforeend', svg);
+          header.classList.add('has-star'); // prevent duplicates
+        });
+    }
+  });
+
+  // Inline SVG star (from snippets/icon-star.liquid)
+  const starSVG = `
+  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M5.72213 30L8.18326 18.9051L0 11.4458L10.7794 10.4643L15.001 0L19.2226 10.4622L30 11.4437L21.8167 18.903L24.2799 29.9979L15.001 24.109L5.72213 30Z" fill="#1F8A81"/>
+  </svg>`;
+
+  // Add star next to every "FOR PROS" header
+  function injectStarsForPros() {
+    document.querySelectorAll('.gpo-help-header.gpo-help-pros').forEach(header => {
+      // Avoid duplicates
+      if (!header.classList.contains('has-star')) {
+        header.insertAdjacentHTML('beforeend', starSVG);
+        header.classList.add('has-star');
+      }
+    });
+  }
+
+  // Run immediately
+  injectStarsForPros();
+
+  // Run again when GPO updates DOM (important!)
+  const observer = new MutationObserver(() => {
+    injectStarsForPros();
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+
 </script>
