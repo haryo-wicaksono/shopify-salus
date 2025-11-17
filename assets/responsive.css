@@ -1909,11 +1909,11 @@
   }
 
   .main-menu__content .main-nav li:nth-of-type(2) .has--menu-products ul li:nth-of-type(2) {
-    display: none;
+    display: inline-block;
   }
 
   .main-menu__content .main-nav li:nth-of-type(3) .has--menu-products ul li:nth-of-type(2) {
-    display: none;
+    display: inline-block;
   }
 
   .mega-nav--promos-right ul.child-nav {
