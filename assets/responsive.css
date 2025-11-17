@@ -1904,7 +1904,7 @@
     max-width: 100%;
   }
 
-  .main-menu__content .main-nav li:nth-of-type(1) .has--menu-products ul li:nth-of-type(2) {
+  /* .main-menu__content .main-nav li:nth-of-type(1) .has--menu-products ul li:nth-of-type(2) {
     display: none;
   }
 
@@ -1914,7 +1914,7 @@
 
   .main-menu__content .main-nav li:nth-of-type(3) .has--menu-products ul li:nth-of-type(2) {
     display: none;
-  }
+  } */
 
   .mega-nav--promos-right ul.child-nav {
     overflow: unset !important;
