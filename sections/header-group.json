@@ -218,7 +218,12 @@
             "collection_images": "none",
             "collection_use_product_image": false,
             "show_underline": true,
-            "menu_products": [],
+            "menu_products": [
+              "harvia-electric-heater",
+              "harvia-electric-kip-heater-w-wifi",
+              "harvia-spirit-heater-w-wifi",
+              "huum-cliff-heater-w-wifi-bundle"
+            ],
             "product_tag_1": "New",
             "product_tag_2": "",
             "product_tag_3": "",
