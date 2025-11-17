@@ -240,21 +240,21 @@
     border-radius: 10px;
     padding: 10px 15px;
     gap: 10px;
-    width: auto; /* Fit content instead of full width */
-    display: inline-flex; /* Allow auto width */
+    width: 100%; 
+    display: inline-flex;
   }
 
   /* Wood Type image - circular and smaller */
-  .wood-type-group .card-image-container {
+  /* .wood-type-group .card-image-container {
     width: 20px;
     height: 20px;
-    border-radius: 50%; /* Circular */
+    border-radius: 50%;
     background: transparent;
-  }
+  } */
 
-  .wood-type-group .card-image {
-    border-radius: 50%; /* Circular image */
-  }
+  /* .wood-type-group .card-image {
+    border-radius: 50%;
+  } */
 
   /* Wood Type title styling */
   .wood-type-group .card-title {
@@ -397,6 +397,11 @@
             const value = addOn.textContent.trim();
             const match = value.match(/[\d,]+/);
             addOn.remove();
+
+            // NEW: remove tier label inside title
+            const tierHelp = titleClone.querySelector('.gpo-ov-helptext');
+            if (tierHelp) tierHelp.remove();
+
             productName = titleClone.textContent.trim();
 
             if (match){
@@ -427,7 +432,11 @@
               priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
             }
           } else {
-            productName = childDivs[i].textContent.trim();
+            // Clone and strip tier/help text for free items too
+            const titleClone = childDivs[i].cloneNode(true);
+            const tierHelp = titleClone.querySelector('.gpo-ov-helptext');
+            if (tierHelp) tierHelp.remove();
+            productName = titleClone.textContent.trim();
             priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
           }
           break;
