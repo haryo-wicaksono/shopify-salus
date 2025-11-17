@@ -58,7 +58,7 @@
     border-color: #000000; 
     border-width: 1px; 
     padding: 15px; 
-    background: #FFFFFF; 
+    background: #F1F1F1; 
   }
 
   .card-image-container {
@@ -235,10 +235,10 @@
   }
 
   .wood-type-group .custom-variant-card {
-    border: 1px solid #000000;
+    border: 1px solid #B4B4B4;
     background: #F1F1F1;
     border-radius: 10px;
-    padding: 15px 10px;
+    padding: 10px 15px;
     gap: 10px;
     width: auto; /* Fit content instead of full width */
     display: inline-flex; /* Allow auto width */
@@ -281,7 +281,7 @@
     border-color: #000000;
     border-width: 1px;
     padding: 10px 15px; /* Adjust for thicker border */
-    background: #F1F1F1;
+    background: #F5F5F5;
   }
 {% endstyle %}
 
@@ -343,6 +343,20 @@
       if (m?.[1]) return m[1];
     }
     return '';
+  }
+
+  // Sync visual state when input changes (triggered by Globo or user)
+  function syncCardWithInput(input) {
+    const variantId = input.getAttribute('gpo-data-variant-id');
+    const card = document.querySelector(`.custom-variant-card[data-variant-id="${variantId}"]`);
+    
+    if (card) {
+      if (input.checked) {
+        card.classList.add('selected');
+      } else {
+        card.classList.remove('selected');
+      }
+    }
   }
 
   function buildVariantCards(){
@@ -456,6 +470,12 @@
         });
       });
 
+      // Add change listener to sync when Globo changes the input
+      input.addEventListener('change', () => {
+        console.log(`🔔 Change event on ${variantId}, checked: ${input.checked}`);
+        syncCardWithInput(input);
+      });
+
       const ovItem = input.closest('.gpo-ov-item');
       if (ovItem?.parentElement) {
         ovItem.parentElement.insertBefore(card, ovItem);
@@ -463,7 +483,22 @@
         cardsCreated++;
       }
 
-      if (input.checked) card.classList.add('selected');
+      if (input.checked) {
+        card.classList.add('selected');
+        console.log(`✅ Applied .selected to card ${variantId} (checked on load)`);
+        
+        // Verify it stuck
+        setTimeout(() => {
+          const checkCard = document.querySelector(`.custom-variant-card[data-variant-id="${variantId}"]`);
+          if (checkCard) {
+            console.log(`🔍 After 500ms, card ${variantId} has selected class:`, checkCard.classList.contains('selected'));
+          } else {
+            console.log(`❌ Card ${variantId} no longer exists!`);
+          }
+        }, 500);
+      } else {
+        console.log(`⚪ Card ${variantId} not checked on load`);
+      }
     });
 
     if (cardsCreated > 0) console.log(`✅ Created ${cardsCreated} cards`);
