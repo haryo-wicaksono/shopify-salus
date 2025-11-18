@@ -67,6 +67,7 @@
         },
         "description_U3T6cM": {
           "type": "description",
+          "disabled": true,
           "settings": {
             "show_as_collapsible_content": false,
             "icon": "none",
