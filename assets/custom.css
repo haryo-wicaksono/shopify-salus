@@ -2414,8 +2414,8 @@ div.gpo-group.gpo-form__group.gpo-col-12 {
 }
 
 .atc-banner-button button:hover {
-  background: #000;
-  color: #ffff;
+  background: #1F8A81;
+  color: #FFFFFF;
 }
 
 .template--product .product-main .product-info {
@@ -3750,7 +3750,8 @@ a.secondary-nav__item.secondary-nav__cta {
   margin-bottom: 20px;
 }
 
-.collection-banner.color-scheme, .collection-secondary-nav {
+.collection-banner.color-scheme,
+.collection-secondary-nav {
   background-color: #F9F9F9;
   padding: 30px 0px;
 }
@@ -3774,7 +3775,7 @@ a.secondary-nav__item.secondary-nav__cta {
 }
 
 
-.main-products-grid .card-shipping-tag span{
+.main-products-grid .card-shipping-tag span {
   display: none;
   font-size: 16px;
   font-weight: 600;
@@ -3782,7 +3783,7 @@ a.secondary-nav__item.secondary-nav__cta {
   gap: 5px;
 }
 
-.main-products-grid .card-shipping-tag span img{
+.main-products-grid .card-shipping-tag span img {
   height: 21px;
   width: 18px;
 }
@@ -3800,7 +3801,8 @@ a.secondary-nav__item.secondary-nav__cta {
   gap: 1px;
   margin-right: 5px;
 }
-.main-products-grid .product-page-card__star-rating svg{
+
+.main-products-grid .product-page-card__star-rating svg {
   height: 17px;
   width: 15px;
 }
@@ -3865,17 +3867,21 @@ a.secondary-nav__item.secondary-nav__cta {
   .collection-banner__content .rte.mt-4 {
     font-size: 14px;
   }
+
   .collection-banner.color-scheme {
     padding: 30px 0px 15px 0px;
   }
+
   .collection-secondary-nav {
     padding-top: 0px;
     padding-bottom: 10px;
   }
+
   .collection-nav-inner {
     padding: 10px 0px;
   }
-  .collection-nav-inner .col-nav ul{
+
+  .collection-nav-inner .col-nav ul {
     gap: 10px;
   }
 
@@ -3888,19 +3894,23 @@ a.secondary-nav__item.secondary-nav__cta {
     display: block;
     margin-top: 10px;
   }
+
   .main-products-grid .product-page-card__star-rating {
     display: block;
     width: 100%;
   }
+
   .main-products-grid .product-page-card__reviews-text {
     display: block;
     width: 100%;
     font-size: 12px;
     line-height: 16px;
   }
+
   .main-products-grid .product-ext-tags span {
     font-size: 12px;
   }
+
   .main-products-grid .card--product .card__info-inner .price .price__default {
     margin-top: 10px;
     gap: 4px;
@@ -3909,10 +3919,12 @@ a.secondary-nav__item.secondary-nav__cta {
   .main-products-grid .card--product .card__info-inner .price .price__current {
     font-size: 13px !important;
   }
-  .main-products-grid .card--product .card__info-inner .price .discount__price{
+
+  .main-products-grid .card--product .card__info-inner .price .discount__price {
     font-size: 12px !important;
     padding: 1px 3px;
   }
+
   .main-products-grid .card--product .card__info-inner .price .price__was {
     font-size: 13px !important;
   }
