@@ -31,6 +31,7 @@
         },
         "vendor_sku_pLKcrj": {
           "type": "vendor-sku",
+          "disabled": true,
           "settings": {
             "show_vendor": false,
             "show_sku": true,
@@ -51,6 +52,7 @@
         },
         "delivery_dTUxNH": {
           "type": "delivery",
+          "disabled": true,
           "settings": {
             "delivery": "{{ product.metafields.custom.delivery.value }}",
             "stock_left": "{{ product.metafields.custom.stock_left.value }}"
@@ -61,10 +63,6 @@
           "settings": {
             "show_tax_and_shipping": false
           }
-        },
-        "pay_hsa_fsa_zmnfTe": {
-          "type": "pay_hsa_fsa",
-          "settings": {}
         },
         "richtext_rmaxgM": {
           "type": "richtext",
@@ -80,6 +78,10 @@
             "icon": "none",
             "open": false
           }
+        },
+        "pay_hsa_fsa_zmnfTe": {
+          "type": "pay_hsa_fsa",
+          "settings": {}
         },
         "download_manual_MAdAyX": {
           "type": "download_manual",
@@ -189,9 +191,9 @@
         "judge_me_reviews_preview_badge_X9NxFb",
         "delivery_dTUxNH",
         "price",
-        "pay_hsa_fsa_zmnfTe",
         "richtext_rmaxgM",
         "description_U3T6cM",
+        "pay_hsa_fsa_zmnfTe",
         "download_manual_MAdAyX",
         "spec_sheet_xfiPkx",
         "variant_picker_CHdtt9",
