@@ -89,7 +89,7 @@
     margin-bottom: 0;
     padding-top: calc(10 * var(--space-unit));
     padding-bottom: calc(10 * var(--space-unit));
-    padding-inline-end: var(--product-column-padding);
+    padding-inline-end: calc(var(--product-column-padding) + 20px);
   }
 
   .product-main .product-info {
