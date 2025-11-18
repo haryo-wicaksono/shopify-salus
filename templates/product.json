@@ -58,12 +58,6 @@
             "stock_left": "{{ product.metafields.custom.stock_left.value }}"
           }
         },
-        "price": {
-          "type": "price",
-          "settings": {
-            "show_tax_and_shipping": false
-          }
-        },
         "richtext_rmaxgM": {
           "type": "richtext",
           "settings": {
@@ -77,6 +71,12 @@
             "show_as_collapsible_content": false,
             "icon": "none",
             "open": false
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_tax_and_shipping": false
           }
         },
         "pay_hsa_fsa_zmnfTe": {
@@ -190,9 +190,9 @@
         "product_tags_WenhVX",
         "judge_me_reviews_preview_badge_X9NxFb",
         "delivery_dTUxNH",
-        "price",
         "richtext_rmaxgM",
         "description_U3T6cM",
+        "price",
         "pay_hsa_fsa_zmnfTe",
         "download_manual_MAdAyX",
         "spec_sheet_xfiPkx",
