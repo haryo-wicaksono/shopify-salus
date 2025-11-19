@@ -1234,3 +1234,9 @@ product-recommendations .card__quick-add .btn:hover {
 .sticky-atc-panel {
   display: none;
 }
+
+@media screen and (max-width: 768px) {
+  .product-info__price .price__default {
+    gap: 10px;
+  }
+}
