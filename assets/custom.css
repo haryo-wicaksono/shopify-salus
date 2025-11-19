@@ -3974,4 +3974,8 @@ a.secondary-nav__item.secondary-nav__cta {
   .product-detail-cntnt {
     margin-bottom: 7px;
   }
+
+  .product-info__block.product-info__block--sm.product-info__pay .affirm-as-low-as.custom-affirm {
+    font-size: 14px;
+  }
 }
