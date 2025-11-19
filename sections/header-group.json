@@ -211,11 +211,7 @@
             "badge3_text": ""
           }
         },
-<<<<<<< HEAD
         "columns_PxyWTC": {
-=======
-        "columns_kHzh9f": {
->>>>>>> a41ec72 (Update from Shopify for theme shopify-salus/development)
           "type": "columns",
           "settings": {
             "title": "Heaters",
@@ -223,14 +219,10 @@
             "collection_use_product_image": false,
             "show_underline": true,
             "menu_products": [
-<<<<<<< HEAD
               "harvia-electric-heater",
               "harvia-electric-kip-heater-w-wifi",
               "harvia-spirit-heater-w-wifi",
               "huum-cliff-heater-w-wifi-bundle"
-=======
-              "harvia-electric-heater"
->>>>>>> a41ec72 (Update from Shopify for theme shopify-salus/development)
             ],
             "product_tag_1": "",
             "product_tag_2": "",
@@ -267,11 +259,7 @@
             "badge3_text": ""
           }
         },
-<<<<<<< HEAD
         "columns_BjLAQB": {
-=======
-        "columns_Qde33j": {
->>>>>>> a41ec72 (Update from Shopify for theme shopify-salus/development)
           "type": "columns",
           "settings": {
             "title": "Sauna Accessories",
@@ -279,14 +267,10 @@
             "collection_use_product_image": false,
             "show_underline": true,
             "menu_products": [
-<<<<<<< HEAD
               "aromatherapy-cup-holder",
               "essential-oils-box",
               "entrance-mat",
               "steel-safety-railing"
-=======
-              "aromatherapy-cup-holder"
->>>>>>> a41ec72 (Update from Shopify for theme shopify-salus/development)
             ],
             "product_tag_1": "",
             "product_tag_2": "",
@@ -418,13 +402,8 @@
       "block_order": [
         "columns_wNqK9K",
         "columns_3fnJRk",
-<<<<<<< HEAD
         "columns_PxyWTC",
         "columns_BjLAQB",
-=======
-        "columns_kHzh9f",
-        "columns_Qde33j",
->>>>>>> a41ec72 (Update from Shopify for theme shopify-salus/development)
         "columns_EUE4ja",
         "columns_4gALyE"
       ],
