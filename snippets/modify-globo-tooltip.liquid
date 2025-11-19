@@ -87,10 +87,10 @@
     min-width: 0;
   }
   .card-title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     margin: 0 0 6px;
-    color: #111827;
+    color: #222120;
     line-height: 1.4;
   }
 
@@ -102,29 +102,29 @@
     margin-top: 4px;
   }
   .card-price-current {
-    font-size: 15px;
-    font-weight: 700;
-    color: #111827;
+    font-size: 14px;
+    font-weight: 500;
+    color: #222120;
   }
   .card-save-badge {
-    background: #16a085;
+    background: #1F8A81;
     color: #fff;
     padding: 3px 8px;
     border-radius: 3px;
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 500;
     text-transform: uppercase;
   }
   .card-price-was {
-    font-size: 13px;
-    color: #ef4444;
+    font-size: 14px;
+    color: #F03636;
     text-decoration: line-through;
     font-weight: 500;
   }
   .card-free-badge {
-    color: #16a085;
-    font-size: 13px;
-    font-weight: 600;
+    color: #222120;
+    font-size: 14px;
+    font-weight: 400;
   }
 
   input[gpo-data-variant-id] {
@@ -180,12 +180,12 @@
 
   /* Tier headers - each card gets its own header */
   .gpo-help-header {
-    font-weight: 700;
-    font-size: 13px;
+    font-weight: 600;
+    font-size: 16px;
     letter-spacing: 0.5px;
     padding: 10px 16px;
     border-radius: 10px 10px 0 0;
-    margin: 16px 0 0 0;
+    margin: 0 0 0 0;
     color: #fff;
     text-align: center;
     text-transform: uppercase;
@@ -238,7 +238,10 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     margin-top: 0;
-    margin-bottom: 16px;
+  }
+
+  .gpo-ov-wrapper.horizontal > .gpo-help-header {
+    margin-top: 10px;
   }
 
   /* First header in the wrapper has no top margin */
@@ -276,8 +279,8 @@
   /* Wood Type title styling */
   .wood-type-group .card-title {
     font-size: 16px;
-    font-weight: 400;
-    color: #000000;
+    font-weight: 600;
+    color: #222120;
     margin: 0;
     line-height: 1.5;
   }
@@ -305,13 +308,30 @@
     align-items: center;
     justify-content: center;
   }
+  
+  .gpo-help-header.gpo-help-best p, .gpo-help-header.gpo-help-starters p{
+    margin: 0px;
+  }
+
+  .gpo-help-header.gpo-help-pros p{
+    margin-bottom: 0px;
+    margin-top: 4px;
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+  }
 
   .gpo-help-header.gpo-help-pros svg {
     width: 17px;
     height: 17px;
+    margin-left: 5px;
     display: inline-flex;
     justify-content: center;
     align-content: center;
+  }
+  .gpo-help-header.gpo-help-pros svg path{
+    background-color: #33B6AB;
+    fill: #33B6AB;
   }
 {% endstyle %}
 
@@ -698,7 +718,8 @@
         if (!hasHeader) {
           const h = document.createElement('div');
           h.className = `gpo-help-header ${tier.headerClass}`;
-          h.textContent = tier.header;
+          {% comment %} h.textContent = tier.header; {% endcomment %}
+          h.innerHTML = `<p>${tier.header}</p>`;
           wrap.insertBefore(h, card);
           console.log(`📌 Added header "${tier.header}" before card ${vid}`);
         }
@@ -731,6 +752,7 @@
 
     document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', ready) : ready();
   })();
+  
   // Inject SVG star next to every GPO "FOR PROS" header
   document.querySelectorAll('.gpo-help-header.gpo-help-pros').forEach((header) => {
     if (!header.classList.contains('has-star')) {
