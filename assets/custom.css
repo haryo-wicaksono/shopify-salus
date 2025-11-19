@@ -2310,7 +2310,7 @@ div.gpo-group.gpo-form__group.gpo-col-12 {
   margin-top: 10px !important;
 } */
 .gpo-container {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .template--product .gpo-element.gpo-form__group>.gpo-helptext {
@@ -2323,7 +2323,7 @@ div.gpo-group.gpo-form__group.gpo-col-12 {
 }
 
 .gpo-label {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .gpo-app .gpo-element .gpo-label span.label-content {

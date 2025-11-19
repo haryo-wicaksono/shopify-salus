@@ -529,13 +529,13 @@
                           {{- 'products.product.add_to_cart' | t -}}
                         {%- endif -%}
                       {%- endcapture -%}
-                        {% comment %} <div class="trust-signal">
+                        <div class="trust-signal">
                           <img
                             src="{{ block.settings.trust_signal_icon | img_url:'master' }}"
                             alt="{{ block.settings.trust_signal_icon.alt }}"
                           >
                           <span>{{ block.settings.trust_signal_heading }}</span>
-                        </div> {% endcomment %}
+                        </div>
                         <button
                           type="submit"
                           data-add-to-cart-text="{{ add_to_cart_text | escape }}"
