@@ -322,7 +322,7 @@
   padding: 0;
   /* remove button padding */
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .product-detail-content :is(p, li, a) {
