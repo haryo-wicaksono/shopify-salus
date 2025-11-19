@@ -163,6 +163,12 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .product-page-section-header__reviews-text {
+    font-size: 14px;
+  }
+}
+
 @media (min-width: 1280px) {
   :root {
     --product-column-padding: calc(12 * var(--space-unit));
