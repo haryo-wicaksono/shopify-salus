@@ -903,9 +903,9 @@ span.label-tooltip {
 }
 
 product-recommendations h2.section__heading {
-  font-size: 42px;
-  font-weight: 600;
-  line-height: 63px;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 44px;
 }
 
 product-recommendations .card__media .media {
