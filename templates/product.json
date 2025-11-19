@@ -136,7 +136,7 @@
             "enable_dynamic_checkout": true,
             "show_pickup_availability": false,
             "show_gift_card_recipient": false,
-            "show_msg_box": true,
+            "show_msg_box": false,
             "icon": "shopify://shop_images/question-mark.png",
             "icon1": "shopify://shop_images/Group_15658.png",
             "trust_signal_icon": "shopify://shop_images/trust_signal.svg",
@@ -144,7 +144,7 @@
             "heading": "Have questions about this model?",
             "content": "<p><a href=\"mailto:sales@salussaunas.com\" title=\"Email\">Talk to an expert</a></p>",
             "content1": "<p>Call us <strong>(888) 287-0111</strong></p>",
-            "show_price": true
+            "show_price": false
           }
         },
         "pay_hsa_fsa_BNaqGp": {
