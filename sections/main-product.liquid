@@ -529,13 +529,13 @@
                           {{- 'products.product.add_to_cart' | t -}}
                         {%- endif -%}
                       {%- endcapture -%}
-                        <div class="trust-signal">
+                        {% comment %} <div class="trust-signal">
                           <img
                             src="{{ block.settings.trust_signal_icon | img_url:'master' }}"
                             alt="{{ block.settings.trust_signal_icon.alt }}"
                           >
                           <span>{{ block.settings.trust_signal_heading }}</span>
-                        </div>
+                        </div> {% endcomment %}
                         <button
                           type="submit"
                           data-add-to-cart-text="{{ add_to_cart_text | escape }}"
@@ -723,7 +723,7 @@
                   </details>
                 </details-disclosure>
               {% endif %}
-            {% when 'message_box' %}
+            {% comment %} {% when 'message_box' %}
               <div class="product-info__block product-info__block--sm product-message__box">
                 <div class="msg-box-wrappper">
                   {% if block.settings.icon != blank -%}
@@ -737,7 +737,7 @@
                     {{ block.settings.content }}
                   </div>
                 </div>
-              </div>
+              </div> {% endcomment %}
             {% when 'delivery_detail' %}
               <div class="product-info__block product-info__block--sm product-delivery-info">
                 <div class="delivery-wrapper">
