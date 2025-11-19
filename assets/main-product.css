@@ -633,7 +633,7 @@ label.gpo-label .label-content {
 }
 
 .gpo-app .gpo-element:not(:last-child) {
-  margin-bottom: 30px !important;
+  margin-bottom: 10px !important;
 }
 
 .gpo-element.gpo-form__group {
