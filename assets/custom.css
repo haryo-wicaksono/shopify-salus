@@ -2322,6 +2322,10 @@ div.gpo-group.gpo-form__group.gpo-col-12 {
   text-align: left;
 }
 
+.gpo-label {
+  margin-top: 20px;
+}
+
 .gpo-app .gpo-element .gpo-label span.label-content {
   font-family: var(--custom-body-font);
   font-size: 21px;
@@ -2419,7 +2423,8 @@ div.gpo-group.gpo-form__group.gpo-col-12 {
 }
 
 .template--product .product-main .product-info {
-  padding-inline-start: 70px;
+  padding-inline-start: 0px;
+  padding-inline-end: 70px;
 }
 
 .template--product .product .msg-box-wrappper {
@@ -2446,7 +2451,7 @@ div.gpo-group.gpo-form__group.gpo-col-12 {
 .template--product .main-product-wrapper .product.js-product {
   display: flex;
   position: relative;
-  padding-left: 70px;
+  padding-left: 100px;
   padding-right: 70px;
 }
 
@@ -3696,7 +3701,7 @@ body:is(.template--for-first-responders, .template--electrical-information) .cc-
 } */
 
 .product-info__block.product-info__block--sm.product-price {
-  margin-top: 30px !important;
+  margin-top: 30px;
 }
 
 .product-info__block.product-info__block--sm.product-info__pay .affirm-as-low-as.custom-affirm {
@@ -3960,5 +3965,13 @@ a.secondary-nav__item.secondary-nav__cta {
     top: 8px;
     left: 8px;
     letter-spacing: -0.1px;
+  }
+
+  .product-info__block.product-info__block--sm.product-price {
+    margin-top: 20px;
+  }
+
+  .product-detail-cntnt {
+    margin-bottom: 7px;
   }
 }
