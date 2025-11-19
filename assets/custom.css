@@ -3695,12 +3695,33 @@ body:is(.template--for-first-responders, .template--electrical-information) .cc-
   display: none;
 } */
 
+.product-info__block.product-info__block--sm.product-price {
+  margin-top: 30px !important;
+}
+
+.product-info__block.product-info__block--sm.product-info__pay .affirm-as-low-as.custom-affirm {
+  margin-bottom: 0px;
+}
+
+.product-info__block.product-info__block--sm.product-info__pay .truemed-instructions {
+  margin-top: 10px;
+}
+
+.product-info__block.product-info__block--sm.download-link-wrapper {
+  margin-top: 30px !important;
+}
+
+.product-info__block.product-info__block--sm.download-link-wrapper.spec-sheet {
+  margin-top: 10px !important;
+}
+
 .product-detail-cntnt .product-info__block+.product-info__block {
   margin-top: 0;
 }
 
 .product-detail-cntnt span {
   font-size: 16px;
+  font-weight: 400;
 }
 
 .product-detail-cntnt p {

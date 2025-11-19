@@ -504,13 +504,13 @@
                       {% render 'message-box', block: block %}
                     {% endif %}
 
-                    {% if block.settings.show_price %}
+                    {% comment %} {% if block.settings.show_price %}
                       <div class=" product__atc-price product-price" {{ block.shopify_attributes }}>
                         <div class="product-info__price">
                           {% render 'price', product: product, use_variant: true %}
                         </div>
                       </div>
-                    {% endif %}
+                    {% endif %} {% endcomment %}
 
                     <input type="hidden" name="id" value="{{ current_variant.id }}" disabled>
 
