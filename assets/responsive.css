@@ -3446,10 +3446,11 @@
   .template--product .price__default .price__current {
     font-size: 22px;
     line-height: 22px;
+    padding-inline-end: 0px;
   }
 
   .template--product .discount__price {
-    font-size: 10px;
+    font-size: 14px;
     line-height: 20px;
   }
 
