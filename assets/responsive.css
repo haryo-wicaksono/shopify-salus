@@ -548,6 +548,7 @@
 
   .template--product .product-main .product-info {
     padding-inline-start: 30px;
+    padding-inline-end: 0px;
   }
 
   .template--product .product-info .product-title {
@@ -1666,7 +1667,7 @@
   }
 
   .template--product .product-details__block {
-    margin: 30px 0 0;
+    margin: 20px 0 0;
   }
 
   .template--product .product-detail-title h3 {
@@ -3387,7 +3388,7 @@
     padding: 0;
     /* remove button padding */
     font-weight: 500;
-    font-size: 16px !important;
+    font-size: 14px !important;
     margin-left: 5px;
   }
 
@@ -3453,7 +3454,7 @@
   }
 
   .template--product .product-info .price__was {
-    font-size: 12px;
+    font-size: 18px;
   }
 
   .template--product .product-info .product-policies {
@@ -3464,6 +3465,7 @@
     font-size: 14px;
     line-height: 20px;
     padding: 10px 0;
+    margin-top: 30px;
   }
 
   .template--product .delivery-title h4 {
@@ -4593,6 +4595,11 @@
 
   .download-link-wrapper.spec-sheet {
     margin-top: 20px;
+  }
+
+  .template--product .product-info .product-title {
+    font-size: 22px;
+    line-height: 28px;
   }
 }
 
