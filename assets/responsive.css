@@ -1667,7 +1667,7 @@
   }
 
   .template--product .product-details__block {
-    margin: 20px 0 0;
+    margin: 7px 0 0;
   }
 
   .template--product .product-detail-title h3 {
@@ -4600,6 +4600,10 @@
   .template--product .product-info .product-title {
     font-size: 22px;
     line-height: 28px;
+  }
+
+  .product-info__block.product-info__block--sm.product-info__title {
+    margin-bottom: 0px;
   }
 }
 
