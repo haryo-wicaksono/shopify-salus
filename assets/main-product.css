@@ -47,7 +47,7 @@
 }
 
 .product-info .product-title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 500;
   line-height: 44px;
   margin-bottom: 0;
@@ -651,6 +651,7 @@ span.label-tooltip {
 .quick-atc-banner {
   background: #F9F9F9;
   padding: 15px;
+  border-bottom: 1px solid #dbdbd8;
 }
 
 .atc-banner-inner {
