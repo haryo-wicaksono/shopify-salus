@@ -52,7 +52,6 @@
         },
         "delivery_dTUxNH": {
           "type": "delivery",
-          "disabled": true,
           "settings": {
             "delivery": "{{ product.metafields.custom.delivery.value }}",
             "stock_left": "{{ product.metafields.custom.stock_left.value }}"
