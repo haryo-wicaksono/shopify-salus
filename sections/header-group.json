@@ -171,10 +171,10 @@
             "collection_use_product_image": false,
             "show_underline": true,
             "menu_products": [
+              "salus-ice-bath",
               "newfoundland",
               "dynamic",
-              "snowpiercer",
-              "cold-heat-chiller-system-with-wifi-app"
+              "snowpiercer"
             ],
             "product_tag_1": "New",
             "product_tag_2": "",
