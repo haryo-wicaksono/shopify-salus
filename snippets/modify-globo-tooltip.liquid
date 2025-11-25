@@ -260,8 +260,13 @@
     border-radius: 10px;
     padding: 16px;
     gap: 16px;
+    margin-top: 10px;
     width: 100%;
     display: inline-flex;
+  }
+
+  .wood-type-group .custom-variant-card:first-of-type {
+    margin-top: 0 !important;
   }
 
   /* Wood Type image - circular and smaller */
@@ -288,6 +293,16 @@
   /* Hide "FREE - Included with your order" for Wood Type */
   .wood-type-group .card-free-badge {
     display: none;
+  }
+
+  .wood-type-group .custom-variant-card {
+    border-color: #b4b4b4;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    background-color: #FFFFFF;
+  }
+
+  .wood-type-group .custom-variant-card.show-free-badge .card-free-badge {
+    display: inline-block;
   }
 
   /* Wood Type hover state */
@@ -452,6 +467,7 @@
 
       let productName = '';
       let priceHTML = '';
+      let isFree = false;          // 🔹 NEW
       const imageUrl = getImageUrl(input);
 
       for (let i=0; i<childDivs.length; i++){
@@ -464,7 +480,6 @@
             const match = value.match(/[\d,]+/);
             addOn.remove();
 
-            // NEW: remove tier label inside title
             const tierHelp = titleClone.querySelector('.gpo-ov-helptext');
             if (tierHelp) tierHelp.remove();
 
@@ -492,22 +507,28 @@
                     </div>`;
                 }
               } else {
+                // 🔹 FREE CASE
+                isFree = true;
                 priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
               }
             } else {
+              // 🔹 FREE CASE (no numeric match)
+              isFree = true;
               priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
             }
           } else {
-            // Clone and strip tier/help text for free items too
-            const titleClone = childDivs[i].cloneNode(true);
-            const tierHelp = titleClone.querySelector('.gpo-ov-helptext');
-            if (tierHelp) tierHelp.remove();
-            productName = titleClone.textContent.trim();
+            // 🔹 FREE CASE (no .addOn)
+            const titleClone2 = childDivs[i].cloneNode(true);
+            const tierHelp2 = titleClone2.querySelector('.gpo-ov-helptext');
+            if (tierHelp2) tierHelp2.remove();
+            productName = titleClone2.textContent.trim();
+            isFree = true;
             priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
           }
           break;
         }
       }
+
 
       if (!productName) return;
 
@@ -521,32 +542,51 @@
           ${priceHTML}
         </div>`;
 
+      const woodTypeGroup = input.closest('.wood-type-group');
+      if (woodTypeGroup) {
+        const woodTypeInputs = woodTypeGroup.querySelectorAll('input[gpo-data-variant-id]');
+        if (woodTypeInputs.length > 1 && isFree) {
+          card.classList.add('show-free-badge');
+        }
+      }
+
       card.addEventListener('click', (e) => {
         e.preventDefault();
 
         const inFreebies = input.closest('.freebies') !== null;
-        const inWoodType = input.closest('.wood-type-group') !== null;
 
-        // BLOCK CLICK for freebies AND wood type
-        if (inFreebies || inWoodType) return;
+        // Check if this card belongs to a Wood Type group
+        const woodTypeGroup = input.closest('.wood-type-group');
+        const woodTypeInputsCount = woodTypeGroup
+          ? woodTypeGroup.querySelectorAll('input[gpo-data-variant-id]').length
+          : 0;
+
+        // BLOCK click for:
+        //  - freebies (always)
+        //  - wood type ONLY when there is exactly 1 option
+        const blockWoodTypeClick = woodTypeGroup && woodTypeInputsCount === 1;
+        if (inFreebies || blockWoodTypeClick) return;
 
         if (input.type === 'checkbox') {
           input.checked = !input.checked;
         } else if (input.type === 'radio') {
-          const siblings = document.querySelectorAll(`input[type="radio"][name="${input.name}"][gpo-data-variant-id]`);
+          const siblings = document.querySelectorAll(
+            `input[type="radio"][name="${input.name}"][gpo-data-variant-id]`
+          );
           if (siblings.length === 1 && input.checked) input.checked = false;
           else input.checked = true;
         }
 
-        input.dispatchEvent(new Event('change', { bubbles:true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
 
         const groupInputs = document.querySelectorAll(`input[name="${input.name}"]`);
-        groupInputs.forEach(inp => {
+        groupInputs.forEach((inp) => {
           const vId = inp.getAttribute('gpo-data-variant-id');
           const c = document.querySelector(`.custom-variant-card[data-variant-id="${vId}"]`);
           if (c) c.classList.toggle('selected', !!inp.checked);
         });
       });
+
 
       // AUTO-SELECT FIRST WOOD TYPE VARIANT
       if (input.closest('.wood-type-group') && !document.querySelector('.wood-type-group input:checked')) {
