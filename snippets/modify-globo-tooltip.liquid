@@ -969,11 +969,17 @@
           ? woodTypeGroup.querySelectorAll('input[gpo-data-variant-id]').length
           : 0;
 
+        const parentGroup = input.closest('.gpo-element.gpo-form__group');
+        const groupLabelText = parentGroup
+          ? (parentGroup.querySelector('.gpo-label .label-content')?.textContent || '').toLowerCase()
+          : '';
+        const isWaterproofBoxesGroup = groupLabelText.includes('waterproof boxes');
+
         // BLOCK click for:
         //  - freebies (always)
         //  - wood type ONLY when there is exactly 1 option
         const blockWoodTypeClick = woodTypeGroup && woodTypeInputsCount === 1;
-        if (inFreebies || blockWoodTypeClick) return;
+        if (inFreebies || blockWoodTypeClick || isWaterproofBoxesGroup) return;
 
         if (input.type === 'checkbox') {
           input.checked = !input.checked;
@@ -1005,8 +1011,19 @@
 
       // Add change listener to sync when Globo changes the input
       input.addEventListener('change', () => {
+        const parentGroup = input.closest('.gpo-element.gpo-form__group');
+        const groupLabelText = parentGroup
+          ? (parentGroup.querySelector('.gpo-label .label-content')?.textContent || '').toLowerCase()
+          : '';
+        const isWaterproofBoxesGroup = groupLabelText.includes('waterproof boxes');
+
+        // 🔹 NEW: force Waterproof Boxes to stay selected
+        if (isWaterproofBoxesGroup && !input.checked) {
+          input.checked = true;             // re-check the input
+        }
+
         console.log(`🔔 Change event on ${variantId}, checked: ${input.checked}`);
-        syncCardWithInput(input);
+        syncCardWithInput(input);           // keep card .selected in sync
       });
 
       const ovItem = input.closest('.gpo-ov-item');
