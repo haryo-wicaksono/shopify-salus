@@ -89,7 +89,7 @@
   .card-title {
     font-size: 16px;
     font-weight: 600;
-    margin: 0 0 6px;
+    margin: 0px;
     color: #222120;
     line-height: 1.4;
   }
@@ -445,20 +445,21 @@
 
   /* === Smooth Description Dropdown Animation === */
   .card-description {
-    margin-top: 8px;
+    /* margin-top: 8px; */
     font-size: 13px;
     color: #444;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
     transition:
-      max-height 2s ease,
-      opacity 2s ease;
+      max-height 1.5s ease,
+      opacity 1.5s ease;
   }
 
   .card-description.open {
     max-height: 500px; /* Enough for long descriptions */
     opacity: 1;
+    padding-top: 8px;
   }
 
 {% endstyle %}
