@@ -238,6 +238,7 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     margin-top: 0;
+    gap: 0px;
   }
 
   .gpo-ov-wrapper.horizontal > .gpo-help-header {
@@ -451,7 +452,6 @@
     overflow: hidden;
     max-height: 0;
     opacity: 0;
-    padding-top: 8px;
     transition:
       max-height 1s linear,
       opacity 1s linear;
@@ -460,9 +460,165 @@
   .card-description.open {
     max-height: 500px; /* Enough for long descriptions */
     opacity: 1;
-    padding-top: 8px;
+    padding-top: 7px;
   }
 
+  /* Card is now a vertical stack: row at top, then mobile button, then description */
+  .custom-variant-card {
+    border: 1px solid #b4b4b4;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 0;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* space between main row, button, description */
+  }
+
+  /* Row that holds image + content */
+  .card-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .card-image-container {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9fafb;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .card-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-header-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .card-header-main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-desc-toggle {
+    border: 1px solid #b4b4b4;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: #f5f5f5;
+    cursor: pointer;
+    flex-shrink: 0;
+    min-width: 60px;
+  }
+
+  .card-desc-toggle:hover {
+    background: #e7e7e7;
+  }
+
+  /* Desktop */
+  @media (min-width: 769px) {
+    .card-desc-toggle--desktop {
+      display: inline-block;
+      margin-left: auto;     /* push to right side of the header row */
+    }
+    .card-desc-toggle--mobile {
+      display: none;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    /* header row stays row: image+content unaffected via .card-main */
+
+    .card-desc-toggle--desktop {
+      display: none;
+    }
+
+    .card-desc-toggle--mobile {
+      display: block;
+      width: 100%;
+      align-self: stretch;   /* full width of card */
+      text-align: center;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 20px;
+      background: #efefef;
+      margin-top: 4px;
+    }
+  }
+
+  /* Top-level card: vertical stack but LEFT aligned */
+  .custom-variant-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;  /* not center */
+    text-align: left;      /* default text left */
+  }
+
+  /* Row that holds image + title/price */
+  .card-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Title + price block */
+  .card-header-main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+  }
+
+  /* Make sure price + description also stay left */
+  .card-price-section,
+  .card-description {
+    text-align: left;
+  }
+
+  .card-desc-toggle {
+    border: 1px solid #b4b4b4;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: #f5f5f5;
+    cursor: pointer;
+    flex-shrink: 0;
+    min-width: 60px;
+    text-align: center;  /* center JUST the button label */
+  }
+
+  @media (max-width: 768px) {
+    .card-desc-toggle--mobile {
+      display: block;
+      width: 100%;
+      align-self: stretch;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 20px;
+      background: #efefef;
+      margin-top: 15px;
+    }
+  }
 {% endstyle %}
 
 <script>
@@ -657,7 +813,7 @@
           ${hasDescription ? `<div class="card-description">${description}</div>` : ``}
         </div>`; {% endcomment %}
 
-      card.innerHTML = `
+      {% comment %} card.innerHTML = `
         ${imageUrl ? `<div class="card-image-container"><img src="${imageUrl}" alt="${productName}" class="card-image"></div>` : ``}
         <div class="card-content">
 
@@ -681,7 +837,41 @@
             </button>` : ``}
 
           ${hasDescription ? `<div class="card-description">${description}</div>` : ``}
-        </div>`;
+        </div>`; {% endcomment %}
+      card.innerHTML = `
+        <div class="card-main">
+          ${imageUrl ? `
+            <div class="card-image-container">
+              <img src="${imageUrl}" alt="${productName}" class="card-image">
+            </div>` : ``}
+
+          <div class="card-content">
+            <div class="card-header-row">
+              <div class="card-header-main">
+                <h3 class="card-title">${productName}</h3>
+                ${priceHTML}
+              </div>
+
+              ${hasDescription ? `
+                <button type="button"
+                        class="card-desc-toggle card-desc-toggle--desktop"
+                        aria-expanded="false">
+                  Details
+                </button>` : ``}
+            </div>
+          </div>
+        </div>
+
+        ${hasDescription ? `
+          <button type="button"
+                  class="card-desc-toggle card-desc-toggle--mobile"
+                  aria-expanded="false">
+            Details
+          </button>` : ``}
+
+        ${hasDescription ? `<div class="card-description">${description}</div>` : ``}
+      `;
+
 
 
       {% comment %} if (hasDescription) {
