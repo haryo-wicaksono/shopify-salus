@@ -364,6 +364,58 @@
       font-size: 14px;
     }
   }
+  .card-header-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .card-header-row .card-title {
+    flex: 1 1 auto;  /* title takes remaining space */
+  }
+
+  .card-header-row .card-desc-toggle {
+    flex-shrink: 0;  /* button keeps its size */
+    margin-left: auto; /* pushes it to the far right */
+  }
+
+  .card-desc-toggle {
+    border: 1px solid #b4b4b4;
+    padding: 4px 10px;
+    flex-shrink: 0; 
+    display: flex-end;
+    border-radius: 999px;
+    font-size: 12px;
+    background: #f5f5f5;
+    cursor: pointer;
+    min-width: 52px;
+  }
+
+  .card-desc-toggle:hover {
+    background: #e7e7e7;
+  }
+
+  .card-description {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #444;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 1;
+    /* opacity: 0; */
+    transition:
+    max-height 1.5s ease;
+    /* max-height 1.5s ease,
+      opacity 1.5s ease; */
+  }
+
+  .card-description.open {
+    max-height: 500px; /* enough for long descriptions */
+    opacity: 1;
+  }
+
+
 {% endstyle %}
 
 <script>
@@ -532,23 +584,57 @@
 
       if (!productName) return;
 
+      const description = vmMap.get(variantId) || '';
+      const hasDescription = !!description;
+
       const card = document.createElement('div');
       card.className = 'custom-variant-card';
       card.setAttribute('data-variant-id', variantId);
-      card.innerHTML = `
+      {% comment %} card.innerHTML = `
         ${imageUrl ? `<div class="card-image-container"><img src="${imageUrl}" alt="${productName}" class="card-image"></div>` : ``}
         <div class="card-content">
           <h3 class="card-title">${productName}</h3>
           ${priceHTML}
+        </div>`; {% endcomment %}
+      card.innerHTML = `
+        ${imageUrl ? `<div class="card-image-container"><img src="${imageUrl}" alt="${productName}" class="card-image"></div>` : ``}
+        <div class="card-content">
+
+          <div class="card-header-row">
+            <h3 class="card-title">${productName}</h3>
+            ${hasDescription ? `<button type="button" class="card-desc-toggle" aria-expanded="false">Details</button>` : ``}
+          </div>
+
+          ${priceHTML}
+
+          ${hasDescription ? `<div class="card-description">${description}</div>` : ``}
         </div>`;
 
-      const woodTypeGroup = input.closest('.wood-type-group');
-      if (woodTypeGroup) {
-        const woodTypeInputs = woodTypeGroup.querySelectorAll('input[gpo-data-variant-id]');
-        if (woodTypeInputs.length > 1 && isFree) {
-          card.classList.add('show-free-badge');
+        if (hasDescription) {
+          const toggleBtn = card.querySelector('.card-desc-toggle');
+          const descEl = card.querySelector('.card-description');
+
+          // Start closed: no .open class
+
+          toggleBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const isOpen = descEl.classList.contains('open');
+
+            if (isOpen) {
+              // Closing
+              descEl.classList.remove('open');
+              toggleBtn.textContent = 'Details';
+              toggleBtn.setAttribute('aria-expanded', 'false');
+            } else {
+              // Opening
+              descEl.classList.add('open');
+              toggleBtn.textContent = 'Hide';
+              toggleBtn.setAttribute('aria-expanded', 'true');
+            }
+          });
         }
-      }
 
       card.addEventListener('click', (e) => {
         e.preventDefault();
