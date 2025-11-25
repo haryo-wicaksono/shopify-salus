@@ -453,14 +453,22 @@
     max-height: 0;
     opacity: 0;
     transition:
-      max-height 1s linear,
-      opacity 1s linear;
+      max-height 1s ease,
+      margin-top 1s ease-out,
+      opacity 1s ease;
+  }
+
+  .card-main ~ .card-description.open {
+    margin-top: 0px;
+  }
+
+  .card-main:has(~ .card-description.open) {
+    margin-bottom: 10px;
   }
 
   .card-description.open {
     max-height: 500px; /* Enough for long descriptions */
     opacity: 1;
-    padding-top: 7px;
   }
 
   /* Card is now a vertical stack: row at top, then mobile button, then description */
@@ -482,6 +490,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    transition: margin-bottom 1s ease-out;
   }
 
   .card-image-container {
@@ -549,6 +558,14 @@
 
     .card-desc-toggle--desktop {
       display: none;
+    }
+
+    .card-main:has(~ .card-description.open) {
+      margin-bottom: 0px;
+    }
+
+    .card-main ~ .card-description.open {
+      margin-top: 10px;
     }
 
     .card-desc-toggle--mobile {
