@@ -364,57 +364,102 @@
       font-size: 14px;
     }
   }
+  /* === Card Content Layout === */
+  .card-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* === Header Row (Desktop) === */
   .card-header-row {
     display: flex;
-    justify-content: flex-start;
     align-items: flex-start;
     gap: 8px;
   }
 
   .card-header-row .card-title {
-    flex: 1 1 auto;  /* title takes remaining space */
+    flex: 1 1 auto; /* Title takes all available space */
   }
 
-  .card-header-row .card-desc-toggle {
-    flex-shrink: 0;  /* button keeps its size */
-    margin-left: auto; /* pushes it to the far right */
-  }
-
+  /* === Base Button Style (Both Desktop + Mobile) === */
   .card-desc-toggle {
     border: 1px solid #b4b4b4;
-    padding: 4px 10px;
-    flex-shrink: 0; 
-    display: flex-end;
+    padding: 3px 14px;
     border-radius: 999px;
     font-size: 12px;
     background: #f5f5f5;
     cursor: pointer;
-    min-width: 52px;
+    flex-shrink: 0;
+    min-width: 60px;
   }
 
   .card-desc-toggle:hover {
     background: #e7e7e7;
   }
 
+  /* Desktop button alignment (right side of title row) */
+  .card-desc-toggle--desktop {
+    margin-left: auto;
+  }
+
+  /* === Mobile Layout === */
+  @media (max-width: 768px) {
+
+    /* Header row stacks vertically on mobile */
+    .card-header-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    /* Desktop button hidden on mobile */
+    .card-desc-toggle--desktop {
+      display: none;
+    }
+
+    /* Mobile button visible & full-width */
+    .card-desc-toggle--mobile {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 5px 14px;
+      margin-top: 7px;
+      font-size: 14px;
+      border-radius: 20px;
+      background: #efefef;
+    }
+  }
+
+  /* Desktop visibility (inverse of mobile) */
+  @media (min-width: 769px) {
+    .card-desc-toggle--desktop {
+      display: inline-block;
+    }
+    .card-desc-toggle--mobile {
+      display: none;
+    }
+  }
+
+  /* === Smooth Description Dropdown Animation === */
   .card-description {
     margin-top: 8px;
     font-size: 13px;
     color: #444;
     overflow: hidden;
     max-height: 0;
-    opacity: 1;
-    /* opacity: 0; */
+    opacity: 0;
     transition:
-    max-height 1.5s ease;
-    /* max-height 1.5s ease,
-      opacity 1.5s ease; */
+      max-height 2s ease,
+      opacity 2s ease;
   }
 
   .card-description.open {
-    max-height: 500px; /* enough for long descriptions */
+    max-height: 500px; /* Enough for long descriptions */
     opacity: 1;
   }
-
 
 {% endstyle %}
 
@@ -596,7 +641,7 @@
           <h3 class="card-title">${productName}</h3>
           ${priceHTML}
         </div>`; {% endcomment %}
-      card.innerHTML = `
+      {% comment %} card.innerHTML = `
         ${imageUrl ? `<div class="card-image-container"><img src="${imageUrl}" alt="${productName}" class="card-image"></div>` : ``}
         <div class="card-content">
 
@@ -608,33 +653,101 @@
           ${priceHTML}
 
           ${hasDescription ? `<div class="card-description">${description}</div>` : ``}
+        </div>`; {% endcomment %}
+
+      card.innerHTML = `
+        ${imageUrl ? `<div class="card-image-container"><img src="${imageUrl}" alt="${productName}" class="card-image"></div>` : ``}
+        <div class="card-content">
+
+          <div class="card-header-row">
+            <h3 class="card-title">${productName}</h3>
+            ${hasDescription ? `
+              <button type="button"
+                      class="card-desc-toggle card-desc-toggle--desktop"
+                      aria-expanded="false">
+                Details
+              </button>` : ``}
+          </div>
+
+          ${priceHTML}
+
+          ${hasDescription ? `
+            <button type="button"
+                    class="card-desc-toggle card-desc-toggle--mobile"
+                    aria-expanded="false">
+              Details
+            </button>` : ``}
+
+          ${hasDescription ? `<div class="card-description">${description}</div>` : ``}
         </div>`;
 
-        if (hasDescription) {
-          const toggleBtn = card.querySelector('.card-desc-toggle');
-          const descEl = card.querySelector('.card-description');
 
-          // Start closed: no .open class
+      {% comment %} if (hasDescription) {
+        const toggleBtn = card.querySelector('.card-desc-toggle');
+        const descEl = card.querySelector('.card-description');
 
-          toggleBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            event.stopPropagation();
+        // Start closed: no .open class
 
-            const isOpen = descEl.classList.contains('open');
+        toggleBtn.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
 
-            if (isOpen) {
-              // Closing
-              descEl.classList.remove('open');
-              toggleBtn.textContent = 'Details';
-              toggleBtn.setAttribute('aria-expanded', 'false');
-            } else {
-              // Opening
-              descEl.classList.add('open');
-              toggleBtn.textContent = 'Hide';
-              toggleBtn.setAttribute('aria-expanded', 'true');
-            }
-          });
+          const isOpen = descEl.classList.contains('open');
+
+          if (isOpen) {
+            // Closing
+            descEl.classList.remove('open');
+            toggleBtn.textContent = 'Details';
+            toggleBtn.setAttribute('aria-expanded', 'false');
+          } else {
+            // Opening
+            descEl.classList.add('open');
+            toggleBtn.textContent = 'Hide';
+            toggleBtn.setAttribute('aria-expanded', 'true');
+          }
+        });
+      } {% endcomment %}
+
+      if (hasDescription) {
+        const desktopBtn = card.querySelector('.card-desc-toggle--desktop');
+        const mobileBtn  = card.querySelector('.card-desc-toggle--mobile');
+        const descEl     = card.querySelector('.card-description');
+
+        function setState(isOpen) {
+          if (isOpen) {
+            descEl.classList.add('open');
+          } else {
+            descEl.classList.remove('open');
+          }
+
+          const label = isOpen ? 'Hide' : 'Details';
+          const expanded = isOpen ? 'true' : 'false';
+
+          if (desktopBtn) {
+            desktopBtn.textContent = label;
+            desktopBtn.setAttribute('aria-expanded', expanded);
+          }
+          if (mobileBtn) {
+            mobileBtn.textContent = label;
+            mobileBtn.setAttribute('aria-expanded', expanded);
+          }
         }
+
+        function toggleDesc(event) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const isOpen = descEl.classList.contains('open');
+          setState(!isOpen);
+        }
+
+        if (desktopBtn) desktopBtn.addEventListener('click', toggleDesc);
+        if (mobileBtn)  mobileBtn.addEventListener('click', toggleDesc);
+
+        // start collapsed
+        setState(false);
+      }
+
 
       card.addEventListener('click', (e) => {
         e.preventDefault();
