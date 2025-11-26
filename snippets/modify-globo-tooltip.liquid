@@ -107,7 +107,7 @@
     color: #222120;
   }
   .card-save-badge {
-    background: #1F8A81;
+    background: #1f8a81;
     color: #fff;
     padding: 3px 8px;
     border-radius: 3px;
@@ -117,7 +117,7 @@
   }
   .card-price-was {
     font-size: 14px;
-    color: #F03636;
+    color: #f03636;
     text-decoration: line-through;
     font-weight: 500;
   }
@@ -299,7 +299,7 @@
   .wood-type-group .custom-variant-card {
     border-color: #b4b4b4;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    background-color: #FFFFFF;
+    background-color: #ffffff;
   }
 
   .wood-type-group .custom-variant-card.show-free-badge .card-free-badge {
@@ -324,12 +324,13 @@
     align-items: center;
     justify-content: center;
   }
-  
-  .gpo-help-header.gpo-help-best p, .gpo-help-header.gpo-help-starters p{
+
+  .gpo-help-header.gpo-help-best p,
+  .gpo-help-header.gpo-help-starters p {
     margin: 0px;
   }
 
-  .gpo-help-header.gpo-help-pros p{
+  .gpo-help-header.gpo-help-pros p {
     margin-bottom: 0px;
     margin-top: 4px;
     display: inline-flex;
@@ -345,9 +346,9 @@
     justify-content: center;
     align-content: center;
   }
-  .gpo-help-header.gpo-help-pros svg path{
-    background-color: #33B6AB;
-    fill: #33B6AB;
+  .gpo-help-header.gpo-help-pros svg path {
+    background-color: #33b6ab;
+    fill: #33b6ab;
   }
 
   @media screen and (max-width: 768px) {
@@ -408,7 +409,6 @@
 
   /* === Mobile Layout === */
   @media (max-width: 768px) {
-
     /* Header row stacks vertically on mobile */
     .card-header-row {
       flex-direction: column;
@@ -545,7 +545,7 @@
   @media (min-width: 769px) {
     .card-desc-toggle--desktop {
       display: inline-block;
-      margin-left: auto;     /* push to right side of the header row */
+      margin-left: auto; /* push to right side of the header row */
     }
     .card-desc-toggle--mobile {
       display: none;
@@ -571,7 +571,7 @@
     .card-desc-toggle--mobile {
       display: block;
       width: 100%;
-      align-self: stretch;   /* full width of card */
+      align-self: stretch; /* full width of card */
       text-align: center;
       padding: 10px 14px;
       font-size: 14px;
@@ -586,8 +586,8 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    align-items: stretch;  /* not center */
-    text-align: left;      /* default text left */
+    align-items: stretch; /* not center */
+    text-align: left; /* default text left */
   }
 
   /* Row that holds image + title/price */
@@ -621,7 +621,7 @@
     cursor: pointer;
     flex-shrink: 0;
     min-width: 60px;
-    text-align: center;  /* center JUST the button label */
+    text-align: center; /* center JUST the button label */
   }
 
   @media (max-width: 768px) {
@@ -979,22 +979,44 @@
         //  - freebies (always)
         //  - wood type ONLY when there is exactly 1 option
         const blockWoodTypeClick = woodTypeGroup && woodTypeInputsCount === 1;
-        if (inFreebies || blockWoodTypeClick || isWaterproofBoxesGroup) return;
+        if (inFreebies || blockWoodTypeClick) return;
+
+        // --- normal toggle logic ---
+        let newChecked = input.checked;
 
         if (input.type === 'checkbox') {
-          input.checked = !input.checked;
+          newChecked = !input.checked;
+          input.checked = newChecked;
         } else if (input.type === 'radio') {
           const siblings = document.querySelectorAll(
             `input[type="radio"][name="${input.name}"][gpo-data-variant-id]`
           );
-          if (siblings.length === 1 && input.checked) input.checked = false;
-          else input.checked = true;
+          if (siblings.length === 1 && input.checked) {
+            newChecked = false;
+            input.checked = false;
+          } else {
+            newChecked = true;
+            input.checked = true;
+          }
         }
 
+        // 🔹 If this is the Waterproof Boxes group, mirror state to the other box
+        if (isWaterproofBoxesGroup && parentGroup) {
+          const pairInputs = parentGroup.querySelectorAll('input[gpo-data-variant-id]');
+          pairInputs.forEach((inp) => {
+            if (inp !== input) {
+              inp.checked = newChecked;
+              inp.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          });
+        }
+
+        // Fire change for clicked input
         input.dispatchEvent(new Event('change', { bubbles: true }));
 
-        const groupInputs = document.querySelectorAll(`input[name="${input.name}"]`);
-        groupInputs.forEach((inp) => {
+        // Re-sync all cards in this name group
+        const nameGroupInputs = document.querySelectorAll(`input[name="${input.name}"]`);
+        nameGroupInputs.forEach((inp) => {
           const vId = inp.getAttribute('gpo-data-variant-id');
           const c = document.querySelector(`.custom-variant-card[data-variant-id="${vId}"]`);
           if (c) c.classList.toggle('selected', !!inp.checked);
@@ -1017,14 +1039,21 @@
           : '';
         const isWaterproofBoxesGroup = groupLabelText.includes('waterproof boxes');
 
-        // 🔹 NEW: force Waterproof Boxes to stay selected
-        if (isWaterproofBoxesGroup && !input.checked) {
-          input.checked = true;             // re-check the input
+        // 🔹 If this is a Waterproof Box, mirror its state to the other box
+        if (isWaterproofBoxesGroup && parentGroup) {
+          const pairInputs = parentGroup.querySelectorAll('input[gpo-data-variant-id]');
+          pairInputs.forEach((inp) => {
+            if (inp !== input) {
+              inp.checked = input.checked;
+              syncCardWithInput(inp);
+            }
+          });
         }
 
         console.log(`🔔 Change event on ${variantId}, checked: ${input.checked}`);
-        syncCardWithInput(input);           // keep card .selected in sync
+        syncCardWithInput(input);
       });
+
 
       const ovItem = input.closest('.gpo-ov-item');
       if (ovItem?.parentElement) {
