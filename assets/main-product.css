@@ -88,11 +88,11 @@
 
 .product-info__delivery p {
   width: max-content;
-  background: #1b413e;
-  color: #fff;
+  background: #FFFFFF;
+  color: #222120;
   padding: 4px 20px;
   border-radius: 550px;
-  font-size: 16px;
+  border: 1px solid #222120;
   font-weight: 600;
   line-height: 31.5px;
   margin-bottom: 0;
