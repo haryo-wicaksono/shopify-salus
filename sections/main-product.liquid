@@ -157,6 +157,63 @@
                 {% render block %}
               </div>
 
+            {%- when 'questions_box' -%}
+              <div
+                class="product-info__block product-questions-box"
+                {{ block.shopify_attributes }}
+                style="border: 1px solid #e2e2e2; padding: 24px; border-radius: 5px; margin-top: 24px;"
+              >
+                <h3 class="h5" style="margin-top: 0; margin-bottom: 20px; font-weight: 600;">
+                  {{ block.settings.heading }}
+                </h3>
+
+                <div
+                  class="flex items-start mb-6"
+                  style="display: flex; gap: 15px; margin-bottom: 24px; align-items: center;"
+                >
+                  {%- if product.featured_media -%}
+                    <div style="width: 60px; height: 60px; flex-shrink: 0; overflow: hidden; border-radius: 4px; border: 1px solid #eee;">
+                      {% render 'image',
+                        image: product.featured_media,
+                        src_width: 120,
+                        aspect_ratio: 1,
+                        class: 'w-full h-full object-cover'
+                      %}
+                    </div>
+                  {%- endif -%}
+                  <div class="text-sm font-bold leading-tight" style="font-size: 14px; line-height: 1.4;">
+                    {{ product.title }}
+                  </div>
+                </div>
+
+                <div class="grid gap-3" style="display: grid; gap: 12px;">
+                  <a
+                    href="{{ block.settings.chat_link | default: '#' }}"
+                    class="btn btn--primary w-full"
+                    style="background-color: #1f4c46; color: white; border: none;"
+                    {% if block.settings.chat_link == blank %}
+                      onclick="if(window.ShopifyChat){window.ShopifyChat.showModal()} return false;"
+                    {% endif %}
+                  >
+                    {{ block.settings.chat_label }}
+                  </a>
+
+                  <a
+                    href="mailto:{{ block.settings.email_address }}"
+                    class="btn btn--secondary w-full"
+                    style="background-color: white; border: 1px solid #1f4c46; color: #1f4c46;"
+                  >
+                    {{ block.settings.email_label }}
+                  </a>
+                </div>
+
+                {%- if block.settings.phone_text != blank -%}
+                  <div class="text-center mt-4 text-sm" style="margin-top: 15px; text-align: center; font-size: 14px;">
+                    {{ block.settings.phone_text }}
+                  </div>
+                {%- endif -%}
+              </div>
+
             {%- when 'vendor-sku' -%}
               {%- if block.settings.show_vendor or block.settings.show_sku or block.settings.show_barcode -%}
                 <div
@@ -504,13 +561,15 @@
                       {% render 'message-box', block: block %}
                     {% endif %}
 
-                    {% comment %} {% if block.settings.show_price %}
-                      <div class=" product__atc-price product-price" {{ block.shopify_attributes }}>
-                        <div class="product-info__price">
-                          {% render 'price', product: product, use_variant: true %}
+                    {% comment %}
+                      {% if block.settings.show_price %}
+                        <div class=" product__atc-price product-price" {{ block.shopify_attributes }}>
+                          <div class="product-info__price">
+                            {% render 'price', product: product, use_variant: true %}
+                          </div>
                         </div>
-                      </div>
-                    {% endif %} {% endcomment %}
+                      {% endif %}
+                    {% endcomment %}
 
                     <input type="hidden" name="id" value="{{ current_variant.id }}" disabled>
 
@@ -523,12 +582,12 @@
 
                       <div class="product-info__add-button">
                         {%- capture add_to_cart_text -%}
-                        {%- if product.template_suffix contains 'preorder' -%}
-                          {{- 'products.product.preorder' | t -}}
-                        {%- else -%}
-                          {{- 'products.product.add_to_cart' | t -}}
-                        {%- endif -%}
-                      {%- endcapture -%}
+                          {%- if product.template_suffix contains 'preorder' -%}
+                            {{- 'products.product.preorder' | t -}}
+                          {%- else -%}
+                            {{- 'products.product.add_to_cart' | t -}}
+                          {%- endif -%}
+                        {%- endcapture -%}
                         <div class="trust-signal">
                           <img
                             src="{{ block.settings.trust_signal_icon | img_url:'master' }}"
@@ -723,21 +782,23 @@
                   </details>
                 </details-disclosure>
               {% endif %}
-            {% comment %} {% when 'message_box' %}
-              <div class="product-info__block product-info__block--sm product-message__box">
-                <div class="msg-box-wrappper">
-                  {% if block.settings.icon != blank -%}
-                    <div class="msg-box-img">
-                      <img src="{{ block.settings.icon | img_url:'master' }}" alt="{{ block.settings.icon.alt }}">
-                    </div>
-                  {%- endif %}
+              {% comment %}
+                {% when 'message_box' %}
+                <div class="product-info__block product-info__block--sm product-message__box">
+                  <div class="msg-box-wrappper">
+                    {% if block.settings.icon != blank -%}
+                      <div class="msg-box-img">
+                        <img src="{{ block.settings.icon | img_url:'master' }}" alt="{{ block.settings.icon.alt }}">
+                      </div>
+                    {%- endif %}
 
-                  <div class="msg-box-content">
-                    <h4>{{ block.settings.heading }}</h4>
-                    {{ block.settings.content }}
+                    <div class="msg-box-content">
+                      <h4>{{ block.settings.heading }}</h4>
+                      {{ block.settings.content }}
+                    </div>
                   </div>
                 </div>
-              </div> {% endcomment %}
+              {% endcomment %}
             {% when 'delivery_detail' %}
               <div class="product-info__block product-info__block--sm product-delivery-info">
                 <div class="delivery-wrapper">
@@ -1048,20 +1109,20 @@
 
             {%- when 'product-labels' -%}
               {%- capture variant_labels -%}
-              {%- for variant in product.variants -%}
-                {%- liquid
-                  assign variant_label = blank
-                  capture variant_label
-                    render 'product-label', product: product, variant: variant, is_product_card: false, limit: 99
-                  endcapture
-                -%}
-                {%- if variant_label != blank -%}
-                  <div class="variant-label js-variant-label" hidden data-variant-id="{{ variant.id }}">
-                    {{ variant_label }}
-                  </div>
-                {%- endif -%}
-              {%- endfor -%}
-            {%- endcapture -%}
+                {%- for variant in product.variants -%}
+                  {%- liquid
+                    assign variant_label = blank
+                    capture variant_label
+                      render 'product-label', product: product, variant: variant, is_product_card: false, limit: 99
+                    endcapture
+                  -%}
+                  {%- if variant_label != blank -%}
+                    <div class="variant-label js-variant-label" hidden data-variant-id="{{ variant.id }}">
+                      {{ variant_label }}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endcapture -%}
 
               {%- if variant_labels != blank -%}
                 <variant-label
@@ -1634,6 +1695,49 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "questions_box",
+      "name": "Questions Box",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Have questions about this product?"
+        },
+        {
+          "type": "text",
+          "id": "chat_label",
+          "label": "Chat Button Label",
+          "default": "Talk to a live agent"
+        },
+        {
+          "type": "url",
+          "id": "chat_link",
+          "label": "Chat Button Link",
+          "info": "Leave blank to trigger standard Shopify Chat"
+        },
+        {
+          "type": "text",
+          "id": "email_label",
+          "label": "Email Button Label",
+          "default": "Send us an email"
+        },
+        {
+          "type": "text",
+          "id": "email_address",
+          "label": "Email Address",
+          "default": "support@example.com"
+        },
+        {
+          "type": "text",
+          "id": "phone_text",
+          "label": "Phone Text",
+          "default": "or Call us (888) 287-0111"
+        }
+      ]
     },
     {
       "type": "product_tags",
