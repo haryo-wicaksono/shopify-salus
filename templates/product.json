@@ -16,6 +16,17 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "questions_box_iHEh4m": {
+          "type": "questions_box",
+          "settings": {
+            "heading": "Have questions about this product?",
+            "chat_label": "Talk to a live agent",
+            "chat_link": "",
+            "email_label": "Send us an email",
+            "email_address": "support@example.com",
+            "phone_text": "or Call us (888) 287-0111"
+          }
+        },
         "star_reviews_8rWEzf": {
           "type": "star_reviews",
           "settings": {
@@ -184,6 +195,7 @@
         }
       },
       "block_order": [
+        "questions_box_iHEh4m",
         "star_reviews_8rWEzf",
         "title",
         "vendor_sku_pLKcrj",
