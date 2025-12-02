@@ -2424,7 +2424,7 @@ div.gpo-group.gpo-form__group.gpo-col-12 {
 
 .template--product .product-main .product-info {
   padding-inline-start: 0px;
-  padding-inline-end: 70px;
+  /* padding-inline-end: 70px; */
 }
 
 .template--product .product .msg-box-wrappper {
@@ -2451,8 +2451,8 @@ div.gpo-group.gpo-form__group.gpo-col-12 {
 .template--product .main-product-wrapper .product.js-product {
   display: flex;
   position: relative;
-  padding-left: 100px;
-  padding-right: 70px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .main-product-wrapper {
