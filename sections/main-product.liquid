@@ -86,6 +86,74 @@
   {%- endif -%}
 {%- endstyle -%}
 
+<style>
+  /* 1. Styling the Questions Box */
+  .product-questions-box {
+    border: 1px solid #e2e2e2;
+    padding: 24px;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-top: 24px;
+  }
+
+  /* 2. Desktop 3-Column Layout */
+  @media (min-width: 1024px) {
+    .product.js-product {
+      display: grid !important;
+
+      /* THE KEY CHANGE IS HERE: */
+      /* Left (Images): Reduced to 42% (was 48%) */
+      /* Middle (Info): 1fr (Takes whatever is left) */
+      /* Right (Sidebar): Fixed at 300px */
+      grid-template-columns: 42% 1fr 300px !important;
+      gap: 10px;
+      align-items: start !important; /* Forces all columns to top-align */
+    }
+
+    /* Override Theme Limits on Middle Column */
+    .product-info {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding-top: 0 !important;
+    }
+
+    /* Sidebar Positioning */
+    .product-sidebar {
+      display: block !important;
+      width: 100% !important;
+      margin-top: 0 !important;
+    }
+
+    .product-questions-box {
+      margin-top: 0;
+      position: sticky;
+      top: 20px; /* Sticks to top when scrolling */
+    }
+
+    /* Safety: Hide sidebar in mobile/tablet views (handled by main liquid logic) */
+    .product-info .product-questions-box {
+      display: none !important;
+    }
+  }
+
+  /* 3. Tablet/Small Laptop Adjustment (1024px - 1300px) */
+  /* On smaller screens, 3 columns is too crowded. Revert to 2 columns. */
+  @media (min-width: 1024px) and (max-width: 1300px) {
+    .product.js-product {
+      grid-template-columns: 50% 1fr !important;
+    }
+    /* Hide the sidebar column */
+    .product-sidebar {
+      display: none !important;
+    }
+    /* Show the box inside the main info column instead */
+    .product-info .product-questions-box {
+      display: block !important;
+    }
+  }
+</style>
+
 {%- if first_3d_model -%}
   <link
     rel="stylesheet"
@@ -155,63 +223,6 @@
             {%- when '@app' -%}
               <div class="product-info__block product-info__block--sm" {{ block.shopify_attributes }}>
                 {% render block %}
-              </div>
-
-            {%- when 'questions_box' -%}
-              <div
-                class="product-info__block product-questions-box"
-                {{ block.shopify_attributes }}
-                style="border: 1px solid #e2e2e2; padding: 24px; border-radius: 5px; margin-top: 24px;"
-              >
-                <h3 class="h5" style="margin-top: 0; margin-bottom: 20px; font-weight: 600;">
-                  {{ block.settings.heading }}
-                </h3>
-
-                <div
-                  class="flex items-start mb-6"
-                  style="display: flex; gap: 15px; margin-bottom: 24px; align-items: center;"
-                >
-                  {%- if product.featured_media -%}
-                    <div style="width: 60px; height: 60px; flex-shrink: 0; overflow: hidden; border-radius: 4px; border: 1px solid #eee;">
-                      {% render 'image',
-                        image: product.featured_media,
-                        src_width: 120,
-                        aspect_ratio: 1,
-                        class: 'w-full h-full object-cover'
-                      %}
-                    </div>
-                  {%- endif -%}
-                  <div class="text-sm font-bold leading-tight" style="font-size: 14px; line-height: 1.4;">
-                    {{ product.title }}
-                  </div>
-                </div>
-
-                <div class="grid gap-3" style="display: grid; gap: 12px;">
-                  <a
-                    href="{{ block.settings.chat_link | default: '#' }}"
-                    class="btn btn--primary w-full"
-                    style="background-color: #1f4c46; color: white; border: none;"
-                    {% if block.settings.chat_link == blank %}
-                      onclick="if(window.ShopifyChat){window.ShopifyChat.showModal()} return false;"
-                    {% endif %}
-                  >
-                    {{ block.settings.chat_label }}
-                  </a>
-
-                  <a
-                    href="mailto:{{ block.settings.email_address }}"
-                    class="btn btn--secondary w-full"
-                    style="background-color: white; border: 1px solid #1f4c46; color: #1f4c46;"
-                  >
-                    {{ block.settings.email_label }}
-                  </a>
-                </div>
-
-                {%- if block.settings.phone_text != blank -%}
-                  <div class="text-center mt-4 text-sm" style="margin-top: 15px; text-align: center; font-size: 14px;">
-                    {{ block.settings.phone_text }}
-                  </div>
-                {%- endif -%}
               </div>
 
             {%- when 'vendor-sku' -%}
@@ -1140,6 +1151,63 @@
           </div>
           </sticky-scroll-direction>
         {%- endif -%}
+      </div>
+      <div class="product-sidebar">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'questions_box' -%}
+            <div class="product-info__block product-questions-box" {{ block.shopify_attributes }}>
+              <h3 class="h5" style="margin-top: 0; margin-bottom: 20px; font-weight: 600;">
+                {{ block.settings.heading }}
+              </h3>
+
+              <div
+                class="flex items-start mb-6"
+                style="display: flex; gap: 15px; margin-bottom: 24px; align-items: center;"
+              >
+                {%- if product.featured_media -%}
+                  <div style="width: 60px; height: 60px; flex-shrink: 0; overflow: hidden; border-radius: 4px; border: 1px solid #eee;">
+                    {% render 'image',
+                      image: product.featured_media,
+                      src_width: 120,
+                      aspect_ratio: 1,
+                      class: 'w-full h-full object-cover'
+                    %}
+                  </div>
+                {%- endif -%}
+                <div class="text-sm font-bold leading-tight" style="font-size: 14px; line-height: 1.4;">
+                  {{ product.title }}
+                </div>
+              </div>
+
+              <div class="grid gap-3" style="display: grid; gap: 12px;">
+                <a
+                  href="{{ block.settings.chat_link | default: '#' }}"
+                  class="btn btn--primary w-full"
+                  style="background-color: #1f4c46; color: white; border: none;"
+                  {% if block.settings.chat_link == blank %}
+                    onclick="if(window.ShopifyChat){window.ShopifyChat.showModal()} return false;"
+                  {% endif %}
+                >
+                  {{ block.settings.chat_label }}
+                </a>
+
+                <a
+                  href="mailto:{{ block.settings.email_address }}"
+                  class="btn btn--secondary w-full"
+                  style="background-color: white; border: 1px solid #1f4c46; color: #1f4c46;"
+                >
+                  {{ block.settings.email_label }}
+                </a>
+              </div>
+
+              {%- if block.settings.phone_text != blank -%}
+                <div class="text-center mt-4 text-sm" style="margin-top: 15px; text-align: center; font-size: 14px;">
+                  {{ block.settings.phone_text }}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
     </div>
   </div>
