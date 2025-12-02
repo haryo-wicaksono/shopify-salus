@@ -85,7 +85,7 @@
             "show_house_icon": false,
             "reviews_text": "100s of verified 5-star reviews",
             "headline": "Holiday savings are here. Last chance before stock runs out.",
-            "description": "<p>Save thousands and turn your home into a wellness haven for the holiday season.</p><p></p><p></p>",
+            "description": "<p>Save thousands and turn your home into a wellness haven for the holiday season.</p>",
             "button1_text": "Shop The Sale",
             "button1_link": "shopify://collections/all-saunas",
             "show_button1_arrow": true,
