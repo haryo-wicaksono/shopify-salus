@@ -78,7 +78,7 @@
 
   .product-main .product-media,
   .product-main+.product-details>.container {
-    width: calc(100% - var(--product-info-width));
+    /* width: calc(100% - var(--product-info-width)); */
     float: left;
     clear: left;
     border-inline-end: 1px solid rgba(var(--text-color) / 0.15);
@@ -89,7 +89,7 @@
     margin-bottom: 0;
     padding-top: calc(10 * var(--space-unit));
     padding-bottom: calc(10 * var(--space-unit));
-    padding-inline-end: calc(var(--product-column-padding) + 20px);
+    /* padding-inline-end: calc(var(--product-column-padding) + 20px); */
   }
 
   .product-main .product-info {
