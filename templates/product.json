@@ -11,6 +11,7 @@
   "sections": {
     "add_to_cart_banner_q9D9bA": {
       "type": "add-to-cart-banner",
+      "disabled": true,
       "settings": {}
     },
     "main": {
