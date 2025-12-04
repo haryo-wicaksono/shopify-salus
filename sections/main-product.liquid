@@ -90,7 +90,7 @@
   /* 1. Styling the Questions Box */
   .product-questions-box {
     border: 1px solid #e2e2e2;
-    padding: 24px;
+    padding: 15px;
     border-radius: 5px;
     background-color: #fff;
     margin-top: 24px;
@@ -105,8 +105,8 @@
       /* Left (Images): Reduced to 42% (was 48%) */
       /* Middle (Info): 1fr (Takes whatever is left) */
       /* Right (Sidebar): Fixed at 300px */
-      grid-template-columns: 35% 35% 30% !important;
-      gap: 20px;
+      grid-template-columns: 34% 34% 22% !important;
+      gap: 60px;
       align-items: start !important; /* Forces all columns to top-align */
     }
 
@@ -1175,7 +1175,7 @@
                     %}
                   </div>
                 {%- endif -%}
-                <div class="text-sm font-bold leading-tight" style="font-size: 14px; line-height: 1.4;">
+                <div class="text-sm leading-tight" style="font-size: 14px; font-weight: 500; line-height: 1.4;">
                   {{ product.title }}
                 </div>
               </div>
