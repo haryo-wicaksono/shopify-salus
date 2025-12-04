@@ -9526,7 +9526,10 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
   border-radius: 10px;
   position: relative;
   background: #fbf2e9;
-  margin: 40px 0px;
+  margin-top: 40px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .trust-signal {
