@@ -105,8 +105,8 @@
       /* Left (Images): Reduced to 42% (was 48%) */
       /* Middle (Info): 1fr (Takes whatever is left) */
       /* Right (Sidebar): Fixed at 300px */
-      grid-template-columns: 42% 1fr 300px !important;
-      gap: 10px;
+      grid-template-columns: 35% 35% 30% !important;
+      gap: 20px;
       align-items: start !important; /* Forces all columns to top-align */
     }
 
@@ -115,7 +115,7 @@
       width: 100% !important;
       max-width: 100% !important;
       margin: 0 !important;
-      padding-top: 0 !important;
+      padding-top: calc(15 * var(--space-unit)) !important;
     }
 
     /* Sidebar Positioning */
@@ -123,6 +123,7 @@
       display: block !important;
       width: 100% !important;
       margin-top: 0 !important;
+      padding-top: calc(15 * var(--space-unit)) !important;
     }
 
     .product-questions-box {
@@ -1182,15 +1183,11 @@
               <div class="grid gap-3" style="display: grid; gap: 12px;">
                 <a
                   href="{{ block.settings.chat_link | default: '#' }}"
-                  class="btn btn--primary w-full"
+                  class="btn btn--primary w-full js-open-livechat"
                   style="background-color: #1f4c46; color: white; border: none;"
-                  {% if block.settings.chat_link == blank %}
-                    onclick="if(window.ShopifyChat){window.ShopifyChat.showModal()} return false;"
-                  {% endif %}
                 >
                   {{ block.settings.chat_label }}
                 </a>
-
                 <a
                   href="mailto:{{ block.settings.email_address }}"
                   class="btn btn--secondary w-full"
@@ -1406,6 +1403,33 @@
       .catch(function (error) {
         console.error('Error copying to clipboard:', error);
       });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var chatButtons = document.querySelectorAll('.js-open-livechat');
+    if (!chatButtons.length) return;
+
+    function openLiveChat() {
+      // LiveChat v3 (the one you have)
+      if (window.LiveChatWidget && typeof LiveChatWidget.call === 'function') {
+        LiveChatWidget.call('maximize'); // open the widget
+        return;
+      }
+
+      // Fallback for older LiveChat installs (just in case)
+      if (window.LC_API && typeof LC_API.open_chat_window === 'function') {
+        LC_API.open_chat_window();
+      }
+    }
+
+    chatButtons.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault(); // prevent navigation to "#" or chat_link
+        openLiveChat();
+      });
+    });
   });
 </script>
 

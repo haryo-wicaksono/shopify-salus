@@ -20,6 +20,7 @@
   visibility: hidden;
   opacity: 0;
 }
+
 .revealable.revealable--in {
   visibility: visible;
   transition: opacity 0.4s, visibility 0.4s;
@@ -42,6 +43,7 @@
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
+
 .media-viewer::-webkit-scrollbar,
 .media-thumbs::-webkit-scrollbar {
   display: none;
@@ -51,6 +53,7 @@
 .media-thumbs__item {
   scroll-snap-align: start;
 }
+
 .media-viewer__item:not(:last-child),
 .media-thumbs__item:not(:last-child) {
   margin-inline-end: var(--media-gap);
@@ -65,7 +68,8 @@
   flex: 0 0 100%;
   text-align: center;
 }
-.media-viewer__item > deferred-media[loaded] {
+
+.media-viewer__item>deferred-media[loaded] {
   z-index: 3;
 }
 
@@ -82,7 +86,8 @@
   background-color: rgba(var(--bg-color));
   color: rgb(var(--text-color));
 }
-.media-poster__btn > .icon {
+
+.media-poster__btn>.icon {
   width: 40%;
   height: 40%;
 }
@@ -100,6 +105,7 @@
   background-color: var(--gallery-bg-color);
   border-radius: 10px;
 }
+
 .media-thumbs__btn::after {
   content: "";
   position: absolute;
@@ -126,11 +132,13 @@
   background-color: #fff;
   color: #333;
 }
+
 .media-thumbs__badge::before {
   content: "";
   padding-top: 100%;
 }
-.media-thumbs__badge > .icon {
+
+.media-thumbs__badge>.icon {
   position: absolute;
   width: 50%;
   height: 50%;
@@ -139,10 +147,12 @@
 .media-gallery deferred-media {
   background-color: var(--gallery-bg-color);
 }
+
 .media-gallery deferred-media[loaded] .media-poster {
   opacity: 0;
   pointer-events: none;
 }
+
 .media-gallery deferred-media .media-poster {
   z-index: 1;
 }
@@ -160,13 +170,16 @@
   z-index: 5;
   padding: calc(2 * var(--space-unit));
 }
+
 .media-ctrl__btn::after {
   width: calc(44px + var(--media-gutter) * 2);
   height: calc(44px + var(--media-gutter) * 2);
 }
+
 .media-ctrl__btn[name="prev"] {
   right: calc(3 *var(--media-gutter));
 }
+
 .media-ctrl__btn[name="next"] {
   right: var(--media-gutter);
 }
@@ -203,14 +216,16 @@
 }
 
 @media (max-width: 768.98px) {
-  .media-viewer__item > deferred-media[loaded] {
+  .media-viewer__item>deferred-media[loaded] {
     z-index: 5;
   }
 }
+
 @media (min-width: 769px) {
   .media-gallery {
     --media-gap: calc(3 * var(--space-unit));
   }
+
   .product-image.img-fit--contain,
   .zoom-image--contain {
     left: 50%;
@@ -218,63 +233,78 @@
     height: 100%;
     transform: translatex(-50%);
   }
+
   [dir="rtl"] .product-image.img-fit--contain,
   [dir="rtl"] .zoom-image--contain {
     right: 50%;
     left: auto;
     transform: translatex(50%);
   }
+
   .media--zoom {
     cursor: zoom-in;
   }
+
   .media--zoom .zoom-image {
     height: 100%;
     opacity: 0;
     object-fit: none;
     object-position: 50% 50%;
   }
+
   .media-viewer__item:not(:first-child) .media--zoom .zoom-image {
     display: block;
   }
+
   .media--zoom .product-image,
   .media--zoom .zoom-image {
     transition: opacity 0.1s;
   }
+
   .media--zoom:not(.media--zoom-not-loaded):hover .product-image {
     opacity: 0;
   }
+
   .media--zoom:not(.media--zoom-not-loaded):hover .zoom-image {
     display: block;
     opacity: 1;
   }
+
   .product-media--stacked {
     /* Prevent lazy loading all stacked images on page load */
   }
+
   .product-media--stacked .media-viewer {
     flex-wrap: wrap;
     margin: 0 calc(var(--media-gap) * -1) calc(var(--media-gap) * -1) 0;
   }
+
   .product-media--stacked .media-gallery__viewer {
     border: 0;
     background-color: transparent;
   }
+
   .product-media--stacked .media-viewer__item {
     margin: 0;
     padding: 0 var(--media-gap) var(--media-gap) 0;
   }
+
   .product-media--stacked .media-viewer__item .media,
   .product-media--stacked .media-viewer__item deferred-media,
   .product-media--stacked .media-viewer__item product-model {
     border: 1px solid var(--gallery-border-color);
     background-color: var(--gallery-bg-color);
   }
+
   .product-media--stacked .zoom-image {
     display: none;
     transition: opacity 0.5s;
   }
+
   .product-media--stacked .media--zoom:hover .zoom-image {
     display: block;
   }
+
   .media--cover {
     top: -1px;
     right: -1px;
@@ -283,6 +313,7 @@
     width: auto;
     height: auto;
   }
+
   .product-media--stacked .media-viewer__item .media::after {
     content: "";
     position: absolute;
@@ -294,13 +325,16 @@
     background-color: rgb(var(--text-color));
   }
 }
+
 @media (min-width: 1024px) {
   .media-gallery {
     --media-gutter: calc(6 * var(--space-unit));
   }
+
   .media-thumbs__item {
-    flex: 0 0 143px;
+    flex: 0 0 100px;
   }
+
   .product-media--stacked .media-viewer__item:not(.media-viewer__item--single) {
     flex: 0 0 50%;
   }
