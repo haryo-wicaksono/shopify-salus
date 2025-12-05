@@ -156,6 +156,12 @@
     }
   }
 
+  @media screen and (max-width: 768px) {
+    .product-sidebar {
+      margin-top: 40px;
+    }
+  }
+
   /* Hide LiveChat minimized bubble on product pages only */
   #chat-widget-minimized {
     display: none !important;
@@ -175,6 +181,8 @@
     background: #1B413E;
     color: #FFFFFF;
     padding: 10px 0px;
+    font-size: 16px;
+    font-weight: 500;
   }
 
   button.extra-atc-btn:hover {
@@ -189,6 +197,8 @@
     background: #FFFFFF;
     border-radius: 5px;
     padding: 10px 0px;
+    font-size: 16px;
+    font-weight: 500;
   }
 
   a.js-open-livechat:hover {
@@ -422,7 +432,7 @@
                   <p>
                     {{ block.settings.delivery | append: ' Delivery' }}
                   </p>
-                  {% assign free_shipping_text =  product.metafields.custom.product_tag_free_shipping %}
+                  {% assign free_shipping_text = product.metafields.custom.product_tag_free_shipping %}
                   <p>{{ free_shipping_text }}</p>
                   {% if block.settings.stock_left != blank %}
                     <div
@@ -1275,7 +1285,7 @@
               {%- if block.settings.email_address != blank -%}
                 <div
                   class="text-center mt-4 text-sm"
-                  style="margin-top: 15px; text-align: center; font-size: 14px;"
+                  style="margin-top: 15px; text-align: center; font-size: 15px; font-weight: 500"
                 >
                   or
                   <a

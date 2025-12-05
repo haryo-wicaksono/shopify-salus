@@ -3040,9 +3040,9 @@
     line-height: 25px;
   }
 
-  .main-product-wrapper {
+  /* .main-product-wrapper {
     padding-bottom: 40px;
-  }
+  } */
 
   body .cc-multi-column .milti-column-sec .lg\:auto-cols-4 {
     column-gap: 20px !important;
