@@ -160,6 +160,28 @@
   #chat-widget-minimized {
     display: none !important;
   }
+
+  .product-info__block.product-questions-box h3 {
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 32px;
+  }
+
+  #hv-qns-col-atc {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #1b413e;
+    color: #ffffff;
+    padding: 10px 0px;
+  }
+
+  #talk-to-live-agent-btn {
+    background-color: #ffffff;
+    color: #222120;
+    border: 1px solid #222120;
+    border-radius: 5px;
+    padding: 10px 0px;
+  }
 </style>
 
 {%- if first_3d_model -%}
@@ -615,6 +637,7 @@
                           <span>{{ block.settings.trust_signal_heading }}</span>
                         </div>
                         <button
+                          id="main-product-atc-{{ section.id }}"
                           type="submit"
                           data-add-to-cart-text="{{ add_to_cart_text | escape }}"
                           class="btn {% if enable_dynamic_checkout %}btn--primary{% else %}btn--secondary{% endif %} w-full {% if product.available %}product-atc-btn{% endif %}"
@@ -1164,7 +1187,7 @@
         {%- for block in section.blocks -%}
           {%- if block.type == 'questions_box' -%}
             <div class="product-info__block product-questions-box" {{ block.shopify_attributes }}>
-              <h3 class="h5" style="margin-top: 0; margin-bottom: 20px; font-weight: 600;">
+              <h3 class="h5" style="margin-top: 0; margin-bottom: 20px;">
                 {{ block.settings.heading }}
               </h3>
 
@@ -1173,12 +1196,12 @@
                 style="display: flex; gap: 15px; margin-bottom: 24px; align-items: center;"
               >
                 {%- if product.featured_media -%}
-                  <div style="width: 60px; height: 60px; flex-shrink: 0; overflow: hidden; border-radius: 4px; border: 1px solid #eee;">
+                  <div style="width: 100px; height: 100px; background-color: #fbf2e9; flex-shrink: 0; overflow: hidden; border-radius: 4px; border: 1px solid #eee;">
                     {% render 'image',
                       image: product.featured_media,
                       src_width: 120,
                       aspect_ratio: 1,
-                      class: 'w-full h-full object-cover'
+                      class: 'w-full h-full object-cover have-questions-column-product-image'
                     %}
                   </div>
                 {%- endif -%}
@@ -1188,27 +1211,76 @@
               </div>
 
               <div class="grid gap-3" style="display: grid; gap: 12px;">
+                {%- capture extra_atc_text -%}
+                  {%- if product.template_suffix contains 'preorder' -%}
+                    {{- 'products.product.preorder' | t -}}
+                  {%- else -%}
+                    {{- 'products.product.add_to_cart' | t -}}
+                  {%- endif -%}
+                {%- endcapture -%}
+
+                <button
+                  type="button"
+                  class="btn btn--primary w-full extra-atc-btn"
+                  id="hv-qns-col-atc"
+                  {% unless product.available %}
+                    disabled
+                  {% endunless %}
+                  onclick="
+                    (function() {
+                      var atc = document.getElementById('main-product-atc-{{ section.id }}');
+                      if (atc && !atc.disabled) {
+                        atc.click();
+                      }
+                    })();
+                  "
+                >
+                  {%- if product.available -%}
+                    {{ extra_atc_text }}
+                  {%- else -%}
+                    {{ 'products.product.sold_out' | t }}
+                  {%- endif -%}
+                </button>
                 <a
                   href="{{ block.settings.chat_link | default: '#' }}"
                   class="btn btn--primary w-full js-open-livechat"
-                  style="background-color: #1f4c46; color: white; border: none;"
+                  id="talk-to-live-agent-btn"
                 >
                   {{ block.settings.chat_label }}
                 </a>
-                <a
-                  href="mailto:{{ block.settings.email_address }}"
-                  class="btn btn--secondary w-full"
-                  style="background-color: white; border: 1px solid #1f4c46; color: #1f4c46;"
-                >
-                  {{ block.settings.email_label }}
-                </a>
+                {% comment %}
+                  <a
+                    href="mailto:{{ block.settings.email_address }}"
+                    class="btn btn--secondary w-full"
+                    style="background-color: white; border: 1px solid #1f4c46; color: #1f4c46;"
+                  >
+                    {{ block.settings.email_label }}
+                  </a>
+                {% endcomment %}
               </div>
 
-              {%- if block.settings.phone_text != blank -%}
-                <div class="text-center mt-4 text-sm" style="margin-top: 15px; text-align: center; font-size: 14px;">
-                  {{ block.settings.phone_text }}
+              {%- if block.settings.email_address != blank -%}
+                <div
+                  class="text-center mt-4 text-sm"
+                  style="margin-top: 15px; text-align: center; font-size: 14px;"
+                >
+                  or
+                  <a
+                    href="mailto:{{ block.settings.email_address }}"
+                    style="text-decoration: underline;"
+                  >
+                    send us an email
+                  </a>
                 </div>
               {%- endif -%}
+
+              {% comment %}
+                {%- if block.settings.phone_text != blank -%}
+                  <div class="text-center mt-4 text-sm" style="margin-top: 15px; text-align: center; font-size: 14px;">
+                    {{ block.settings.phone_text }}
+                  </div>
+                {%- endif -%}
+              {% endcomment %}
             </div>
           {%- endif -%}
         {%- endfor -%}
@@ -1828,7 +1900,7 @@
           "type": "text",
           "id": "email_address",
           "label": "Email Address",
-          "default": "support@example.com"
+          "default": "sales@salussaunas.com"
         },
         {
           "type": "text",
