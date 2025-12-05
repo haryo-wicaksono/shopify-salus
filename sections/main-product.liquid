@@ -167,20 +167,33 @@
     line-height: 32px;
   }
 
-  #hv-qns-col-atc {
-    width: 100%;
+  button.extra-atc-btn {
+    {% comment %} width: 100%; {% endcomment %}
     border-radius: 5px;
-    background-color: #1b413e;
-    color: #ffffff;
+    {% comment %} background-color: #1b413e; {% endcomment %}
+    border: 1px solid #222120;
+    background: #1B413E;
+    color: #FFFFFF;
     padding: 10px 0px;
   }
 
-  #talk-to-live-agent-btn {
-    background-color: #ffffff;
-    color: #222120;
+  button.extra-atc-btn:hover {
+    background:#1F8A81;
+    border: 1px solid #1F8A81;
+  }
+
+  a.js-open-livechat {
+    {% comment %} background-color: #ffffff !important; {% endcomment %}
+    color: #222120 !important;
     border: 1px solid #222120;
+    background: #FFFFFF;
     border-radius: 5px;
     padding: 10px 0px;
+  }
+
+  a.js-open-livechat:hover {
+    background: #222120;
+    color: #FFFFFF !important;
   }
 </style>
 
@@ -409,6 +422,8 @@
                   <p>
                     {{ block.settings.delivery | append: ' Delivery' }}
                   </p>
+                  {% assign free_shipping_text =  product.metafields.custom.product_tag_free_shipping %}
+                  <p>{{ free_shipping_text }}</p>
                   {% if block.settings.stock_left != blank %}
                     <div
                       class="product-info__block product-info__block--sm product-info__stock-warning"
@@ -1222,7 +1237,6 @@
                 <button
                   type="button"
                   class="btn btn--primary w-full extra-atc-btn"
-                  id="hv-qns-col-atc"
                   {% unless product.available %}
                     disabled
                   {% endunless %}
@@ -1244,7 +1258,6 @@
                 <a
                   href="{{ block.settings.chat_link | default: '#' }}"
                   class="btn btn--primary w-full js-open-livechat"
-                  id="talk-to-live-agent-btn"
                 >
                   {{ block.settings.chat_label }}
                 </a>
