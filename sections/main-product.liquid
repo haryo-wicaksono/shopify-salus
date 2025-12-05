@@ -178,20 +178,37 @@
     border-radius: 5px;
     {% comment %} background-color: #1b413e; {% endcomment %}
     border: 1px solid #222120;
-    background: #1B413E;
-    color: #FFFFFF;
+    background: #FFFFFF;
+    color: #222120;
     padding: 10px 0px;
     font-size: 16px;
     font-weight: 500;
   }
 
   button.extra-atc-btn:hover {
-    background:#1F8A81;
-    border: 1px solid #1F8A81;
+    background:#1B413E;
+    border: 1px solid #1B413E;
+    color: #FFFFFF;
+    transition: none;
   }
 
   a.js-open-livechat {
     {% comment %} background-color: #ffffff !important; {% endcomment %}
+    color: #FFFFFF !important;
+    border: 1px solid #1B413E;
+    background: #1B413E;
+    border-radius: 5px;
+    padding: 10px 0px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  a.js-open-livechat:hover {
+    background: #1F8A81 !important;
+    border: 1px solid #1F8A81 !important;
+    color: #FFFFFF !important;
+  }
+  a.send-us-email {
     color: #222120 !important;
     border: 1px solid #222120;
     background: #FFFFFF;
@@ -201,9 +218,32 @@
     font-weight: 500;
   }
 
-  a.js-open-livechat:hover {
-    background: #222120;
+  a.send-us-email:hover {
+    background: #1B413E !important;
+    border: 1px solid #1B413E !important;
     color: #FFFFFF !important;
+  }
+
+  .or-separator {
+    display: flex;
+    align-items: center;      /* centers OR vertically between lines */
+    justify-content: center;  /* ensures both sides stretch evenly */
+    gap: 12px;                /* spacing between line and OR */
+    width: 100%;
+  }
+
+  .or-separator hr {
+    flex: 1;                  /* makes both lines equal length */
+    margin: 0;                /* removes default HR margins */
+    border: none;             /* remove default border */
+    border-top: 1px solid #bdbdbd; /* subtle grey line like screenshot */
+  }
+
+  .or-separator p {
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+    color: #333;              /* match screenshot text color */
   }
 </style>
 
@@ -1236,6 +1276,28 @@
               </div>
 
               <div class="grid gap-3" style="display: grid; gap: 12px;">
+                <a
+                  href="{{ block.settings.chat_link | default: '#' }}"
+                  class="btn w-full js-open-livechat"
+                >
+                  {{ block.settings.chat_label }}
+                </a>
+
+                {%- if block.settings.email_address != blank -%}
+                  <a
+                    href="mailto:{{ block.settings.email_address }}"
+                    class="btn w-full send-us-email"
+                  >
+                    Send us an Email
+                  </a>
+                {%- endif -%}
+
+                <div class="or-separator">
+                  <hr>
+                  <p>OR</p>
+                  <hr>
+                </div>
+
                 {%- capture extra_atc_text -%}
                   {%- if product.template_suffix contains 'preorder' -%}
                     {{- 'products.product.preorder' | t -}}
@@ -1246,7 +1308,7 @@
 
                 <button
                   type="button"
-                  class="btn btn--primary w-full extra-atc-btn"
+                  class="btn w-full extra-atc-btn"
                   {% unless product.available %}
                     disabled
                   {% endunless %}
@@ -1265,12 +1327,6 @@
                     {{ 'products.product.sold_out' | t }}
                   {%- endif -%}
                 </button>
-                <a
-                  href="{{ block.settings.chat_link | default: '#' }}"
-                  class="btn btn--primary w-full js-open-livechat"
-                >
-                  {{ block.settings.chat_label }}
-                </a>
                 {% comment %}
                   <a
                     href="mailto:{{ block.settings.email_address }}"
@@ -1282,20 +1338,22 @@
                 {% endcomment %}
               </div>
 
-              {%- if block.settings.email_address != blank -%}
-                <div
-                  class="text-center mt-4 text-sm"
-                  style="margin-top: 15px; text-align: center; font-size: 15px; font-weight: 500"
-                >
-                  or
-                  <a
-                    href="mailto:{{ block.settings.email_address }}"
-                    style="text-decoration: underline;"
+              {% comment %}
+                {%- if block.settings.email_address != blank -%}
+                  <div
+                    class="text-center mt-4 text-sm"
+                    style="margin-top: 15px; text-align: center; font-size: 15px; font-weight: 500"
                   >
-                    send us an email
-                  </a>
-                </div>
-              {%- endif -%}
+                    or
+                    <a
+                      href="mailto:{{ block.settings.email_address }}"
+                      style="text-decoration: underline;"
+                    >
+                      send us an email
+                    </a>
+                  </div>
+                {%- endif -%}
+              {% endcomment %}
 
               {% comment %}
                 {%- if block.settings.phone_text != blank -%}
