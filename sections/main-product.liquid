@@ -267,7 +267,7 @@
       transition: none;
     }
     a.send-us-email {
-      color: #222120 !important;
+      color: #222120;
       border: 1px solid #222120;
       background: #FFFFFF;
       border-radius: 5px;
@@ -277,9 +277,9 @@
     }
 
     a.send-us-email:hover {
-      background: #1F8A81 !important;
-      border: 1px solid #1F8A81 !important;
-      color: #FFFFFF !important;
+      background: #1F8A81;
+      border: 1px solid #1F8A81;
+      color: #FFFFFF;
       transition: none;
     }
 
@@ -378,12 +378,13 @@
       font-weight: 500;
     }
 
-    {% comment %} .product-questions-box a.send-us-email:focus,
-    .product-questions-box a.send-us-email:active {
-      background-color: #E6F3F2;
+    .product-questions-box a.send-us-email:focus,
+    .product-questions-box a.send-us-email:active,
+    .product-questions-box a.send-us-email:hover {
+      background-color: #1B8A81;
       border-color: #1B8A81;
-      color: #1B8A81 !important;
-    } {% endcomment %}
+      color: #FFFFFF !important;
+    }
 
     /* 3) Add to cart – solid */
     .product-questions-box button.extra-atc-btn {
@@ -401,12 +402,13 @@
       font-weight: 500;
     }
 
-    {% comment %} .product-questions-box button.extra-atc-btn:focus,
-    .product-questions-box button.extra-atc-btn:active {
+    .product-questions-box button.extra-atc-btn:focus,
+    .product-questions-box button.extra-atc-btn:active,
+    .product-questions-box button.extra-atc-btn:hover {
       background-color: #186f69;
       border-color: #186f69;
       color: #FFFFFF;
-    } {% endcomment %}
+    }
 
     .media-gallery__thumbs.no-js-hidden {
       display: none;
