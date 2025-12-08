@@ -639,6 +639,64 @@
 {% endstyle %}
 
 <script>
+
+  function captureBasePriceOnce() {
+    if (basePriceCents !== null) return;
+
+    const el = document.querySelector('.product-info__price .price__current');
+    if (!el) return;
+
+    const raw = el.textContent || '';
+    // Strip everything except digits and dot → "2,200.00" → "2200.00"
+    const numeric = raw.replace(/[^0-9.]/g, '');
+    const value = parseFloat(numeric);
+
+    if (!isNaN(value)) {
+      basePriceCents = Math.round(value * 100); // store in cents
+      console.log('[GPO] Base price captured:', basePriceCents);
+    }
+  }
+
+  function getSelectedAddonTotalCents() {
+    let total = 0;
+
+    document
+      .querySelectorAll('input[gpo-data-variant-id]:checked')
+      .forEach((input) => {
+        const vid = input.getAttribute('gpo-data-variant-id');
+        const addon = addonPriceByVariantId.get(vid);
+
+        if (addon && addon > 0) {
+          // addon is in normal units (e.g. 700 → $700)
+          total += Math.round(addon * 100);
+        }
+      });
+
+    return total;
+  }
+
+  function formatMoneyFromCents(cents) {
+    // Adjust locale/currency if needed
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(cents / 100);
+  }
+
+  function updateDisplayedPriceWithAddons() {
+    captureBasePriceOnce();
+    if (basePriceCents === null) return;
+
+    const priceEl = document.querySelector('.product-info__price .price__current');
+    if (!priceEl) return;
+
+    const addonsCents = getSelectedAddonTotalCents();
+    const totalCents = basePriceCents + addonsCents;
+
+    priceEl.textContent = formatMoneyFromCents(totalCents);
+    console.log('[GPO] Total price (base + addons):', totalCents);
+  }
+
   /* === Build cards from GPO tooltips (kept as-is, minor safety tweaks) === */
   const vmsString = {{ variant_metafields_string | default: '' | json }};
   const vrpString = {{ variant_real_price_string | default: '' | json }};
@@ -647,6 +705,10 @@
   const vrpMap = new Map();
   const processedCards = new Set();
   const inputCache = new Map();
+
+  const addonPriceByVariantId = new Map(); // variantId -> add-on price (number, in product currency units)
+  let basePriceCents = null;               // captured once from the initial page price
+
 
   if (vrpString) {
     vrpString.split("<delimiter_second>").forEach((segment) => {
@@ -761,6 +823,8 @@
               const valNum = match[0].replace(/,/g, '');
               if (valNum && valNum !== '0') {
                 const currentPrice = parseInt(valNum, 10);
+                addonPriceByVariantId.set(variantId, currentPrice);  // 👈 store add-on price
+
                 const currentPriceFormatted = `$${currentPrice.toLocaleString('en-US')}`;
 
                 if (vrpMap.has(variantId)) {
@@ -779,15 +843,18 @@
                     </div>`;
                 }
               } else {
-                // 🔹 FREE CASE
+                // FREE CASE
                 isFree = true;
+                addonPriceByVariantId.set(variantId, 0); // 👈 treat as 0
                 priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
               }
             } else {
-              // 🔹 FREE CASE (no numeric match)
+              // FREE CASE (no numeric match)
               isFree = true;
+              addonPriceByVariantId.set(variantId, 0);   // 👈 treat as 0
               priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
             }
+
           } else {
             // 🔹 FREE CASE (no .addOn)
             const titleClone2 = childDivs[i].cloneNode(true);
@@ -795,6 +862,7 @@
             if (tierHelp2) tierHelp2.remove();
             productName = titleClone2.textContent.trim();
             isFree = true;
+            addonPriceByVariantId.set(variantId, 0);  // 👈 here too
             priceHTML = '<div class="card-free-badge">FREE - Included with your order</div>';
           }
           break;
@@ -1021,6 +1089,8 @@
           const c = document.querySelector(`.custom-variant-card[data-variant-id="${vId}"]`);
           if (c) c.classList.toggle('selected', !!inp.checked);
         });
+        updateDisplayedPriceWithAddons();
+
       });
 
 
@@ -1046,6 +1116,8 @@
             if (inp !== input) {
               inp.checked = input.checked;
               syncCardWithInput(inp);
+              updateDisplayedPriceWithAddons();
+
             }
           });
         }
@@ -1081,6 +1153,8 @@
     });
 
     if (cardsCreated > 0) console.log(`✅ Created ${cardsCreated} cards`);
+    updateDisplayedPriceWithAddons();
+
   }
 
   let freebiesStyled = false;
