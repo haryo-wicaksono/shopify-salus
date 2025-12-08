@@ -643,18 +643,39 @@
   function captureBasePriceOnce() {
     if (basePriceCents !== null) return;
 
-    const el = document.querySelector('.product-info__price .price__current');
-    if (!el) return;
+    const firstBlock = document.querySelector('.product-info__price');
+    if (!firstBlock) return;
 
-    const raw = el.textContent || '';
-    // Strip everything except digits and dot → "2,200.00" → "2200.00"
-    const numeric = raw.replace(/[^0-9.]/g, '');
-    const value = parseFloat(numeric);
+    const currentEl = firstBlock.querySelector('.price__current');
+    const wasEl     = firstBlock.querySelector('.price__was');
 
-    if (!isNaN(value)) {
-      basePriceCents = Math.round(value * 100); // store in cents
-      console.log('[GPO] Base price captured:', basePriceCents);
+    if (currentEl) {
+      const centsAttr = currentEl.getAttribute('data-base-price-cents');
+      const parsed = parseInt(centsAttr, 10);
+      if (!isNaN(parsed)) {
+        basePriceCents = parsed;
+      }
     }
+
+    if (wasEl) {
+      const compareAttr = wasEl.getAttribute('data-base-compare-cents');
+      const parsedCompare = parseInt(compareAttr, 10);
+      if (!isNaN(parsedCompare)) {
+        baseCompareCents = parsedCompare;
+      }
+    }
+
+    console.log('[GPO] basePriceCents =', basePriceCents, 'baseCompareCents =', baseCompareCents);
+  }
+
+  function formatMoneyFromCents(cents) {
+    // Adjust currency if needed
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(cents / 100);
   }
 
   function getSelectedAddonTotalCents() {
@@ -683,18 +704,111 @@
     }).format(cents / 100);
   }
 
+  {% comment %} function updateDisplayedPriceWithAddons() {
+    captureBasePriceOnce();
+    if (basePriceCents === null) return;
+
+    let addonsCurrentCents = 0;
+    let addonsWasCents = 0;
+
+    // Sum selected add-on prices
+    document.querySelectorAll('input[gpo-data-variant-id]:checked').forEach((input) => {
+      const vid = input.getAttribute('gpo-data-variant-id');
+
+      // 1) Current / discounted add-on price
+      const addon = addonPriceByVariantId.get(vid);
+      if (addon && addon > 0) {
+        addonsCurrentCents += Math.round(addon * 100);
+      }
+
+      // 2) Original "real" add-on price for compare_at
+      let real = null;
+      if (vrpMap.has(vid)) {
+        real = parseFloat(vrpMap.get(vid));   // real price from metafield
+      } else if (addonPriceByVariantId.has(vid)) {
+        real = addonPriceByVariantId.get(vid); // fallback to current if no real_price
+      }
+      if (real && real > 0) {
+        addonsWasCents += Math.round(real * 100);
+      }
+    });
+
+    const totalCurrentCents = basePriceCents + addonsCurrentCents;
+
+    const hasCompare = baseCompareCents != null && !isNaN(baseCompareCents);
+    const totalWasCents = hasCompare ? baseCompareCents + addonsWasCents : null;
+
+    // Apply to ALL price blocks (main, sticky, etc.)
+    document.querySelectorAll('.product-info__price').forEach((block) => {
+      const priceEl    = block.querySelector('.price__current');
+      const wasEl      = block.querySelector('.price__was');
+      const discountEl = block.querySelector('.discount__price');
+
+      if (priceEl) {
+        priceEl.textContent = formatMoneyFromCents(totalCurrentCents);
+      }
+
+      if (wasEl && totalWasCents !== null) {
+        wasEl.textContent = formatMoneyFromCents(totalWasCents);
+      }
+
+      if (discountEl) {
+        if (totalWasCents !== null) {
+          const diff = totalWasCents - totalCurrentCents;
+          if (diff > 0) {
+            discountEl.textContent = ' ' + formatMoneyFromCents(diff) + ' off ';
+          } else {
+            discountEl.textContent = '';
+          }
+        } else {
+          discountEl.textContent = '';
+        }
+      }
+    });
+
+    console.log('[GPO] totals → current:', totalCurrentCents, 'was:', totalWasCents);
+  } {% endcomment %}
+
+  function formatMoneyNoDecimals(cents) {
+    return '$' + Math.round(cents / 100).toLocaleString('en-US');
+  }
+
   function updateDisplayedPriceWithAddons() {
     captureBasePriceOnce();
     if (basePriceCents === null) return;
 
-    const priceEl = document.querySelector('.product-info__price .price__current');
-    if (!priceEl) return;
+    let addonsCurrentCents = 0;
 
-    const addonsCents = getSelectedAddonTotalCents();
-    const totalCents = basePriceCents + addonsCents;
+    // Sum selected add-ons (discounted values)
+    document.querySelectorAll('input[gpo-data-variant-id]:checked').forEach((input) => {
+      const vid = input.getAttribute('gpo-data-variant-id');
+      const addon = addonPriceByVariantId.get(vid);
+      if (addon && addon > 0) {
+        addonsCurrentCents += Math.round(addon * 100);
+      }
+    });
 
-    priceEl.textContent = formatMoneyFromCents(totalCents);
-    console.log('[GPO] Total price (base + addons):', totalCents);
+    const totalCurrentCents = basePriceCents + addonsCurrentCents;
+
+    const hasCompare = baseCompareCents != null && !isNaN(baseCompareCents);
+    const totalWasCents = hasCompare ? baseCompareCents + addonsCurrentCents : null;
+
+    document.querySelectorAll('.product-info__price').forEach((block) => {
+      const priceEl = block.querySelector('.price__current');
+      const wasEl   = block.querySelector('.price__was');
+
+      if (priceEl) {
+        priceEl.textContent = formatMoneyNoDecimals(totalCurrentCents);
+      }
+
+      if (wasEl && totalWasCents !== null) {
+        wasEl.textContent = formatMoneyNoDecimals(totalWasCents);
+      }
+
+      // discountEl intentionally untouched
+    });
+
+    console.log('[GPO] totals → current:', totalCurrentCents, 'was:', totalWasCents);
   }
 
   /* === Build cards from GPO tooltips (kept as-is, minor safety tweaks) === */
@@ -708,7 +822,7 @@
 
   const addonPriceByVariantId = new Map(); // variantId -> add-on price (number, in product currency units)
   let basePriceCents = null;               // captured once from the initial page price
-
+  let baseCompareCents = null;    // original compare_at in cents (or null)
 
   if (vrpString) {
     vrpString.split("<delimiter_second>").forEach((segment) => {
@@ -1124,6 +1238,7 @@
 
         console.log(`🔔 Change event on ${variantId}, checked: ${input.checked}`);
         syncCardWithInput(input);
+        updateDisplayedPriceWithAddons(); // 👈 and here
       });
 
 

@@ -31,12 +31,26 @@
     {%- if product.price_varies and use_variant == false %}
       <span class="price__from">{{ 'products.product.from' | t }}</span>
     {%- endif %}
-    <strong class="price__current">{%- render 'price-as-money', price: price -%}</strong>
+    <strong
+      class="price__current"
+      data-base-price-cents="{{ price }}"
+    >
+      {%- render 'price-as-money', price: price -%}
+    </strong>
+
     {%- if compare_at_price and compare_at_price > price -%}
-      {% assign off_price = compare_at_price | minus: price | money %}
-      <span class="discount__price"> {{ off_price }} off </span>
-    {% endif %}
-    <s class="price__was{% if settings.superscript_decimals %} price__was--supercents{% endif %}">
+      <span class="discount__price">
+        {% assign off_price = compare_at_price | minus: price | money %}
+        {{ off_price }} off
+      </span>
+    {%- endif -%}
+
+    <s
+      class="price__was{% if settings.superscript_decimals %} price__was--supercents{% endif %}"
+      {% if compare_at_price and compare_at_price > price %}
+        data-base-compare-cents="{{ compare_at_price }}"
+      {% endif %}
+    >
       {%- if compare_at_price and compare_at_price > price -%}
         {%- render 'price-as-money', price: compare_at_price, show_money_with_currency: false -%}
       {%- endif -%}
