@@ -22,15 +22,17 @@
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{% if rtl %}rtl{% else %}ltr{% endif %}">
   <head>
     {% comment %} intelligems script {% endcomment %}
-    {% comment %} <script>
-      window.Shopify = window.Shopify || {theme: {id: {{ theme.id }}, role: '{{ theme.role }}' } };
-      window._template = {
-      directory: "{{ template.directory }}",
-      name: "{{ template.name }}",
-      suffix: "{{ template.suffix }}"
-      };
-    </script>
-    <script type="module" blocking="render" fetchpriority="high" src="https://cdn.intelligems.io/esm/ac9d57a1a1f5/bundle.js" async></script> {% endcomment %}
+    {% comment %}
+      <script>
+        window.Shopify = window.Shopify || {theme: {id: {{ theme.id }}, role: '{{ theme.role }}' } };
+        window._template = {
+        directory: "{{ template.directory }}",
+        name: "{{ template.name }}",
+        suffix: "{{ template.suffix }}"
+        };
+      </script>
+      <script type="module" blocking="render" fetchpriority="high" src="https://cdn.intelligems.io/esm/ac9d57a1a1f5/bundle.js" async></script>
+    {% endcomment %}
     {%- render 'doc-head-core' -%}
     {%- render 'doc-head-social' -%}
     <script>
@@ -374,21 +376,22 @@
     {%- endif -%}
     <script>
       _affirm_config = {
-        public_api_key: "RJH7204OM2NLPPT9",
-        script: "https://cdn1.affirm.com/js/v2/affirm.js"
+        public_api_key: 'RJH7204OM2NLPPT9',
+        script: 'https://cdn1.affirm.com/js/v2/affirm.js',
       };
     </script>
     <script async src="https://cdn1.affirm.com/js/v2/affirm.js"></script>
-    {% comment %} <script>
-      _affirm_config = {
-        public_api_key: "RKAWDY403Q0QTATW",
-        script: "https://cdn1-sandbox.affirm.com/js/v2/affirm.js"
-      };
-    </script>
-    <script async src="https://cdn1-sandbox.affirm.com/js/v2/affirm.js"></script>
+    {% comment %}
+      <script>
+          _affirm_config = {
+            public_api_key: "RKAWDY403Q0QTATW",
+            script: "https://cdn1-sandbox.affirm.com/js/v2/affirm.js"
+          };
+        </script>
+        <script async src="https://cdn1-sandbox.affirm.com/js/v2/affirm.js"></script>
 
-  <meta name="google-site-verification" content="0uWHCHbz77UF9uCiwAgbwXEoeyRwjzbTRCPjfcCmWRI" /> {% endcomment %}
-    
+      <meta name="google-site-verification" content="0uWHCHbz77UF9uCiwAgbwXEoeyRwjzbTRCPjfcCmWRI" />
+    {% endcomment %}
   </head>
 
   <body
@@ -402,7 +405,12 @@
 
     {%- sections 'header-group' -%}
 
-    <main id="main-content" {% if template == 'index' %} class="overflow-x-hidden" {% endif %}>
+    <main
+      id="main-content"
+      {% if template == 'index' %}
+        class="overflow-x-hidden"
+      {% endif %}
+    >
       {%- liquid
         assign show_breadcrumbs = false
         if settings.show_breadcrumbs_product and request.page_type == 'product'
@@ -562,90 +570,89 @@
 
     {% if template.name == 'login' or template.name == 'register' %}
       <script>
-        document.addEventListener('DOMContentLoaded', function(){
+        document.addEventListener('DOMContentLoaded', function () {
           const togglePassword = document.getElementById('togglePassword');
           const password = document.querySelector('.login-password__input');
           const email = document.getElementById('customer-email');
-          const rmCheck = document.getElementById("rememberMe");
+          const rmCheck = document.getElementById('rememberMe');
           const loginBtn = document.getElementById('smbt-login');
 
           // **** SHOW AND HIDE PASSWORD ***
-          if(togglePassword){
+          if (togglePassword) {
             togglePassword.addEventListener('click', (e) => {
-            e.preventDefault();
-            if(password.type === 'password'){
-              togglePassword.classList.add('active');
-              password.type ="text";
-            }else{
-              password.type ="password";
-              togglePassword.classList.remove('active');
-            }
-          });
+              e.preventDefault();
+              if (password.type === 'password') {
+                togglePassword.classList.add('active');
+                password.type = 'text';
+              } else {
+                password.type = 'password';
+                togglePassword.classList.remove('active');
+              }
+            });
           }
 
-
           //*** REMEMBER ME ****
-          if(rmCheck){
-            if (localStorage.checkbox && localStorage.checkbox !== "") {
-                rmCheck.setAttribute("checked", "checked");
-                email.value = localStorage.email;
-                password.value = localStorage.password;
-
+          if (rmCheck) {
+            if (localStorage.checkbox && localStorage.checkbox !== '') {
+              rmCheck.setAttribute('checked', 'checked');
+              email.value = localStorage.email;
+              password.value = localStorage.password;
             } else {
-                rmCheck.removeAttribute("checked");
-                email.value = "";
-                password.value="";
+              rmCheck.removeAttribute('checked');
+              email.value = '';
+              password.value = '';
             }
           }
 
           loginBtn.addEventListener('click', (e) => {
-              if (rmCheck.checked && email.value !== "" &&  password.value !== "") {
-                  localStorage.email = email.value;
-                  localStorage.password = password.value;
+            if (rmCheck.checked && email.value !== '' && password.value !== '') {
+              localStorage.email = email.value;
+              localStorage.password = password.value;
 
-                  localStorage.checkbox = rmCheck.value;
-              } else {
-                  localStorage.email = "";
-                  localStorage.password = "";
-                  localStorage.checkbox = "";
-              }
-          })
+              localStorage.checkbox = rmCheck.value;
+            } else {
+              localStorage.email = '';
+              localStorage.password = '';
+              localStorage.checkbox = '';
+            }
+          });
         });
       </script>
     {% endif %}
 
     <!-- *** LOAD MORE - OUR ICONS *** -->
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        const gridItems = document.querySelectorAll(".milti-column-sec .loadMore__items .multi-column");
-        const loadButton = document.querySelector(".load-more .btn");
+      document.addEventListener('DOMContentLoaded', function () {
+        const gridItems = document.querySelectorAll('.milti-column-sec .loadMore__items .multi-column');
+        const loadButton = document.querySelector('.load-more .btn');
 
         gridItems.forEach((item, index) => {
-
-          if (index >= 12){
+          if (index >= 12) {
             item.style.display = 'none';
-            console.log('Total Columns: ', gridItems.length , "Current Column : " , index);
+            console.log('Total Columns: ', gridItems.length, 'Current Column : ', index);
           }
         });
 
-        if(loadButton){
-          if (document.querySelectorAll(".milti-column-sec .loadMore__items .multi-column:not([style*='display: none'])").length === 0) {
-            loadButton.setAttribute("disabled", "true");
+        if (loadButton) {
+          if (
+            document.querySelectorAll(".milti-column-sec .loadMore__items .multi-column:not([style*='display: none'])")
+              .length === 0
+          ) {
+            loadButton.setAttribute('disabled', 'true');
           }
 
-          loadButton.addEventListener("click", function(event) {
-              event.preventDefault();
-              const hiddenItems = Array.from(gridItems).filter(item => item.style.display === 'none');
-              hiddenItems.slice(0, 4).forEach(item => {
-                item.style.display = '';
-                item.style.transition = 'height 0.3s ease-out';
-                item.style.height = 'auto';
-              });
+          loadButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            const hiddenItems = Array.from(gridItems).filter((item) => item.style.display === 'none');
+            hiddenItems.slice(0, 4).forEach((item) => {
+              item.style.display = '';
+              item.style.transition = 'height 0.3s ease-out';
+              item.style.height = 'auto';
+            });
 
-              if (hiddenItems.length <= 3) {
-                loadButton.setAttribute("disabled", "true");
-              }
-
+            if (hiddenItems.length <= 3) {
+              loadButton.setAttribute('disabled', 'true');
+            }
           });
         }
       });
@@ -656,12 +663,12 @@
       function updateRequiredAttribute() {
         const inputs = document.querySelectorAll('.social-handles-wrapper .input');
         let isAnyFieldFilled = false;
-        inputs.forEach(input => {
+        inputs.forEach((input) => {
           if (input.value.trim() !== '') {
             isAnyFieldFilled = true;
           }
         });
-        inputs.forEach(input => {
+        inputs.forEach((input) => {
           if (isAnyFieldFilled) {
             input.removeAttribute('required');
           } else {
@@ -670,7 +677,7 @@
         });
       }
       // Attach event listeners to input fields
-      document.querySelectorAll('.social-handles-wrapper .input').forEach(input => {
+      document.querySelectorAll('.social-handles-wrapper .input').forEach((input) => {
         input.addEventListener('input', updateRequiredAttribute);
       });
       updateRequiredAttribute();
@@ -679,7 +686,7 @@
     <!-- COLLECTION DUAL PRICE RANGE SLIDER -->
     {% if template.name == 'search' or template.name == 'collection' %}
       <script>
-         const rangeInputs = document.querySelectorAll(".price-range__sliders input");
+        const rangeInputs = document.querySelectorAll('.price-range__sliders input');
 
         function updateCSSVariables() {
           const min = parseInt(rangeInputs[0].value);
@@ -690,7 +697,7 @@
           document.documentElement.style.setProperty('--max', (max / rangeMax) * 100);
         }
 
-        rangeInputs.forEach(input => {
+        rangeInputs.forEach((input) => {
           input.addEventListener('input', updateCSSVariables);
         });
 
@@ -698,42 +705,42 @@
         updateCSSVariables();
       </script>
       <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
           function updateTrackBackground(minSlider, maxSlider, trackBackground) {
             const minValue = parseInt(minSlider.value);
             const maxValue = parseInt(maxSlider.value);
             const rangeMax = parseInt(minSlider.max);
-        
+
             const minPercent = (minValue / rangeMax) * 100;
             const maxPercent = (maxValue / rangeMax) * 100;
-        
+
             trackBackground.style.background = `linear-gradient(to right, white ${minPercent}%, #1f8a81 ${minPercent}%, #1f8a81 ${maxPercent}%, white ${maxPercent}%)`;
           }
-        
+
           function initSlider() {
             const minSlider = document.getElementById('price-range-slider-min');
             const maxSlider = document.getElementById('price-range-slider-max');
             const trackBackground = document.querySelector('.track-background');
-        
+
             if (!minSlider || !maxSlider || !trackBackground) return;
-        
-            minSlider.addEventListener('input', function() {
+
+            minSlider.addEventListener('input', function () {
               updateTrackBackground(minSlider, maxSlider, trackBackground);
             });
-            maxSlider.addEventListener('input', function() {
+            maxSlider.addEventListener('input', function () {
               updateTrackBackground(minSlider, maxSlider, trackBackground);
             });
-        
+
             // Set initial track background
             updateTrackBackground(minSlider, maxSlider, trackBackground);
           }
-        
+
           // Initial setup on page load
           initSlider();
-        
+
           // Observe DOM changes
-          const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
+          const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
               if (mutation.addedNodes.length || mutation.removedNodes.length) {
                 setTimeout(() => {
                   initSlider();
@@ -741,7 +748,7 @@
               }
             });
           });
-        
+
           observer.observe(document.body, {
             childList: true,
             subtree: true,
@@ -752,13 +759,25 @@
     {% if template.name == 'product' %}
       <script>
         // document.addEventListener('DOMContentLoaded', () => {
-          let elements = document.querySelectorAll('p, div, li, strong, span');
-          console.log(elements.length);
-          elements.forEach(ele => {
-            ele.removeAttribute('data-mce-fragment');
-          })
+        let elements = document.querySelectorAll('p, div, li, strong, span');
+        console.log(elements.length);
+        elements.forEach((ele) => {
+          ele.removeAttribute('data-mce-fragment');
+        });
         // });
       </script>
+    {% endif %}
+
+    {% if template contains 'product' %}
+      <style>
+        @media screen and (max-width: 768px) {
+          /* Hide Klaviyo teaser badge ONLY on product pages */
+          [class^='kl-teaser-'],
+          [class*=' kl-teaser-'] {
+            display: none !important;
+          }
+        }
+      </style>
     {% endif %}
   </body>
 </html>

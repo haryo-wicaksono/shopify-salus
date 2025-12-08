@@ -22,8 +22,8 @@
 }
 
 .product-page-section-header__star-rating svg {
-  width: 18px;
-  height: 17px;
+  width: 17px;
+  height: 16px;
 }
 
 .product-page-section-header__reviews-text {
@@ -165,7 +165,8 @@
 
 @media screen and (max-width: 768px) {
   .product-page-section-header__reviews-text {
-    font-size: 14px;
+    font-size: 12px;
+    margin-top: 1px;
   }
 }
 
