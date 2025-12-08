@@ -181,3 +181,23 @@
     padding-bottom: calc(15 * var(--space-unit));
   }
 }
+
+.product-questions-box .product-info__price .price__current,
+.product-questions-box .product-info__price .price__was {
+  font-size: 14px;
+  font-weight: 500;
+  padding-right: 0px;
+}
+
+.product-questions-box .product-info__price .price__default {
+  gap: 10px;
+}
+
+.product-questions-box .product-info__price .discount__price {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.product-questions-box .product-info__price+hr {
+  margin-top: 15px;
+}
