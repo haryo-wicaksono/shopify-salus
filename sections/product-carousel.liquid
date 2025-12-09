@@ -1,3 +1,113 @@
+<style>
+  .product-page-card__reviews .product-page-card__star-rating svg {
+    width: 15px;
+    height: 15px;
+  }
+  .product-ext-tags + .product-info__block.product-info__block--sm.product-price.product-card__price {
+    margin-top: 0px;
+  }
+
+  .product-page-card__reviews {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap; /* Prevent wrapping */
+  }
+
+  .product-page-card__reviews .product-page-card__star-rating {
+    display: flex; /* Ensure stars stay inline */
+    flex-shrink: 0; /* Don't let stars compress */
+  }
+
+  .product-page-card__reviews .product-page-card__reviews-text {
+    margin-bottom: 0;
+    margin-left: 5px;
+    margin-top: 3px;
+    font-size: 13px;
+    font-weight: 400;
+    white-space: nowrap; /* Prevent text from wrapping */
+    flex-shrink: 0; /* Don't compress the text */
+  }
+
+  /* Tags - Fluid Full Width (35:65 Split) */
+  .product-ext-tags {
+    display: flex !important;
+    flex-flow: row nowrap !important;
+    align-items: center;
+    gap: 6px;
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .product-ext-tags .free-shipping-tag {
+    flex: 1 1 43%;
+    max-width: calc(43% - 3px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1a1a1a;
+    background-color: transparent;
+    border-radius: 9999px;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  .product-ext-tags .pd-delivery {
+    flex: 1 1 57%;
+    max-width: calc(57% - 3px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1a1a1a;
+    background-color: transparent;
+    border-radius: 9999px;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  /* Price Row */
+  .product-carousel-price {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .product-carousel-price__current {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .product-carousel-price__discount {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid #208b81;
+    background-color: #208b81;
+    color: #fff;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .product-carousel-price__compare {
+    font-size: 18px;
+    font-weight: 400;
+    color: #6b7280;
+    text-decoration: line-through;
+  }
+</style>
+
 <div class="carousel-background-wrapper">
   <div class="carousel-section mx-auto">
     {%- if section.settings.affirm_product != blank -%}
@@ -46,26 +156,27 @@
               {%- endif -%}
             </div>
             <div class="product-info">
-              <div class="shipping-tag">
-                {% if product.metafields.custom.product_tag_free_shipping != blank %}
-                  <div class="card-shipping-tag">
-                    <span
-                      ><img src="{{ 'shipping-icon.svg' | asset_url }}" alt="shipping icon indicator">
-                      {{- product.metafields.custom.product_tag_free_shipping -}}
-                    </span>
-                  </div>
-                {% endif %}
-              </div>
-              <a href="{{ product.url }}" class="product-title">{{ product.title }}</a>
+              {% comment %}
+                <div class="shipping-tag">
+                  {% if product.metafields.custom.product_tag_free_shipping != blank %}
+                    <div class="card-shipping-tag">
+                      <span
+                        ><img src="{{ 'shipping-icon.svg' | asset_url }}" alt="shipping icon indicator">
+                        {{- product.metafields.custom.product_tag_free_shipping -}}
+                      </span>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endcomment %}
               {% comment %} {%- assign rating_metafield = product.metafields.reviews.rating.value -%} {% endcomment %}
               {% comment %} {%- assign rating_value_as_number = rating_metafield.rating | plus: 0 -%} {% endcomment %}
               {% comment %}
                 {%- if rating_metafield and rating_value_as_number > 0 -%}
-                  <div class="star-rating">
-                    <span class="stars" style="--rating: {{ rating_metafield.rating | default: 0 }};"></span>
-                    <span>({{ product.metafields.reviews.rating_count }})</span>
-                  </div>
-                {%- endif -%}
+                    <div class="star-rating">
+                      <span class="stars" style="--rating: {{ rating_metafield.rating | default: 0 }};"></span>
+                      <span>({{ product.metafields.reviews.rating_count }})</span>
+                      </div>
+                  {%- endif -%}
               {% endcomment %}
               {% comment %}
                 {%- if settings.card_show_rating -%}
@@ -73,16 +184,54 @@
                     <div class="jdgm-widget jdgm-preview-badge">
                       <span class="rating-counter">{{ product.metafields.reviews.rating.value }}</span>
                       {{ product.metafields.judgeme.badge }}
-                    </div>
+                      </div>
                   </div>
                 {% endif %}
               {% endcomment %}
-              <div class="price">
-                <span class="current-price">{{ product.price | money }}</span>
+              <a href="{{ product.url }}" class="product-title">{{ product.title }}</a>
+
+              {% comment %}
+                <div class="product-page-card__reviews">
+                  <span class="product-page-card__star-rating">
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                  </span>
+                  <p class="product-page-card__reviews-text">Rated 5-stars by hundreds</p>
+                </div>
+              {% endcomment %}
+
+              <div class="product-ext-tags">
+                <span class="free-shipping-tag">Free Shipping</span>
+                <span class="pd-delivery">{{ product.metafields.custom.delivery | append: ' Delivery' }}</span>
+              </div>
+
+              <div class="product-carousel-price">
+                <span class="product-carousel-price__current">{{ product.price | money_without_trailing_zeros }}</span>
                 {%- if product.compare_at_price > product.price -%}
-                  <span class="compare-at-price">{{ product.compare_at_price | money }}</span>
+                  {%- assign discount_amount = product.compare_at_price | minus: product.price -%}
+                  <span class="product-carousel-price__discount">${{ discount_amount | divided_by: 100 }} off</span>
+                  <span class="product-carousel-price__compare">
+                    {{- product.compare_at_price | money_without_trailing_zeros -}}
+                  </span>
                 {%- endif -%}
               </div>
+
+              {% comment %}
+                {%- if settings.card_price_bottom == false -%}
+                  {%- render 'price', product: product, class: 'price--top' -%}
+                {%- endif -%}
+              {% endcomment %}
+              {% comment %}
+                <div class="price">
+                  <span class="current-price">{{ product.price | money }}</span>
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="compare-at-price">{{ product.compare_at_price | money }}</span>
+                  {%- endif -%}
+                </div>
+              {% endcomment %}
               <a href="{{ product.url }}" class="learn-more-btn">Learn More</a>
             </div>
           </div>

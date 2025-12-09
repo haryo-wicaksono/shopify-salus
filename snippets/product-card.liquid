@@ -106,6 +106,28 @@
   endif
 -%}
 
+<style>
+  .product-page-section-header__reviews.product-card__reviews {
+    display: flex;
+  }
+  .product-page-section-header__reviews.product-card__reviews .product-page-section-header__reviews-text {
+    margin-bottom: 0px;
+    margin-left: 5px;
+  }
+  .product-page-section-header__reviews.product-card__reviews .product-page-section-header__star-rating svg {
+    width: 16px;
+    height: 16px;
+  }
+  .product-ext-tags + .product-info__block.product-info__block--sm.product-price.product-card__price {
+    margin-top: 0px;
+  }
+
+  .product-info__block.product-info__block--sm.product-info__pay.product-card__financing
+    .affirm-as-low-as.custom-affirm {
+    text-align: start;
+  }
+</style>
+
 <link
   rel="stylesheet"
   href="{{ 'product-card' | asset_url }}"
@@ -322,8 +344,8 @@
             </p>
           {%- endif -%}
 
-          <div class="product-title-wrapper">
-            <p class="truncate-two-lines card__title font-bold{% if settings.show_dividers %} mb-1{% else %} mt-1 mb-0{% endif %}">
+          <div class="product-info__block product-info__block--sm product-info__title product-title-wrapper">
+            <h2 class="product-title h5 truncate-two-lines card__title font-bold{% if settings.show_dividers %} mb-1{% else %} mt-1 mb-0{% endif %}">
               {% if title_as_link == true %}
                 <a href="{{ product_url }}" class="card-link text-current js-prod-link">
                   {{- product.title | escape -}}
@@ -333,21 +355,23 @@
                   {{- product.title | escape -}}
                 </span>
               {% endif %}
-              {% render 'product-label', product: product, is_product_card: true, limit: 1 %}
-            </p>
+              {% comment %} {% render 'product-label', product: product, is_product_card: true, limit: 1 %} {% endcomment %}
+            </h2>
           </div>
 
-          {%- if settings.card_show_subtitle and product.metafields.descriptors.subtitle != blank -%}
-            <p class="card__subtitle text-sm text-current mb-1{% unless settings.show_dividers %} mt-1{% endunless %}">
-              {{ product.metafields.descriptors.subtitle }}
-            </p>
-          {%- endif -%}
+          {% comment %}
+            {%- if settings.card_show_subtitle and product.metafields.descriptors.subtitle != blank -%}
+              <p class="card__subtitle text-sm text-current mb-1{% unless settings.show_dividers %} mt-1{% endunless %}">
+                {{ product.metafields.descriptors.subtitle }}
+              </p>
+            {%- endif -%}
 
-          {%- if settings.card_show_weight -%}
-            <p class="card__weight text-sm mb-1{% unless settings.show_dividers %} mt-1{% endunless %}">
-              {%- render 'product-weight', product: product -%}
-            </p>
-          {%- endif -%}
+            {%- if settings.card_show_weight -%}
+              <p class="card__weight text-sm mb-1{% unless settings.show_dividers %} mt-1{% endunless %}">
+                {%- render 'product-weight', product: product -%}
+              </p>
+            {%- endif -%}
+          {% endcomment %}
 
           {% comment %}
             {%- if product.metafields.reviews.rating.value != blank and settings.card_show_rating -%}
@@ -372,103 +396,80 @@
           {% endcomment %}
           <!-- End of Judge.me code -->
 
-          {% if show_delivery_tag or show_person_tag %}
-            <div class="product-ext-tags">
-              {% if show_delivery_tag and product.metafields.custom.delivery != blank %}
-                <span class="pd-delivery">{{ product.metafields.custom.delivery | append: ' Delivery' }}</span>
-              {% endif %}
-              {% if show_person_tag and product.metafields.custom.capacity != blank %}
-                <span class="pd-delivery">{{ product.metafields.custom.capacity }} Person</span>
-              {% endif %}
+          {%- comment -%}
+            Product tags: reuse same structure as product page
+            (capacity, sauna_type_tag, product_tag)
+          {%- endcomment -%}
+          {% comment %}
+            {% if product.metafields.custom.capacity != blank
+              or product.metafields.custom.sauna_type_tag != blank
+              or product.metafields.custom.product_tag != blank
+            %}
+              <div class="product-info__block product-info__block--sm product-info__tags">
+                <ul>
+                  {% if product.metafields.custom.capacity != blank %}
+                    <li>
+                      {{ product.metafields.custom.capacity }} Person
+                      {%- if product.metafields.custom.capacity > 1 %}s{% endif %}
+                    </li>
+                  {% endif %}
+                  {% if product.metafields.custom.sauna_type_tag != blank %}
+                    <li>{{ product.metafields.custom.sauna_type_tag }}</li>
+                  {% endif %}
+                  {% if product.metafields.custom.product_tag != blank %}
+                    <li>{{ product.metafields.custom.product_tag }}</li>
+                  {% endif %}
+                </ul>
+              </div>
+            {% endif %}
+          {% endcomment %}
+
+          {%- comment -%}
+            Review strip – same styling as product page header
+          {%- endcomment -%}
+          {% comment %}
+            <div class="product-page-section-header__reviews product-card__reviews">
+              <span class="product-page-section-header__star-rating">
+                {% render 'icon-star' %}
+                {% render 'icon-star' %}
+                {% render 'icon-star' %}
+                {% render 'icon-star' %}
+                {% render 'icon-star' %}
+              </span>
+              <div>
+                <p class="product-page-section-header__reviews-text">Rated 5-stars by hundreds</p>
+              </div>
             </div>
-          {% endif %}
+          {% endcomment %}
 
-          {%- if settings.card_price_bottom == false -%}
-            {%- render 'price', product: product, class: 'price--top' -%}
-          {%- endif -%}
+          <div class="product-page-card__reviews">
+            <span class="product-page-card__star-rating">
+              {% render 'icon-star' %}
+              {% render 'icon-star' %}
+              {% render 'icon-star' %}
+              {% render 'icon-star' %}
+              {% render 'icon-star' %}
+            </span>
+            <p class="product-page-card__reviews-text">Rated 5-stars by hundreds</p>
+          </div>
 
-          <div class="collection-page-sauna-feature-item__financing">
+          <div class="product-ext-tags">
+            <span class="free-shipping-tag">Free Shipping</span>
+            <span class="pd-delivery">{{ product.metafields.custom.delivery | append: ' Delivery' }}</span>
+          </div>
+
+          {%- comment -%}
+            Financing / Affirm – reuse product page pay block class
+          {%- endcomment -%}
+          <div class="product-info__block product-info__block--sm product-info__pay product-card__financing">
             {% render 'affirm-messaging', product: product %}
           </div>
 
           {% if enable_learn_more %}
-            <div class="product_learn_more">
-              <a href="{{ product.url }}">Learn more</a>
+            <div class="product-info__block product-info__block--sm product-card__learn-more">
+              <a href="{{ product.url }}" class="btn btn--secondary w-full"> Learn more </a>
             </div>
           {% endif %}
-
-          {%- if settings.card_show_inventory and current_variant.inventory_management != blank -%}
-            {%- liquid
-              assign total = 0
-              assign inventory_policy = ''
-              for variant in product.variants
-                if variant.inventory_quantity > 0
-                  assign total = total | plus: variant.inventory_quantity
-                endif
-                if variant.inventory_policy == 'continue'
-                  assign inventory_policy = 'continue'
-                endif
-              endfor
-
-              if total <= 0
-                if inventory_policy == 'continue'
-                  if settings.hide_no_stock_backordered
-                    assign inventory_level = 'hide'
-                  else
-                    assign inventory_level = 'backordered'
-                  endif
-                elsif product.available
-                  assign inventory_level = 'in_stock'
-                else
-                  assign inventory_level = 'hide'
-                endif
-              elsif total <= settings.inventory_threshold_very_low
-                assign inventory_level = 'very_low'
-              elsif total <= settings.inventory_threshold_low
-                assign inventory_level = 'low'
-              else
-                assign inventory_level = 'normal'
-              endif
-
-              if inventory_level == 'normal' or inventory_level == 'in_stock'
-                if settings.inventory_show_notice == 'low'
-                  assign inventory_level = 'hide'
-                endif
-              endif
-            -%}
-
-            {%- unless inventory_level == 'hide' -%}
-              <div
-                class="{% if settings.show_dividers %}mt-3 border-top pt-3{% else %}pt-5{% endif %} text-xs product-inventory__status"
-                data-inventory-level="{{ inventory_level }}"
-              >
-                {%- if inventory_level == 'very_low' -%}
-                  {{ 'products.inventory.very_low_stock' | t }}
-                  {%- if settings.inventory_show_count != 'never' and total > 0 -%}
-                    ({{ 'products.inventory.available_count' | t: count: total }})
-                  {%- endif -%}
-                {%- elsif inventory_level == 'low' -%}
-                  {{ 'products.inventory.low_stock' | t }}
-                  {%- if settings.inventory_show_count != 'never' and total > 0 -%}
-                    ({{ 'products.inventory.available_count' | t: count: total }})
-                  {%- endif -%}
-                {%- elsif inventory_level == 'backordered' -%}
-                  {{ 'products.inventory.backordered' | t }}
-                {%- else -%}
-                  {{ 'products.inventory.in_stock' | t }}
-                  {%- if settings.inventory_show_count == 'always' and total > 0 -%}
-                    ({{ 'products.inventory.available_count' | t: count: total }})
-                  {%- endif -%}
-                {%- endif -%}
-              </div>
-            {%- endunless -%}
-          {%- endif -%}
-
-          {%- if settings.card_price_bottom -%}
-            <div class="flex grow items-end">
-              {%- render 'price', product: product, class: 'price--bottom' -%}
-            </div>
-          {%- endif -%}
 
           {% if enable_quick_add and btn_label != blank %}
             <div class="card_redirect">
@@ -482,6 +483,9 @@
         <div
           class="
             card__quick-add
+            product-info__block
+            product-info__block--sm
+            product-info__add-to-cart
             {% if settings.card_atc_mobile == "text_button_bottom" %}mob:card__quick-add--below{% endif %}
             {% if settings.card_atc_mobile == "icon" %}mob:card__quick-add--icon{% endif %}
             {% if settings.card_atc_desktop == "text_button_bottom" %}desktop:card__quick-add--below{% endif %}
@@ -506,7 +510,7 @@
 
                 <div class="card__quick-add-btn">
                   <button
-                    class="btn btn--primary w-full"
+                    class="btn btn--primary w-full product-atc-btn"
                     data-add-to-cart-text="{{- button_text | escape -}}"
                     name="add"
                     aria-haspopup="dialog"
@@ -532,7 +536,7 @@
             <div class="no-js-hidden">
               <button
                 type="button"
-                class="btn btn--primary w-full js-quick-add"
+                class="btn btn--primary w-full js-quick-add product-atc-btn"
                 aria-haspopup="dialog"
                 data-product-url="{{ product_url }}"
                 data-product-default-variant="{{ product.has_only_default_variant }}"
