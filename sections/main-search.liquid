@@ -9,7 +9,7 @@
   <script src="{{ 'custom-select.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
-{%- if settings.pagination_style == "modern" or settings.pagination_infinite -%}
+{%- if settings.pagination_style == 'modern' or settings.pagination_infinite -%}
   <script src="{{ 'custom-pagination.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
@@ -36,11 +36,11 @@
   assign compare_toggle = false
   assign compare_visible = false
   if settings.enable_compare
-    if settings.compare_toggle == "none" or settings.compare_toggle == "toggle_on"
+    if settings.compare_toggle == 'none' or settings.compare_toggle == 'toggle_on'
       assign compare_toggle = true
     endif
 
-    if settings.compare_toggle != "none"
+    if settings.compare_toggle != 'none'
       assign compare_visible = true
     endif
   endif
@@ -68,13 +68,23 @@
       </p>
     {%- endif -%}
 
-    {%- if section.settings.enable_filtering or section.settings.show_layout_toggle or section.settings.enable_sorting or compare_visible -%}
+    {%- if section.settings.enable_filtering
+      or section.settings.show_layout_toggle
+      or section.settings.enable_sorting
+      or compare_visible
+    -%}
       <script src="{{ 'products-toolbar.js' | asset_url }}" defer="defer"></script>
       {% render 'products-toolbar', results: search %}
     {%- endif -%}
 
     {%- paginate search.results by section.settings.products_per_page -%}
-      <custom-pagination class="main-products-grid{% if settings.card_contain %} main-products-grid--contained{% endif %} flex" data-layout="grid" data-compare="{{ compare_toggle }}" data-infinite-scroll="{{ settings.pagination_infinite }}" data-pause-infinite-scroll="false">
+      <custom-pagination
+        class="main-products-grid{% if settings.card_contain %} main-products-grid--contained{% endif %} flex"
+        data-layout="grid"
+        data-compare="{{ compare_toggle }}"
+        data-infinite-scroll="{{ settings.pagination_infinite }}"
+        data-pause-infinite-scroll="false"
+      >
         {%- if search.filters != empty and section.settings.enable_filtering -%}
           <div class="main-products-grid__filters{% if section.settings.filters_open_lg == false %} lg:js-hidden{% endif %}">
             {% render 'facet-filters', results: search %}
@@ -116,14 +126,21 @@
                 assign image_ratio = settings.prod_card_image_ratio
               endif
             -%}
-            <ul class="grid mb-8 md:mb-12 {% if section.settings.filters_open_lg %}{{ grid_classes_filters_open }}{% else %}{{ grid_classes_filters_closed }}{% endif %} gap-x-theme {% if settings.card_contain %}gap-y-8{% else %}gap-y-10{% endif %}"
-                data-filters-open-classes="grid mb-8 md:mb-12 {{ grid_classes_filters_open }} gap-x-theme {% if settings.card_contain %}gap-y-8{% else %}gap-y-10{% endif %}"
-                data-filters-closed-classes="grid mb-8 md:mb-12 {{ grid_classes_filters_closed }} gap-x-theme {% if settings.card_contain %}gap-y-8{% else %}gap-y-10{% endif %}" role="list">
+            <ul
+              class="grid mb-8 md:mb-12 {% if section.settings.filters_open_lg %}{{ grid_classes_filters_open }}{% else %}{{ grid_classes_filters_closed }}{% endif %} gap-x-theme {% if settings.card_contain %}gap-y-8{% else %}gap-y-10{% endif %}"
+              data-filters-open-classes="grid mb-8 md:mb-12 {{ grid_classes_filters_open }} gap-x-theme {% if settings.card_contain %}gap-y-8{% else %}gap-y-10{% endif %}"
+              data-filters-closed-classes="grid mb-8 md:mb-12 {{ grid_classes_filters_closed }} gap-x-theme {% if settings.card_contain %}gap-y-8{% else %}gap-y-10{% endif %}"
+              role="list"
+            >
               {%- for item in search.results -%}
                 {%- if item.object_type == 'product' and item.price > 0 -%}
-                  {%- unless item.tags contains 'globo-product-options' or item.handle == "responder-discount" -%}
+                  {%- unless item.tags contains 'globo-product-options' or item.handle == 'responder-discount' -%}
                     <li class="js-pagination-result">
-                      {% render 'product-card', product: item, image_ratio: image_ratio, show_compare: settings.enable_compare %}
+                      {% render 'product-card',
+                        product: item,
+                        image_ratio: image_ratio,
+                        show_compare: settings.enable_compare
+                      %}
                     </li>
                   {%- endunless -%}
                 {%- elsif item.object_type == 'article' -%}
@@ -166,7 +183,6 @@
                   </li>
                 {%- endif -%}
               {%- endfor -%}
-
             </ul>
 
             {%- if paginate.pages > 1 -%}
