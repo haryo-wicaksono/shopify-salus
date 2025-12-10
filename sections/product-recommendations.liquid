@@ -12,6 +12,46 @@
   <script src="{{ 'custom-select.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
+<style>
+  .container.products-grid-container ul {
+    gap: 10px;
+  }
+
+  .product-page-card__reviews {
+    display: none;
+  }
+
+  .card__quick-add.product-info__block.product-info__block--sm.product-info__add-to-cart {
+    margin-top: 20px;
+    padding-top: 0px;
+  }
+
+  .product-carousel-price .product-carousel-price__discount {
+    padding: 2px 4px;
+    line-height: 20px;
+  }
+
+  a.card-link.text-current.js-prod-link {
+    font-weight: 16px;
+    line-height: 24px;
+    margin-bottom: 14px;
+  }
+
+  div.product-info__block.product-info__block--sm.product-info__title.product-title-wrapper {
+    margin-bottom: 0px;
+  }
+
+  h2.product-title.h5.card__title.font-bold.mb-1 {
+    margin-bottom: 0px;
+    margin-right: 0px;
+  }
+
+  div.product-ext-tags {
+    margin-top: 0px;
+    margin-bottom: 14px;
+  }
+</style>
+
 <script>
   function waitForElement(selector, callback) {
     const observer = new MutationObserver(() => {
@@ -28,15 +68,15 @@
     });
   }
 
-  waitForElement('.card__quick-add-btn', function() {
+  waitForElement('.card__quick-add-btn', function () {
     let submitButtons = document.querySelectorAll('.card__quick-add-btn');
     var _learnq = window._learnq || [];
 
-    [...(submitButtons || [])].forEach((submitButton)  => {
+    [...(submitButtons || [])].forEach((submitButton) => {
       submitButton.addEventListener('click', function () {
         _learnq.push(['track', 'Added to Cart', item]);
       });
-    })
+    });
   });
 </script>
 
@@ -96,6 +136,50 @@
   assign limit = section.settings.products_to_show
 -%}
 
+<style>
+  .product-page-card__reviews.product-card__reviews {
+    display: flex;
+  }
+  .product-page-card__reviews.product-card__reviews .product-page-section-header__reviews-text {
+    margin-bottom: 0px;
+    margin-left: 5px;
+  }
+  .product-page-card__reviews.product-card__reviews .product-page-section-header__star-rating svg {
+    width: 16px;
+    height: 16px;
+  }
+  .product-ext-tags + .product-info__block.product-info__block--sm.product-price.product-card__price {
+    margin-top: 0px;
+  }
+
+  .product-info__block.product-info__block--sm.product-info__pay.product-card__financing
+    .affirm-as-low-as.custom-affirm {
+    text-align: start;
+  }
+
+  .product-info__block.product-info__block--sm.product-info__pay.product-card__financing {
+    display: none;
+  }
+
+  .card__title .card-link.text-current.js-prod-link {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    text-overflow: ellipsis !important;
+    font-size: 16px;
+  }
+
+  .product-carousel-price .product-carousel-price__compare,
+  .product-carousel-price .product-carousel-price__current {
+    font-size: 16px !important;
+  }
+
+  .product-carousel-price .product-carousel-price__discount {
+    font-size: 14px !important;
+  }
+</style>
+
 <product-recommendations
   class="section"
   data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product_id }}&limit={{ limit }}&intent=related"
@@ -124,7 +208,7 @@
 
     <div class="container products-grid-container">
       <ul
-        class="{% if carousel %}slider__grid {% endif %}grid {{ grid_classes }}{% if section.settings.layout == 'carousel_on_mobile' and section.settings.card_size_mobile == 'small' and settings.card_contain %} sm:gap-x-theme sm:gap-y-8{% else %} gap-x-theme gap-y-8{% endif %}{% if section.settings.card_size_mobile == 'small' and settings.card_contain %} small__grid{% endif %}"
+        class="{% if carousel %}slider__grid {% endif %}grid {{ grid_classes }}{% if section.settings.layout == 'carousel_on_mobile' and section.settings.card_size_mobile == 'small' and settings.card_contain %} sm:gap-x-theme sm:gap-y-8{% else %} {% endif %}{% if section.settings.card_size_mobile == 'small' and settings.card_contain %} small__grid{% endif %}"
         role="list"
       >
         {% assign product_count = 0 %}
@@ -285,10 +369,10 @@
       "default": 8
     },
     {
-      "type":"checkbox",
-      "id":"enable_learn_more",
+      "type": "checkbox",
+      "id": "enable_learn_more",
       "label": "Show Leran More Button",
-      "default":true
+      "default": true
     }
   ]
 }

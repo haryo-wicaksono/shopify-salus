@@ -2510,7 +2510,7 @@ div.gpo-group.gpo-form__group.gpo-col-12 {
 
 body .slider:not(.slider--contained) .slider__item:last-child {
   width: 100%;
-  border-inline-end: 0px solid #b4b4b4;
+  border-inline-end: 0.8px solid #b4b4b4;
 }
 
 body .jdgm-rev-widg__summary,
