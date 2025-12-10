@@ -985,10 +985,10 @@ product-recommendations .card__quick-add .btn {
   border: 1px solid #222120;
   background: transparent;
   border-radius: 200px;
-  padding: 15px 10px;
-  font-size: 18px;
+  padding: 6px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 27px;
+  line-height: 24px;
   color: #222120;
   text-transform: capitalize;
 }

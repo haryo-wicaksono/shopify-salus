@@ -2372,7 +2372,8 @@ img {
 
 .cc-product-recommendations .img-fit,
 .md\:img-fit {
-  position: absolute !important;
+  /* position: absolute !important; */
+  position: relative;
 }
 
 .img-fit.img-fit--contain,
