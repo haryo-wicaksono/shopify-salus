@@ -90,7 +90,8 @@
   .product-carousel-price__discount {
     display: inline-flex;
     align-items: center;
-    padding: 3px 8px;
+    padding: 2px 4px;
+    line-height: 20px;
     font-size: 16px;
     font-weight: 600;
     border: 1px solid #208b81;
@@ -109,6 +110,25 @@
 
   .slider__item {
     border: 1px solid #000000 !important;
+  }
+
+  @media screen and (max-width: 768px) {
+    .product-info .product-title {
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 18px;
+    }
+    .product-carousel-price__discount {
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    .product-ext-tags .pd-delivery,
+    .product-ext-tags .free-shipping-tag {
+      padding: 6px 12px;
+      font-size: 12px;
+      line-height: 10px;
+    }
   }
 </style>
 
