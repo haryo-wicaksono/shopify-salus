@@ -69,6 +69,14 @@
   </video-component>
 {%- endcapture -%}
 
+  <style>
+    #product-video .container {
+      padding-top: 40px !important;
+    }
+    #product-video {
+      padding-bottom: 40px !important;
+    }
+  </style>
   <div
     class="section section-media-with-text section--full-width section--padded {% if section.settings.enable_vertical_spacing %}vertical-padding{% endif %}  {% unless color_scheme == 'none' or section.settings.only_content_color_scheme %} color-scheme color-scheme--{{ color_scheme }}{% endunless %}"
     id="product-video"
@@ -185,9 +193,9 @@
   "class": "cc-media-with-text",
   "settings": [
     {
-      "type":"checkbox",
-      "id":"enable_vertical_spacing",
-      "label":"Add More Vertical Spacing"
+      "type": "checkbox",
+      "id": "enable_vertical_spacing",
+      "label": "Add More Vertical Spacing"
     },
 
     {
@@ -304,8 +312,8 @@
     },
     {
       "type": "text",
-      "id":"button_label",
-      "label":"Section Button Label"
+      "id": "button_label",
+      "label": "Section Button Label"
     },
     {
       "type": "checkbox",
@@ -315,15 +323,11 @@
   ],
   "presets": [
     {
-      "name": "Assembly Video",
+      "name": "Assembly Video"
     }
   ],
   "disabled_on": {
-    "groups": [
-      "header",
-      "footer",
-      "aside"
-    ]
+    "groups": ["header", "footer", "aside"]
   }
 }
 {% endschema %}

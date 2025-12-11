@@ -22,7 +22,7 @@
   }
 
   .card__quick-add.product-info__block.product-info__block--sm.product-info__add-to-cart {
-    margin-top: 20px;
+    margin-top: 30px;
     padding-top: 0px;
   }
 
@@ -49,6 +49,21 @@
   div.product-ext-tags {
     margin-top: 0px;
     margin-bottom: 14px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .product-ext-tags .free-shipping-tag,
+    .product-ext-tags .pd-delivery {
+      line-height: 20px;
+    }
+
+    .product-carousel-price .product-carousel-price__discount {
+      line-height: 16px;
+    }
+
+    .product-carousel-price {
+      margin-bottom: 10px;
+    }
   }
 </style>
 
@@ -168,6 +183,7 @@
     -webkit-line-clamp: 2 !important;
     text-overflow: ellipsis !important;
     font-size: 16px;
+    font-weight: 600;
   }
 
   .product-carousel-price .product-carousel-price__compare,
