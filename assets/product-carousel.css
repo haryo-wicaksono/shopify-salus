@@ -336,7 +336,7 @@
   text-align: start !important;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   /* Truncate after 2 lines */
   -webkit-box-orient: vertical;
 }
