@@ -31,7 +31,7 @@
 
   /* Tags - Fluid Full Width (35:65 Split) */
   .product-ext-tags {
-    display: flex !important;
+    display: block !important;
     flex-flow: row nowrap !important;
     align-items: center;
     gap: 6px;
@@ -41,14 +41,14 @@
   }
 
   .product-ext-tags .free-shipping-tag {
-    flex: 1 1 43%;
-    max-width: calc(43% - 3px);
-    display: inline-flex;
+    {% comment %} flex: 1 1 43%; {% endcomment %}
+    {% comment %} max-width: calc(43% - 3px); {% endcomment %}
+    display: block;
     align-items: center;
     justify-content: center;
     padding: 6px 0;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 400;
     color: #1a1a1a;
     background-color: transparent;
     border-radius: 9999px;
@@ -57,13 +57,13 @@
   }
 
   .product-ext-tags .pd-delivery {
-    flex: 1 1 57%;
-    max-width: calc(57% - 3px);
-    display: inline-flex;
+    {% comment %} flex: 1 1 57%; {% endcomment %}
+    {% comment %} max-width: calc(57% - 3px); {% endcomment %}
+    display: block;
     align-items: center;
     justify-content: center;
     padding: 6px 0;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     color: #1a1a1a;
     background-color: transparent;

@@ -7,7 +7,8 @@
     rel="stylesheet"
     href="{{ 'quick-add.css' | asset_url }}"
     media="print"
-    onload="this.media='all'">
+    onload="this.media='all'"
+  >
   <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'variant-picker.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
@@ -90,12 +91,28 @@
   endif
 -%}
 
+<style>
+  .main-products-grid .product-page-card__reviews {
+    display: block;
+  }
+
+  .main-products-grid .product-page-card__reviews-text {
+    margin-top: 5px;
+  }
+
+  .main-products-grid .card--product .card__info-inner .card__title {
+    font-size: 14px;
+  }
+</style>
+
 <div class="container main-collection-container" data-num-results="{{ collection.products_count }}">
-  {%- if section.settings.enable_filtering or section.settings.show_layout_toggle or section.settings.enable_sorting or compare_visible
+  {%- if section.settings.enable_filtering
+    or section.settings.show_layout_toggle
+    or section.settings.enable_sorting
+    or compare_visible
   -%}
     <script src="{{ 'products-toolbar.js' | asset_url }}" defer="defer"></script>
-    {% render 'products-toolbar'
-      , results: collection %}
+    {% render 'products-toolbar', results: collection %}
   {%- endif -%}
 
   {%- paginate collection.products by section.settings.products_per_page -%}
@@ -104,11 +121,11 @@
       data-layout="grid"
       data-compare="{{ compare_toggle }}"
       data-infinite-scroll="{{ settings.pagination_infinite }}"
-      data-pause-infinite-scroll="false">
+      data-pause-infinite-scroll="false"
+    >
       {%- if collection.filters != empty and section.settings.enable_filtering -%}
         <div class="main-products-grid__filters{% if section.settings.filters_open_lg == false %} lg:js-hidden{% endif %}">
-          {% render 'facet-filters'
-            , results: collection %}
+          {% render 'facet-filters', results: collection %}
         </div>
       {%- endif -%}
 
@@ -138,7 +155,8 @@
             class="grid mb-8 md:mb-12 {% if section.settings.filters_open_lg %}{{ grid_classes_filters_open }}{% else %}{{ grid_classes_filters_closed }}{% endif %} gap-x-theme {% if settings.card_contain %}gap-y-8{% else %}gap-y-15{% endif %}"
             data-filters-open-classes="grid mb-8 md:mb-12 {{ grid_classes_filters_open }} gap-x-theme {% if settings.card_contain %}gap-y-8{% else %}gap-y-16{% endif %}"
             data-filters-closed-classes="grid mb-8 md:mb-12 {{ grid_classes_filters_closed }} gap-x-theme {% if settings.card_contain %}gap-y-8{% else %}gap-y-16{% endif %}{% unless paginate.pages > 1 %} mb-8 md:mb-12{% endunless %}"
-            role="list">
+            role="list"
+          >
             {%- comment -%}Process wide promos aligned top{%- endcomment -%}
             {%- for block in section.blocks -%}
               {%- liquid
@@ -153,18 +171,21 @@
               -%}
 
               {%- if show_promo -%}
-                <li class="promo-item--{{ block.settings.view }} col-span-full js-pagination-result" style="--promo-text-color: {{- block.settings.text_color -}};--promo-min-height: {{- block.settings.min_height -}}px;--promo-overlay-color: rgba({{ block.settings.tint_color.red }}, {{ block.settings.tint_color.green }}, {{ block.settings.tint_color.blue }}, {{ block.settings.tint_opacity | divided_by: 100.0 }});">
-                  {%- render 'promo-image'
-                    , link_url: block.settings.link_url
-                    , content: block.settings.content
-                    , text_alignment: block.settings.text_alignment
-                    , image: block.settings.image
-                    , video_shopify: block.settings.video_shopify
-                    , text_width: block.settings.text_width
-                    , text_type_scale: block.settings.text_type_scale
-                    , size: section.settings.card_size
-                    , button_label: block.settings.button_label
-                    , button_style: block.settings.button_style
+                <li
+                  class="promo-item--{{ block.settings.view }} col-span-full js-pagination-result"
+                  style="--promo-text-color: {{- block.settings.text_color -}};--promo-min-height: {{- block.settings.min_height -}}px;--promo-overlay-color: rgba({{ block.settings.tint_color.red }}, {{ block.settings.tint_color.green }}, {{ block.settings.tint_color.blue }}, {{ block.settings.tint_opacity | divided_by: 100.0 }});"
+                >
+                  {%- render 'promo-image',
+                    link_url: block.settings.link_url,
+                    content: block.settings.content,
+                    text_alignment: block.settings.text_alignment,
+                    image: block.settings.image,
+                    video_shopify: block.settings.video_shopify,
+                    text_width: block.settings.text_width,
+                    text_type_scale: block.settings.text_type_scale,
+                    size: section.settings.card_size,
+                    button_label: block.settings.button_label,
+                    button_style: block.settings.button_style
                   -%}
                 </li>
               {%- endif -%}
@@ -195,17 +216,17 @@
                   {%- unless rendered_product_ids contains product.id -%}
                     {%- assign rendered_product_ids = rendered_product_ids | append: product.id | append: ',' -%}
                     <li class="js-pagination-result">
-                      {% render 'product-card-main-collection'
-                        , product: product
-                        , collection: collection
-                        , image_ratio: image_ratio
-                        , show_compare: settings.enable_compare
-                        , enable_quick_add: section.settings.enable_quick_add
-                        , show_category_tag: section.settings.show_category_tag
-                        , show_shipping_tag: section.settings.show_shipping_tag
-                        , show_delivery_tag: section.settings.show_delivery_tag
-                        , show_person_tag: section.settings.show_person_tag
-                        , image_as_link: false
+                      {% render 'product-card-main-collection',
+                        product: product,
+                        collection: collection,
+                        image_ratio: image_ratio,
+                        show_compare: settings.enable_compare,
+                        enable_quick_add: section.settings.enable_quick_add,
+                        show_category_tag: section.settings.show_category_tag,
+                        show_shipping_tag: section.settings.show_shipping_tag,
+                        show_delivery_tag: section.settings.show_delivery_tag,
+                        show_person_tag: section.settings.show_person_tag,
+                        image_as_link: false
                       %}
                     </li>
                   {%- endunless -%}
@@ -215,33 +236,34 @@
                   <li
                     class="promo-item--{{ block.settings.view }} js-pagination-result"
                     {% if block.type == 'image-promotion' %}
-                    style="--promo-text-color: {{- block.settings.text_color -}};--promo-min-height: {{- block.settings.min_height -}}px;--promo-overlay-color: rgba({{ block.settings.tint_color.red }}, {{ block.settings.tint_color.green }}, {{ block.settings.tint_color.blue }}, {{ block.settings.tint_opacity | divided_by: 100.0 }});"
-                    {% endif %}>
+                      style="--promo-text-color: {{- block.settings.text_color -}};--promo-min-height: {{- block.settings.min_height -}}px;--promo-overlay-color: rgba({{ block.settings.tint_color.red }}, {{ block.settings.tint_color.green }}, {{ block.settings.tint_color.blue }}, {{ block.settings.tint_opacity | divided_by: 100.0 }});"
+                    {% endif %}
+                  >
                     {% if block.type == 'image-promotion' or block.type == 'wide-promotion' %}
-                      {%- render 'promo-image'
-                        , link_url: block.settings.link_url
-                        , content: block.settings.content
-                        , text_alignment: block.settings.text_alignment
-                        , image: block.settings.image
-                        , video_shopify: block.settings.video_shopify
-                        , text_width: block.settings.text_width
-                        , text_type_scale: block.settings.text_type_scale
-                        , size: section.settings.card_size
-                        , button_label: block.settings.button_label
-                        , button_style: block.settings.button_style
+                      {%- render 'promo-image',
+                        link_url: block.settings.link_url,
+                        content: block.settings.content,
+                        text_alignment: block.settings.text_alignment,
+                        image: block.settings.image,
+                        video_shopify: block.settings.video_shopify,
+                        text_width: block.settings.text_width,
+                        text_type_scale: block.settings.text_type_scale,
+                        size: section.settings.card_size,
+                        button_label: block.settings.button_label,
+                        button_style: block.settings.button_style
                       -%}
                     {%- elsif block.type == 'card-promotion' -%}
-                      {%- render 'promo-card'
-                        , link_url: block.settings.link_url
-                        , title: block.settings.title
-                        , content: block.settings.content
-                        , image: block.settings.image
-                        , image_ratio: block.settings.image_ratio
-                        , button_label: block.settings.button_label
-                        , button_style: block.settings.button_style
-                        , color_scheme: block.settings.color_scheme
-                        , button_bottom_align: block.settings.button_bottom_align
-                        , size: section.settings.card_size
+                      {%- render 'promo-card',
+                        link_url: block.settings.link_url,
+                        title: block.settings.title,
+                        content: block.settings.content,
+                        image: block.settings.image,
+                        image_ratio: block.settings.image_ratio,
+                        button_label: block.settings.button_label,
+                        button_style: block.settings.button_style,
+                        color_scheme: block.settings.color_scheme,
+                        button_bottom_align: block.settings.button_bottom_align,
+                        size: section.settings.card_size
                       -%}
                     {%- endif -%}
                   </li>
@@ -254,21 +276,21 @@
                 <li class="js-pagination-result">
                   {% assign banners = collection.metafields.custom.collection_bannner.value %}
 
-                  {% render 'product-card-main-collection'
-                    , product: product
-                    , collection: collection
-                    , image_ratio: image_ratio
-                    , show_compare: settings.enable_compare
-                    , enable_quick_add: section.settings.enable_quick_add
-                    , show_category_tag: section.settings.show_category_tag
-                    , show_shipping_tag: section.settings.show_shipping_tag
-                    , show_delivery_tag: section.settings.show_delivery_tag
-                    , show_person_tag: section.settings.show_person_tag
-                    , image_as_link: false
+                  {% render 'product-card-main-collection',
+                    product: product,
+                    collection: collection,
+                    image_ratio: image_ratio,
+                    show_compare: settings.enable_compare,
+                    enable_quick_add: section.settings.enable_quick_add,
+                    show_category_tag: section.settings.show_category_tag,
+                    show_shipping_tag: section.settings.show_shipping_tag,
+                    show_delivery_tag: section.settings.show_delivery_tag,
+                    show_person_tag: section.settings.show_person_tag,
+                    image_as_link: false
                   %}
                 </li>
 
-              <!-- CHECK IF THE BANNER IS AVAIABLE -->
+                <!-- CHECK IF THE BANNER IS AVAIABLE -->
                 {% comment %}
                   {% if banners != blank %}
                   <!-- IF THE COLLECTION HAS LESS THAN 6 PRODUCTS SHOW BANNER AFTER 3RD PRODUCT -->
@@ -324,18 +346,21 @@
               -%}
 
               {%- if show_promo -%}
-                <li class="promo-item--{{ block.settings.view }} col-span-full js-pagination-result" style="--promo-text-color: {{- block.settings.text_color -}};--promo-min-height: {{- block.settings.min_height -}}px;--promo-overlay-color: rgba({{ block.settings.tint_color.red }}, {{ block.settings.tint_color.green }}, {{ block.settings.tint_color.blue }}, {{ block.settings.tint_opacity | divided_by: 100.0 }});">
-                  {%- render 'promo-image'
-                    , link_url: block.settings.link_url
-                    , content: block.settings.content
-                    , text_alignment: block.settings.text_alignment
-                    , image: block.settings.image
-                    , video_shopify: block.settings.video_shopify
-                    , text_width: block.settings.text_width
-                    , text_type_scale: block.settings.text_type_scale
-                    , size: section.settings.card_size
-                    , button_label: block.settings.button_label
-                    , button_style: block.settings.button_style
+                <li
+                  class="promo-item--{{ block.settings.view }} col-span-full js-pagination-result"
+                  style="--promo-text-color: {{- block.settings.text_color -}};--promo-min-height: {{- block.settings.min_height -}}px;--promo-overlay-color: rgba({{ block.settings.tint_color.red }}, {{ block.settings.tint_color.green }}, {{ block.settings.tint_color.blue }}, {{ block.settings.tint_opacity | divided_by: 100.0 }});"
+                >
+                  {%- render 'promo-image',
+                    link_url: block.settings.link_url,
+                    content: block.settings.content,
+                    text_alignment: block.settings.text_alignment,
+                    image: block.settings.image,
+                    video_shopify: block.settings.video_shopify,
+                    text_width: block.settings.text_width,
+                    text_type_scale: block.settings.text_type_scale,
+                    size: section.settings.card_size,
+                    button_label: block.settings.button_label,
+                    button_style: block.settings.button_style
                   -%}
                 </li>
               {%- endif -%}
@@ -343,10 +368,7 @@
           </ul>
 
           {%- if paginate.pages > 1 -%}
-            {% render 'pagination'
-              , paginate: paginate
-              , class: 'mb-10'
-              , style: settings.pagination_style %}
+            {% render 'pagination', paginate: paginate, class: 'mb-10', style: settings.pagination_style %}
           {%- endif -%}
         {%- endif -%}
       </div>
@@ -363,53 +385,50 @@
     const searchParams = url.searchParams;
     let hasFilter = false;
 
-    for(let [key, value] of searchParams.entries()){
-      if(key.startsWith('filter.')){
+    for (let [key, value] of searchParams.entries()) {
+      if (key.startsWith('filter.')) {
         hasFilter = true;
       }
-      if(key == "filter.v.price.gte" && value === "0"){
+      if (key == 'filter.v.price.gte' && value === '0') {
         hasFilter = false;
         break;
       }
     }
 
-      // Hide the div if a filter parameter is found in url
-      if (hasFilter) {
-        console.log('has banners' , collection_banners.length);
-        collection_banners.forEach((banner , index) =>{
-          banner.style.display = 'none';
-          upsell_products[index].style.display ='none';
-        });
-      } else {
-        collection_banners.forEach((banner , index) =>{
-          banner.style.display = '';
-          upsell_products[index].style.display ='';
-
-        });
-      }
+    // Hide the div if a filter parameter is found in url
+    if (hasFilter) {
+      console.log('has banners', collection_banners.length);
+      collection_banners.forEach((banner, index) => {
+        banner.style.display = 'none';
+        upsell_products[index].style.display = 'none';
+      });
+    } else {
+      collection_banners.forEach((banner, index) => {
+        banner.style.display = '';
+        upsell_products[index].style.display = '';
+      });
+    }
   }
 
-  (function(history) {
-      var pushState = history.pushState;
-      var replaceState = history.replaceState;
+  (function (history) {
+    var pushState = history.pushState;
+    var replaceState = history.replaceState;
 
-      history.pushState = function() {
-        var result = pushState.apply(history, arguments);
-        setTimeout(function(){
-            checkUrlForFilters();
-            return result;
+    history.pushState = function () {
+      var result = pushState.apply(history, arguments);
+      setTimeout(function () {
+        checkUrlForFilters();
+        return result;
+      }, 1500);
+    };
 
-        }, 1500);
-      };
-
-      history.replaceState = function() {
-          var result = replaceState.apply(history, arguments);
-          setTimeout(function(){
-            checkUrlForFilters();
-            return result;
-        }, 1500)
-      };
-
+    history.replaceState = function () {
+      var result = replaceState.apply(history, arguments);
+      setTimeout(function () {
+        checkUrlForFilters();
+        return result;
+      }, 1500);
+    };
   })(window.history);
 
   window.addEventListener('popstate', checkUrlForFilters);
@@ -418,691 +437,788 @@
 </script>
 
 {% schema %}
-  {
-    "name": "Collection products",
-    "class": "cc-collection-products section section--template mb-0",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Layout"
-      },
-      {
-        "type": "range",
-        "id": "products_per_page",
-        "min": 8,
-        "max": 50,
-        "step": 1,
-        "label": "Products per page",
-        "default": 16
-      },
-      {
-        "type": "select",
-        "id": "card_size_mobile",
-        "label": "Product card size on mobile",
-        "info": "Applies to cards in Grid view only.",
-        "options": [
-          {
-            "value": "small",
-            "label": "Small"
-          }, {
-            "value": "large",
-            "label": "Large"
-          }
-        ],
-        "default": "small"
-      },
-      {
-        "type": "select",
-        "id": "card_size",
-        "label": "Product card size on large screens",
-        "info": "Applies to cards in Grid view only.",
-        "options": [
-          {
-            "value": "small",
-            "label": "Small"
-          }, {
-            "value": "medium",
-            "label": "Medium"
-          }, {
-            "value": "large",
-            "label": "Large"
-          }
-        ],
-        "default": "medium"
-      }, {
-        "type": "header",
-        "content": "Toolbar"
-      }, {
-        "type": "paragraph",
-        "content": "The Compare toggle can be disabled in \"Theme Settings > Product Compare\"."
-      }, {
-        "type": "checkbox",
-        "id": "show_layout_toggle",
-        "label": "Show grid/list layout buttons",
-        "default": true
-      }, {
-        "type": "header",
-        "content": "Filtering"
-      }, {
-        "type": "checkbox",
-        "id": "enable_filtering",
-        "label": "Enable filtering",
-        "info": "[Customize filters](/admin/menus)",
-        "default": true
-      }, {
-        "type": "checkbox",
-        "id": "filters_open_lg",
-        "label": "Open filters by default on large screens",
-        "default": true
-      }, {
-        "type": "checkbox",
-        "id": "stick_on_scroll",
-        "label": "Stick on scroll on large screens",
-        "default": true
-      }, {
-        "type": "checkbox",
-        "id": "show_filter_counts",
-        "label": "Show product counts",
-        "default": true
-      }, {
-        "type": "checkbox",
-        "id": "expand_filters",
-        "label": "Expand all filters by default",
-        "default": true
-      }, {
-        "type": "range",
-        "id": "max_filter_options",
-        "label": "Visible options per filter",
-        "info": "Remaining options will be automatically collapsed.",
-        "min": 2,
-        "max": 50,
-        "step": 1,
-        "default": 7
-      }, {
-        "type": "header",
-        "content": "Sorting"
-      }, {
-        "type": "checkbox",
-        "id": "enable_sorting",
-        "label": "Enable sorting",
-        "default": true
-      }, {
-        "type": "checkbox",
-        "id": "show_feat_sort_opt",
-        "label": "Show 'Featured' option",
-        "info": "Add your manually sorted order to the sort options.",
-        "default": true
-      }, {
-        "type": "checkbox",
-        "id": "sort_first",
-        "label": "Show the sort options first on mobile",
-        "default": true
-      }, {
-        "type": "header",
-        "content": "Button and Tags"
-      }, {
-        "type": "checkbox",
-        "id": "enable_quick_add",
-        "label": "Hide Add To Cart Button"
-      }, {
-        "type": "checkbox",
-        "id": "show_category_tag",
-        "label": "Show Category Tag"
-      }, {
-        "type": "checkbox",
-        "id": "show_shipping_tag",
-        "label": "Show Shipping Tag"
-      }, {
-        "type": "checkbox",
-        "id": "show_delivery_tag",
-        "label": "Show Delivery Tag"
-      }, {
-        "type": "checkbox",
-        "id": "show_person_tag",
-        "label": "Show No. Persons Tag"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "wide-promotion",
-        "name": "Wide promotion",
-        "settings": [
-          {
-            "type": "header",
-            "content": "Layout"
-          },
-          {
-            "type": "select",
-            "id": "position",
-            "label": "Position in results",
-            "options": [
-              {
-                "value": "top",
-                "label": "Top"
-              }, {
-                "value": "bottom",
-                "label": "Bottom"
-              }
-            ],
-            "default": "top"
-          },
-          {
-            "type": "select",
-            "id": "view",
-            "label": "Visibility",
-            "info": "Promos will be full width on List view",
-            "options": [
-              {
-                "value": "grid",
-                "label": "Grid view"
-              }, {
-                "value": "list",
-                "label": "List view"
-              }, {
-                "value": "grid_list",
-                "label": "Grid and List view"
-              }
-            ],
-            "default": "grid_list"
-          },
-          {
-            "type": "checkbox",
-            "id": "hide_on_filter",
-            "label": "Hide when results are filtered",
-            "default": true
-          }, {
-            "type": "range",
-            "id": "min_height",
-            "min": 50,
-            "max": 500,
-            "step": 10,
-            "unit": "px",
-            "label": "Minimum height",
-            "info": "Useful for controlling the height of the promo in List view and on mobile.",
-            "default": 150
-          }, {
-            "type": "header",
-            "content": "Content"
-          }, {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Image"
-          }, {
-            "type": "video",
-            "id": "video_shopify",
-            "label": "Video upload",
-            "info": "Hosted by Shopify. Video will autoplay and be muted. [Read more](https://cleancanvas.co.uk/support/enterprise/using-videos)"
-          }, {
-            "type": "url",
-            "id": "link_url",
-            "label": "Link URL"
-          }, {
-            "type": "richtext",
-            "id": "content",
-            "default": "<p>Promotion text</p>",
-            "label": "Text"
-          }, {
-            "type": "select",
-            "id": "text_type_scale",
-            "label": "Text size",
-            "info": "This is calculated from the Heading font size.",
-            "options": [
-              {
-                "value": "1em",
-                "label": "Body font size"
-              },
-              {
-                "value": "--h6-font-size",
-                "label": "Extra small"
-              },
-              {
-                "value": "--h5-font-size",
-                "label": "Small"
-              },
-              {
-                "value": "--h4-font-size",
-                "label": "Medium"
-              }, {
-                "value": "--h3-font-size",
-                "label": "Large"
-              }, {
-                "value": "--h2-font-size",
-                "label": "Extra large"
-              }
-            ],
-            "default": "--h4-font-size"
-          }, {
-            "type": "range",
-            "id": "text_width",
-            "min": 100,
-            "max": 800,
-            "step": 20,
-            "unit": "px",
-            "label": "Maximum text width",
-            "default": 400
-          }, {
-            "type": "select",
-            "id": "text_alignment",
-            "label": "Text alignment",
-            "default": "justify-center items-center text-center",
-            "options": [
-              {
-                "value": "justify-start items-start",
-                "label": "Top left"
-              },
-              {
-                "value": "justify-center items-start text-center",
-                "label": "Top center"
-              },
-              {
-                "value": "justify-end items-start text-right",
-                "label": "Top right"
-              },
-              {
-                "value": "justify-start items-center",
-                "label": "Middle left"
-              }, {
-                "value": "justify-center items-center text-center",
-                "label": "Middle center"
-              }, {
-                "value": "justify-end items-center text-right",
-                "label": "Middle right"
-              }, {
-                "value": "justify-start items-end",
-                "label": "Bottom left"
-              }, {
-                "value": "justify-center items-end text-center",
-                "label": "Bottom center"
-              }, {
-                "value": "justify-end items-end text-right",
-                "label": "Bottom right"
-              }
-            ]
-          }, {
-            "type": "header",
-            "content": "Button"
-          }, {
-            "type": "text",
-            "id": "button_label",
-            "label": "Button label",
-            "info": "Links to the URL specified in the \"Link URL\" setting."
-          }, {
-            "type": "select",
-            "id": "button_style",
-            "label": "Button style",
-            "options": [
-              {
-                "value": "link",
-                "label": "Link"
-              }, {
-                "value": "btn btn--primary",
-                "label": "Primary button"
-              }, {
-                "value": "btn btn--secondary",
-                "label": "Secondary button"
-              }
-            ],
-            "default": "btn btn--primary"
-          }, {
-            "type": "header",
-            "content": "Style"
-          }, {
-            "type": "color",
-            "id": "text_color",
-            "label": "Text color",
-            "default": "#ffffff"
-          }, {
-            "type": "color",
-            "id": "tint_color",
-            "label": "Tint color",
-            "default": "#000000"
-          }, {
-            "type": "range",
-            "id": "tint_opacity",
-            "min": 0,
-            "max": 80,
-            "step": 5,
-            "unit": "%",
-            "label": "Tint opacity",
-            "default": 20
-          }
-        ]
-      }, {
-        "type": "image-promotion",
-        "name": "Media promotion",
-        "settings": [
-          {
-            "type": "header",
-            "content": "Layout"
-          },
-          {
-            "type": "range",
-            "id": "position",
-            "label": "Position in results",
-            "info": "Inserts the promotion before the product card in this position. Only applies to the first page of results.",
-            "min": 1,
-            "max": 50,
-            "step": 1,
-            "default": 1
-          },
-          {
-            "type": "select",
-            "id": "view",
-            "label": "Visibility",
-            "info": "Promos will be full width on List view",
-            "options": [
-              {
-                "value": "grid",
-                "label": "Grid view"
-              }, {
-                "value": "list",
-                "label": "List view"
-              }, {
-                "value": "grid_list",
-                "label": "Grid and List view"
-              }
-            ],
-            "default": "grid_list"
-          },
-          {
-            "type": "checkbox",
-            "id": "hide_on_filter",
-            "label": "Hide when results are filtered",
-            "default": true
-          }, {
-            "type": "range",
-            "id": "min_height",
-            "min": 50,
-            "max": 500,
-            "step": 10,
-            "unit": "px",
-            "label": "Minimum height",
-            "info": "Useful for controlling the height of the promo in List view and on mobile.",
-            "default": 150
-          }, {
-            "type": "header",
-            "content": "Content"
-          }, {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Image"
-          }, {
-            "type": "video",
-            "id": "video_shopify",
-            "label": "Video upload",
-            "info": "Hosted by Shopify. Video will autoplay and be muted. [Read more](https://cleancanvas.co.uk/support/enterprise/using-videos)"
-          }, {
-            "type": "url",
-            "id": "link_url",
-            "label": "Link URL"
-          }, {
-            "type": "richtext",
-            "id": "content",
-            "default": "<p>Promotion text</p>",
-            "label": "Text"
-          }, {
-            "type": "select",
-            "id": "text_type_scale",
-            "label": "Text size",
-            "info": "This is calculated from the Heading font size.",
-            "options": [
-              {
-                "value": "1em",
-                "label": "Body font size"
-              },
-              {
-                "value": "--h6-font-size",
-                "label": "Extra small"
-              },
-              {
-                "value": "--h5-font-size",
-                "label": "Small"
-              },
-              {
-                "value": "--h4-font-size",
-                "label": "Medium"
-              }, {
-                "value": "--h3-font-size",
-                "label": "Large"
-              }
-            ],
-            "default": "1em"
-          }, {
-            "type": "range",
-            "id": "text_width",
-            "min": 100,
-            "max": 800,
-            "step": 20,
-            "unit": "px",
-            "label": "Maximum text width",
-            "default": 400
-          }, {
-            "type": "select",
-            "id": "text_alignment",
-            "label": "Text alignment",
-            "default": "justify-center items-center text-center",
-            "options": [
-              {
-                "value": "justify-start items-start",
-                "label": "Top left"
-              },
-              {
-                "value": "justify-center items-start text-center",
-                "label": "Top center"
-              },
-              {
-                "value": "justify-end items-start text-right",
-                "label": "Top right"
-              },
-              {
-                "value": "justify-start items-center",
-                "label": "Middle left"
-              }, {
-                "value": "justify-center items-center text-center",
-                "label": "Middle center"
-              }, {
-                "value": "justify-end items-center text-right",
-                "label": "Middle right"
-              }, {
-                "value": "justify-start items-end",
-                "label": "Bottom left"
-              }, {
-                "value": "justify-center items-end text-center",
-                "label": "Bottom center"
-              }, {
-                "value": "justify-end items-end text-right",
-                "label": "Bottom right"
-              }
-            ]
-          }, {
-            "type": "header",
-            "content": "Button"
-          }, {
-            "type": "text",
-            "id": "button_label",
-            "label": "Button label",
-            "info": "Links to the URL specified in the \"Link URL\" setting."
-          }, {
-            "type": "select",
-            "id": "button_style",
-            "label": "Button style",
-            "options": [
-              {
-                "value": "link",
-                "label": "Link"
-              }, {
-                "value": "btn btn--primary",
-                "label": "Primary button"
-              }, {
-                "value": "btn btn--secondary",
-                "label": "Secondary button"
-              }
-            ],
-            "default": "btn btn--secondary"
-          }, {
-            "type": "header",
-            "content": "Style"
-          }, {
-            "type": "color",
-            "id": "text_color",
-            "label": "Text color",
-            "default": "#ffffff"
-          }, {
-            "type": "color",
-            "id": "tint_color",
-            "label": "Tint color",
-            "default": "#000000"
-          }, {
-            "type": "range",
-            "id": "tint_opacity",
-            "min": 0,
-            "max": 80,
-            "step": 5,
-            "unit": "%",
-            "label": "Tint opacity",
-            "default": 20
-          }
-        ]
-      }, {
-        "type": "card-promotion",
-        "name": "Card promotion",
-        "settings": [
-          {
-            "type": "header",
-            "content": "Layout"
-          },
-          {
-            "type": "range",
-            "id": "position",
-            "label": "Position in results",
-            "info": "Inserts the promotion before the product card in this position. Only applies to the first page of results.",
-            "min": 1,
-            "max": 50,
-            "step": 1,
-            "default": 1
-          },
-          {
-            "type": "select",
-            "id": "view",
-            "label": "Visibility",
-            "info": "Promos will be full width on List view",
-            "options": [
-              {
-                "value": "grid",
-                "label": "Grid view"
-              }, {
-                "value": "list",
-                "label": "List view"
-              }, {
-                "value": "grid_list",
-                "label": "Grid and List view"
-              }
-            ],
-            "default": "grid_list"
-          },
-          {
-            "type": "checkbox",
-            "id": "hide_on_filter",
-            "label": "Hide when results are filtered",
-            "default": true
-          }, {
-            "type": "header",
-            "content": "Content"
-          }, {
-            "type": "select",
-            "id": "color_scheme",
-            "label": "Color scheme",
-            "options": [
-              {
-                "value": "1",
-                "label": "Scheme 1"
-              }, {
-                "value": "2",
-                "label": "Scheme 2"
-              }, {
-                "value": "3",
-                "label": "Scheme 3"
-              }
-            ],
-            "default": "1"
-          }, {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Image"
-          }, {
-            "type": "select",
-            "id": "image_ratio",
-            "label": "Image aspect ratio",
-            "options": [
-              {
-                "value": "natural",
-                "label": "Natural"
-              },
-              {
-                "value": "fill",
-                "label": "Grow"
-              },
-              {
-                "value": "1.77",
-                "label": "Landscape"
-              },
-              {
-                "value": "1",
-                "label": "Square"
-              }, {
-                "value": "0.75",
-                "label": "Portrait"
-              }
-            ],
-            "default": "1"
-          }, {
-            "type": "url",
-            "id": "link_url",
-            "label": "Link URL"
-          }, {
-            "type": "text",
-            "id": "title",
-            "label": "Title",
-            "default": "Promotion title"
-          }, {
-            "type": "richtext",
-            "id": "content",
-            "default": "<p>Promotion text</p>",
-            "label": "Text"
-          }, {
-            "type": "header",
-            "content": "Button"
-          }, {
-            "type": "text",
-            "id": "button_label",
-            "label": "Button label",
-            "default": "Button",
-            "info": "The button will link to the URL specified above."
-          }, {
-            "type": "select",
-            "id": "button_style",
-            "label": "Button style",
-            "options": [
-              {
-                "value": "link",
-                "label": "Link"
-              }, {
-                "value": "btn btn--primary",
-                "label": "Primary button"
-              }, {
-                "value": "btn btn--secondary",
-                "label": "Secondary button"
-              }
-            ],
-            "default": "btn btn--secondary"
-          }, {
-            "type": "checkbox",
-            "id": "button_bottom_align",
-            "label": "Bottom align button",
-            "default": true
-          }
-        ]
-      }
-    ]
-  }
+{
+  "name": "Collection products",
+  "class": "cc-collection-products section section--template mb-0",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "label": "Products per page",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "card_size_mobile",
+      "label": "Product card size on mobile",
+      "info": "Applies to cards in Grid view only.",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "small"
+    },
+    {
+      "type": "select",
+      "id": "card_size",
+      "label": "Product card size on large screens",
+      "info": "Applies to cards in Grid view only.",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "header",
+      "content": "Toolbar"
+    },
+    {
+      "type": "paragraph",
+      "content": "The Compare toggle can be disabled in \"Theme Settings > Product Compare\"."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_layout_toggle",
+      "label": "Show grid/list layout buttons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Filtering"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "label": "Enable filtering",
+      "info": "[Customize filters](/admin/menus)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "filters_open_lg",
+      "label": "Open filters by default on large screens",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "stick_on_scroll",
+      "label": "Stick on scroll on large screens",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filter_counts",
+      "label": "Show product counts",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "expand_filters",
+      "label": "Expand all filters by default",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "max_filter_options",
+      "label": "Visible options per filter",
+      "info": "Remaining options will be automatically collapsed.",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 7
+    },
+    {
+      "type": "header",
+      "content": "Sorting"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Enable sorting",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_feat_sort_opt",
+      "label": "Show 'Featured' option",
+      "info": "Add your manually sorted order to the sort options.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sort_first",
+      "label": "Show the sort options first on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Button and Tags"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_add",
+      "label": "Hide Add To Cart Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_tag",
+      "label": "Show Category Tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping_tag",
+      "label": "Show Shipping Tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_delivery_tag",
+      "label": "Show Delivery Tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_person_tag",
+      "label": "Show No. Persons Tag"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "wide-promotion",
+      "name": "Wide promotion",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position in results",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "top"
+        },
+        {
+          "type": "select",
+          "id": "view",
+          "label": "Visibility",
+          "info": "Promos will be full width on List view",
+          "options": [
+            {
+              "value": "grid",
+              "label": "Grid view"
+            },
+            {
+              "value": "list",
+              "label": "List view"
+            },
+            {
+              "value": "grid_list",
+              "label": "Grid and List view"
+            }
+          ],
+          "default": "grid_list"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_on_filter",
+          "label": "Hide when results are filtered",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "min_height",
+          "min": 50,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "label": "Minimum height",
+          "info": "Useful for controlling the height of the promo in List view and on mobile.",
+          "default": 150
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_shopify",
+          "label": "Video upload",
+          "info": "Hosted by Shopify. Video will autoplay and be muted. [Read more](https://cleancanvas.co.uk/support/enterprise/using-videos)"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "default": "<p>Promotion text</p>",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "text_type_scale",
+          "label": "Text size",
+          "info": "This is calculated from the Heading font size.",
+          "options": [
+            {
+              "value": "1em",
+              "label": "Body font size"
+            },
+            {
+              "value": "--h6-font-size",
+              "label": "Extra small"
+            },
+            {
+              "value": "--h5-font-size",
+              "label": "Small"
+            },
+            {
+              "value": "--h4-font-size",
+              "label": "Medium"
+            },
+            {
+              "value": "--h3-font-size",
+              "label": "Large"
+            },
+            {
+              "value": "--h2-font-size",
+              "label": "Extra large"
+            }
+          ],
+          "default": "--h4-font-size"
+        },
+        {
+          "type": "range",
+          "id": "text_width",
+          "min": 100,
+          "max": 800,
+          "step": 20,
+          "unit": "px",
+          "label": "Maximum text width",
+          "default": 400
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "default": "justify-center items-center text-center",
+          "options": [
+            {
+              "value": "justify-start items-start",
+              "label": "Top left"
+            },
+            {
+              "value": "justify-center items-start text-center",
+              "label": "Top center"
+            },
+            {
+              "value": "justify-end items-start text-right",
+              "label": "Top right"
+            },
+            {
+              "value": "justify-start items-center",
+              "label": "Middle left"
+            },
+            {
+              "value": "justify-center items-center text-center",
+              "label": "Middle center"
+            },
+            {
+              "value": "justify-end items-center text-right",
+              "label": "Middle right"
+            },
+            {
+              "value": "justify-start items-end",
+              "label": "Bottom left"
+            },
+            {
+              "value": "justify-center items-end text-center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "justify-end items-end text-right",
+              "label": "Bottom right"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "info": "Links to the URL specified in the \"Link URL\" setting."
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "link",
+              "label": "Link"
+            },
+            {
+              "value": "btn btn--primary",
+              "label": "Primary button"
+            },
+            {
+              "value": "btn btn--secondary",
+              "label": "Secondary button"
+            }
+          ],
+          "default": "btn btn--primary"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "tint_color",
+          "label": "Tint color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "tint_opacity",
+          "min": 0,
+          "max": 80,
+          "step": 5,
+          "unit": "%",
+          "label": "Tint opacity",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "type": "image-promotion",
+      "name": "Media promotion",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "range",
+          "id": "position",
+          "label": "Position in results",
+          "info": "Inserts the promotion before the product card in this position. Only applies to the first page of results.",
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "id": "view",
+          "label": "Visibility",
+          "info": "Promos will be full width on List view",
+          "options": [
+            {
+              "value": "grid",
+              "label": "Grid view"
+            },
+            {
+              "value": "list",
+              "label": "List view"
+            },
+            {
+              "value": "grid_list",
+              "label": "Grid and List view"
+            }
+          ],
+          "default": "grid_list"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_on_filter",
+          "label": "Hide when results are filtered",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "min_height",
+          "min": 50,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "label": "Minimum height",
+          "info": "Useful for controlling the height of the promo in List view and on mobile.",
+          "default": 150
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_shopify",
+          "label": "Video upload",
+          "info": "Hosted by Shopify. Video will autoplay and be muted. [Read more](https://cleancanvas.co.uk/support/enterprise/using-videos)"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "default": "<p>Promotion text</p>",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "text_type_scale",
+          "label": "Text size",
+          "info": "This is calculated from the Heading font size.",
+          "options": [
+            {
+              "value": "1em",
+              "label": "Body font size"
+            },
+            {
+              "value": "--h6-font-size",
+              "label": "Extra small"
+            },
+            {
+              "value": "--h5-font-size",
+              "label": "Small"
+            },
+            {
+              "value": "--h4-font-size",
+              "label": "Medium"
+            },
+            {
+              "value": "--h3-font-size",
+              "label": "Large"
+            }
+          ],
+          "default": "1em"
+        },
+        {
+          "type": "range",
+          "id": "text_width",
+          "min": 100,
+          "max": 800,
+          "step": 20,
+          "unit": "px",
+          "label": "Maximum text width",
+          "default": 400
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "default": "justify-center items-center text-center",
+          "options": [
+            {
+              "value": "justify-start items-start",
+              "label": "Top left"
+            },
+            {
+              "value": "justify-center items-start text-center",
+              "label": "Top center"
+            },
+            {
+              "value": "justify-end items-start text-right",
+              "label": "Top right"
+            },
+            {
+              "value": "justify-start items-center",
+              "label": "Middle left"
+            },
+            {
+              "value": "justify-center items-center text-center",
+              "label": "Middle center"
+            },
+            {
+              "value": "justify-end items-center text-right",
+              "label": "Middle right"
+            },
+            {
+              "value": "justify-start items-end",
+              "label": "Bottom left"
+            },
+            {
+              "value": "justify-center items-end text-center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "justify-end items-end text-right",
+              "label": "Bottom right"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "info": "Links to the URL specified in the \"Link URL\" setting."
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "link",
+              "label": "Link"
+            },
+            {
+              "value": "btn btn--primary",
+              "label": "Primary button"
+            },
+            {
+              "value": "btn btn--secondary",
+              "label": "Secondary button"
+            }
+          ],
+          "default": "btn btn--secondary"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "tint_color",
+          "label": "Tint color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "tint_opacity",
+          "min": 0,
+          "max": 80,
+          "step": 5,
+          "unit": "%",
+          "label": "Tint opacity",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "type": "card-promotion",
+      "name": "Card promotion",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "range",
+          "id": "position",
+          "label": "Position in results",
+          "info": "Inserts the promotion before the product card in this position. Only applies to the first page of results.",
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "id": "view",
+          "label": "Visibility",
+          "info": "Promos will be full width on List view",
+          "options": [
+            {
+              "value": "grid",
+              "label": "Grid view"
+            },
+            {
+              "value": "list",
+              "label": "List view"
+            },
+            {
+              "value": "grid_list",
+              "label": "Grid and List view"
+            }
+          ],
+          "default": "grid_list"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_on_filter",
+          "label": "Hide when results are filtered",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "select",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "options": [
+            {
+              "value": "1",
+              "label": "Scheme 1"
+            },
+            {
+              "value": "2",
+              "label": "Scheme 2"
+            },
+            {
+              "value": "3",
+              "label": "Scheme 3"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "image_ratio",
+          "label": "Image aspect ratio",
+          "options": [
+            {
+              "value": "natural",
+              "label": "Natural"
+            },
+            {
+              "value": "fill",
+              "label": "Grow"
+            },
+            {
+              "value": "1.77",
+              "label": "Landscape"
+            },
+            {
+              "value": "1",
+              "label": "Square"
+            },
+            {
+              "value": "0.75",
+              "label": "Portrait"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Promotion title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "default": "<p>Promotion text</p>",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Button",
+          "info": "The button will link to the URL specified above."
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "link",
+              "label": "Link"
+            },
+            {
+              "value": "btn btn--primary",
+              "label": "Primary button"
+            },
+            {
+              "value": "btn btn--secondary",
+              "label": "Secondary button"
+            }
+          ],
+          "default": "btn btn--secondary"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_bottom_align",
+          "label": "Bottom align button",
+          "default": true
+        }
+      ]
+    }
+  ]
+}
 {% endschema %}
