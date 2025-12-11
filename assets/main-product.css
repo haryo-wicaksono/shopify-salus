@@ -930,14 +930,14 @@ product-recommendations .img-fit {
   height: 100%;
   /* max-height: 165px; */
   object-fit: contain;
-  padding: 22px;
+  padding: 0px;
   margin: 0 auto;
 }
 
 product-recommendations .slider__item {
   scroll-snap-align: start;
-  border: 0.5px solid #b4b4b4;
-  padding: 20px 22px;
+  border: 1px solid #b4b4b4;
+  padding: 15px 15px;
   border-radius: 10px;
 }
 
@@ -985,7 +985,7 @@ product-recommendations .card__quick-add .btn {
   border: 1px solid #222120;
   background: transparent;
   border-radius: 200px;
-  padding: 6px;
+  padding: 10px;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -995,8 +995,9 @@ product-recommendations .card__quick-add .btn {
 
 product-recommendations product-form .btn:hover,
 product-recommendations .card__quick-add .btn:hover {
-  background: #222120;
-  color: #fff;
+  background: #1F8A81;
+  color: #FFFFFF;
+  transition: none;
 }
 
 .section.milti-column-sec {

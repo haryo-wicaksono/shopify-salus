@@ -6449,8 +6449,8 @@ body .products-card-sec .product_ratings .jdgm-preview-badge .jdgm-star {
 
 .product-ext-tags span {
   display: block;
-  width: 100%;
-  max-width: max-content;
+  width: max-content;
+  /* max-width: max-content; */
   padding: 7px 16px;
   border: 1px solid #222120;
   border-radius: 20px;
