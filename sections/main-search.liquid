@@ -51,6 +51,98 @@
     max-width: 1400px;
     margin: 0px auto;
   }
+
+  @media screen and (max-width: 768px) {
+    .main-products-grid .product-page-card__reviews,
+    .main-products-grid .product-page-card__star-rating,
+    .main-products-grid .product-page-card__reviews-text {
+      display: block;
+    }
+    .main-products-grid .card--product .card__info-inner .card__title {
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 600;
+    }
+
+    .main-products-grid .product-page-card__reviews-text,
+    .main-products-grid .product-page-card__star-rating {
+      width: 100%;
+    }
+    .main-products-grid .product-page-card__star-rating svg {
+      height: 17px;
+      width: 15px;
+    }
+    .product-ext-tags {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+
+    {% comment %} .product-ext-tags .free-shipping-tag,
+    .product-ext-tags .pd-delivery {
+      display: block !important;
+      flex: 0 1 auto !important;
+      max-width: max-content !important;
+    } {% endcomment %}
+
+    /* Make search tags look like collection cards on mobile */
+    .main-products-grid .product-ext-tags {
+      display: block;
+      flex-flow: row nowrap;
+      row-gap: 5px;
+      justify-content: space-between;
+    }
+
+    .main-products-grid .product-ext-tags .free-shipping-tag,
+    .main-products-grid .product-ext-tags .pd-delivery {
+      flex: 1 1 0;
+      max-width: max-content;
+      text-align: center;
+      display: block;
+      font-size: 12px;
+      padding: 6px 12px;
+      line-height: 10px;
+      font-weight: 400;
+    }
+
+    .main-products-grid .product-ext-tags .pd-delivery {
+      margin-top: 5px;
+    }
+      /* Better price wrapping on narrow search cards */
+    .main-products-grid .product-carousel-price {
+      row-gap: 2px;
+    }
+
+    .main-products-grid .product-carousel-price__current,
+    .main-products-grid .product-carousel-price__discount,
+    .main-products-grid .product-carousel-price__compare {
+      white-space: nowrap;    /* never split $8,095 into two lines */
+    }
+    .main-products-grid .product-carousel-price__discount {
+      font-size: 12px;
+      padding: 1px 3px;
+      font-weight: 600;
+      line-height: 20px;
+    }
+
+    /* Optional: slightly smaller price text on tiny cards */
+    .main-products-grid .product-carousel-price__current,
+    .main-products-grid .product-carousel-price__compare {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 31.5px;
+    }
+
+    .product-info__block.product-card__financing,
+    .product-info__block.product-info__block--sm.product-info__pay .affirm-as-low-as.custom-affirm {
+      font-size: 12px !important;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    .template--search .card--product .card__media:has(.png_type, .webp_type) {
+      padding: 5px;
+    }
+  }
 </style>
 
 <div class="container">
