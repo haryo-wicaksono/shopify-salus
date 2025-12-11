@@ -92,16 +92,26 @@
 -%}
 
 <style>
-  .main-products-grid .product-page-card__reviews {
-    display: block;
+  .card:not(.card--related):not(.card--no-lines) .price--top {
+    margin-top: 15px;
   }
+  @media screen and (max-width: 768px) {
+    .main-products-grid .product-page-card__reviews {
+      display: block;
+      margin-top: 10px;
+    }
 
-  .main-products-grid .product-page-card__reviews-text {
-    margin-top: 5px;
-  }
+    .main-products-grid .product-page-card__star-rating svg {
+      height: 12px;
+      width: 12px;
+    }
 
-  .main-products-grid .card--product .card__info-inner .card__title {
-    font-size: 14px;
+    .main-products-grid .product-page-card__reviews-text {
+      margin-top: 5px;
+    }
+    .main-products-grid .card--product .card__info-inner .card__title {
+      font-size: 14px;
+    }
   }
 </style>
 
