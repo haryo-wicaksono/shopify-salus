@@ -1258,7 +1258,8 @@
                     </div>
                   {% endcomment %}
                   <div class="product-detail-cntnt">
-                    {{ block.settings.text }}
+                    {% comment %} {{ block.settings.text }} {% endcomment %}
+                    {{ product.metafields.custom.brief }}
                   </div>
                   <a href="#product-accordion" class="product-accordion-scroll-link"> See more details </a>
                 </div>
