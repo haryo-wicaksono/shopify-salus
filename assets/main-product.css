@@ -64,7 +64,7 @@
 
 .product-info__block.product-details__block.product-details__text.rte .product-detail-cntnt p {
   margin-bottom: 0px;
-  display: flex;
+  /* display: flex; */
 }
 
 .product-info__tags ul {

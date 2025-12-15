@@ -73,7 +73,7 @@
           "type": "richtext",
           "settings": {
             "heading": "Product Overview",
-            "text": "<p>{{ product.metafields.custom.brief | metafield_tag }}</p>"
+            "text": "{{ product.metafields.custom.brief.value }}"
           }
         },
         "description_U3T6cM": {
