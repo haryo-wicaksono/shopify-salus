@@ -31,6 +31,10 @@
   border-radius: 5px;
 }
 
+.tag-container .pdp-tag {
+  display: none;
+}
+
 #product-media .media-ctrl__btn .icon {
   width: 13px;
   height: 20px;
