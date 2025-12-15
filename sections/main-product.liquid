@@ -1261,7 +1261,10 @@
                     {% comment %} {{ block.settings.text }} {% endcomment %}
                     {{ product.metafields.custom.brief }}
                   </div>
-                  <a href="#product-accordion" class="product-accordion-scroll-link"> See more details </a>
+                  {% assign product_accordions = product.metafields.product_accordions %}
+                  {% if product_accordions.size > 0 %}
+                    <a href="#product-accordion" class="product-accordion-scroll-link"> See more details </a>
+                  {%- endif -%}
                 </div>
               {%- endif -%}
             {% when 'download_manual' %}
