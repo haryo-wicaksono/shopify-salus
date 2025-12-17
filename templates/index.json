@@ -355,7 +355,7 @@
         "sauna_feature_item_JaGAY4": {
           "type": "sauna-feature-item",
           "settings": {
-            "featured_product": "dynamic-1-2-person-infrared-sauna"
+            "featured_product": "glamour-1-2-person-infrared-sauna"
           }
         },
         "sauna_feature_item_gxPnVT": {
@@ -566,7 +566,7 @@
         "title": "Explore our best-in-class infrared saunas",
         "button-label": "Shop Infrared",
         "button_collection": "all-infrared-saunas",
-        "affirm_product": "dynamic-1-2-person-infrared-sauna",
+        "affirm_product": "glamour-1-2-person-infrared-sauna",
         "products_to_display_collection": "infrared-saunas-highlight"
       }
     },
