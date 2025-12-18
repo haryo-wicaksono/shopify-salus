@@ -1,0 +1,234 @@
+{%- comment -%}
+  Reviews Tab Section
+  - Hardcoded Google Elfsight Widget
+  - Trustpilot input field (Shows placeholder if empty)
+  - Logic: Hides tabs if only one provider is enabled.
+{%- endcomment -%}
+
+<style>
+  /* Section Styling */
+  .reviews-section-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Tab Container */
+  .reviews-tab-header {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  /* Buttons Base Style */
+  .review-tab-btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    outline: none;
+  }
+
+  /* Hover State */
+  .review-tab-btn:hover {
+    border-color: #ccc;
+    transform: translateY(-1px);
+  }
+
+  /* Active State: Google (Teal) */
+  .review-tab-btn.active[data-target='google'] {
+    background-color: #2d9c8d;
+    border-color: #2d9c8d;
+    color: #ffffff;
+  }
+
+  /* Active State: Trustpilot (Green) */
+  .review-tab-btn.active[data-target='trustpilot'] {
+    background-color: #00b67a;
+    border-color: #00b67a;
+    color: #ffffff;
+  }
+
+  /* Content Areas */
+  .review-content-wrapper {
+    display: none; /* Hide all by default */
+    width: 100%;
+    animation: fadeIn 0.5s ease;
+  }
+
+  /* Show the active content */
+  .review-content-wrapper.active {
+    display: block;
+  }
+
+  /* Fade Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<div
+  class="section relative section--full-width{% unless section.settings.section_height == "tight" %} section--padded-{{ section.settings.section_height }}{% endunless %}{% if section.settings.dividers != "none" %} {{ section.settings.dividers }}{% endif %}"
+  {% if settings.animations_enabled != 'disabled' and section.settings.prevent_animation == false %}
+    data-cc-animate
+  {% endif %}
+>
+  {%- unless section.settings.full_width -%}
+    <div class="container">
+  {%- endunless -%}
+
+  <div class="reviews-section-wrapper">
+    {%- assign show_google = section.settings.enable_google -%}
+    {%- assign show_trustpilot = section.settings.enable_trustpilot -%}
+
+    {%- if show_google and show_trustpilot -%}
+      <div class="reviews-tab-header">
+        <button class="review-tab-btn active" data-target="google" onclick="openReviewTab(event, 'google')">
+          Google Reviews
+        </button>
+        <button class="review-tab-btn" data-target="trustpilot" onclick="openReviewTab(event, 'trustpilot')">
+          Trustpilot Reviews
+        </button>
+      </div>
+    {%- endif -%}
+
+    {%- if show_google -%}
+      <div
+        id="tab-google"
+        class="review-content-wrapper {% if show_trustpilot == false or show_google %}active{% endif %}"
+      >
+        <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+        <div class="elfsight-app-c9f596c6-bdba-4c64-949a-cacabaf0f6d1" data-elfsight-app-lazy></div>
+      </div>
+    {%- endif -%}
+
+    {%- if show_trustpilot -%}
+      <div id="tab-trustpilot" class="review-content-wrapper {% if show_google == false %}active{% endif %}">
+        {%- if section.settings.trustpilot_code != blank -%}
+          {{ section.settings.trustpilot_code }}
+        {%- else -%}
+          <div style="text-align:center; padding: 60px; background: #f9f9f9; border-radius: 8px; border: 1px dashed #ccc;">
+            <h3 style="margin-top:0;">Trustpilot Reviews</h3>
+            <p>Trustpilot widget coming soon...</p>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- unless section.settings.full_width -%}
+    </div>
+  {%- endunless -%}
+</div>
+
+<script>
+  function openReviewTab(evt, tabName) {
+    // 1. Hide all content wrappers
+    var contents = document.getElementsByClassName('review-content-wrapper');
+    for (var i = 0; i < contents.length; i++) {
+      contents[i].classList.remove('active');
+    }
+
+    // 2. Deactivate all buttons
+    var buttons = document.getElementsByClassName('review-tab-btn');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].classList.remove('active');
+    }
+
+    // 3. Show current content and activate current button
+    var selectedTab = document.getElementById('tab-' + tabName);
+    if (selectedTab) selectedTab.classList.add('active');
+
+    if (evt && evt.currentTarget) {
+      evt.currentTarget.classList.add('active');
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Reviews Tabs",
+  "tag": "section",
+  "class": "section-reviews-tabs",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Visibility Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_google",
+      "label": "Enable Google Reviews",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_trustpilot",
+      "label": "Enable Trustpilot Reviews",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Widget Code"
+    },
+    {
+      "type": "html",
+      "id": "trustpilot_code",
+      "label": "Trustpilot HTML/Liquid",
+      "info": "Paste the Trustpilot embed code here. If empty, a placeholder will be shown."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "label": "Section height",
+      "id": "section_height",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "tight", "label": "Tight" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "dividers",
+      "label": "Dividing lines",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "border-top", "label": "Above" },
+        { "value": "border-bottom", "label": "Below" }
+      ],
+      "default": "none"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews Tabs"
+    }
+  ]
+}
+{% endschema %}
