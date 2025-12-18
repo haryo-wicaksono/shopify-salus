@@ -19,17 +19,6 @@
         "color_scheme": "default"
       }
     },
-    "custom_liquid_WDjAzX": {
-      "type": "custom-liquid",
-      "disabled": true,
-      "settings": {
-        "custom_liquid": "<h1 style=\"text-align:center\">Sauna Reviews</h1>",
-        "section_height": "medium",
-        "full_width": false,
-        "dividers": "none",
-        "prevent_animation": true
-      }
-    },
     "rich_text_HPzQPT": {
       "type": "rich-text",
       "blocks": {
@@ -53,7 +42,6 @@
         "heading_qmLGqm",
         "text_QATE3K"
       ],
-      "custom_css": [],
       "settings": {
         "text_position": "justify-center",
         "text_align": "text-center",
@@ -66,6 +54,7 @@
     },
     "custom_liquid_CXXTWk": {
       "type": "custom-liquid",
+      "disabled": true,
       "settings": {
         "custom_liquid": "<script src=\"https://static.elfsight.com/platform/platform.js\" data-use-service-core defer></script>\n<div class=\"elfsight-app-c9f596c6-bdba-4c64-949a-cacabaf0f6d1\" data-elfsight-app-lazy></div>",
         "section_height": "default",
@@ -73,12 +62,24 @@
         "dividers": "none",
         "prevent_animation": false
       }
+    },
+    "reviews_page_tab_P9WCLf": {
+      "type": "reviews-page-tab",
+      "name": "Reviews Tabs",
+      "settings": {
+        "enable_google": true,
+        "enable_trustpilot": true,
+        "trustpilot_code": "",
+        "section_height": "default",
+        "full_width": false,
+        "dividers": "none"
+      }
     }
   },
   "order": [
     "main",
-    "custom_liquid_WDjAzX",
     "rich_text_HPzQPT",
-    "custom_liquid_CXXTWk"
+    "custom_liquid_CXXTWk",
+    "reviews_page_tab_P9WCLf"
   ]
 }
