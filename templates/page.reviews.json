@@ -65,11 +65,25 @@
     },
     "reviews_page_tab_P9WCLf": {
       "type": "reviews-page-tab",
+      "blocks": {
+        "review_card_j7ceTn": {
+          "type": "review_card",
+          "settings": {
+            "title": "This is a great sauna that is well made.",
+            "text": "This is a great sauna that is well made. The full glass door is thick and very functional. The Bluetooth speakers and lights are a must and not standard or even optional on most competitors. We only put one person in the sauna at a time and it is roomy and comfortable. The Wi-Fi heater is fantastic since we can turn it on from anywhere and get things going. However, the best part of our purchase was the tremendous support provided by Salus Saunas. I had numerous contacts by both email and phone to ask questions to make sure I was making the right purchase...",
+            "author": "Joe Ricchezza",
+            "date": "Dec 14, 2025",
+            "product_name": "Ally Traditional Indoor Sauna - 2 Person"
+          }
+        }
+      },
+      "block_order": [
+        "review_card_j7ceTn"
+      ],
       "name": "Reviews Tabs",
       "settings": {
         "enable_google": true,
         "enable_trustpilot": true,
-        "trustpilot_code": "",
         "section_height": "default",
         "full_width": false,
         "dividers": "none"
