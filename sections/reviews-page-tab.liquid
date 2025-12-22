@@ -1,8 +1,8 @@
 {%- comment -%}
   Reviews Tab Section
   - Tab 1: Hardcoded Google Elfsight Widget
-  - Tab 2: Custom Reviews (Masonry Layout)
-  - Feature: "Check us out on Trustpilot" link (Visible only on Trustpilot tab)
+  - Tab 2: Custom Reviews with "Fake" Trustpilot Header (Manual Data)
+  - Features: Masonry Grid, Smart Initials, Manual Header Control
 {%- endcomment -%}
 
 <style>
@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     flex-wrap: wrap;
   }
 
@@ -50,43 +50,106 @@
     color: #ffffff;
   }
 
-  /* --- TRUSTPILOT VERIFICATION LINK --- */
-  .tp-verify-link-wrapper {
-    text-align: center;
+  /* --- CUSTOM TRUSTPILOT HEADER (Replica of Elfsight) --- */
+  .tp-custom-header {
+    background-color: #f8f8f8; /* Matches Elfsight Grey */
+    border-radius: 16px;
+    padding: 24px 32px;
     margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
     display: none; /* Hidden by default */
     animation: fadeIn 0.5s ease;
   }
 
-  .tp-verify-link-wrapper.active {
-    display: block;
+  .tp-custom-header.active {
+    display: flex;
   }
 
-  .tp-verify-btn {
-    display: inline-flex;
+  .tp-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tp-brand-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.2;
+  }
+
+  /* Trustpilot Logo Star */
+  .tp-logo-star {
+    width: 28px;
+    height: 28px;
+    fill: #00b67a;
+  }
+
+  .tp-rating-row {
+    display: flex;
     align-items: center;
     gap: 8px;
+    font-size: 16px;
+  }
+
+  .tp-score {
+    font-weight: 800;
+    color: #111;
+  }
+
+  .tp-stars-row {
+    display: flex;
+    gap: 2px;
+  }
+
+  .tp-star-icon-small {
+    width: 18px;
+    height: 18px;
+    fill: #ffb80f; /* Elfsight/Google Yellow */
+  }
+  /* Optional: Switch fill to #00b67a if you want Green Trustpilot Stars */
+
+  .tp-count {
+    color: #777;
+    font-weight: 400;
+  }
+
+  /* "Review us" Button (Google Style Blue) */
+  .tp-header-btn {
+    background-color: #1c61ff; /* Google/Elfsight Blue */
+    color: white;
     text-decoration: none;
-    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 6px;
     font-weight: 600;
-    color: #333;
-    padding: 8px 16px;
-    border: 1px solid #e0e0e0;
-    border-radius: 20px;
-    background-color: #f9f9f9;
-    transition: all 0.2s ease;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
   }
 
-  .tp-verify-btn:hover {
-    background-color: #fff;
-    border-color: #00b67a;
-    color: #00b67a;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  .tp-header-btn:hover {
+    background-color: #1557d4;
+    color: white;
   }
 
-  .tp-star-icon {
-    width: 20px;
-    height: 20px;
+  /* Mobile Adjustments for Header */
+  @media (max-width: 600px) {
+    .tp-custom-header {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px;
+    }
+    .tp-header-btn {
+      width: 100%;
+      text-align: center;
+    }
   }
 
   /* --- CONTENT VISIBILITY --- */
@@ -221,6 +284,25 @@
     font-weight: 600;
     color: #333;
   }
+
+  #shopify-section-template--25628723347758__reviews_page_tab_P9WCLf
+    .section.relative.section--full-width.section--padded-default.cc-animate-init.cc-animate-in {
+    padding-top: 0px;
+  }
+
+  #shopify-section-template--25628723347758__rich_text_HPzQPT
+    .section.color-scheme--transparent.cc-animate-init.cc-animate-in {
+    padding-bottom: 0px;
+  }
+
+  #shopify-section-template--25628723347758__reviews_page_tab_P9WCLf .reviews-section-wrapper {
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+  #shopify-section-template--25628723347758__reviews_page_tab_P9WCLf
+    .section.relative.section--full-width.section--padded-default.cc-animate-init.cc-animate-in {
+    margin-top: 30px;
+  }
 </style>
 
 <div
@@ -245,19 +327,33 @@
     {%- endif -%}
 
     {%- if trust_on -%}
-      <div id="tp-link-container" class="tp-verify-link-wrapper {% if google_on == false %}active{% endif %}">
-        <a
-          href="https://www.trustpilot.com/review/www.salussaunas.com"
-          target="_blank"
-          class="tp-verify-btn"
-          title="Visit our Trustpilot Page"
-        >
-          <svg class="tp-star-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0H24V24H0z" fill="none"/>
-            <path d="M12 18L4.947 22.208 6.894 13.916 0.334 8.022 8.78 7.376 12 0 15.22 7.376 23.666 8.022 17.106 13.916 19.053 22.208z" fill="#00B67A"/>
-          </svg>
-          Check us out on Trustpilot
-        </a>
+      <div id="tp-header" class="tp-custom-header {% if google_on == false %}active{% endif %}">
+        <div class="tp-header-left">
+          <div class="tp-brand-row">
+            <svg class="tp-logo-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0H24V24H0z" fill="none"/><path d="M12 18L4.947 22.208 6.894 13.916 0.334 8.022 8.78 7.376 12 0 15.22 7.376 23.666 8.022 17.106 13.916 19.053 22.208z" fill="#00B67A"/>
+            </svg>
+            <span>Trustpilot</span>
+            <span style="font-weight:800;">Reviews</span>
+          </div>
+          <div class="tp-rating-row">
+            <span class="tp-score">{{ section.settings.tp_rating_score }}</span>
+            <div class="tp-stars-row">
+              {% for i in (1..5) %}
+                <svg class="tp-star-icon-small" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              {% endfor %}
+            </div>
+            <span class="tp-count">({{ section.settings.tp_review_count }})</span>
+          </div>
+        </div>
+
+        <div class="tp-header-right">
+          <a href="{{ section.settings.tp_profile_url }}" target="_blank" class="tp-header-btn">
+            Review us on Trustpilot
+          </a>
+        </div>
       </div>
     {%- endif -%}
 
@@ -328,26 +424,26 @@
 
 <script>
   function switchTab(evt, platform) {
-    // 1. Hide all content & Buttons
+    // 1. Hide Content
     document.querySelectorAll('.review-content-wrapper').forEach((el) => el.classList.remove('active'));
     document.querySelectorAll('.review-tab-btn').forEach((btn) => btn.classList.remove('active'));
 
-    // 2. Activate selected content
+    // 2. Show Selected Content
     var selectedContent = document.getElementById('content-' + platform);
     if (selectedContent) selectedContent.classList.add('active');
 
-    // 3. Activate clicked button
+    // 3. Highlight Tab Button
     if (evt && evt.currentTarget) {
       evt.currentTarget.classList.add('active');
     }
 
-    // 4. Toggle the "Check us out" link (Only show on Trustpilot tab)
-    var tpLink = document.getElementById('tp-link-container');
-    if (tpLink) {
+    // 4. Toggle the Custom Trustpilot Header
+    var tpHeader = document.getElementById('tp-header');
+    if (tpHeader) {
       if (platform === 'trustpilot') {
-        tpLink.classList.add('active');
+        tpHeader.classList.add('active');
       } else {
-        tpLink.classList.remove('active');
+        tpHeader.classList.remove('active');
       }
     }
   }
@@ -372,6 +468,30 @@
       "id": "enable_trustpilot",
       "label": "Enable Custom Reviews",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Trustpilot Header Settings"
+    },
+    {
+      "type": "text",
+      "id": "tp_rating_score",
+      "label": "Rating Score",
+      "default": "4.6",
+      "info": "Example: 4.9"
+    },
+    {
+      "type": "text",
+      "id": "tp_review_count",
+      "label": "Review Count",
+      "default": "250",
+      "info": "Example: 298"
+    },
+    {
+      "type": "url",
+      "id": "tp_profile_url",
+      "label": "Trustpilot Profile URL",
+      "info": "Where the 'Review us' button links to."
     },
     {
       "type": "header",
