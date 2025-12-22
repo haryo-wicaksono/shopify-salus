@@ -66,6 +66,36 @@
     "reviews_page_tab_P9WCLf": {
       "type": "reviews-page-tab",
       "blocks": {
+        "review_card_8ctN3f": {
+          "type": "review_card",
+          "settings": {
+            "title": "Found the perfect sauna for my back…",
+            "text": "Found the perfect sauna for my back patio at Salus Saunas. The team was incredibly helpful from the sales process through the install answering my endless questions with patience and expertise. The quality and look of the sauna turned out amazing. Better than my lofty expectations. Would highly recommend Salus Saunas to anyone interested.",
+            "author": "Lina Haimelin",
+            "date": "Sept 20, 2025",
+            "product_name": ""
+          }
+        },
+        "review_card_RfJY7U": {
+          "type": "review_card",
+          "settings": {
+            "title": "Can’t say enough about George",
+            "text": "Can’t say enough about George! From the very moment that I opened my\nSauna and started the inventory process down to the last screw to piece it all together best customer service as well as Angelle with helping me out through the selection process of a Sauna would recommend 10/10",
+            "author": "Erick Cabrera",
+            "date": "Dec 2, 2025",
+            "product_name": ""
+          }
+        },
+        "review_card_CrBB7w": {
+          "type": "review_card",
+          "settings": {
+            "title": "Highly Recommended",
+            "text": "Awesome experience start to finish. Their sales, delivery and service teams were top notch. Equally impressive was the quality of advice and product. I chose a complex build/location and the team helped me patiently months before through months after the purchase. And the end product is INCREDIBlE. My family and I have been enjoying our new large outdoor sauna in the snowy northeast almost daily. The experience and result exceeded my lofty expectations.",
+            "author": "Tom H",
+            "date": "Dec 15, 2025",
+            "product_name": ""
+          }
+        },
         "review_card_j7ceTn": {
           "type": "review_card",
           "settings": {
@@ -78,6 +108,9 @@
         }
       },
       "block_order": [
+        "review_card_8ctN3f",
+        "review_card_RfJY7U",
+        "review_card_CrBB7w",
         "review_card_j7ceTn"
       ],
       "name": "Reviews Tabs",
