@@ -139,6 +139,9 @@
       "settings": {
         "enable_google": true,
         "enable_trustpilot": true,
+        "tp_rating_score": "4.6",
+        "tp_review_count": "50",
+        "tp_profile_url": "",
         "section_height": "default",
         "full_width": false,
         "dividers": "none"
