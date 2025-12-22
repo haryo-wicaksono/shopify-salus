@@ -1,8 +1,8 @@
 {%- comment -%}
   Reviews Tab Section
   - Tab 1: Hardcoded Google Elfsight Widget
-  - Tab 2: Native "Trustpilot-style" Custom Reviews (Managed via Blocks)
-  - Logic: Hides tabs if only one provider is enabled.
+  - Tab 2: Custom Reviews (Masonry Layout)
+  - Features: Smart Initials, Optional Photo Upload, Stacked Layout
 {%- endcomment -%}
 
 <style>
@@ -38,21 +38,19 @@
     border-color: #ccc;
   }
 
-  /* Active Google Button (Teal) */
   .review-tab-btn.active.btn-google {
     background-color: #2d9c8d;
     border-color: #2d9c8d;
     color: #ffffff;
   }
 
-  /* Active Trustpilot Button (Blue/Green) */
   .review-tab-btn.active.btn-trustpilot {
-    background-color: #00b67a; /* Trustpilot Green */
+    background-color: #00b67a;
     border-color: #00b67a;
     color: #ffffff;
   }
 
-  /* --- CONTENT STYLING --- */
+  /* --- CONTENT VISIBILITY --- */
   .review-content-wrapper {
     display: none;
     width: 100%;
@@ -74,36 +72,34 @@
     }
   }
 
-  /* --- CUSTOM CARD CAROUSEL STYLING --- */
+  /* --- MASONRY GRID STYLING --- */
   .custom-reviews-container {
-    display: flex;
-    overflow-x: auto;
-    gap: 20px;
-    padding: 20px 5px; /* Padding for shadow clearance */
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
+    column-count: 3; /* Default: 3 Columns */
+    column-gap: 20px;
+    width: 100%;
   }
 
-  .custom-reviews-container::-webkit-scrollbar {
-    height: 8px;
+  /* Responsive Columns */
+  @media (max-width: 1024px) {
+    .custom-reviews-container {
+      column-count: 2;
+    }
   }
-  .custom-reviews-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  .custom-reviews-container::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
+
+  @media (max-width: 600px) {
+    .custom-reviews-container {
+      column-count: 1;
+    }
   }
 
   .custom-review-card {
-    flex: 0 0 320px; /* Width of each card */
+    break-inside: avoid; /* Prevents card from splitting across columns */
     background: #fff;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
     padding: 24px;
+    margin-bottom: 20px; /* Space between vertical cards */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -115,6 +111,7 @@
     margin-bottom: 12px;
   }
 
+  /* Avatar Circle (Initials) */
   .review-avatar {
     width: 40px;
     height: 40px;
@@ -125,9 +122,20 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     margin-right: 12px;
     text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  /* Avatar Image (Uploaded) */
+  .review-avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    flex-shrink: 0;
   }
 
   .review-author-info {
@@ -147,7 +155,7 @@
   }
 
   .review-stars {
-    color: #00b67a; /* Green Stars */
+    color: #00b67a;
     margin-bottom: 10px;
     font-size: 18px;
     letter-spacing: 2px;
@@ -165,7 +173,6 @@
     line-height: 1.5;
     color: #555;
     margin-bottom: 15px;
-    flex-grow: 1;
   }
 
   .review-product {
@@ -215,8 +222,25 @@
           {%- for block in section.blocks -%}
             <div class="custom-review-card" {{ block.shopify_attributes }}>
               <div class="review-header">
-                {%- assign initial = block.settings.author | slice: 0 | upcase | default: 'C' -%}
-                <div class="review-avatar">{{ initial }}</div>
+                {%- if block.settings.review_image != blank -%}
+                  <img
+                    class="review-avatar-img"
+                    src="{{ block.settings.review_image | image_url: width: 80, height: 80, crop: 'center' }}"
+                    alt="{{ block.settings.author }}"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  {%- assign names = block.settings.author | split: ' ' -%}
+                  {%- assign first_initial = names.first | slice: 0 | upcase -%}
+                  {%- assign last_initial = '' -%}
+                  {%- if names.size > 1 -%}
+                    {%- assign last_initial = names.last | slice: 0 | upcase -%}
+                  {%- endif -%}
+                  <div class="review-avatar">
+                    {{ first_initial -}}
+                    {{- last_initial }}
+                  </div>
+                {%- endif -%}
 
                 <div class="review-author-info">
                   <span class="review-author-name">{{ block.settings.author }}</span>
@@ -244,7 +268,7 @@
             </div>
           {%- else -%}
             <div style="text-align:center; padding: 40px; width: 100%; color: #666;">
-              <p>No reviews added yet.</p>
+              <p>No reviews added yet. Add a "Review Card" block in the theme editor.</p>
             </div>
           {%- endfor -%}
         </div>
@@ -259,23 +283,19 @@
 
 <script>
   function switchTab(evt, platform) {
-    // 1. Hide all content
     var contents = document.querySelectorAll('.review-content-wrapper');
     contents.forEach(function (el) {
       el.classList.remove('active');
     });
 
-    // 2. Deactivate all buttons
     var buttons = document.querySelectorAll('.review-tab-btn');
     buttons.forEach(function (btn) {
       btn.classList.remove('active');
     });
 
-    // 3. Activate selected content
     var selectedContent = document.getElementById('content-' + platform);
     if (selectedContent) selectedContent.classList.add('active');
 
-    // 4. Activate clicked button
     if (evt && evt.currentTarget) {
       evt.currentTarget.classList.add('active');
     }
@@ -299,7 +319,7 @@
     {
       "type": "checkbox",
       "id": "enable_trustpilot",
-      "label": "Enable Custom Reviews (Trustpilot)",
+      "label": "Enable Custom Reviews",
       "default": true
     },
     {
@@ -356,6 +376,12 @@
           "id": "author",
           "label": "Author Name",
           "default": "John Doe"
+        },
+        {
+          "type": "image_picker",
+          "id": "review_image",
+          "label": "Author Photo",
+          "info": "Optional. Will replace initials if uploaded."
         },
         {
           "type": "text",
