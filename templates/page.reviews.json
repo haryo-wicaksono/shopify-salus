@@ -105,13 +105,24 @@
             "date": "Dec 2, 2025",
             "product_name": ""
           }
+        },
+        "review_card_rqXHcd": {
+          "type": "review_card",
+          "settings": {
+            "title": "Best sauna experience",
+            "text": "The only company I will buy a sauna from! Huge shout out to George , couldn’t have built it without him and his help. From start to finish the company and customer care was top notch. Best sauna I’ve ever used! Highly recommend",
+            "author": "Colin Gustus",
+            "date": "Sept 12, 2025",
+            "product_name": ""
+          }
         }
       },
       "block_order": [
         "review_card_j7ceTn",
         "review_card_CrBB7w",
         "review_card_8ctN3f",
-        "review_card_RfJY7U"
+        "review_card_RfJY7U",
+        "review_card_rqXHcd"
       ],
       "name": "Reviews Tabs",
       "settings": {
