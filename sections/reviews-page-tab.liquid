@@ -2,7 +2,7 @@
   Reviews Tab Section
   - Tab 1: Hardcoded Google Elfsight Widget
   - Tab 2: Custom Reviews (Masonry Layout)
-  - Features: Smart Initials, Optional Photo Upload, Stacked Layout
+  - Feature: "Check us out on Trustpilot" link (Visible only on Trustpilot tab)
 {%- endcomment -%}
 
 <style>
@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
   }
 
@@ -50,6 +50,45 @@
     color: #ffffff;
   }
 
+  /* --- TRUSTPILOT VERIFICATION LINK --- */
+  .tp-verify-link-wrapper {
+    text-align: center;
+    margin-bottom: 25px;
+    display: none; /* Hidden by default */
+    animation: fadeIn 0.5s ease;
+  }
+
+  .tp-verify-link-wrapper.active {
+    display: block;
+  }
+
+  .tp-verify-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    padding: 8px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    background-color: #f9f9f9;
+    transition: all 0.2s ease;
+  }
+
+  .tp-verify-btn:hover {
+    background-color: #fff;
+    border-color: #00b67a;
+    color: #00b67a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .tp-star-icon {
+    width: 20px;
+    height: 20px;
+  }
+
   /* --- CONTENT VISIBILITY --- */
   .review-content-wrapper {
     display: none;
@@ -74,18 +113,16 @@
 
   /* --- MASONRY GRID STYLING --- */
   .custom-reviews-container {
-    column-count: 3; /* Default: 3 Columns */
+    column-count: 3;
     column-gap: 20px;
     width: 100%;
   }
 
-  /* Responsive Columns */
   @media (max-width: 1024px) {
     .custom-reviews-container {
       column-count: 2;
     }
   }
-
   @media (max-width: 600px) {
     .custom-reviews-container {
       column-count: 1;
@@ -93,12 +130,12 @@
   }
 
   .custom-review-card {
-    break-inside: avoid; /* Prevents card from splitting across columns */
+    break-inside: avoid;
     background: #fff;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
     padding: 24px;
-    margin-bottom: 20px; /* Space between vertical cards */
+    margin-bottom: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
@@ -111,7 +148,6 @@
     margin-bottom: 12px;
   }
 
-  /* Avatar Circle (Initials) */
   .review-avatar {
     width: 40px;
     height: 40px;
@@ -128,7 +164,6 @@
     flex-shrink: 0;
   }
 
-  /* Avatar Image (Uploaded) */
   .review-avatar-img {
     width: 40px;
     height: 40px;
@@ -209,6 +244,23 @@
       </div>
     {%- endif -%}
 
+    {%- if trust_on -%}
+      <div id="tp-link-container" class="tp-verify-link-wrapper {% if google_on == false %}active{% endif %}">
+        <a
+          href="https://www.trustpilot.com/review/www.salussaunas.com"
+          target="_blank"
+          class="tp-verify-btn"
+          title="Visit our Trustpilot Page"
+        >
+          <svg class="tp-star-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0H24V24H0z" fill="none"/>
+            <path d="M12 18L4.947 22.208 6.894 13.916 0.334 8.022 8.78 7.376 12 0 15.22 7.376 23.666 8.022 17.106 13.916 19.053 22.208z" fill="#00B67A"/>
+          </svg>
+          Check us out on Trustpilot
+        </a>
+      </div>
+    {%- endif -%}
+
     {%- if google_on -%}
       <div id="content-google" class="review-content-wrapper {% if google_on %}active{% endif %}">
         <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
@@ -241,7 +293,6 @@
                     {{- last_initial }}
                   </div>
                 {%- endif -%}
-
                 <div class="review-author-info">
                   <span class="review-author-name">{{ block.settings.author }}</span>
                   {%- if block.settings.date != blank -%}
@@ -249,17 +300,11 @@
                   {%- endif -%}
                 </div>
               </div>
-
               <div class="review-stars">★★★★★</div>
-
               {%- if block.settings.title != blank -%}
                 <div class="review-title">{{ block.settings.title }}</div>
               {%- endif -%}
-
-              <div class="review-body">
-                {{ block.settings.text }}
-              </div>
-
+              <div class="review-body">{{ block.settings.text }}</div>
               {%- if block.settings.product_name != blank -%}
                 <div class="review-product">
                   Purchased: <span>{{ block.settings.product_name }}</span>
@@ -283,21 +328,27 @@
 
 <script>
   function switchTab(evt, platform) {
-    var contents = document.querySelectorAll('.review-content-wrapper');
-    contents.forEach(function (el) {
-      el.classList.remove('active');
-    });
+    // 1. Hide all content & Buttons
+    document.querySelectorAll('.review-content-wrapper').forEach((el) => el.classList.remove('active'));
+    document.querySelectorAll('.review-tab-btn').forEach((btn) => btn.classList.remove('active'));
 
-    var buttons = document.querySelectorAll('.review-tab-btn');
-    buttons.forEach(function (btn) {
-      btn.classList.remove('active');
-    });
-
+    // 2. Activate selected content
     var selectedContent = document.getElementById('content-' + platform);
     if (selectedContent) selectedContent.classList.add('active');
 
+    // 3. Activate clicked button
     if (evt && evt.currentTarget) {
       evt.currentTarget.classList.add('active');
+    }
+
+    // 4. Toggle the "Check us out" link (Only show on Trustpilot tab)
+    var tpLink = document.getElementById('tp-link-container');
+    if (tpLink) {
+      if (platform === 'trustpilot') {
+        tpLink.classList.add('active');
+      } else {
+        tpLink.classList.remove('active');
+      }
     }
   }
 </script>
