@@ -1,18 +1,18 @@
 {%- comment -%}
   Reviews Tab Section
-  - Hardcoded Google Elfsight Widget
-  - Trustpilot input field (Shows placeholder if empty)
+  - Tab 1: Hardcoded Google Elfsight Widget
+  - Tab 2: Native "Trustpilot-style" Custom Reviews (Managed via Blocks)
   - Logic: Hides tabs if only one provider is enabled.
 {%- endcomment -%}
 
 <style>
-  /* Section Styling */
   .reviews-section-wrapper {
     position: relative;
     width: 100%;
+    margin: 40px 0;
   }
 
-  /* Tab Container */
+  /* --- TABS STYLING --- */
   .reviews-tab-header {
     display: flex;
     justify-content: center;
@@ -21,54 +21,48 @@
     flex-wrap: wrap;
   }
 
-  /* Buttons Base Style */
   .review-tab-btn {
     padding: 12px 30px;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    border: 1px solid #e0e0e0;
+    border: 2px solid #f1f1f1;
     background-color: #ffffff;
     color: #333;
     border-radius: 4px;
     transition: all 0.3s ease;
-    min-width: 160px;
-    outline: none;
+    min-width: 180px;
   }
 
-  /* Hover State */
   .review-tab-btn:hover {
     border-color: #ccc;
-    transform: translateY(-1px);
   }
 
-  /* Active State: Google (Teal) */
-  .review-tab-btn.active[data-target='google'] {
+  /* Active Google Button (Teal) */
+  .review-tab-btn.active.btn-google {
     background-color: #2d9c8d;
     border-color: #2d9c8d;
     color: #ffffff;
   }
 
-  /* Active State: Trustpilot (Green) */
-  .review-tab-btn.active[data-target='trustpilot'] {
-    background-color: #00b67a;
+  /* Active Trustpilot Button (Blue/Green) */
+  .review-tab-btn.active.btn-trustpilot {
+    background-color: #00b67a; /* Trustpilot Green */
     border-color: #00b67a;
     color: #ffffff;
   }
 
-  /* Content Areas */
+  /* --- CONTENT STYLING --- */
   .review-content-wrapper {
-    display: none; /* Hide all by default */
+    display: none;
     width: 100%;
-    animation: fadeIn 0.5s ease;
+    animation: fadeIn 0.4s ease;
   }
 
-  /* Show the active content */
   .review-content-wrapper.active {
     display: block;
   }
 
-  /* Fade Animation */
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -79,53 +73,181 @@
       transform: translateY(0);
     }
   }
+
+  /* --- CUSTOM CARD CAROUSEL STYLING --- */
+  .custom-reviews-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px 5px; /* Padding for shadow clearance */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .custom-reviews-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  .custom-reviews-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  .custom-reviews-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+
+  .custom-review-card {
+    flex: 0 0 320px; /* Width of each card */
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .review-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #f3f3f3;
+    color: #555;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 12px;
+    text-transform: uppercase;
+  }
+
+  .review-author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .review-author-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .review-date {
+    font-size: 12px;
+    color: #888;
+  }
+
+  .review-stars {
+    color: #00b67a; /* Green Stars */
+    margin-bottom: 10px;
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+
+  .review-title {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #111;
+  }
+
+  .review-body {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 15px;
+    flex-grow: 1;
+  }
+
+  .review-product {
+    margin-top: auto;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 10px;
+  }
+  .review-product span {
+    font-weight: 600;
+    color: #333;
+  }
 </style>
 
 <div
   class="section relative section--full-width{% unless section.settings.section_height == "tight" %} section--padded-{{ section.settings.section_height }}{% endunless %}{% if section.settings.dividers != "none" %} {{ section.settings.dividers }}{% endif %}"
-  {% if settings.animations_enabled != 'disabled' and section.settings.prevent_animation == false %}
-    data-cc-animate
-  {% endif %}
+  data-cc-animate
 >
   {%- unless section.settings.full_width -%}
     <div class="container">
   {%- endunless -%}
 
   <div class="reviews-section-wrapper">
-    {%- assign show_google = section.settings.enable_google -%}
-    {%- assign show_trustpilot = section.settings.enable_trustpilot -%}
+    {%- assign google_on = section.settings.enable_google -%}
+    {%- assign trust_on = section.settings.enable_trustpilot -%}
 
-    {%- if show_google and show_trustpilot -%}
+    {%- if google_on and trust_on -%}
       <div class="reviews-tab-header">
-        <button class="review-tab-btn active" data-target="google" onclick="openReviewTab(event, 'google')">
-          Google Reviews
-        </button>
-        <button class="review-tab-btn" data-target="trustpilot" onclick="openReviewTab(event, 'trustpilot')">
+        <button class="review-tab-btn btn-google active" onclick="switchTab(event, 'google')">Google Reviews</button>
+        <button class="review-tab-btn btn-trustpilot" onclick="switchTab(event, 'trustpilot')">
           Trustpilot Reviews
         </button>
       </div>
     {%- endif -%}
 
-    {%- if show_google -%}
-      <div
-        id="tab-google"
-        class="review-content-wrapper {% if show_trustpilot == false or show_google %}active{% endif %}"
-      >
+    {%- if google_on -%}
+      <div id="content-google" class="review-content-wrapper {% if google_on %}active{% endif %}">
         <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
         <div class="elfsight-app-c9f596c6-bdba-4c64-949a-cacabaf0f6d1" data-elfsight-app-lazy></div>
       </div>
     {%- endif -%}
 
-    {%- if show_trustpilot -%}
-      <div id="tab-trustpilot" class="review-content-wrapper {% if show_google == false %}active{% endif %}">
-        {%- if section.settings.trustpilot_code != blank -%}
-          {{ section.settings.trustpilot_code }}
-        {%- else -%}
-          <div style="text-align:center; padding: 60px; background: #f9f9f9; border-radius: 8px; border: 1px dashed #ccc;">
-            <h3 style="margin-top:0;">Trustpilot Reviews</h3>
-            <p>Trustpilot widget coming soon...</p>
-          </div>
-        {%- endif -%}
+    {%- if trust_on -%}
+      <div id="content-trustpilot" class="review-content-wrapper {% if google_on == false %}active{% endif %}">
+        <div class="custom-reviews-container">
+          {%- for block in section.blocks -%}
+            <div class="custom-review-card" {{ block.shopify_attributes }}>
+              <div class="review-header">
+                {%- assign initial = block.settings.author | slice: 0 | upcase | default: 'C' -%}
+                <div class="review-avatar">{{ initial }}</div>
+
+                <div class="review-author-info">
+                  <span class="review-author-name">{{ block.settings.author }}</span>
+                  {%- if block.settings.date != blank -%}
+                    <span class="review-date">{{ block.settings.date }}</span>
+                  {%- endif -%}
+                </div>
+              </div>
+
+              <div class="review-stars">★★★★★</div>
+
+              {%- if block.settings.title != blank -%}
+                <div class="review-title">{{ block.settings.title }}</div>
+              {%- endif -%}
+
+              <div class="review-body">
+                {{ block.settings.text }}
+              </div>
+
+              {%- if block.settings.product_name != blank -%}
+                <div class="review-product">
+                  Purchased: <span>{{ block.settings.product_name }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- else -%}
+            <div style="text-align:center; padding: 40px; width: 100%; color: #666;">
+              <p>No reviews added yet.</p>
+            </div>
+          {%- endfor -%}
+        </div>
       </div>
     {%- endif -%}
   </div>
@@ -136,23 +258,24 @@
 </div>
 
 <script>
-  function openReviewTab(evt, tabName) {
-    // 1. Hide all content wrappers
-    var contents = document.getElementsByClassName('review-content-wrapper');
-    for (var i = 0; i < contents.length; i++) {
-      contents[i].classList.remove('active');
-    }
+  function switchTab(evt, platform) {
+    // 1. Hide all content
+    var contents = document.querySelectorAll('.review-content-wrapper');
+    contents.forEach(function (el) {
+      el.classList.remove('active');
+    });
 
     // 2. Deactivate all buttons
-    var buttons = document.getElementsByClassName('review-tab-btn');
-    for (var i = 0; i < buttons.length; i++) {
-      buttons[i].classList.remove('active');
-    }
+    var buttons = document.querySelectorAll('.review-tab-btn');
+    buttons.forEach(function (btn) {
+      btn.classList.remove('active');
+    });
 
-    // 3. Show current content and activate current button
-    var selectedTab = document.getElementById('tab-' + tabName);
-    if (selectedTab) selectedTab.classList.add('active');
+    // 3. Activate selected content
+    var selectedContent = document.getElementById('content-' + platform);
+    if (selectedContent) selectedContent.classList.add('active');
 
+    // 4. Activate clicked button
     if (evt && evt.currentTarget) {
       evt.currentTarget.classList.add('active');
     }
@@ -162,12 +285,10 @@
 {% schema %}
 {
   "name": "Reviews Tabs",
-  "tag": "section",
-  "class": "section-reviews-tabs",
   "settings": [
     {
       "type": "header",
-      "content": "Visibility Settings"
+      "content": "Visibility"
     },
     {
       "type": "checkbox",
@@ -178,18 +299,8 @@
     {
       "type": "checkbox",
       "id": "enable_trustpilot",
-      "label": "Enable Trustpilot Reviews",
+      "label": "Enable Custom Reviews (Trustpilot)",
       "default": true
-    },
-    {
-      "type": "header",
-      "content": "Widget Code"
-    },
-    {
-      "type": "html",
-      "id": "trustpilot_code",
-      "label": "Trustpilot HTML/Liquid",
-      "info": "Paste the Trustpilot embed code here. If empty, a placeholder will be shown."
     },
     {
       "type": "header",
@@ -201,9 +312,7 @@
       "id": "section_height",
       "options": [
         { "value": "default", "label": "Default" },
-        { "value": "tight", "label": "Tight" },
-        { "value": "small", "label": "Small" },
-        { "value": "medium", "label": "Medium" }
+        { "value": "tight", "label": "Tight" }
       ],
       "default": "default"
     },
@@ -225,9 +334,48 @@
       "default": "none"
     }
   ],
+  "blocks": [
+    {
+      "type": "review_card",
+      "name": "Review Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review Title",
+          "default": "Excellent Service!"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review Text",
+          "default": "The team was incredibly helpful and the sauna is amazing."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "John Doe"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "2 days ago"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Purchased (Optional)",
+          "placeholder": "e.g. 6-Person Sauna"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Reviews Tabs"
+      "name": "Reviews Tabs",
+      "blocks": [{ "type": "review_card" }, { "type": "review_card" }, { "type": "review_card" }]
     }
   ]
 }
