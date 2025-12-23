@@ -351,17 +351,7 @@
           "settings": {
             "title": "This company is excellent",
             "text": "This company is excellent. The product was great and we had a technical issue with our heater and they helped connect with the manufacturer and get everything fixed. I cannot look. We use the sauna all day and works so well and we are very happy.",
-            "author": "customer",
-            "date": "Feb 25, 2025",
-            "product_name": ""
-          }
-        },
-        "review_card_LX7AQh": {
-          "type": "review_card",
-          "settings": {
-            "title": "I have posted my review for you a…",
-            "text": "I have posted my review for you a couple of times and you have shown it on your website.",
-            "author": "Robert Coleman",
+            "author": "Customer",
             "date": "Feb 25, 2025",
             "product_name": ""
           }
@@ -537,7 +527,6 @@
         "review_card_uxBMSC",
         "review_card_ghiAOV",
         "review_card_H553UH",
-        "review_card_LX7AQh",
         "review_card_1g4SG8",
         "review_card_LQc4in",
         "review_card_iVTsDR",
