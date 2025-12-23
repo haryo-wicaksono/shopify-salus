@@ -1,8 +1,13 @@
 {%- comment -%}
   Reviews Tab Section
-  - Tab 1: Hardcoded Google Elfsight Widget
-  - Tab 2: Custom Reviews with "Fake" Trustpilot Header (Manual Data)
-  - Features: Masonry Grid, Smart Initials, Manual Header Control
+  - Tab 1: Google Elfsight Widget
+  - Tab 2: Custom "Trustpilot" Section
+  - Features:
+    * Mobile Tabs side-by-side
+    * Trustpilot Header Clone
+    * Fractional Stars
+    * Masonry Grid
+    * NEW: Mobile "Read More" Truncation (3 lines)
 {%- endcomment -%}
 
 <style>
@@ -17,12 +22,12 @@
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     flex-wrap: wrap;
   }
 
   .review-tab-btn {
-    padding: 12px 30px;
+    padding: 12px 24px;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
@@ -32,6 +37,7 @@
     border-radius: 4px;
     transition: all 0.3s ease;
     min-width: 180px;
+    text-align: center;
   }
 
   .review-tab-btn:hover {
@@ -50,18 +56,35 @@
     color: #ffffff;
   }
 
-  /* --- CUSTOM TRUSTPILOT HEADER (Replica of Elfsight) --- */
+  /* --- MOBILE TABS --- */
+  @media (max-width: 768px) {
+    .reviews-tab-header {
+      flex-wrap: nowrap;
+      gap: 10px;
+      padding: 0 5px;
+    }
+
+    .review-tab-btn {
+      min-width: 0;
+      flex: 1;
+      padding: 12px 4px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+  }
+
+  /* --- CUSTOM TRUSTPILOT HEADER --- */
   .tp-custom-header {
-    background-color: #f8f8f8; /* Matches Elfsight Grey */
+    background-color: #f8f8f8;
     border-radius: 16px;
     padding: 24px 32px;
-    margin-bottom: 25px;
+    margin-bottom: 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
-    display: none; /* Hidden by default */
+    display: none;
     animation: fadeIn 0.5s ease;
   }
 
@@ -78,14 +101,13 @@
   .tp-brand-row {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     font-size: 24px;
     font-weight: 700;
     color: #111;
     line-height: 1.2;
   }
 
-  /* Trustpilot Logo Star */
   .tp-logo-star {
     width: 28px;
     height: 28px;
@@ -95,7 +117,7 @@
   .tp-rating-row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     font-size: 16px;
   }
 
@@ -104,47 +126,65 @@
     color: #111;
   }
 
-  .tp-stars-row {
+  .tp-star-wrapper {
+    position: relative;
+    display: inline-flex;
+    height: 20px;
+    align-items: center;
+  }
+  .tp-stars-bg,
+  .tp-stars-fg {
     display: flex;
     gap: 2px;
+    pointer-events: none;
   }
-
+  .tp-stars-bg .tp-star-icon-small {
+    fill: #dcdcdc;
+  }
+  .tp-stars-fg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .tp-stars-fg .tp-star-icon-small {
+    fill: #00b67a;
+  }
   .tp-star-icon-small {
-    width: 18px;
-    height: 18px;
-    fill: #ffb80f; /* Elfsight/Google Yellow */
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
   }
-  /* Optional: Switch fill to #00b67a if you want Green Trustpilot Stars */
 
   .tp-count {
     color: #777;
     font-weight: 400;
   }
 
-  /* "Review us" Button (Google Style Blue) */
   .tp-header-btn {
-    background-color: #1c61ff; /* Google/Elfsight Blue */
+    background-color: #1c61ff;
     color: white;
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 10px 24px;
     border-radius: 6px;
     font-weight: 600;
     font-size: 14px;
     transition: background-color 0.2s ease;
     white-space: nowrap;
   }
-
   .tp-header-btn:hover {
     background-color: #1557d4;
     color: white;
   }
 
-  /* Mobile Adjustments for Header */
   @media (max-width: 600px) {
     .tp-custom-header {
       flex-direction: column;
-      align-items: flex-start;
-      padding: 20px;
+      align-items: center;
+      text-align: center;
+      padding: 24px 20px;
     }
     .tp-header-btn {
       width: 100%;
@@ -158,7 +198,6 @@
     width: 100%;
     animation: fadeIn 0.4s ease;
   }
-
   .review-content-wrapper.active {
     display: block;
   }
@@ -174,13 +213,12 @@
     }
   }
 
-  /* --- MASONRY GRID STYLING --- */
+  /* --- MASONRY GRID --- */
   .custom-reviews-container {
     column-count: 3;
     column-gap: 20px;
     width: 100%;
   }
-
   @media (max-width: 1024px) {
     .custom-reviews-container {
       column-count: 2;
@@ -226,7 +264,6 @@
     text-transform: uppercase;
     flex-shrink: 0;
   }
-
   .review-avatar-img {
     width: 40px;
     height: 40px;
@@ -240,25 +277,21 @@
     display: flex;
     flex-direction: column;
   }
-
   .review-author-name {
     font-weight: 700;
     font-size: 14px;
     color: #333;
   }
-
   .review-date {
     font-size: 12px;
     color: #888;
   }
-
   .review-stars {
     color: #00b67a;
     margin-bottom: 10px;
     font-size: 18px;
     letter-spacing: 2px;
   }
-
   .review-title {
     font-weight: 700;
     font-size: 16px;
@@ -283,6 +316,63 @@
   .review-product span {
     font-weight: 600;
     color: #333;
+  }
+
+  /* --- READ MORE (MOBILE) CSS --- */
+  .read-more-btn {
+    display: none; /* Hidden by default */
+    background: none;
+    border: none;
+    color: #666;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 0; /* Ensures flush left alignment */
+    margin-top: 2px; /* Tighter gap to the text above */
+    margin-bottom: 15px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: left; /* Explicitly align left */
+    width: 100%; /* Ensure it spans width to align properly */
+  }
+
+  @media (max-width: 768px) {
+    /* Only apply clamping on mobile */
+    .review-body.clamped {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 4px; /* Reduced from 15px so button sits closer */
+    }
+
+    /* Show button only on mobile */
+    .read-more-btn {
+      display: block;
+    }
+
+    .tp-rating-row {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Ensures horizontal centering on mobile */
+      gap: 12px;
+      font-size: 16px;
+      line-height: 1; /* Removes font leading to center vertically */
+    }
+
+    .tp-score {
+      font-weight: 800;
+      color: #111;
+      position: relative;
+      top: 1px; /* Micro-adjustment to align number with stars */
+    }
+
+    .tp-star-wrapper {
+      position: relative;
+      display: inline-flex;
+      height: 20px;
+      align-items: center;
+      transform: translateY(1px); /* Pushes stars down slightly to match text baseline */
+    }
   }
 
   #shopify-section-template--25628723347758__reviews_page_tab_P9WCLf
@@ -336,23 +426,34 @@
             <span>Trustpilot</span>
             <span style="font-weight:800;">Reviews</span>
           </div>
+
           <div class="tp-rating-row">
             <span class="tp-score">{{ section.settings.tp_rating_score }}</span>
-            <div class="tp-stars-row">
-              {% for i in (1..5) %}
-                <svg class="tp-star-icon-small" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                </svg>
-              {% endfor %}
+            {%- assign score_num = section.settings.tp_rating_score | plus: 0.0 -%}
+            {%- assign width_percent = score_num | times: 20 -%}
+            <div class="tp-star-wrapper">
+              <div class="tp-stars-bg">
+                {% for i in (1..5) %}
+                  <svg class="tp-star-icon-small" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                {% endfor %}
+              </div>
+              <div class="tp-stars-fg" style="width: {{ width_percent }}%;">
+                {% for i in (1..5) %}
+                  <svg class="tp-star-icon-small" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                {% endfor %}
+              </div>
             </div>
             <span class="tp-count">({{ section.settings.tp_review_count }})</span>
           </div>
         </div>
-
         <div class="tp-header-right">
-          <a href="{{ section.settings.tp_profile_url }}" target="_blank" class="tp-header-btn">
-            Review us on Trustpilot
-          </a>
+          <a href="{{ section.settings.tp_profile_url }}" target="_blank" class="tp-header-btn"
+            >Review us on Trustpilot</a
+          >
         </div>
       </div>
     {%- endif -%}
@@ -400,7 +501,15 @@
               {%- if block.settings.title != blank -%}
                 <div class="review-title">{{ block.settings.title }}</div>
               {%- endif -%}
-              <div class="review-body">{{ block.settings.text }}</div>
+
+              <div class="review-body clamped">
+                {{ block.settings.text }}
+              </div>
+
+              {%- if block.settings.text.size > 150 -%}
+                <button class="read-more-btn" onclick="toggleReadMore(this)">Read more</button>
+              {%- endif -%}
+
               {%- if block.settings.product_name != blank -%}
                 <div class="review-product">
                   Purchased: <span>{{ block.settings.product_name }}</span>
@@ -424,20 +533,16 @@
 
 <script>
   function switchTab(evt, platform) {
-    // 1. Hide Content
     document.querySelectorAll('.review-content-wrapper').forEach((el) => el.classList.remove('active'));
     document.querySelectorAll('.review-tab-btn').forEach((btn) => btn.classList.remove('active'));
 
-    // 2. Show Selected Content
     var selectedContent = document.getElementById('content-' + platform);
     if (selectedContent) selectedContent.classList.add('active');
 
-    // 3. Highlight Tab Button
     if (evt && evt.currentTarget) {
       evt.currentTarget.classList.add('active');
     }
 
-    // 4. Toggle the Custom Trustpilot Header
     var tpHeader = document.getElementById('tp-header');
     if (tpHeader) {
       if (platform === 'trustpilot') {
@@ -445,6 +550,22 @@
       } else {
         tpHeader.classList.remove('active');
       }
+    }
+  }
+
+  // --- NEW: Toggle Function for Read More ---
+  function toggleReadMore(btn) {
+    var card = btn.closest('.custom-review-card');
+    var body = card.querySelector('.review-body');
+
+    // Toggle the clamping class
+    body.classList.toggle('clamped');
+
+    // Update button text
+    if (body.classList.contains('clamped')) {
+      btn.innerText = 'Read more';
+    } else {
+      btn.innerText = 'Read less';
     }
   }
 </script>
@@ -478,14 +599,14 @@
       "id": "tp_rating_score",
       "label": "Rating Score",
       "default": "4.6",
-      "info": "Example: 4.9"
+      "info": "Example: 4.6"
     },
     {
       "type": "text",
       "id": "tp_review_count",
       "label": "Review Count",
       "default": "250",
-      "info": "Example: 298"
+      "info": "Example: 299"
     },
     {
       "type": "url",
