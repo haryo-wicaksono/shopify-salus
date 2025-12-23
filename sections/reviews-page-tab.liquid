@@ -3,18 +3,17 @@
   - Tab 1: Google Elfsight Widget
   - Tab 2: Custom "Trustpilot" Section
   - Features:
-    * Mobile Tabs side-by-side
-    * Trustpilot Header Clone
-    * Fractional Stars
-    * Masonry Grid
-    * NEW: Mobile "Read More" Truncation (3 lines)
+    * Mobile Tabs side-by-side (768px breakpoint)
+    * Trustpilot Header centered on mobile
+    * Fixed SVG clipping issues
+    * Masonry Grid & Mobile Read More
 {%- endcomment -%}
 
 <style>
   .reviews-section-wrapper {
     position: relative;
     width: 100%;
-    margin: 40px 0;
+    margin: 30px 0 40px; /* Adjusted top margin for better spacing */
   }
 
   /* --- TABS STYLING --- */
@@ -22,46 +21,45 @@
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 24px;
+    margin-bottom: 24px; /* Matches visual gap of Elfsight */
     flex-wrap: wrap;
   }
 
   .review-tab-btn {
-    padding: 12px 24px;
+    padding: 10px 24px;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 500;
     cursor: pointer;
-    border: 2px solid #f1f1f1;
-    background-color: #ffffff;
-    color: #333;
+    border: 1px solid #000000; /* Inactive: Black Border */
+    background-color: #ffffff; /* Inactive: White Background */
+    color: #000000; /* Inactive: Black Text */
     border-radius: 4px;
     transition: all 0.3s ease;
     min-width: 180px;
     text-align: center;
   }
 
+  /* Hover State */
   .review-tab-btn:hover {
-    border-color: #ccc;
-  }
-
-  .review-tab-btn.active.btn-google {
-    background-color: #2d9c8d;
-    border-color: #2d9c8d;
+    border: 1px solid #1b413e;
+    background-color: #1b413e;
     color: #ffffff;
   }
 
-  .review-tab-btn.active.btn-trustpilot {
-    background-color: #00b67a;
-    border-color: #00b67a;
+  /* Active State */
+  .review-tab-btn.active {
+    border: 1px solid #1f8a81;
+    background-color: #1f8a81;
     color: #ffffff;
   }
 
-  /* --- MOBILE TABS --- */
+  /* --- MOBILE TABS (768px) --- */
   @media (max-width: 768px) {
     .reviews-tab-header {
       flex-wrap: nowrap;
       gap: 10px;
       padding: 0 5px;
+      margin-bottom: 20px; /* Slightly tighter on mobile */
     }
 
     .review-tab-btn {
@@ -95,23 +93,25 @@
   .tp-header-left {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
   .tp-brand-row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-size: 24px;
     font-weight: 700;
     color: #111;
     line-height: 1.2;
   }
 
+  /* Fixed SVG Dimensions to prevent cutting */
   .tp-logo-star {
-    width: 28px;
-    height: 28px;
+    width: 32px; /* Increased size slightly */
+    height: 32px;
     fill: #00b67a;
+    overflow: visible; /* Prevents clipping */
   }
 
   .tp-rating-row {
@@ -119,18 +119,23 @@
     align-items: center;
     gap: 12px;
     font-size: 16px;
+    line-height: 1;
   }
 
   .tp-score {
     font-weight: 800;
     color: #111;
+    position: relative;
+    top: 1px;
   }
 
+  /* Star Generation CSS */
   .tp-star-wrapper {
     position: relative;
     display: inline-flex;
     height: 20px;
     align-items: center;
+    transform: translateY(1px);
   }
   .tp-stars-bg,
   .tp-stars-fg {
@@ -138,8 +143,8 @@
     gap: 2px;
     pointer-events: none;
   }
-  .tp-stars-bg .tp-star-icon-small {
-    fill: #dcdcdc;
+  .tp-stars-bg .tp-star-icon-small path {
+    fill: #dcdcdc !important;
   }
   .tp-stars-fg {
     position: absolute;
@@ -149,13 +154,17 @@
     overflow: hidden;
     white-space: nowrap;
   }
-  .tp-stars-fg .tp-star-icon-small {
-    fill: #00b67a;
+  .tp-stars-fg .tp-star-icon-small path {
+    fill: #00b67a !important;
   }
   .tp-star-icon-small {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
+  }
+  .tp-star-icon-small svg {
+    width: 100%;
+    height: 100%;
   }
 
   .tp-count {
@@ -163,6 +172,7 @@
     font-weight: 400;
   }
 
+  /* Button Styling */
   .tp-header-btn {
     background-color: #1c61ff;
     color: white;
@@ -173,22 +183,45 @@
     font-size: 14px;
     transition: background-color 0.2s ease;
     white-space: nowrap;
+    display: inline-block;
   }
   .tp-header-btn:hover {
     background-color: #1557d4;
     color: white;
   }
 
-  @media (max-width: 600px) {
+  /* --- MOBILE HEADER STYLING (Matching Google) --- */
+  @media (max-width: 768px) {
     .tp-custom-header {
       flex-direction: column;
-      align-items: center;
-      text-align: center;
+      align-items: center; /* Center Items */
+      text-align: center; /* Center Text */
       padding: 24px 20px;
+      gap: 16px;
     }
-    .tp-header-btn {
+
+    .tp-header-left {
+      align-items: center;
       width: 100%;
+    }
+
+    .tp-brand-row {
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+
+    .tp-rating-row {
+      justify-content: center;
+    }
+
+    .tp-header-right {
+      width: 100%;
+    }
+
+    .tp-header-btn {
+      width: 100%; /* Full Width Button */
       text-align: center;
+      padding: 12px 20px; /* Larger touch target */
     }
   }
 
@@ -213,7 +246,7 @@
     }
   }
 
-  /* --- MASONRY GRID --- */
+  /* --- MASONRY GRID STYLING --- */
   .custom-reviews-container {
     column-count: 3;
     column-gap: 20px;
@@ -286,24 +319,61 @@
     font-size: 12px;
     color: #888;
   }
+
   .review-stars {
-    color: #00b67a;
+    display: flex;
+    gap: 2px;
     margin-bottom: 10px;
-    font-size: 18px;
-    letter-spacing: 2px;
   }
+  .review-stars svg {
+    width: 18px;
+    height: 18px;
+  }
+  .review-stars svg path {
+    fill: #00b67a !important;
+  }
+
   .review-title {
     font-weight: 700;
     font-size: 16px;
     margin-bottom: 8px;
     color: #111;
   }
-
   .review-body {
     font-size: 14px;
     line-height: 1.5;
     color: #555;
     margin-bottom: 15px;
+  }
+
+  /* Read More Mobile Logic */
+  .read-more-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #666;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 0;
+    margin-top: 2px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: left;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .review-body.clamped {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+    .read-more-btn {
+      display: block;
+    }
   }
 
   .review-product {
@@ -316,63 +386,6 @@
   .review-product span {
     font-weight: 600;
     color: #333;
-  }
-
-  /* --- READ MORE (MOBILE) CSS --- */
-  .read-more-btn {
-    display: none; /* Hidden by default */
-    background: none;
-    border: none;
-    color: #666;
-    font-weight: 600;
-    font-size: 13px;
-    padding: 0; /* Ensures flush left alignment */
-    margin-top: 2px; /* Tighter gap to the text above */
-    margin-bottom: 15px;
-    cursor: pointer;
-    text-decoration: underline;
-    text-align: left; /* Explicitly align left */
-    width: 100%; /* Ensure it spans width to align properly */
-  }
-
-  @media (max-width: 768px) {
-    /* Only apply clamping on mobile */
-    .review-body.clamped {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      margin-bottom: 4px; /* Reduced from 15px so button sits closer */
-    }
-
-    /* Show button only on mobile */
-    .read-more-btn {
-      display: block;
-    }
-
-    .tp-rating-row {
-      display: flex;
-      align-items: center;
-      justify-content: center; /* Ensures horizontal centering on mobile */
-      gap: 12px;
-      font-size: 16px;
-      line-height: 1; /* Removes font leading to center vertically */
-    }
-
-    .tp-score {
-      font-weight: 800;
-      color: #111;
-      position: relative;
-      top: 1px; /* Micro-adjustment to align number with stars */
-    }
-
-    .tp-star-wrapper {
-      position: relative;
-      display: inline-flex;
-      height: 20px;
-      align-items: center;
-      transform: translateY(1px); /* Pushes stars down slightly to match text baseline */
-    }
   }
 
   .section.relative.section--full-width.section--padded-default.cc-animate-init.cc-animate-in {
@@ -406,8 +419,10 @@
 
     {%- if google_on and trust_on -%}
       <div class="reviews-tab-header">
-        <button class="review-tab-btn btn-google active" onclick="switchTab(event, 'google')">Google Reviews</button>
-        <button class="review-tab-btn btn-trustpilot" onclick="switchTab(event, 'trustpilot')">
+        <button class="review-tab-btn active" data-target="google" onclick="switchTab(event, 'google')">
+          Google Reviews
+        </button>
+        <button class="review-tab-btn" data-target="trustpilot" onclick="switchTab(event, 'trustpilot')">
           Trustpilot Reviews
         </button>
       </div>
@@ -417,8 +432,8 @@
       <div id="tp-header" class="tp-custom-header {% if google_on == false %}active{% endif %}">
         <div class="tp-header-left">
           <div class="tp-brand-row">
-            <svg class="tp-logo-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 0H24V24H0z" fill="none"/><path d="M12 18L4.947 22.208 6.894 13.916 0.334 8.022 8.78 7.376 12 0 15.22 7.376 23.666 8.022 17.106 13.916 19.053 22.208z" fill="#00B67A"/>
+            <svg class="tp-logo-star" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 26.5L6.6 31.4L9.1 21.1L1.1 14.1L11.7 13.3L16 3.5L20.3 13.3L30.9 14.1L22.9 21.1L25.4 31.4L16 26.5Z" fill="#00B67A"/>
             </svg>
             <span>Trustpilot</span>
             <span style="font-weight:800;">Reviews</span>
@@ -426,31 +441,31 @@
 
           <div class="tp-rating-row">
             <span class="tp-score">{{ section.settings.tp_rating_score }}</span>
+
             {%- assign score_num = section.settings.tp_rating_score | plus: 0.0 -%}
             {%- assign width_percent = score_num | times: 20 -%}
+
             <div class="tp-star-wrapper">
               <div class="tp-stars-bg">
                 {% for i in (1..5) %}
-                  <svg class="tp-star-icon-small" viewBox="0 0 24 24">
-                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                  </svg>
+                  <div class="tp-star-icon-small">{% render 'icon-star' %}</div>
                 {% endfor %}
               </div>
               <div class="tp-stars-fg" style="width: {{ width_percent }}%;">
                 {% for i in (1..5) %}
-                  <svg class="tp-star-icon-small" viewBox="0 0 24 24">
-                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                  </svg>
+                  <div class="tp-star-icon-small">{% render 'icon-star' %}</div>
                 {% endfor %}
               </div>
             </div>
+
             <span class="tp-count">({{ section.settings.tp_review_count }})</span>
           </div>
         </div>
+
         <div class="tp-header-right">
-          <a href="{{ section.settings.tp_profile_url }}" target="_blank" class="tp-header-btn"
-            >Review us on Trustpilot</a
-          >
+          <a href="{{ section.settings.tp_profile_url }}" target="_blank" class="tp-header-btn">
+            Review us on Trustpilot
+          </a>
         </div>
       </div>
     {%- endif -%}
@@ -494,19 +509,18 @@
                   {%- endif -%}
                 </div>
               </div>
-              <div class="review-stars">★★★★★</div>
+              <div class="review-stars">
+                {% for i in (1..5) -%}
+                  {%- render 'icon-star' -%}
+                {%- endfor %}
+              </div>
               {%- if block.settings.title != blank -%}
                 <div class="review-title">{{ block.settings.title }}</div>
               {%- endif -%}
-
-              <div class="review-body clamped">
-                {{ block.settings.text }}
-              </div>
-
+              <div class="review-body clamped">{{ block.settings.text }}</div>
               {%- if block.settings.text.size > 150 -%}
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Read more</button>
               {%- endif -%}
-
               {%- if block.settings.product_name != blank -%}
                 <div class="review-product">
                   Purchased: <span>{{ block.settings.product_name }}</span>
@@ -515,7 +529,7 @@
             </div>
           {%- else -%}
             <div style="text-align:center; padding: 40px; width: 100%; color: #666;">
-              <p>No reviews added yet. Add a "Review Card" block in the theme editor.</p>
+              <p>No reviews added yet.</p>
             </div>
           {%- endfor -%}
         </div>
@@ -550,15 +564,10 @@
     }
   }
 
-  // --- NEW: Toggle Function for Read More ---
   function toggleReadMore(btn) {
     var card = btn.closest('.custom-review-card');
     var body = card.querySelector('.review-body');
-
-    // Toggle the clamping class
     body.classList.toggle('clamped');
-
-    // Update button text
     if (body.classList.contains('clamped')) {
       btn.innerText = 'Read more';
     } else {
@@ -571,50 +580,14 @@
 {
   "name": "Reviews Tabs",
   "settings": [
-    {
-      "type": "header",
-      "content": "Visibility"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_google",
-      "label": "Enable Google Reviews",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_trustpilot",
-      "label": "Enable Custom Reviews",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "Trustpilot Header Settings"
-    },
-    {
-      "type": "text",
-      "id": "tp_rating_score",
-      "label": "Rating Score",
-      "default": "4.6",
-      "info": "Example: 4.6"
-    },
-    {
-      "type": "text",
-      "id": "tp_review_count",
-      "label": "Review Count",
-      "default": "250",
-      "info": "Example: 299"
-    },
-    {
-      "type": "url",
-      "id": "tp_profile_url",
-      "label": "Trustpilot Profile URL",
-      "info": "Where the 'Review us' button links to."
-    },
-    {
-      "type": "header",
-      "content": "Layout"
-    },
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "enable_google", "label": "Enable Google Reviews", "default": true },
+    { "type": "checkbox", "id": "enable_trustpilot", "label": "Enable Custom Reviews", "default": true },
+    { "type": "header", "content": "Trustpilot Header Settings" },
+    { "type": "text", "id": "tp_rating_score", "label": "Rating Score", "default": "4.6" },
+    { "type": "text", "id": "tp_review_count", "label": "Review Count", "default": "250" },
+    { "type": "url", "id": "tp_profile_url", "label": "Trustpilot Profile URL" },
+    { "type": "header", "content": "Layout" },
     {
       "type": "select",
       "label": "Section height",
@@ -625,12 +598,7 @@
       ],
       "default": "default"
     },
-    {
-      "type": "checkbox",
-      "id": "full_width",
-      "label": "Make section full width",
-      "default": false
-    },
+    { "type": "checkbox", "id": "full_width", "label": "Make section full width", "default": false },
     {
       "type": "select",
       "id": "dividers",
@@ -648,42 +616,12 @@
       "type": "review_card",
       "name": "Review Card",
       "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Review Title",
-          "default": "Excellent Service!"
-        },
-        {
-          "type": "textarea",
-          "id": "text",
-          "label": "Review Text",
-          "default": "The team was incredibly helpful and the sauna is amazing."
-        },
-        {
-          "type": "text",
-          "id": "author",
-          "label": "Author Name",
-          "default": "John Doe"
-        },
-        {
-          "type": "image_picker",
-          "id": "review_image",
-          "label": "Author Photo",
-          "info": "Optional. Will replace initials if uploaded."
-        },
-        {
-          "type": "text",
-          "id": "date",
-          "label": "Date",
-          "default": "2 days ago"
-        },
-        {
-          "type": "text",
-          "id": "product_name",
-          "label": "Product Purchased (Optional)",
-          "placeholder": "e.g. 6-Person Sauna"
-        }
+        { "type": "text", "id": "title", "label": "Review Title", "default": "Excellent Service!" },
+        { "type": "textarea", "id": "text", "label": "Review Text", "default": "Review text here." },
+        { "type": "text", "id": "author", "label": "Author Name", "default": "John Doe" },
+        { "type": "image_picker", "id": "review_image", "label": "Author Photo" },
+        { "type": "text", "id": "date", "label": "Date", "default": "2 days ago" },
+        { "type": "text", "id": "product_name", "label": "Product Purchased (Optional)" }
       ]
     }
   ],
