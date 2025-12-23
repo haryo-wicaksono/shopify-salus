@@ -136,6 +136,7 @@
     height: 20px;
     align-items: center;
     transform: translateY(1px);
+    margin-bottom: 4px;
   }
   .tp-stars-bg,
   .tp-stars-fg {
@@ -193,17 +194,17 @@
   .tp-header-right .tp-header-btn {
     padding: 15px 30px;
     border-radius: 50px;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
-    border: 1px solid #1f8a81;
-    background-color: #1f8a81;
+    border: 1px solid #1b413e;
+    background-color: #1b413e;
     color: #ffffff;
   }
 
   .tp-header-right .tp-header-btn:hover {
-    border: 1px solid #220120;
-    background-color: #ffffff;
-    color: #220120;
+    border: 1px solid #1f8a81;
+    background-color: #1f8a81;
+    color: #ffffff;
   }
 
   /* --- MOBILE HEADER STYLING (Matching Google) --- */
@@ -237,7 +238,6 @@
     }
 
     .tp-header-btn {
-      width: 100%; /* Full Width Button */
       text-align: center;
       padding: 12px 20px; /* Larger touch target */
     }
@@ -399,10 +399,6 @@
       font-weight: 600;
     }
 
-    .tp-star-wrapper {
-      margin-bottom: 4px;
-    }
-
     .tp-brand-row .tp-logo-star {
       margin-bottom: 5px;
     }
@@ -435,6 +431,12 @@
   .section.relative.section--full-width.section--padded-default.cc-animate-init.cc-animate-in {
     margin-top: 30px;
   }
+
+  .tp-brand-row svg {
+    height: 30px;
+    width: 30px;
+    margin-bottom: 5px;
+  }
 </style>
 
 <div
@@ -464,8 +466,14 @@
       <div id="tp-header" class="tp-custom-header {% if google_on == false %}active{% endif %}">
         <div class="tp-header-left">
           <div class="tp-brand-row">
-            <svg class="tp-logo-star" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 26.5L6.6 31.4L9.1 21.1L1.1 14.1L11.7 13.3L16 3.5L20.3 13.3L30.9 14.1L22.9 21.1L25.4 31.4L16 26.5Z" fill="#00B67A"/>
+            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1565 1486" width="1565" height="1486">
+              <title>Trustpilot_Logo_(2022)-svg</title>
+              <style>
+              	.s0 { fill: #00b67a }
+              	.s1 { fill: #005128 }
+              </style>
+              <path id="Layer" class="s0" d="m1081 918.3l184.5 567.1-483.2-350.6-483.7 350.6 185.1-567.1-483.7-351.2 597.3 0.6 185-567.7 184.5 567.7h597.3z"/>
+              <path id="Layer" class="s1" d="m782.3 1134.8l298.7-216.5 41.5 128.4z"/>
             </svg>
             <span>Trustpilot</span>
             <span>Reviews</span>
