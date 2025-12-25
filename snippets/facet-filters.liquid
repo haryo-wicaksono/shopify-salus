@@ -386,8 +386,82 @@
           {%- endfor -%}
 
           <!-- SAUNA TYPE - RENDERED USING COLLECTION METAFIELD -->
-          {% assign sauna_types = collection.metafields.custom.sauna_type_list.value %}
-          {% if sauna_types != blank %}
+          {% comment %}
+            {% assign sauna_types = collection.metafields.custom.sauna_type_list.value %}
+            {% if sauna_types != blank %}
+              <details-disclosure class="sauna-type">
+                <details
+                  class="filter disclosure"
+                  {% if section.settings.expand_filters %}
+                    open
+                  {% endif %}
+                >
+                  <summary class="filter__toggle">
+                    <div class="flex justify-between items-center">
+                      <span class="flex-auto font-bold">
+                        {%- if collection.url contains 'accessories' or collection.url contains 'heater' -%}
+                          Accessory Type
+                        {%- else -%}
+                          Sauna Type
+                        {%- endif -%}
+                      </span>
+                      <span class="disclosure__toggle">
+                        {%- if settings.disclosure_toggle == 'plus' -%}
+                          {% render 'icon-plus' %}
+                        {%- else -%}
+                          {% render 'icon-chevron-down' %}
+                        {%- endif -%}
+                      </span>
+                    </div>
+                  </summary>
+                  <div class="disclosure__panel has-motion">
+                    <div class="disclosure__content">
+                      <div class="filter__content">
+                        <ul role="list">
+                          {% for sauna_type in sauna_types %}
+                            <li
+                              class="filter-list-item"
+                              data-url="{{ shop.url }}/collections/{{ collection.handle }}/{{ sauna_type.filter_tag | handleize }}"
+                            >
+                              {% assign link_url = sauna_type.filter_tag | handleize %}
+                              {% assign current_link = request.path | split: '/' | last %}
+                              <input
+                                type="checkbox"
+                                class="checkbox visually-hidden focus-label-before {{ link_url }}"
+                                id="sauna_type-{{ forloop.index }}"
+
+                                {% if current_link == link_url %}
+                                  checked
+                                {% endif %}
+                              >
+                              <label class="filter__label flex items-start w-full m-0" for="sauna_type-{{ forloop.index }}">
+                                <span class="flex-auto">{{ sauna_type.filter_title }}</span>
+                              </label>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+              </details-disclosure>
+            {% endif %}
+          {% endcomment %}
+
+          <!-- SAUNA TYPE - RENDERED USING COLLECTION MENU -->
+          {% assign collection_menu = linklists['collection-menu'] %}
+          {% assign show_sauna_type_filter = false %}
+          {% assign active_parent_link = null %}
+
+          {% for link in collection_menu.links %}
+            {% if link.active and link.links != blank %}
+              {% assign show_sauna_type_filter = true %}
+              {% assign active_parent_link = link %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% if show_sauna_type_filter %}
             <details-disclosure class="sauna-type">
               <details
                 class="filter disclosure"
@@ -417,24 +491,26 @@
                   <div class="disclosure__content">
                     <div class="filter__content">
                       <ul role="list">
-                        {% for sauna_type in sauna_types %}
+                        {% for childlink in active_parent_link.links %}
+                          {% assign childlink_handle = childlink.url | split: '/' | last %}
+                          {% assign childlink_request_path = request.path | split: '/' | last %}
                           <li
                             class="filter-list-item"
-                            data-url="{{ shop.url }}/collections/{{ collection.handle }}/{{ sauna_type.filter_tag | handleize }}"
+                            data-url="{{ childlink.url }}"
                           >
-                            {% assign link_url = sauna_type.filter_tag | handleize %}
-                            {% assign current_link = request.path | split: '/' | last %}
                             <input
                               type="checkbox"
-                              class="checkbox visually-hidden focus-label-before {{ link_url }}"
-                              id="sauna_type-{{ forloop.index }}"
-
-                              {% if current_link == link_url %}
+                              class="checkbox visually-hidden focus-label-before {{ childlink_handle }}"
+                              id="sauna_type-{{ childlink.title | handleize }}"
+                              {% if childlink_request_path == childlink_handle %}
                                 checked
                               {% endif %}
                             >
-                            <label class="filter__label flex items-start w-full m-0" for="sauna_type-{{ forloop.index }}">
-                              <span class="flex-auto">{{ sauna_type.filter_title }}</span>
+                            <label
+                              class="filter__label flex items-start w-full m-0"
+                              for="sauna_type-{{ childlink.title | handleize }}"
+                            >
+                              <span class="flex-auto">{{ childlink.title }}</span>
                             </label>
                           </li>
                         {% endfor %}
@@ -445,7 +521,6 @@
               </details>
             </details-disclosure>
           {% endif %}
-          <!-- SAUNA TYPE - RENDERED USING COLLECTION METAFIELD -->
         </div>
 
         {%- if section.settings.enable_sorting and section.settings.sort_first == false -%}
@@ -472,22 +547,20 @@
 {%- endif -%}
 
 <script>
-  let links = document.querySelectorAll('.filter-list-item input')
-  document.addEventListener('DOMContentLoaded', () =>{
-    document.querySelectorAll('.sauna-type .filter-list-item').forEach((item , index) =>{
-      item.addEventListener('click', ()=>{
-        links.forEach(link => {
+  let links = document.querySelectorAll('.filter-list-item input');
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.sauna-type .filter-list-item').forEach((item, index) => {
+      item.addEventListener('click', () => {
+        links.forEach((link) => {
           link.checked = false;
         });
         links[index].checked = true;
-        const url= item.getAttribute('data-url');
-        console.log('Collection url',url);
-        setTimeout(()=>{
+        const url = item.getAttribute('data-url');
+        console.log('Collection url', url);
+        setTimeout(() => {
           window.location.href = url;
         }, 1000);
-
-
-      })
-    })
-  })
+      });
+    });
+  });
 </script>
