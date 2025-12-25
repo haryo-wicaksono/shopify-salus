@@ -491,9 +491,32 @@
                   <div class="disclosure__content">
                     <div class="filter__content">
                       <ul role="list">
+                        <!-- Parent Link -->
+                        {% assign parent_handle = active_parent_link.url | split: '/' | last %}
+                        {% assign current_path_last = request.path | split: '/' | last %}
+                        <li
+                          class="filter-list-item"
+                          data-url="{{ active_parent_link.url }}"
+                        >
+                          <input
+                            type="checkbox"
+                            class="checkbox visually-hidden focus-label-before {{ parent_handle }}"
+                            id="sauna_type-{{ active_parent_link.title | handleize }}"
+                            {% if current_path_last == parent_handle %}
+                              checked
+                            {% endif %}
+                          >
+                          <label
+                            class="filter__label flex items-start w-full m-0"
+                            for="sauna_type-{{ active_parent_link.title | handleize }}"
+                          >
+                            <span class="flex-auto">{{ active_parent_link.title }}</span>
+                          </label>
+                        </li>
+
+                        <!-- Child Links -->
                         {% for childlink in active_parent_link.links %}
                           {% assign childlink_handle = childlink.url | split: '/' | last %}
-                          {% assign childlink_request_path = request.path | split: '/' | last %}
                           <li
                             class="filter-list-item"
                             data-url="{{ childlink.url }}"
@@ -502,7 +525,7 @@
                               type="checkbox"
                               class="checkbox visually-hidden focus-label-before {{ childlink_handle }}"
                               id="sauna_type-{{ childlink.title | handleize }}"
-                              {% if childlink_request_path == childlink_handle %}
+                              {% if current_path_last == childlink_handle %}
                                 checked
                               {% endif %}
                             >
