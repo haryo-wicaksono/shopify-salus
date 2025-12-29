@@ -6592,6 +6592,11 @@ body .products-card-sec .product_ratings .jdgm-preview-badge .jdgm-star {
   margin-top: 30px;
 }
 
+.facets__filters-wrapper:last-child {
+  /* padding: 30px 30px 50px 30px; */
+  margin-bottom: 20px;
+}
+
 #filter-sort {
   position: relative;
 }
