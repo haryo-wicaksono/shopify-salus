@@ -569,20 +569,78 @@
   </sticky-scroll-direction>
 {%- endif -%}
 
-<script>
-  let links = document.querySelectorAll('.filter-list-item input');
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.sauna-type .filter-list-item').forEach((item, index) => {
-      item.addEventListener('click', () => {
-        links.forEach((link) => {
-          link.checked = false;
+{% comment %}
+  <script>
+    let links = document.querySelectorAll('.filter-list-item input');
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.sauna-type .filter-list-item').forEach((item, index) => {
+        item.addEventListener('click', () => {
+          links.forEach((link) => {
+            link.checked = false;
+          });
+          links[index].checked = true;
+          const url = item.getAttribute('data-url');
+          console.log('Collection url', url);
+          setTimeout(() => {
+            window.location.href = url;
+          }, 1000);
         });
-        links[index].checked = true;
+      });
+    });
+  </script>
+{% endcomment %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Select only the inputs specifically within the sauna-type section
+    const saunaInputs = document.querySelectorAll('.sauna-type .filter-list-item input');
+    const saunaItems = document.querySelectorAll('.sauna-type .filter-list-item');
+
+    saunaItems.forEach((item) => {
+      // We listen on the specific input change, or the click on the container
+      item.addEventListener('click', (e) => {
+        // 1. IMPORTANT: Stop the theme's default filter script from seeing this click
+        e.stopPropagation();
+
+        // 2. Find the input inside this clicked item
+        const input = item.querySelector('input');
         const url = item.getAttribute('data-url');
-        console.log('Collection url', url);
-        setTimeout(() => {
-          window.location.href = url;
-        }, 1000);
+
+        console.log('--- Debug Sauna Filter ---');
+        console.log('Clicked Item:', item);
+        console.log('Found Data URL:', url);
+
+        if (!url) {
+          console.error('Error: No data-url found on this item.');
+          return;
+        }
+
+        // 3. Visual: Uncheck all other sauna types, check this one
+        saunaInputs.forEach((link) => (link.checked = false));
+        if (input) input.checked = true;
+
+        // 4. Construct URL with Parameters
+        try {
+          // Base URL (The new collection)
+          const targetUrl = new URL(url, window.location.origin);
+
+          // Current Params (The existing filters like Occupancy)
+          const currentParams = new URLSearchParams(window.location.search);
+
+          // Merge them: Add existing params to the new URL
+          currentParams.forEach((value, key) => {
+            targetUrl.searchParams.set(key, value);
+          });
+
+          console.log('Redirecting to:', targetUrl.toString());
+
+          // 5. Navigate
+          setTimeout(() => {
+            window.location.href = targetUrl.toString();
+          }, 50);
+        } catch (error) {
+          console.error('URL Construction Error:', error);
+        }
       });
     });
   });
