@@ -103,7 +103,7 @@
           "settings": {
             "slide_image_desktop": "shopify://shop_images/dark_mode_slide_hero_section_sauna.png",
             "desktop_image_alt": "Hello",
-            "slide_image_mobile": "shopify://shop_images/Untitled_design_5_fceee02a-016d-458f-a9b8-9cd9582b2e29.png",
+            "slide_image_mobile": "shopify://shop_images/dark_mode_slide_hero_section_sauna.png",
             "mobile_image_alt": "Hello",
             "show_stars": false,
             "show_house_icon": true,
