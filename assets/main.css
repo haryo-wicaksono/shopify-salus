@@ -8500,6 +8500,7 @@ article-pagination .read-time {
   height: max-content;
   position: sticky;
   top: 135px;
+  display: none;
 }
 
 .main-article-content {
@@ -9368,7 +9369,7 @@ body.template--product .jdgm-carousel-item__reviewer-name.jdgm-ellipsis {
   font-size: 20px;
   font-weight: 400;
   line-height: 34px;
-  margin: 0 0 30px !important;
+  margin: 0 0 30px;
 }
 
 .template--article .article__content .back-to-blog a,
@@ -9451,6 +9452,10 @@ body.template--product .jdgm-rev-widg__sort-wrapper.active .jdgm-sort-dropdown-w
 button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover {
   background: #000 !important;
   color: #fff !important;
+}
+
+.back-to-blog {
+  margin-top: 10px;
 }
 
 .back-to-blog a {
