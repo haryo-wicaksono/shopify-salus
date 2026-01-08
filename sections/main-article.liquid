@@ -34,7 +34,7 @@
     font-weight: 500;
     text-decoration: underline;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 20px;
     display: inline-block;
     line-height: 1.5;
   }
@@ -46,6 +46,12 @@
 
   .template--article .article__content :is(li, a, p) {
     margin-bottom: 0px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .disclaimer-btn {
+      font-size: 14px;
+    }
   }
 </style>
 
