@@ -297,6 +297,7 @@
     },
     "brands_comparison_7kxfG6": {
       "type": "brands-comparison",
+      "disabled": true,
       "settings": {
         "color_scheme": "1"
       }
