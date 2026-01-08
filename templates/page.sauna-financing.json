@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -22,8 +31,8 @@
     "image_with_content_L4niNk": {
       "type": "image-with-content",
       "settings": {
-        "content": "<h2>Our financing partners<\/h2><p>Our mission as a company is to make sauna ownership the rule rather than the exception. In line with this mission, we have collaborated with several financing partners so you can start your sauna journey with ease! Continue reading this article to see our financing options.<\/p>",
-        "image": "shopify:\/\/shop_images\/financing-partner.jpg",
+        "content": "<h2>Our financing partners</h2><p>Our mission as a company is to make sauna ownership the rule rather than the exception. In line with this mission, we have collaborated with several financing partners so you can start your sauna journey with ease! Continue reading this article to see our financing options.</p>",
+        "image": "shopify://shop_images/financing-partner.jpg",
         "padding_top": 100,
         "padding_bottom": 0
       }
@@ -31,24 +40,25 @@
     "image_with_content_UhNepr": {
       "type": "image-with-content",
       "settings": {
-        "content": "<h3>How to: sauna financing <br\/>with Affirm<\/h3><p>Our first financing partner is Affirm, a trusted and reliable financial technology company that’s a popular option among millions of buyers. Affirm prides itself in keeping you out of unhealthy debt by facilitating fair, transparent credit so you can pay over time for the things you love. With Affirm, you'll never owe more than what you agree to up front. Instead, you'll always get a flexible, transparent, and convenient way to pay over time. If you’re looking to finance your sauna purchase with Affirm, simply follow these simple steps:<\/p><p><strong>1. Find your perfect sauna<br\/><\/strong>This is the fun (or stressful for some) part of your journey! Simply browse through our extensive collection of saunas by their type (traditional saunas, infrared saunas, or hybrid saunas) or by the location you’d like to install your sauna (indoor-only saunas, or indoor and outdoor-compatible saunas).<\/p><p>Pro tip: leverage our 2-minute quiz or our use our Sauna Comparison Tool to ensure you select the right sauna and to ease your selection process.<\/p><p><strong>2. Click on “Add to cart” and review your order<\/strong><br\/>Once you’ve found your perfect sauna, simply click the “Add to cart” button, which will lead you to the cart page. Make sure you review your order and ensure it reflects what you’re looking to purchase.<\/p><p><strong>3. Click on “Continue to checkout”<\/strong><br\/>Does everything look good to go on the cart page? If so, click the “Continue to checkout” button. This will lead you to the checkout page.<\/p><p>To finance your sauna with Affirm, scroll to the bottom of the page and select “Affirm - Pay Over Time” under the “Payment” section. Once you select Affirm, simply click on the “Pay now” button.<\/p><p><strong>4. Choose how you pay<\/strong><br\/>After clicking “Pay now”, you will be redirected to Affirm - Pay Over Time to complete your purchase securely. Pick the monthly payment plan that makes the most sense for you. You’ll never pay more than you agree to upfront.<\/p><p><strong>5. Pay over time<\/strong><br\/>Make payments at affirm.com or in the Affirm app. You’ll get email and text reminders to keep you on track.<\/p>",
+        "content": "<h3>How to: sauna financing <br/>with Affirm</h3><p>Our first financing partner is Affirm, a trusted and reliable financial technology company that’s a popular option among millions of buyers. Affirm prides itself in keeping you out of unhealthy debt by facilitating fair, transparent credit so you can pay over time for the things you love. With Affirm, you'll never owe more than what you agree to up front. Instead, you'll always get a flexible, transparent, and convenient way to pay over time. If you’re looking to finance your sauna purchase with Affirm, simply follow these simple steps:</p><p><strong>1. Find your perfect sauna<br/></strong>This is the fun (or stressful for some) part of your journey! Simply browse through our extensive collection of saunas by their type (traditional saunas, infrared saunas, or hybrid saunas) or by the location you’d like to install your sauna (indoor-only saunas, or indoor and outdoor-compatible saunas).</p><p>Pro tip: leverage our 2-minute quiz or our use our Sauna Comparison Tool to ensure you select the right sauna and to ease your selection process.</p><p><strong>2. Click on “Add to cart” and review your order</strong><br/>Once you’ve found your perfect sauna, simply click the “Add to cart” button, which will lead you to the cart page. Make sure you review your order and ensure it reflects what you’re looking to purchase.</p><p><strong>3. Click on “Continue to checkout”</strong><br/>Does everything look good to go on the cart page? If so, click the “Continue to checkout” button. This will lead you to the checkout page.</p><p>To finance your sauna with Affirm, scroll to the bottom of the page and select “Affirm - Pay Over Time” under the “Payment” section. Once you select Affirm, simply click on the “Pay now” button.</p><p><strong>4. Choose how you pay</strong><br/>After clicking “Pay now”, you will be redirected to Affirm - Pay Over Time to complete your purchase securely. Pick the monthly payment plan that makes the most sense for you. You’ll never pay more than you agree to upfront.</p><p><strong>5. Pay over time</strong><br/>Make payments at affirm.com or in the Affirm app. You’ll get email and text reminders to keep you on track.</p>",
         "padding_top": 0,
         "padding_bottom": 40
       }
     },
     "promotion_banner_8pVKWx": {
       "type": "promotion-banner",
+      "disabled": true,
       "settings": {
-        "banner_image": "shopify:\/\/shop_images\/infrared-sauna-banner-2.jpg",
+        "banner_image": "shopify://shop_images/infrared-sauna-banner-2.jpg",
         "banner_heading": "Enjoy the health benefits of our time-tested traditional saunas",
         "button_label": "Browse Traditional Saunas",
-        "button_link": "shopify:\/\/collections\/traditional-saunas"
+        "button_link": "shopify://collections/traditional-saunas"
       }
     },
     "image_with_content_xHbFDg": {
       "type": "image-with-content",
       "settings": {
-        "content": "<h3>How to: sauna financing <br\/>with Synchrony<\/h3><p><strong>1. Contact our sales experts at (888) 287-0111<\/strong><br\/>If you have a sauna in mind or still have questions, our sales experts and sauna specialists are happy to answer them for you and review the financing options starting at 0% APR over 18 months.<\/p><p><strong>2. Apply over the phone<\/strong><br\/>Salus will assist you with your application making the process simple and smooth.<\/p><p><strong>3. Enjoy now, Pay Later<\/strong><br\/>Enjoy your new sauna by simply making scheduled payments. To see full payment terms and disclosure requirements click here.<\/p><p><br\/><\/p><h3>Closing thoughts<\/h3><p>With our flexible, transparent, and trustworthy financing options, we hope you will have a better sauna-buying experience and kickstart your sauna journey without the stress. With that said, please make sure to double or triple-check your monthly payments with Affirm and Synchrony to ensure you pick an installment option that suits your budget.<\/p>",
+        "content": "<h3>How to: sauna financing <br/>with Synchrony</h3><p><strong>1. Contact our sales experts at (888) 287-0111</strong><br/>If you have a sauna in mind or still have questions, our sales experts and sauna specialists are happy to answer them for you and review the financing options starting at 0% APR over 18 months.</p><p><strong>2. Apply over the phone</strong><br/>Salus will assist you with your application making the process simple and smooth.</p><p><strong>3. Enjoy now, Pay Later</strong><br/>Enjoy your new sauna by simply making scheduled payments. To see full payment terms and disclosure requirements click here.</p><p><br/></p><h3>Closing thoughts</h3><p>With our flexible, transparent, and trustworthy financing options, we hope you will have a better sauna-buying experience and kickstart your sauna journey without the stress. With that said, please make sure to double or triple-check your monthly payments with Affirm and Synchrony to ensure you pick an installment option that suits your budget.</p>",
         "padding_top": 60,
         "padding_bottom": 40
       }
