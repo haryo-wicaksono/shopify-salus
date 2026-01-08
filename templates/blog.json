@@ -1,10 +1,19 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "blog_banner_9i3fKW": {
       "type": "blog-banner",
       "settings": {
         "show_resource_count": true,
-        "content": "<p>Explore our comprehensive blogs collection covering sauna health benefits, cold therapy, and other essential wellness accessories. From research-backed insights to expert buying guides, find everything you need to make informed decisions and elevate your wellness journey.<\/p>",
+        "content": "<p>Explore our comprehensive blogs collection covering sauna health benefits, cold therapy, and other essential wellness accessories. From research-backed insights to expert buying guides, find everything you need to make informed decisions and elevate your wellness journey.</p>",
         "text_align": "text-start",
         "blog_menu": "",
         "color_scheme": "3"
@@ -12,21 +21,6 @@
     },
     "main": {
       "type": "main-blog",
-      "blocks": {
-        "card_promotion_izPhyq": {
-          "type": "card_promotion",
-          "settings": {
-            "bg_image": "shopify:\/\/shop_images\/infrared-sauna-banner-2.jpg",
-            "heading": "Enjoy the health benefits of our time-tested traditional saunas",
-            "btn_label": "Browse Traditional Saunas",
-            "btn_link": "",
-            "product": "horizon-6-person-barrel-sauna"
-          }
-        }
-      },
-      "block_order": [
-        "card_promotion_izPhyq"
-      ],
       "settings": {
         "topics": "Saunas,\nCold Plunges,\nHealth,\nBuying Guides,\nhuum heater",
         "show_blog_title": false,
