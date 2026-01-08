@@ -4606,6 +4606,15 @@
   .product-info__block.product-info__block--sm.product-info__title {
     margin-bottom: 0px;
   }
+
+  .article-left-sidebar {
+    position: relative !important;
+    /* Disables sticky behavior */
+    top: auto !important;
+    /* Resets the top spacing */
+    height: auto !important;
+    /* Allows it to be natural height */
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -7632,7 +7641,7 @@
 
   .main-article-row {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 20px;
   }
 
@@ -7868,7 +7877,7 @@
   .template--article .article__content :is(li, a, p) {
     font-size: 14px;
     line-height: 20px;
-    margin-bottom: 15px !important;
+    margin-bottom: 15px;
   }
 
   .template--article .article__content img {
