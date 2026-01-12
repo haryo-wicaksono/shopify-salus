@@ -244,6 +244,63 @@
         "media_grouping_option": "Color,Colour,Couleur,Farbe"
       }
     },
+    "product_page_reviews_i4gjdA": {
+      "type": "product-page-reviews",
+      "blocks": {
+        "review_card_JWEMiU": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>\"I use it nearly every day and it's completely revolutionized our backyard into a home spa.\"</p>",
+            "review_title": "Love my Salus Sauna!!!!",
+            "author_name": "Reviewer Name",
+            "is_verified": true
+          }
+        },
+        "review_card_qH3BTE": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>\"I use it nearly every day and it's completely revolutionized our backyard into a home spa.\"</p>",
+            "review_title": "Love my Salus Sauna!!!!",
+            "author_name": "Reviewer Name",
+            "is_verified": true
+          }
+        },
+        "review_card_wpeP8i": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>\"I use it nearly every day and it's completely revolutionized our backyard into a home spa.\"</p>",
+            "review_title": "Love my Salus Sauna!!!!",
+            "author_name": "Reviewer Name",
+            "is_verified": true
+          }
+        },
+        "review_card_RTUNR7": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>\"I use it nearly every day and it's completely revolutionized our backyard into a home spa.\"</p>",
+            "review_title": "Love my Salus Sauna!!!!",
+            "author_name": "Reviewer Name",
+            "is_verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_card_JWEMiU",
+        "review_card_qH3BTE",
+        "review_card_wpeP8i",
+        "review_card_RTUNR7"
+      ],
+      "name": "product-page Reviews Slider",
+      "settings": {
+        "show_navigation_arrows": true,
+        "button_label": "Show me more reviews",
+        "button_link": "",
+        "section_padding_top_desktop": 80,
+        "section_padding_bottom_desktop": 80,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40
+      }
+    },
     "abx_responsive_gallery_FxQfrp": {
       "type": "abx-responsive-gallery",
       "custom_css": [
@@ -805,6 +862,7 @@
   "order": [
     "add_to_cart_banner_q9D9bA",
     "main",
+    "product_page_reviews_i4gjdA",
     "abx_responsive_gallery_FxQfrp",
     "details",
     "freebies_section_i9kUNq",
