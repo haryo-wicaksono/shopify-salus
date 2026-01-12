@@ -1,10 +1,16 @@
 {{ 'homepage-reviews-slider-2.css' | asset_url | stylesheet_tag }}
 {{ 'homepage-reviews-carousel.css' | asset_url | stylesheet_tag }}
 
+{% comment %} --- UPDATED CHECK: Loop to see if ANY review exists (1-5) --- {% endcomment %}
 {% assign has_metafield_reviews = false %}
-{% if product.metafields.custom.review_title_1 != blank %}
-  {% assign has_metafield_reviews = true %}
-{% endif %}
+{% for i in (1..5) %}
+  {% assign title_check = 'review_title_' | append: i %}
+  {% assign text_check = 'review_text_' | append: i %}
+  {% if product.metafields.custom[title_check] != blank or product.metafields.custom[text_check] != blank %}
+    {% assign has_metafield_reviews = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
 
 <style>
   .homepage-reviews-slider__nav-button--prev {
