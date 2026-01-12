@@ -1,72 +1,129 @@
 {{ 'homepage-reviews-slider-2.css' | asset_url | stylesheet_tag }}
 {{ 'homepage-reviews-carousel.css' | asset_url | stylesheet_tag }}
 
+{% assign reviews_metafield = product.metafields.custom.product_page_reviews.value %}
+{% assign has_metafield_reviews = false %}
+{% if reviews_metafield != blank %}
+  {% assign has_metafield_reviews = true %}
+{% endif %}
+
+<style>
+  .homepage-reviews-slider__nav-button--prev {
+    margin-left: 50px;
+  }
+  .homepage-reviews-slider__nav-button--next {
+    margin-right: 50px;
+  }
+</style>
+
 <section
-  class="product-page-reviews-slider"
+  class="homepage-reviews-slider"
   data-section-id="{{ section.id }}"
-  data-section-type="product-page-reviews-slider"
+  data-section-type="homepage-reviews-slider"
   style="
-    --product-page-reviews-slider-padding-top-desktop: {{ section.settings.section_padding_top_desktop }}px;
-    --product-page-reviews-slider-padding-bottom-desktop: {{ section.settings.section_padding_bottom_desktop }}px;
-    --product-page-reviews-slider-padding-top-mobile: {{ section.settings.section_padding_top_mobile }}px;
-    --product-page-reviews-slider-padding-bottom-mobile: {{ section.settings.section_padding_bottom_mobile }}px;
+    --homepage-reviews-slider-padding-top-desktop: {{ section.settings.section_padding_top_desktop }}px;
+    --homepage-reviews-slider-padding-bottom-desktop: {{ section.settings.section_padding_bottom_desktop }}px;
+    --homepage-reviews-slider-padding-top-mobile: {{ section.settings.section_padding_top_mobile }}px;
+    --homepage-reviews-slider-padding-bottom-mobile: {{ section.settings.section_padding_bottom_mobile }}px;
     background-color: #FFFFFF;
   "
 >
-  <div class="product-page-reviews-slider__wrapper">
-    {% if section.blocks.size > 0 %}
-      <div class="carousel-container product-page-reviews-slider__carousel">
+  <div class="homepage-reviews-slider__wrapper">
+    {% if has_metafield_reviews or section.blocks.size > 0 %}
+      <div class="carousel-container homepage-reviews-slider__carousel">
         <div class="carousel-track">
-          {% for block in section.blocks %}
-            <div class="review-slide" {{ block.shopify_attributes }}>
-              <div class="product-page-reviews-slider__card">
-                <div class="product-page-reviews-slider__star-rating">
-                  {% render 'icon-star' -%}
-                  {%- render 'icon-star' -%}
-                  {%- render 'icon-star' -%}
-                  {%- render 'icon-star' -%}
-                  {%- render 'icon-star' %}
-                </div>
+          {% comment %} --- LOGIC: RENDER FROM METAFIELDS --- {% endcomment %}
+          {% if has_metafield_reviews %}
+            {% for review in reviews_metafield %}
+              <div class="review-slide">
+                <div class="homepage-reviews-slider__card">
+                  <div class="homepage-reviews-slider__star-rating">
+                    {% comment %} Hardcoded 5 stars {% endcomment %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                  </div>
 
-                {% if block.settings.review_title != blank %}
-                  <h3 class="product-page-reviews-slider__title">{{ block.settings.review_title }}</h3>
-                {% endif %}
-
-                {% if block.settings.review_text != blank %}
-                  <div class="product-page-reviews-slider__text">{{ block.settings.review_text }}</div>
-                {% endif %}
-
-                <div class="product-page-reviews-slider__author-details">
-                  {% if block.settings.author_image != blank %}
-                    {% assign author_img = block.settings.author_image %}
-                    <img
-                      src="{{ author_img | image_url: width: 40 }}"
-                      alt="{{ author_img.alt | default: block.settings.author_name | escape }}"
-                      class="product-page-reviews-slider__author-image"
-                      width="40"
-                      height="40"
-                      loading="lazy"
-                    >
+                  {% if review.title != blank %}
+                    <h3 class="homepage-reviews-slider__title">{{ review.title }}</h3>
                   {% endif %}
-                  {% if block.settings.author_name != blank %}
-                    <p class="product-page-reviews-slider__author-name">
-                      {{ block.settings.author_name }}
-                      {% if block.settings.is_verified %}
-                        {% render 'homepage-reviews-slider-blue-checkmark' %}
+
+                  {% if review.text != blank %}
+                    <div class="homepage-reviews-slider__text">
+                      {% if review.text contains '<p>' %}
+                        {{ review.text }}
+                      {% else %}
+                        <p>{{ review.text }}</p>
                       {% endif %}
-                    </p>
+                    </div>
                   {% endif %}
+
+                  <div class="homepage-reviews-slider__author-details">
+                    {% comment %} No image for metafields {% endcomment %}
+
+                    {% if review.author_name != blank %}
+                      <p class="homepage-reviews-slider__author-name">
+                        {{ review.author_name }}
+                      </p>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-            </div>
-          {% endfor %}
+            {% endfor %}
+
+            {% comment %} --- LOGIC: FALLBACK TO BLOCKS --- {% endcomment %}
+          {% else %}
+            {% for block in section.blocks %}
+              <div class="review-slide" {{ block.shopify_attributes }}>
+                <div class="homepage-reviews-slider__card">
+                  <div class="homepage-reviews-slider__star-rating">
+                    {% render 'icon-star' -%}
+                    {%- render 'icon-star' -%}
+                    {%- render 'icon-star' -%}
+                    {%- render 'icon-star' -%}
+                    {%- render 'icon-star' %}
+                  </div>
+
+                  {% if block.settings.review_title != blank %}
+                    <h3 class="homepage-reviews-slider__title">{{ block.settings.review_title }}</h3>
+                  {% endif %}
+
+                  {% if block.settings.review_text != blank %}
+                    <div class="homepage-reviews-slider__text">{{ block.settings.review_text }}</div>
+                  {% endif %}
+
+                  <div class="homepage-reviews-slider__author-details">
+                    {% if block.settings.author_image != blank %}
+                      {% assign author_img = block.settings.author_image %}
+                      <img
+                        src="{{ author_img | image_url: width: 40 }}"
+                        alt="{{ author_img.alt | default: block.settings.author_name | escape }}"
+                        class="homepage-reviews-slider__author-image"
+                        width="40"
+                        height="40"
+                        loading="lazy"
+                      >
+                    {% endif %}
+                    {% if block.settings.author_name != blank %}
+                      <p class="homepage-reviews-slider__author-name">
+                        {{ block.settings.author_name }}
+                      </p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
         </div>
       </div>
+
       {% if section.settings.button_link != blank and section.settings.button_label != blank %}
-        <div class="product-page-reviews-slider__action-area">
+        <div class="homepage-reviews-slider__action-area">
           <a
             href="{{ section.settings.button_link }}"
-            class="product-page-reviews-slider__button"
+            class="homepage-reviews-slider__button"
           >
             {{ section.settings.button_label }}
           </a>
@@ -80,10 +137,10 @@
     {% endif %}
   </div>
   {% if section.settings.show_navigation_arrows %}
-    <button class="carousel-arrow arrow-left product-page-reviews-slider__nav-button product-page-reviews-slider__nav-button--prev">
+    <button class="carousel-arrow arrow-left homepage-reviews-slider__nav-button homepage-reviews-slider__nav-button--prev">
       {% render 'icon-arrow-left' %}
     </button>
-    <button class="carousel-arrow arrow-right product-page-reviews-slider__nav-button product-page-reviews-slider__nav-button--next">
+    <button class="carousel-arrow arrow-right homepage-reviews-slider__nav-button homepage-reviews-slider__nav-button--next">
       {% render 'icon-arrow-right' %}
     </button>
   {% endif %}
@@ -98,6 +155,14 @@
   "class": "product-page-reviews-slider-section",
   "max_blocks": 15,
   "settings": [
+    {
+      "type": "header",
+      "content": "Data Source"
+    },
+    {
+      "type": "paragraph",
+      "content": "This section looks for a JSON metafield 'custom.product_page_reviews'. If found, it displays those reviews (5 stars hardcoded). If not, it falls back to the blocks below."
+    },
     {
       "type": "header",
       "content": "Carousel Behavior"
@@ -171,7 +236,7 @@
   "blocks": [
     {
       "type": "review_card",
-      "name": "Review Card",
+      "name": "Review Card (Fallback)",
       "settings": [
         {
           "type": "richtext",
@@ -196,23 +261,14 @@
           "id": "author_name",
           "label": "Author Name",
           "default": "Reviewer Name"
-        },
-        {
-          "type": "checkbox",
-          "id": "is_verified",
-          "label": "Show 'Verified' Checkmark",
-          "default": true
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "product-page Reviews Slider",
+      "name": "Product Page Reviews",
       "blocks": [
-        {
-          "type": "review_card"
-        },
         {
           "type": "review_card"
         },
