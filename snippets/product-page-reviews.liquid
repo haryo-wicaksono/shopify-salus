@@ -1,0 +1,229 @@
+{{ 'homepage-reviews-slider-2.css' | asset_url | stylesheet_tag }}
+{{ 'homepage-reviews-carousel.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="product-page-reviews-slider"
+  data-section-id="{{ section.id }}"
+  data-section-type="product-page-reviews-slider"
+  style="
+    --product-page-reviews-slider-padding-top-desktop: {{ section.settings.section_padding_top_desktop }}px;
+    --product-page-reviews-slider-padding-bottom-desktop: {{ section.settings.section_padding_bottom_desktop }}px;
+    --product-page-reviews-slider-padding-top-mobile: {{ section.settings.section_padding_top_mobile }}px;
+    --product-page-reviews-slider-padding-bottom-mobile: {{ section.settings.section_padding_bottom_mobile }}px;
+    background-color: #FFFFFF;
+  "
+>
+  <div class="product-page-reviews-slider__wrapper">
+    {% if section.blocks.size > 0 %}
+      <div class="carousel-container product-page-reviews-slider__carousel">
+        <div class="carousel-track">
+          {% for block in section.blocks %}
+            <div class="review-slide" {{ block.shopify_attributes }}>
+              <div class="product-page-reviews-slider__card">
+                <div class="product-page-reviews-slider__star-rating">
+                  {% render 'icon-star' -%}
+                  {%- render 'icon-star' -%}
+                  {%- render 'icon-star' -%}
+                  {%- render 'icon-star' -%}
+                  {%- render 'icon-star' %}
+                </div>
+
+                {% if block.settings.review_title != blank %}
+                  <h3 class="product-page-reviews-slider__title">{{ block.settings.review_title }}</h3>
+                {% endif %}
+
+                {% if block.settings.review_text != blank %}
+                  <div class="product-page-reviews-slider__text">{{ block.settings.review_text }}</div>
+                {% endif %}
+
+                <div class="product-page-reviews-slider__author-details">
+                  {% if block.settings.author_image != blank %}
+                    {% assign author_img = block.settings.author_image %}
+                    <img
+                      src="{{ author_img | image_url: width: 40 }}"
+                      alt="{{ author_img.alt | default: block.settings.author_name | escape }}"
+                      class="product-page-reviews-slider__author-image"
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                    >
+                  {% endif %}
+                  {% if block.settings.author_name != blank %}
+                    <p class="product-page-reviews-slider__author-name">
+                      {{ block.settings.author_name }}
+                      {% if block.settings.is_verified %}
+                        {% render 'homepage-reviews-slider-blue-checkmark' %}
+                      {% endif %}
+                    </p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% if section.settings.button_link != blank and section.settings.button_label != blank %}
+        <div class="product-page-reviews-slider__action-area">
+          <a
+            href="{{ section.settings.button_link }}"
+            class="product-page-reviews-slider__button"
+          >
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+      {% endif %}
+
+    {% else %}
+      <div class="placeholder-content">
+        {{ 'no_content' | t }}
+      </div>
+    {% endif %}
+  </div>
+  {% if section.settings.show_navigation_arrows %}
+    <button class="carousel-arrow arrow-left product-page-reviews-slider__nav-button product-page-reviews-slider__nav-button--prev">
+      {% render 'icon-arrow-left' %}
+    </button>
+    <button class="carousel-arrow arrow-right product-page-reviews-slider__nav-button product-page-reviews-slider__nav-button--next">
+      {% render 'icon-arrow-right' %}
+    </button>
+  {% endif %}
+</section>
+
+<script src="{{ 'homepage-reviews-carousel.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "product-page Reviews Slider",
+  "tag": "section",
+  "class": "product-page-reviews-slider-section",
+  "max_blocks": 15,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Carousel Behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation_arrows",
+      "label": "Show Navigation Arrows (Desktop Only)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Show me more reviews"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_desktop",
+      "label": "Padding Top (Desktop)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_desktop",
+      "label": "Padding Bottom (Desktop)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "label": "Padding Top (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "label": "Padding Bottom (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review_card",
+      "name": "Review Card",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "<p>\"I use it nearly every day and it's completely revolutionized our backyard into a home spa.\"</p>"
+        },
+        {
+          "type": "text",
+          "id": "review_title",
+          "label": "Review Title (Optional)",
+          "default": "Love my Salus Sauna!!!!"
+        },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author Image",
+          "info": "Profile photo of the reviewer."
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Reviewer Name"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_verified",
+          "label": "Show 'Verified' Checkmark",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "product-page Reviews Slider",
+      "blocks": [
+        {
+          "type": "review_card"
+        },
+        {
+          "type": "review_card"
+        },
+        {
+          "type": "review_card"
+        },
+        {
+          "type": "review_card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
