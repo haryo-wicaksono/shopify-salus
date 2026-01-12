@@ -1,9 +1,8 @@
 {{ 'homepage-reviews-slider-2.css' | asset_url | stylesheet_tag }}
 {{ 'homepage-reviews-carousel.css' | asset_url | stylesheet_tag }}
 
-{% assign reviews_metafield = product.metafields.custom.product_page_reviews.value %}
 {% assign has_metafield_reviews = false %}
-{% if reviews_metafield != blank %}
+{% if product.metafields.custom.review_title_1 != blank %}
   {% assign has_metafield_reviews = true %}
 {% endif %}
 
@@ -13,6 +12,9 @@
   }
   .homepage-reviews-slider__nav-button--next {
     margin-right: 50px;
+  }
+  .homepage-reviews-slider__text {
+    align-self: start;
   }
 </style>
 
@@ -32,45 +34,50 @@
     {% if has_metafield_reviews or section.blocks.size > 0 %}
       <div class="carousel-container homepage-reviews-slider__carousel">
         <div class="carousel-track">
-          {% comment %} --- LOGIC: RENDER FROM METAFIELDS --- {% endcomment %}
+          {% comment %} --- LOGIC: RENDER FROM INDIVIDUAL METAFIELDS (1-5) --- {% endcomment %}
           {% if has_metafield_reviews %}
-            {% for review in reviews_metafield %}
-              <div class="review-slide">
-                <div class="homepage-reviews-slider__card">
-                  <div class="homepage-reviews-slider__star-rating">
-                    {% comment %} Hardcoded 5 stars {% endcomment %}
-                    {% render 'icon-star' %}
-                    {% render 'icon-star' %}
-                    {% render 'icon-star' %}
-                    {% render 'icon-star' %}
-                    {% render 'icon-star' %}
-                  </div>
+            {% for i in (1..5) %}
+              {% assign title_key = 'review_title_' | append: i %}
+              {% assign text_key = 'review_text_' | append: i %}
+              {% assign author_key = 'review_author_' | append: i %}
 
-                  {% if review.title != blank %}
-                    <h3 class="homepage-reviews-slider__title">{{ review.title }}</h3>
-                  {% endif %}
+              {% assign m_title = product.metafields.custom[title_key] %}
+              {% assign m_text = product.metafields.custom[text_key] %}
+              {% assign m_author = product.metafields.custom[author_key] %}
 
-                  {% if review.text != blank %}
-                    <div class="homepage-reviews-slider__text">
-                      {% if review.text contains '<p>' %}
-                        {{ review.text }}
-                      {% else %}
-                        <p>{{ review.text }}</p>
+              {% if m_title != blank or m_text != blank %}
+                <div class="review-slide">
+                  <div class="homepage-reviews-slider__card">
+                    <div class="homepage-reviews-slider__star-rating">
+                      {% comment %} Hardcoded 5 stars {% endcomment %}
+                      {% render 'icon-star' %}
+                      {% render 'icon-star' %}
+                      {% render 'icon-star' %}
+                      {% render 'icon-star' %}
+                      {% render 'icon-star' %}
+                    </div>
+
+                    {% if m_title != blank %}
+                      <h3 class="homepage-reviews-slider__title">{{ m_title }}</h3>
+                    {% endif %}
+
+                    {% if m_text != blank %}
+                      <div class="homepage-reviews-slider__text">
+                        {{ m_text | metafield_tag }}
+                      </div>
+                    {% endif %}
+
+                    <div class="homepage-reviews-slider__author-details">
+                      {% if m_author != blank %}
+                        <p class="homepage-reviews-slider__author-name">
+                          {{ m_author }}
+                          {% render 'homepage-reviews-slider-blue-checkmark' %}
+                        </p>
                       {% endif %}
                     </div>
-                  {% endif %}
-
-                  <div class="homepage-reviews-slider__author-details">
-                    {% comment %} No image for metafields {% endcomment %}
-
-                    {% if review.author_name != blank %}
-                      <p class="homepage-reviews-slider__author-name">
-                        {{ review.author_name }}
-                      </p>
-                    {% endif %}
                   </div>
                 </div>
-              </div>
+              {% endif %}
             {% endfor %}
 
             {% comment %} --- LOGIC: FALLBACK TO BLOCKS --- {% endcomment %}
@@ -152,7 +159,7 @@
 {
   "name": "Product Page Reviews",
   "tag": "section",
-  "class": "product-page-reviews-slider-section",
+  "class": "homepage-reviews-slider-section",
   "max_blocks": 15,
   "settings": [
     {
@@ -161,7 +168,7 @@
     },
     {
       "type": "paragraph",
-      "content": "This section looks for a JSON metafield 'custom.product_page_reviews'. If found, it displays those reviews (5 stars hardcoded). If not, it falls back to the blocks below."
+      "content": "This section looks for metafields 'custom.review_title_1' through 'custom.review_title_5'. If found, it displays those reviews. If not, it falls back to the blocks below."
     },
     {
       "type": "header",
