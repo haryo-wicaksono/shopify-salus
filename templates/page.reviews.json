@@ -66,6 +66,16 @@
     "reviews_page_tab_P9WCLf": {
       "type": "reviews-page-tab",
       "blocks": {
+        "review_card_UT8acK": {
+          "type": "review_card",
+          "settings": {
+            "title": "George and his crew at Salus are great",
+            "text": "Been a very long road from start to finish with many hiccups but Angelle, Sam and George have been great. George in customer service was unbelievably helpful and delivered exactly what I needed to resolve issues large or small. Sauna is beautiful and works great! Huge thanks go out to George and his crew at Salus",
+            "author": "Joe DiCicco",
+            "date": "December 31, 2025",
+            "product_name": ""
+          }
+        },
         "review_card_j7ceTn": {
           "type": "review_card",
           "settings": {
@@ -498,6 +508,7 @@
         }
       },
       "block_order": [
+        "review_card_UT8acK",
         "review_card_j7ceTn",
         "review_card_hzQlHT",
         "review_card_IaEeUK",

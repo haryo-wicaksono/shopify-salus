@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -5,12 +14,13 @@
       "blocks": {
         "promotion_banner_CJR7TH": {
           "type": "promotion_banner",
+          "disabled": true,
           "settings": {
-            "banner_image": "shopify:\/\/shop_images\/infrared-sauna-banner-2.jpg",
+            "banner_image": "shopify://shop_images/infrared-sauna-banner-2.jpg",
             "heading": "Enjoy the health benefits of our time-tested traditional saunas",
             "content": "",
             "btn_label": "Browse Traditional Sauna",
-            "btn_link": "shopify:\/\/collections\/traditional-saunas"
+            "btn_link": "shopify://collections/traditional-saunas"
           }
         }
       },
@@ -21,7 +31,6 @@
         "show_tags": false,
         "show_author": true,
         "show_date": true,
-        "sidebar_content": "",
         "writer_detail": "{{ article.metafields.custom.writer_detail | metafield_tag }}",
         "show_newsletter": false,
         "nl_heading": "Get weekly updates on the best sauna content",
@@ -29,7 +38,7 @@
         "pagination": "bar-reading",
         "heading": "Free, downloadable PDFs on everything sauna related",
         "content": "",
-        "image": "shopify:\/\/shop_images\/download-article-popup-media.jpg",
+        "image": "shopify://shop_images/download-article-popup-media.jpg",
         "foem_button_label": "Send me the article"
       }
     },
