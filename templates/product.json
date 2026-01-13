@@ -252,8 +252,7 @@
           "settings": {
             "review_text": "<p>\"I use it nearly every day and it's completely revolutionized our backyard into a home spa.\"</p>",
             "review_title": "Love my Salus Sauna!!!!",
-            "author_name": "Reviewer Name",
-            "is_verified": true
+            "author_name": "Reviewer Name"
           }
         },
         "review_card_qH3BTE": {
@@ -261,8 +260,7 @@
           "settings": {
             "review_text": "<p>\"I use it nearly every day and it's completely revolutionized our backyard into a home spa.\"</p>",
             "review_title": "Love my Salus Sauna!!!!",
-            "author_name": "Reviewer Name",
-            "is_verified": true
+            "author_name": "Reviewer Name"
           }
         },
         "review_card_wpeP8i": {
@@ -270,8 +268,7 @@
           "settings": {
             "review_text": "<p>\"I use it nearly every day and it's completely revolutionized our backyard into a home spa.\"</p>",
             "review_title": "Love my Salus Sauna!!!!",
-            "author_name": "Reviewer Name",
-            "is_verified": true
+            "author_name": "Reviewer Name"
           }
         },
         "review_card_RTUNR7": {
@@ -279,8 +276,7 @@
           "settings": {
             "review_text": "<p>\"I use it nearly every day and it's completely revolutionized our backyard into a home spa.\"</p>",
             "review_title": "Love my Salus Sauna!!!!",
-            "author_name": "Reviewer Name",
-            "is_verified": true
+            "author_name": "Reviewer Name"
           }
         }
       },
@@ -294,7 +290,7 @@
       "settings": {
         "show_navigation_arrows": true,
         "button_label": "Show me more reviews",
-        "button_link": "",
+        "button_link": "shopify://pages/reviews",
         "section_padding_top_desktop": 80,
         "section_padding_bottom_desktop": 80,
         "section_padding_top_mobile": 40,
