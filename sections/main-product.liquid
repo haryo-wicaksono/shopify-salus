@@ -87,6 +87,10 @@
 {%- endstyle -%}
 
 <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     /* 1. Styling the Questions Box */
     .product-questions-box {
       border: 1px solid #e2e2e2;
@@ -583,7 +587,7 @@
                   </span>
                 {% endif %}
                 {% if block.settings.reviews_text != blank %}
-                  <a href="/pages/reviews" target="_blank">
+                  <a href="#product-page-reviews">
                     <p class="product-page-section-header__reviews-text">{{ block.settings.reviews_text }}</p>
                   </a>
                 {% endif %}
