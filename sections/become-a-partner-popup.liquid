@@ -1,302 +1,253 @@
 {%- assign form_id = section.id | append: '-contact' -%}
 
 <style>
-        /* Popup overlay */
-        .partner-form-popup-overlay {
-          display: none;
-          /* Hidden by default */
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.5);
-          z-index: 100;
-        }
-
-        /* Popup content */
-       #become-partner-contact-form .partner-form-popup-content::-webkit-scrollbar-thumb,
-       #become-partner-contact-form .partner-form-popup-content::-webkit-scrollbar-track{
-          border-radius: 100px;
-      }
-        #become-partner-contact-form .partner-form-popup-content {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background-color: white;
-          border-radius: 5px;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-          width: 100%;
-          max-width: 900px;
-          height: 100%;
-          max-height: 700px;
-          border-radius: 15px;
-          transition: transform 0.3s ease;
-          display: flex; /* Add flexbox */
-          justify-content: center;
-          align-items: center;
-          overflow:auto;
-        }
-      .Popup_Contact_form .form-title {
-            margin-top: 40px;
-        }
-
-        #become-partner-contact-form .partner-form-popup-content .social-handles-wrapper {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          column-gap: 40px;
-          row-gap:15px;
-          margin-top: 20px;
-      }
-        .partner-form-popup-close {
-          position: absolute;
-          top: 10px;
-          right: 15px;
-          font-size: 30px;
-          cursor: pointer;
-        }
-
-        .become-partner-form-popup-info {
-          padding: 20px 50px;
-          width: 100%;
-          /* display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center; */
-          margin: 20px 20px;
-        }
-        .become-partner-form-popup-info h2 {
-          font-family: Poppins;
-          font-size: 32px;
-          font-weight: 600;
-          line-height: 42px;
-          text-align: center;
-          color: #000;
-          margin-bottom: 20px;
-        }
-        .become-partner-form-popup-info p {
-          /* font-family: Poppins; */
-          font-size: 18px;
-          font-weight: 300;
-          line-height: 27px;
-          text-align: center;
-          color: #000000;
-          margin-bottom: 0;
-        }
-        .become-partner-form-popup-info a.btn {
-          display: block;
-          background: #1B413E;
-          width: 100%;
-          padding: 10px 20px;
-          font-size: 18px;
-          font-weight: 600;
-          line-height: 27px;
-          border-radius: 6px;
-          margin-top: 40px;
-        }
-        .Popup_Contact_form .form__grid{
-          align-items:end;
-        }
-        @media only screen and (max-width:1024px){
-          #become-partner-contact-form .col-span-2{
-            grid-column:auto;
-            column-gap:20px;
-          }
-          #become-partner-contact-form .form__grid{
-            column-gap:20px;
-          }
-          #become-partner-contact-form .partner-form-popup-content .social-handles-wrapper{
-            column-gap:20px;
-          }
-        }
-        @media only screen and (max-width: 768px) {
-         #become-partner-contact-form .partner-form-popup-content {
-            max-height: 600px;
-            max-width: 92%;
-          }
-          .become-partner-form-popup-info {
-            /* margin: 0 0 0 10px; */
-            padding: 20px;
-          }
-          .become-partner-form-popup-info h2 {
-            font-size: 28px;
-            line-height: 36px;
-          }
-          #become-partner-contact-form .partner-form-popup-content .social-handles-wrapper{
-            grid-template-column:1fr;
-          }
-        }
-        @media only screen and (max-width: 600px) {
-          .become-partner-form-popup-info h2 {
-            font-size: 24px;
-            line-height: 32px;
-          }
-          .become-partner-form-popup-info p {
-            font-size: 16px;
-            line-height: 24px;
-            font-weight: 400;
-          }
-          .become-partner-form-popup-info {
-            padding: 30px;
-            margin: 0;
-            height: 100%;
-            border-radius: 10px;
-          }
-         #become-partner-contact-form .partner-form-popup-content {
-            border-radius: 10px;
-          }
-          .partner-form-popup-content-row {
-            grid-template-columns: 100%;
-            align-items: center;
-          }
-
-          .partner-form-popup-media {
-            display: none;
-          }
-          .become-partner-form-popup-info a.btn {
-            padding: 7px 10px;
-            font-size: 16px;
-            line-height: 24px;
-            margin-top: 30px;
-          }
-
-          #become-partner-contact-form .partner-form-popup-content .social_handle {
-              grid-column: span 2;
-          }
-          .Popup_Contact_form .form-title {
-            margin-top: 20px;
-          }
-          #become-partner-contact-form .submit-btn{
-            margin-top:20px;
-          }
-          #become-partner-contact-form .form__grid{
-            grid-template-columns: 1fr;
-            row-gap: 15px;
-          }
-          #become-partner-contact-form button{
-            font-size: 14px;
-            line-height: 21.5px;
-          }
-        }
-
-        #become-partner-contact-form span.label::after {
-          content: "*";
-          color: red;
-        }
-
-        #become-partner-contact-form span.label {
-          font-size: 14px;
-          color: #000;
-        }
-
-        #become-partner-contact-form input {
-          border-radius:0.5rem;
-        }
-        #become-partner-contact-form .social_handle input{
-          padding-left:50px;
-        }
-        #become-partner-contact-form .social-icon svg {
-          display: block;
-          margin-right: 10px;
-          width: 18px;
-        }
-         #become-partner-contact-form .social-handles-wrapper span.label-span{
-           font-size: 15px;
-            line-height: 20px;
-           margin-bottom:5px;
-         }
-          #become-partner-contact-form .social_handel_notes {
-            margin: -14px 0 10px;
-          }
-        .social-icon {
-          transform: translateY(calc(-50% - 3px));
-          left: 10px;
-        }
-
-        #become-partner-contact-form button {
-          background: #000;
-          background: #222120 !important;
-          width: 100%;
-          padding: 15px 20px;
-          text-align: center;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 100px;
-          font-family: Poppins, sans-serif !important;
-          color: #fff;
-          font-size: 21px;
-          font-weight: 500;
-          line-height: 31.5px;
-          text-align: left;
-          border: 1px solid #222120;
-        }
-
-        #become-partner-contact-form button:hover {
-          color: #000;
-          background: white;
-        }
-
-        .lastname-label {
-          margin: 0 0 calc(2 * var(--space-unit));
-          font-size: 0.88em;
-          font-weight: 700;
-          text-align: start;
-        }
-
-
-        #become-partner-contact-form input::placeholder {
-          font-size: 14px;
-        }
-      #become-partner-contact-form .social-main-label,
-      #become-partner-contact-form .social_handel_notes{
-        grid-column: span 2;
-    }
-    #become-partner-contact-form .Contact_form {
-      margin-top: 170px;
+  /* Popup overlay */
+  .partner-form-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
   }
-  #become-partner-contact-form .Contact_form .form-title{
-    margin-bottom:40px;
+
+  /* Popup content */
+  #become-partner-contact-form .partner-form-popup-content::-webkit-scrollbar-thumb,
+  #become-partner-contact-form .partner-form-popup-content::-webkit-scrollbar-track {
+    border-radius: 100px;
+  }
+  #become-partner-contact-form .partner-form-popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 900px;
+    height: 100%;
+    max-height: 700px;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+  }
+  .Popup_Contact_form .form-title {
+    margin-top: 40px;
+  }
+
+  #become-partner-contact-form .partner-form-popup-content .social-handles-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+    row-gap: 15px;
+    margin-top: 20px;
+  }
+  .partner-form-popup-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .become-partner-form-popup-info {
+    padding: 20px 50px;
+    width: 100%;
+    margin: 20px 20px;
+  }
+  .become-partner-form-popup-info h2 {
+    font-family: Poppins;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 42px;
+    text-align: center;
+    color: #000;
+    margin-bottom: 20px;
+  }
+
+  /* Status Message Styling */
+  #partnerFormStatus {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+  }
+  .status-success {
+    color: green;
+  }
+  .status-error {
+    color: red;
+  }
+
+  /* Responsive Styles */
+  @media only screen and (max-width: 1024px) {
+    #become-partner-contact-form .col-span-2 {
+      grid-column: auto;
+      column-gap: 20px;
+    }
+    #become-partner-contact-form .form__grid {
+      column-gap: 20px;
+    }
+    #become-partner-contact-form .partner-form-popup-content .social-handles-wrapper {
+      column-gap: 20px;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    #become-partner-contact-form .partner-form-popup-content {
+      max-height: 600px;
+      max-width: 92%;
+    }
+    .become-partner-form-popup-info {
+      padding: 20px;
+    }
+    .become-partner-form-popup-info h2 {
+      font-size: 28px;
+      line-height: 36px;
+    }
+    #become-partner-contact-form .partner-form-popup-content .social-handles-wrapper {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .become-partner-form-popup-info h2 {
+      font-size: 24px;
+      line-height: 32px;
+    }
+    .become-partner-form-popup-info {
+      padding: 30px;
+      margin: 0;
+      height: 100%;
+      border-radius: 10px;
+    }
+    #become-partner-contact-form .partner-form-popup-content {
+      border-radius: 10px;
+    }
+    #become-partner-contact-form .social_handle {
+      grid-column: span 2;
+    }
+    .Popup_Contact_form .form-title {
+      margin-top: 20px;
+    }
+    #become-partner-contact-form .submit-btn {
+      margin-top: 20px;
+    }
+    #become-partner-contact-form .form__grid {
+      grid-template-columns: 1fr;
+      row-gap: 15px;
+    }
+    #become-partner-contact-form button {
+      font-size: 14px;
+      line-height: 21.5px;
+    }
+  }
+
+  #become-partner-contact-form span.label::after {
+    content: '*';
+    color: red;
+  }
+  #become-partner-contact-form span.label {
+    font-size: 14px;
+    color: #000;
+  }
+  #become-partner-contact-form input,
+  #become-partner-contact-form textarea {
+    border-radius: 0.5rem;
+  }
+  #become-partner-contact-form .social_handle input {
+    padding-left: 50px;
+  }
+  #become-partner-contact-form .social-icon svg {
+    display: block;
+    margin-right: 10px;
+    width: 18px;
+  }
+  #become-partner-contact-form .social-handles-wrapper span.label-span {
+    font-size: 15px;
+    line-height: 20px;
+    margin-bottom: 5px;
+  }
+  #become-partner-contact-form .social_handel_notes {
+    margin: -14px 0 10px;
+  }
+  .social-icon {
+    transform: translateY(calc(-50% - 3px));
+    left: 10px;
+  }
+
+  #become-partner-contact-form button {
+    background: #222120 !important;
+    width: 100%;
+    padding: 15px 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    font-family: Poppins, sans-serif !important;
+    color: #fff;
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 31.5px;
+    border: 1px solid #222120;
+    cursor: pointer;
+  }
+  #become-partner-contact-form button:hover {
+    color: #000;
+    background: white !important;
+  }
+  #become-partner-contact-form button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  #become-partner-contact-form .social-main-label,
+  #become-partner-contact-form .social_handel_notes {
+    grid-column: span 2;
   }
 </style>
 
-<div
-  id="become-partner-contact-form"
-  class="partner-form-popup-overlay"
-  style="display:none"
->
+<div id="become-partner-contact-form" class="partner-form-popup-overlay" style="display:none">
   <div class="partner-form-popup-content">
-    <span id="become-partner-contact-form-close" class="close partner-form-popup-close ">&times;</span>
+    <span id="become-partner-contact-form-close" class="close partner-form-popup-close">&times;</span>
     <div class="become-partner-form-popup-info">
       <div class="Popup_Contact_form">
         <div class="form-title">
-          {% comment %}
-            <img src="{{ section.settings.icon | img_url:'master'}}" alt="">
-          {% endcomment %}
           <h2>{{ section.settings.heading }}</h2>
         </div>
-        <form
-          class="reading-width"
-          action="{{ section.settings.send_link }}"
-          method="POST"
-        >
-          {% if section.settings.subject_line != blank %}
-            <input type="hidden" name="subject" value="{{ section.settings.subject_line }}">
-          {% endif %}
-          <div
-            class="form__grid grid grid-cols-2 gap-x-theme gap-y-6"
-            {% if settings.animations_enabled != 'disabled' %}
-              data-cc-animate
-            {% endif %}
-          >
+
+        <!-- Form Start -->
+        <form id="partnerFormSubmission" class="reading-width">
+          <!-- HONEYPOT (Hidden) -->
+          <div style="display:none; visibility:hidden;">
+            <input type="text" id="bot_check" name="bot_check" autocomplete="off">
+          </div>
+
+          <div class="form__grid grid grid-cols-2 gap-x-theme gap-y-6">
+            <!-- HARDCODED EMAIL FIELD (Always Visible) -->
+            <div class="col-span-2 is-required">
+              <label class="label" for="email">{{ 'contact.form.email' | t }}</label>
+              <input
+                type="email"
+                class="input w-full"
+                id="email"
+                name="Email"
+                placeholder="i.e. johndoe@email.com"
+                required
+              >
+            </div>
+
             {%- for block in section.blocks -%}
               <div
                 class="col-span-2{% if block.settings.half_width %} md:col-span-1{% endif %}{% if block.settings.required %} is-required{% endif %}"
                 {{ block.shopify_attributes }}
               >
                 {%- case block.type -%}
-                    <div>
                   {%- when 'first-name' -%}
                     <label class="label" for="first-name">Your Name</label>
                     <input
@@ -304,12 +255,10 @@
                       class="input w-full"
                       id="first-name"
                       name="First Name"
-                      autocomplete="first-name"
                       placeholder="{{ 'contact.form.first-name' | t }}"
-                      {%- if block.settings.required %}
-                        aria-required="true"
+                      {% if block.settings.required %}
                         required
-                      {%- endif %}
+                      {% endif %}
                     >
 
                   {%- when 'last-name' -%}
@@ -318,46 +267,11 @@
                       class="input w-full"
                       id="last-name"
                       name="Last Name"
-                      autocomplete="last-name"
                       placeholder="{{ 'contact.form.last-name' | t }}"
                       aria-label="Last Name"
-                      {%- if block.settings.required %}
-                        aria-required="true"
+                      {% if block.settings.required %}
                         required
-                      {%- endif %}
-                    >
-
-                    </div>
-                  {%- when 'email' -%}
-                    <label class="label" for="email">{{ 'contact.form.email' | t }}</label>
-                    <input
-                      type="email"
-                      class="input w-full"
-                      id="email"
-                      name="Email"
-                      autocomplete="email"
-                      placeholder="i.e. johndoe@email.com"
-                      {%- if block.settings.required %}
-                        aria-required="true"
-                        required
-                      {%- endif %}
-                    >
-
-                  {%- when 'phone' -%}
-                    <label class="label" for="phone-number">{{ 'contact.form.phone' | t }}</label>
-
-                    <input
-                      type="tel"
-                      class="input w-full"
-                      id="phone-number"
-                      name="Phone Number"
-                      pattern="[0-9\-]*"
-                      autocomplete="tel"
-                      placeholder=""
-                      {%- if block.settings.required %}
-                        aria-required="true"
-                        required
-                      {%- endif %}
+                      {% endif %}
                     >
 
                   {%- when 'body' -%}
@@ -368,110 +282,90 @@
                       name="Message"
                       placeholder="Tell us how and why you’d like to partner with us"
                       rows="6"
-                      {%- if block.settings.required %}
-                        aria-required="true"
+                      {% if block.settings.required %}
                         required
-                      {%- endif -%}
-                    >
-                </textarea>
+                      {% endif -%}
+                    ></textarea>
+
                   {% when 'social_handles' %}
                     <div class="social-handles-wrapper is-required">
                       <div class="social-main-label">
-                        <span class="label">
-                          {{- block.settings.social_label }}
-                        </span>
+                        <span class="label">{{ block.settings.social_label }}</span>
                         {% if block.settings.social_label != blank -%}
                           <span class="label-span">Fill in all that apply</span>
-                        {%- endif -%}
+                        {%- endif %}
                       </div>
 
                       <div class="social_handle">
-                        <span class="social-icon">
-                          {%- render 'icon-instagram' -%}
-                        </span>
+                        <span class="social-icon">{%- render 'icon-instagram' -%}</span>
                         <input
                           type="url"
                           class="input w-full"
-                          aria-label="Instagram Link"
                           id="instagram-link"
                           name="Instagram Link"
                           placeholder="Enter Instagram Link"
-                          {%- if block.settings.insta_required %}
-                            aria-required="true"
+                          {% if block.settings.insta_required %}
                             required
-                          {%- endif %}
+                          {% endif %}
                         >
                       </div>
 
                       <div class="social_handle">
-                        <span class="social-icon">
-                          {%- render 'icon-facebook' -%}
-                        </span>
+                        <span class="social-icon">{%- render 'icon-facebook' -%}</span>
                         <input
                           type="url"
                           class="input w-full"
-                          aria-label="Facebook Link"
                           id="facebook-link"
                           name="Facebook Link"
                           placeholder="Enter Facebook Link"
-                          {%- if block.settings.facebook_required %}
-                            aria-required="true"
+                          {% if block.settings.facebook_required %}
                             required
-                          {%- endif %}
+                          {% endif %}
                         >
                       </div>
 
                       <div class="social_handle">
-                        <span class="social-icon">
-                          {%- render 'icon-tiktok' -%}
-                        </span>
+                        <span class="social-icon">{%- render 'icon-tiktok' -%}</span>
                         <input
                           type="url"
                           class="input w-full"
                           id="tiktok-link"
-                          aria-label="TikTok Link"
                           name="TikTok Link"
                           placeholder="Enter TikTok Link"
-                          {%- if block.settings.tiktok_required %}
-                            aria-required="true"
+                          {% if block.settings.tiktok_required %}
                             required
-                          {%- endif %}
+                          {% endif %}
                         >
                       </div>
+
                       <div class="social_handle">
-                        <span class="social-icon">
-                          {%- render 'icon-youtube' -%}
-                        </span>
+                        <span class="social-icon">{%- render 'icon-youtube' -%}</span>
                         <input
                           type="url"
                           class="input w-full"
-                          aria-label="Youtube Link"
                           id="youtube-link"
                           name="Youtube Link"
                           placeholder="Enter Youtube Link"
-                          {%- if block.settings.tiktok_required %}
-                            aria-required="true"
+                          {% if block.settings.youtube_required %}
                             required
-                          {%- endif %}
+                          {% endif %}
                         >
                       </div>
+
                       <div class="social_handle">
-                        <span class="social-icon">
-                          {%- render 'icon-globe' -%}
-                        </span>
+                        <span class="social-icon">{%- render 'icon-globe' -%}</span>
                         <input
                           type="url"
                           class="input w-full"
                           id="personal-site-link"
-                          aria-label="Personal website Link"
                           name="Personal website Link"
                           placeholder="Enter personal website Link"
-                          {%- if block.settings.personal_web_link_required %}
-                            aria-required="true"
+                          {% if block.settings.personal_web_link_required %}
                             required
-                          {%- endif %}
+                          {% endif %}
                         >
                       </div>
+
                       <div class="social_handel_notes">
                         <span>{{ block.settings.note }}</span>
                       </div>
@@ -482,19 +376,15 @@
           </div>
 
           {%- if section.blocks.size > 0 -%}
-            <div
-              class="mt-6 submit-btn"
-              {% if settings.animations_enabled != 'disabled' %}
-                data-cc-animate
-              {% endif %}
-            >
-              <button class="{{ section.settings.button_style }} w-full md:w-auto">
+            <div class="mt-6 submit-btn">
+              <button type="submit" id="partnerSubmitBtn" class="{{ section.settings.button_style }} w-full md:w-auto">
                 {% if section.settings.submit_btn_label == blank -%}
                   Send it to our experts
                 {%- else -%}
                   {{- section.settings.submit_btn_label -}}
                 {%- endif %}
               </button>
+              <div id="partnerFormStatus"></div>
             </div>
           {%- endif -%}
         </form>
@@ -505,28 +395,102 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const partnershipPopup = document.querySelectorAll('a[href="https://docs.google.com/forms/d/e/1FAIpQLScQCLU9GVZMFrrR49s_wBHvT419f_7cTrPFKyXwkAbGamwdNQ/viewform"]')
-    const otherpartnership = document.querySelectorAll('a[href*="/pages/partnership-program"]')
+    // --- Popup Logic ---
+    const partnershipPopup = document.querySelectorAll(
+      'a[href="https://docs.google.com/forms/d/e/1FAIpQLScQCLU9GVZMFrrR49s_wBHvT419f_7cTrPFKyXwkAbGamwdNQ/viewform"]'
+    );
+    const otherpartnership = document.querySelectorAll('a[href*="/pages/partnership-program"]');
+    const Partner_popup = document.getElementById('become-partner-contact-form');
+    const closeBtn = document.getElementById('become-partner-contact-form-close');
 
-    let Partner_popup = document.getElementById("become-partner-contact-form");
+    const openPopup = (e) => {
+      e.preventDefault();
+      Partner_popup.style.display = 'block';
+    };
 
-    for (let i = 0; i < partnershipPopup.length; i++) {
-      partnershipPopup[i].addEventListener("click", (e) => {
-        e.preventDefault()
-        Partner_popup.style.display = "block";
-      })
+    partnershipPopup.forEach((el) => el.addEventListener('click', openPopup));
+    otherpartnership.forEach((el) => el.addEventListener('click', openPopup));
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        Partner_popup.style.display = 'none';
+      });
     }
 
-    for (let i = 0; i < otherpartnership.length; i++) {
-      otherpartnership[i].addEventListener("click", (e) => {
-        e.preventDefault()
-        Partner_popup.style.display = "block";
-      })
-    }
+    // --- Form Submission Logic ---
+    const form = document.getElementById('partnerFormSubmission');
+    const statusDiv = document.getElementById('partnerFormStatus');
+    const submitBtn = document.getElementById('partnerSubmitBtn');
 
-    document.getElementById("become-partner-contact-form-close").addEventListener("click", () => {
-      Partner_popup.style.display = "none";
-    });
+    // Get URL from Section Settings
+    const scriptURL = '{{ section.settings.send_link }}';
+
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        if (!scriptURL) {
+          console.error('Google Script URL is missing in Section Settings');
+          return;
+        }
+
+        // Helper to safely get value
+        const getVal = (id) => {
+          const el = document.getElementById(id);
+          return el ? el.value : '';
+        };
+
+        // Construct Payload
+        const formData = {
+          first_name: getVal('first-name'),
+          last_name: getVal('last-name'),
+          email: getVal('email'),
+          message: getVal('message-body'),
+          instagram: getVal('instagram-link'),
+          facebook: getVal('facebook-link'),
+          tiktok: getVal('tiktok-link'),
+          youtube: getVal('youtube-link'),
+          website: getVal('personal-site-link'),
+          bot_check: getVal('bot_check'), // Honeypot
+        };
+
+        // UI Updates
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Sending...';
+        statusDiv.style.display = 'none';
+
+        fetch(scriptURL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(formData),
+        })
+          .then(() => {
+            // Success
+            statusDiv.innerText = 'Application Sent Successfully!';
+            statusDiv.className = 'status-success';
+            statusDiv.style.display = 'block';
+            form.reset();
+
+            // Optional: Close popup after 2 seconds
+            setTimeout(() => {
+              Partner_popup.style.display = 'none';
+              statusDiv.style.display = 'none';
+            }, 3000);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            statusDiv.innerText = 'Error sending application. Please try again.';
+            statusDiv.className = 'status-error';
+            statusDiv.style.display = 'block';
+          })
+          .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerText =
+              '{% if section.settings.submit_btn_label == blank %}Send it to our experts{% else %}{{ section.settings.submit_btn_label }}{% endif %}';
+          });
+      });
+    }
   });
 </script>
 
@@ -535,11 +499,11 @@
   "name": "Become A Partner Popup",
   "tag": "section",
   "class": "cc-contact-form",
-  "settings":[
+  "settings": [
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
+      "label": "Heading"
     },
     {
       "type": "image_picker",
@@ -547,179 +511,71 @@
       "label": "Heading Icon"
     },
     {
-      "type":"text",
+      "type": "text",
       "id": "submit_btn_label",
       "label": "Submit Button Label"
     },
     {
-      "type":"header",
-      "content":"Form"
+      "type": "header",
+      "content": "Form Configuration"
     },
     {
-      "type":"url",
-      "id":"send_link",
-      "label":"Form Link"
+      "type": "url",
+      "id": "send_link",
+      "label": "Google Web App URL",
+      "info": "Paste the Google Apps Script Web App URL here."
     },
     {
-      "type":"text",
-      "id":"subject_line",
-      "label":"Subject Line"
+      "type": "text",
+      "id": "subject_line",
+      "label": "Subject Line (Unused)"
     }
   ],
   "blocks": [
-  {
-    "type": "first-name",
-    "name": "First-Name",
-    "limit": 1,
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "required",
-        "label": "Required",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "half_width",
-        "label": "Half width on large screens",
-        "default": false
-      }
-    ]
-  },
-  {
-    "type": "last-name",
-    "name": "Last-Name",
-    "limit": 1,
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "required",
-        "label": "Required",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "half_width",
-        "label": "Half width on large screens",
-        "default": false
-      }
-    ]
-  },
-  {
-    "type": "email",
-    "name": "Email",
-    "limit": 1,
-    "settings": [
-      {
-        "type": "paragraph",
-        "content": "REQUIRED - Contact form will not work if this block is removed."
-      },
-      {
-        "type": "checkbox",
-        "id": "required",
-        "label": "Required",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "half_width",
-        "label": "Half width on large screens",
-        "default": false
-      }
-    ]
-  },
-  {
-    "type": "phone",
-    "name": "Phone",
-    "limit": 1,
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "required",
-        "label": "Required",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "half_width",
-        "label": "Half width on large screens",
-        "default": false
-      }
-    ]
-  },
-  {
-    "type": "body",
-    "name": "Message",
-    "limit": 1,
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "required",
-        "label": "Required",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "half_width",
-        "label": "Half width on large screens",
-        "default": false
-      }
-    ]
-  },
-  {
-    "type":"social_handles",
-    "name":"Social Handles",
-    "limit": 1,
-    "settings": [
-      {
-        "type":"text",
-        "id":"social_label",
-        "label":"Fields Label"
-      },
-      {
-        "type":"header",
-        "content": "Required Fields"
-      },
-      {
-        "type":"checkbox",
-        "id": "insta_required",
-        "label": "Instagram Link Required"
-      },
-      {
-        "type":"checkbox",
-        "id": "facebook_required",
-        "label": "Facebook Link Required"
-      },
-      {
-        "type":"checkbox",
-        "id": "tiktok_required",
-        "label": "Tiktok Link Required"
-      },
-      {
-        "type":"checkbox",
-        "id": "youtube_required",
-        "label": "Youtube Link Required"
-      },
-      {
-        "type":"checkbox",
-        "id": "personal_web_link_required",
-        "label": "Personal Website Link Required"
-      },
-      {
-        "type":"text",
-        "id":"note",
-        "label":"Note"
-      }
-    ]
-  }
-],
-  "presets": [
     {
-      "name": "Become A Partner Popup",
+      "type": "first-name",
+      "name": "First-Name",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "required", "label": "Required", "default": true },
+        { "type": "checkbox", "id": "half_width", "label": "Half width", "default": false }
+      ]
+    },
+    {
+      "type": "last-name",
+      "name": "Last-Name",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "required", "label": "Required", "default": true },
+        { "type": "checkbox", "id": "half_width", "label": "Half width", "default": false }
+      ]
+    },
+    {
+      "type": "body",
+      "name": "Message",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "required", "label": "Required", "default": true },
+        { "type": "checkbox", "id": "half_width", "label": "Half width", "default": false }
+      ]
+    },
+    {
+      "type": "social_handles",
+      "name": "Social Handles",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "social_label", "label": "Fields Label" },
+        { "type": "header", "content": "Required Fields" },
+        { "type": "checkbox", "id": "insta_required", "label": "Instagram Required" },
+        { "type": "checkbox", "id": "facebook_required", "label": "Facebook Required" },
+        { "type": "checkbox", "id": "tiktok_required", "label": "Tiktok Required" },
+        { "type": "checkbox", "id": "youtube_required", "label": "Youtube Required" },
+        { "type": "checkbox", "id": "personal_web_link_required", "label": "Website Required" },
+        { "type": "text", "id": "note", "label": "Note" }
+      ]
     }
   ],
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  }
+  "presets": [{ "name": "Become A Partner Popup" }],
+  "disabled_on": { "groups": ["header", "footer"] }
 }
 {% endschema %}
