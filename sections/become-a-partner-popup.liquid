@@ -18,6 +18,7 @@
   #become-partner-contact-form .partner-form-popup-content::-webkit-scrollbar-track {
     border-radius: 100px;
   }
+
   #become-partner-contact-form .partner-form-popup-content {
     position: absolute;
     top: 50%;
@@ -28,11 +29,12 @@
     width: 100%;
     max-width: 900px;
     height: 100%;
-    max-height: 700px; /* Adjust this to make it shorter/taller */
+    max-height: 600px;
     border-radius: 15px;
     transition: transform 0.3s ease;
     display: block;
-    overflow-y: auto; /* Ensures vertical scrolling works */
+    overflow-y: auto; /* Vertical scroll only */
+    overflow-x: hidden; /* Force hide horizontal scroll */
   }
   .Popup_Contact_form .form-title {
     margin-top: 40px;
@@ -55,9 +57,8 @@
   }
 
   .become-partner-form-popup-info {
-    padding: 20px 50px;
-    width: 100%;
-    margin: 20px 20px;
+    padding: 40px 50px; /* Increased top padding for better look */
+    box-sizing: border-box; /* Ensures padding doesn't expand width */
   }
   .become-partner-form-popup-info h2 {
     font-family: Poppins;
@@ -145,7 +146,7 @@
     }
   }
 
-  #become-partner-contact-form span.label::after {
+  #become-partner-contact-form .is-required .label::after {
     content: '*';
     color: red;
   }
@@ -288,7 +289,7 @@
                     ></textarea>
 
                   {% when 'social_handles' %}
-                    <div class="social-handles-wrapper is-required">
+                    <div class="social-handles-wrapper">
                       <div class="social-main-label">
                         <span class="label">{{ block.settings.social_label }}</span>
                         {% if block.settings.social_label != blank -%}
@@ -299,7 +300,7 @@
                       <div class="social_handle">
                         <span class="social-icon">{%- render 'icon-instagram' -%}</span>
                         <input
-                          type="url"
+                          type="text"
                           class="input w-full"
                           id="instagram-link"
                           name="Instagram Link"
@@ -313,7 +314,7 @@
                       <div class="social_handle">
                         <span class="social-icon">{%- render 'icon-facebook' -%}</span>
                         <input
-                          type="url"
+                          type="text"
                           class="input w-full"
                           id="facebook-link"
                           name="Facebook Link"
@@ -327,7 +328,7 @@
                       <div class="social_handle">
                         <span class="social-icon">{%- render 'icon-tiktok' -%}</span>
                         <input
-                          type="url"
+                          type="text"
                           class="input w-full"
                           id="tiktok-link"
                           name="TikTok Link"
@@ -341,7 +342,7 @@
                       <div class="social_handle">
                         <span class="social-icon">{%- render 'icon-youtube' -%}</span>
                         <input
-                          type="url"
+                          type="text"
                           class="input w-full"
                           id="youtube-link"
                           name="Youtube Link"
@@ -355,7 +356,7 @@
                       <div class="social_handle">
                         <span class="social-icon">{%- render 'icon-globe' -%}</span>
                         <input
-                          type="url"
+                          type="text"
                           class="input w-full"
                           id="personal-site-link"
                           name="Personal website Link"
@@ -566,12 +567,36 @@
       "settings": [
         { "type": "text", "id": "social_label", "label": "Fields Label" },
         { "type": "header", "content": "Required Fields" },
-        { "type": "checkbox", "id": "insta_required", "label": "Instagram Required" },
-        { "type": "checkbox", "id": "facebook_required", "label": "Facebook Required" },
-        { "type": "checkbox", "id": "tiktok_required", "label": "Tiktok Required" },
-        { "type": "checkbox", "id": "youtube_required", "label": "Youtube Required" },
-        { "type": "checkbox", "id": "personal_web_link_required", "label": "Website Required" },
-        { "type": "text", "id": "note", "label": "Note" }
+        {
+          "type": "checkbox",
+          "id": "insta_required",
+          "label": "Instagram Required",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "facebook_required",
+          "label": "Facebook Required",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tiktok_required",
+          "label": "Tiktok Required",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "youtube_required",
+          "label": "Youtube Required",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "personal_web_link_required",
+          "label": "Website Required",
+          "default": false
+        }
       ]
     }
   ],
