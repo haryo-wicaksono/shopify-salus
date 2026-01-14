@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "aside",
   "name": "Overlay group",
@@ -25,7 +34,7 @@
         "media_promotion_visibility": "always",
         "link_url": "",
         "media_promotion_min_height": 150,
-        "content": "<p>Promotion text<\/p>",
+        "content": "<p>Promotion text</p>",
         "text_type_scale": "1em",
         "text_width": 400,
         "text_alignment": "justify-center items-center text-center",
@@ -138,7 +147,7 @@
       "settings": {
         "heading": "Interested in becoming an affiliate? Let’s get to know each other!",
         "heading_align": "text-center",
-        "send_link": "https:\/\/formspree.io\/f\/xgvebrlg",
+        "send_link": "https://formspree.io/f/xgvebrlg",
         "image_position": "top",
         "color_scheme": "none",
         "full_width": true,
@@ -190,9 +199,9 @@
       ],
       "settings": {
         "heading": "Contact Partner@",
-        "icon": "shopify:\/\/shop_images\/contact-title.svg",
+        "icon": "shopify://shop_images/contact-title.svg",
         "submit_btn_label": "Send and apply to be a partner",
-        "send_link": "https:\/\/formspree.io\/f\/mwppzewb",
+        "send_link": "https://script.google.com/macros/s/AKfycbztZxYTVxq-DD517J_O1TZpOj-g8dDfU37wtyg-Aijv3B28zcBrYLQYUDwizPsU3TVwQw/exec",
         "subject_line": "Partnership proposal: I’m interested in partnering with Salus Saunas"
       }
     },
