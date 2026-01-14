@@ -1,8 +1,6 @@
 {%- liquid
-  assign form_id = section.id | append: '-contact'
   assign color_scheme = section.settings.color_scheme
   assign bg_color = false
-
   if color_scheme == 'default'
     assign bg_color = settings.bg_color
   elsif color_scheme == '1'
@@ -12,385 +10,132 @@
   elsif color_scheme == '3'
     assign bg_color = settings.color_scheme_3_bg_grad | default: settings.color_scheme_3_bg
   endif
-
   if bg_color == 'rgba(0,0,0,0)' or bg_color == settings.bg_color
     assign bg_color = false
   endif
 -%}
 
 <style>
-  /* Popup overlay */
   .partner-form-popup-overlay {
     display: none;
-    /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 100;
+    z-index: 9999;
   }
 
-  /* Popup content */
   .partner-form-popup-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    border-radius: 5px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 820px;
-    height: 100%;
-    max-height: 650px;
+    width: 95%;
+    max-width: 900px;
+    height: auto;
+    max-height: 600px; /* Set max-height to 600px */
     border-radius: 15px;
-    transition: transform 0.3s ease;
-    display: flex; /* Add flexbox */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    overflow-y: auto;
+    display: block;
+    -webkit-overflow-scrolling: touch;
   }
+
   .partner-form-popup-close {
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 15px;
+    right: 20px;
     font-size: 30px;
+    line-height: 1;
     cursor: pointer;
+    z-index: 20;
+    color: #000;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
   }
 
   .partner-form-popup-info {
-    padding: 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 20px;
-  }
-  .partner-form-popup-info h2 {
-    font-family: Poppins;
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 42px;
-    text-align: center;
-    color: #000;
-    margin-bottom: 20px;
-  }
-  .partner-form-popup-info p {
-    /* font-family: Poppins; */
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 27px;
-    text-align: center;
-    color: #000000;
-    margin-bottom: 0;
-  }
-  .partner-form-popup-info a.btn {
-    display: block;
-    background: #1B413E;
+    padding: 0;
     width: 100%;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 27px;
-    border-radius: 6px;
-    margin-top: 40px;
+    height: 100%;
   }
+
+  .iframe-container {
+    width: 100%;
+    min-height: 600px; /* Matched to popup max-height */
+    position: relative;
+    display: block;
+  }
+
   @media only screen and (max-width: 768px) {
     .partner-form-popup-content {
-      max-height: 700px;
-      max-width: 92%;
-    }
-    .partner-form-popup-info {
-      margin: 0 0 0 10px;
-      padding: 20px 0 20px 20px;
-    }
-    .partner-form-popup-info h2 {
-      font-size: 28px;
-      line-height: 36px;
+      max-height: 80vh; /* Fallback for smaller screens */
+      max-width: 95%;
     }
   }
-  @media only screen and (max-width: 600px) {
-    .partner-form-popup-info h2 {
-      font-size: 24px;
-      line-height: 32px;
-    }
-    .partner-form-popup-info p {
-      font-size: 16px;
-      line-height: 24px;
-      font-weight: 400;
-    }
-    .partner-form-popup-info {
-      padding: 30px;
-      margin: 0;
-      height: 100%;
-      border-radius: 10px;
-    }
-    .partner-form-popup-content {
-      border-radius: 10px;
-    }
-    .partner-form-popup-content-row {
-      grid-template-columns: 100%;
-      align-items: center;
-    }
-
-    .partner-form-popup-media {
-      display: none;
-    }
-    .partner-form-popup-info a.btn {
-      padding: 7px 10px;
-      font-size: 16px;
-      line-height: 24px;
-      margin-top: 30px;
-    }
-  }
-
-  #partner-contact-form label::after {
-    content: "*";
-    color: red;
-  }
-
-  #partner-contact-form label {
-    font-size: 14px;
-    color: #000;
-  }
-
-  #partner-contact-form input {
-    border-radius:0.5rem;
-  }
-
-  #partner-contact-form button {
-    border-radius:0.5rem;
-    font-size: 16px;
-    background: #000;
-  }
-
-  #partner-contact-form button:hover {
-    color: #000;
-    background: white;
-  }
-
-  .lastname-label {
-    margin: 0 0 calc(2 * var(--space-unit));
-    font-size: 0.88em;
-    font-weight: 700;
-    text-align: start;
-  }
-
-  .error {
-    font-weight: 600 !important;
-    font-size: small !important;
-    text-align: left !important;
-    color: red !important;
-    margin-top: 5px;
-    display: none;
-  }
-
-  input.error-field {
-    border-color: red;
-  }
-
-  input.error-field:focus {
-    border-color: red;
-  }
-
-  #partner-contact-form input::placeholder {
-    font-size: 14px;
+  #affiliate-sign-up-form {
+    border: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
   }
 </style>
 
-<div
-  id="partner-contact-form"
-  class="partner-form-popup-overlay"
-  style="display:none"
->
+<div id="partner-contact-form" class="partner-form-popup-overlay">
   <div class="partner-form-popup-content">
-    <span id="partner-contact-form-close" class="close partner-form-popup-close ">&times;</span>
+    <span id="partner-contact-form-close" class="partner-form-popup-close">&times;</span>
     <div class="partner-form-popup-info">
-      <div class="{% if bg_color != false %} section--padded{% if section.settings.full_width %} section--full-width{% endif %}{% endif %}{% unless color_scheme == 'none' %} color-scheme color-scheme--{{ color_scheme }}{% endunless %}">
-        {%- if section.settings.heading != blank -%}
-          <div
-            class="section__header reading-width rte"
-            {% if settings.animations_enabled != 'disabled' %}
-              data-cc-animate
-            {% endif %}
-          >
-            <h2 class="h4 section__heading {{ section.settings.heading_align }}">
-              {{ section.settings.heading | escape }}
-            </h2>
-          </div>
-        {%- endif -%}
-
-        <form
-          id="partner-form"
-          class="form reading-width"
-          action="{{ section.settings.send_link }}"
-          method="POST"
-        >
-          <div
-            class="form__grid grid grid-cols-2 gap-x-theme gap-y-6"
-            {% if settings.animations_enabled != 'disabled' %}
-              data-cc-animate
-            {% endif %}
-          >
-            {%- for block in section.blocks -%}
-              <div
-                class="col-span-2{% if block.settings.half_width %} md:col-span-1{% endif %}{% if block.settings.required %} is-required{% endif %}"
-                {{ block.shopify_attributes }}
-              >
-                {%- case block.type -%}
-                  {%- when 'first_name' -%}
-                    <label class="label" for="{{ form_id }}-first_name">Your Name</label>
-                    <input
-                      type="text"
-                      class="input w-full"
-                      id="{{ form_id }}-first_name"
-                      name="First Name"
-                      placeholder="First Name"
-                      autocomplete="name"
-                      {%- if block.settings.required %}
-                        aria-required="true"
-                        required
-                      {%- endif %}
-                    >
-
-                  {%- when 'last_name' -%}
-                    <label class="lastname-label hidden md:block invisible" for="{{ form_id }}-last_name">LastName</label>
-                    <input
-                      type="text"
-                      class="input w-full"
-                      id="{{ form_id }}-last_name"
-                      name="Last Name"
-                      autocomplete="name"
-                      placeholder="Last Name"
-                      aria-label="Last Name"
-                      {%- if block.settings.required %}
-                        aria-required="true"
-                        required
-                      {%- endif %}
-                    >
-
-                  {%- when 'email' -%}
-                    <label class="label" for="{{ form_id }}-email">Email Address</label>
-                    <input
-                      type="email"
-                      class="input w-full"
-                      id="{{ form_id }}-email"
-                      name="email"
-                      autocomplete="email"
-                      placeholder="i.e. johndoe@gmail.com"
-                      {%- if block.settings.required %}
-                        aria-required="true"
-                        required
-                      {%- endif %}
-                    >
-
-                  {%- when 'socmed_link' -%}
-                    <label class="label" for="{{ form_id }}-socmed_link"> Social Media/Website Link </label>
-                    <input
-                      type="url"
-                      class="input w-full"
-                      id="{{ form_id }}-socmed_link"
-                      name="Social Media/Website Link"
-                      placeholder="i.e. www.instagram.com/salussaunas/"
-                      autocomplete="url"
-                      {%- if block.settings.required %}
-                        aria-required="true"
-                        required
-                      {%- endif %}
-                    >
-
-                    {%- when 'preferred_code' -%}
-                    <label class="label" for="{{ form_id }}-preferred_alphanumeric_code"> Preferred Alphanumeric Code </label>
-                    <input
-                      type="text"
-                      class="input w-full"
-                      id="{{ form_id }}-preferred_alphanumeric_code"
-                      name="Preferred Alphanumeric Code"
-                      placeholder="i.e. JANE200"
-                      autocomplete="preferred-code"
-                      {%- if block.settings.required %}
-                        aria-required="true"
-                        required
-                      {%- endif %}
-                    >
-                   <p class="error" id="error-message">Input must include both letters and numbers</p>
-                {%- endcase -%}
-              </div>
-            {%- endfor -%}
-          </div>
-          <div
-            class="mt-6"
-            {% if settings.animations_enabled != 'disabled' %}
-              data-cc-animate
-            {% endif %}
-          >
-            <button type="submit" class="{{ section.settings.button_style }} w-full">Send for review</button>
-          </div>
-        </form>
+      <div class="iframe-container">
+        <iframe
+          id="affiliate-sign-up-form"
+          src="https://api.socialsnowball.io/register-form/17060/d0c85483-1b18-42a1-add0-a69b16c43790"
+          allow="clipboard-write"
+        ></iframe>
       </div>
+      <script>
+        (function () {
+          var iframe = document.querySelector('#affiliate-sign-up-form');
+          window.addEventListener('message', function (t) {
+            if (t.data && t.data.height) {
+              iframe.style.height = t.data.height + 'px';
+            }
+          });
+        })();
+      </script>
     </div>
   </div>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    let affliliateProgram = document.querySelectorAll('a[href="https://af.uppromote.com/salus-saunas-9974/register"]')
-    let popup = document.getElementById("partner-contact-form");
+    const affiliateLinks = document.querySelectorAll('a[href="https://af.uppromote.com/salus-saunas-9974/register"]');
+    const popup = document.getElementById('partner-contact-form');
+    const closeBtn = document.getElementById('partner-contact-form-close');
 
-    const inputField = document.querySelector('[id$="-preferred_alphanumeric_code"]'); // Matches IDs ending with "-preferred_alphanumeric_code";
-    const errorMessage = document.querySelector('#error-message');
-    const form = document.querySelector('#partner-form');
-
-    // Validate input on form submission
-    form.addEventListener('submit', function (e) {
-      const value = inputField.value;
-
-      // Check if input contains both letters and numbers
-      const hasLetter = /[a-zA-Z]/.test(value); // At least one letter
-      const hasNumber = /[0-9]/.test(value); // At least one number
-
-      if (!hasLetter || !hasNumber) {
-        e.preventDefault(); // Prevent form submission
-        errorMessage.style.display = 'block'; // Show error message
-        inputField.classList.add('error-field'); // Add red border
-      } else {
-        errorMessage.style.display = 'none'; // Hide error message
-        inputField.classList.remove('error-field'); // Remove red border
-      }
-    });
-
-
-    if (inputField) {
-      // Remove non-alphanumeric characters on input
-      inputField.addEventListener('input', function () {
-        this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); // Remove invalid characters
-
-        if (inputField.classList.contains('error-field')) {
-          inputField.classList.remove('error-field'); // Remove red border
-          errorMessage.style.display = 'none'; // Hide error message
-        }
-      });
-
-      // Prevent invalid characters from being typed
-      inputField.addEventListener('keydown', function (e) {
-        const invalidChars = /[^a-zA-Z0-9]/; // Pattern for invalid characters
-        if (invalidChars.test(e.key) && e.key.length === 1) { // Prevent typing invalid characters
+    if (popup && closeBtn) {
+      affiliateLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
           e.preventDefault();
+          popup.style.display = 'block';
+        });
+      });
+
+      closeBtn.addEventListener('click', () => {
+        popup.style.display = 'none';
+      });
+
+      popup.addEventListener('click', (e) => {
+        if (e.target === popup) {
+          popup.style.display = 'none';
         }
       });
     }
-
-    for (let i = 0; i < affliliateProgram.length; i++) {
-      affliliateProgram[i].addEventListener("click", (e) => {
-        e.preventDefault()
-        popup.style.display = "block";
-      })
-    }
-
-    document.getElementById("partner-contact-form-close").addEventListener("click", () => {
-      popup.style.display = "none";
-    });
   });
 </script>
 
@@ -402,61 +147,9 @@
   "settings": [
     {
       "type": "header",
-      "content": "Section header"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "default": "Interested in becoming an affiliate? Let’s get to know each other!",
-      "label": "Contact us"
-    },
-    {
-      "type": "select",
-      "id": "heading_align",
-      "label": "Heading alignment",
-      "options": [
-        {
-          "value": "text-start",
-          "label": "Left"
-        }, {
-          "value": "text-center",
-          "label": "Center"
-        }, {
-          "value": "text-end",
-          "label": "Right"
-        }
-      ],
-      "default": "text-center"
-    },
-    {
-      "type": "url",
-      "id": "send_link",
-      "label": "Send Link",
-    }, {
-      "type": "header",
-      "content": "Layout"
-    }, {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image"
-    }, {
-      "type": "radio",
-      "id": "image_position",
-      "label": "Image position",
-      "options": [
-        {
-          "value": "top",
-          "label": "Above form"
-        }, {
-          "value": "bottom",
-          "label": "Below form"
-        }
-      ],
-      "default": "top"
-    }, {
-      "type": "header",
       "content": "Style"
-    }, {
+    },
+    {
       "type": "select",
       "id": "color_scheme",
       "label": "Color scheme",
@@ -464,158 +157,26 @@
         {
           "value": "none",
           "label": "Default"
-        }, {
+        },
+        {
           "value": "1",
           "label": "Scheme 1"
-        }, {
+        },
+        {
           "value": "2",
           "label": "Scheme 2"
-        }, {
+        },
+        {
           "value": "3",
           "label": "Scheme 3"
         }
       ],
       "default": "none"
-    }, {
-      "type": "checkbox",
-      "id": "full_width",
-      "label": "Make section background full width",
-      "default": true
-    }, {
-      "type": "select",
-      "id": "button_style",
-      "label": "Button",
-      "options": [
-        {
-          "value": "btn btn--primary",
-          "label": "Primary button"
-        }, {
-          "value": "btn btn--secondary",
-          "label": "Secondary button"
-        }
-      ],
-      "default": "btn btn--primary"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "first_name",
-      "name": "First Name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "checkbox",
-          "id": "required",
-          "label": "Required",
-          "default": true
-        }, {
-          "type": "checkbox",
-          "id": "half_width",
-          "label": "Half width on large screens",
-          "default": false
-        }
-      ]
-    }, {
-      "type": "last_name",
-      "name": "Last Name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "checkbox",
-          "id": "required",
-          "label": "Required",
-          "default": true
-        }, {
-          "type": "checkbox",
-          "id": "half_width",
-          "label": "Half width on large screens",
-          "default": false
-        }
-      ]
-    }, {
-      "type": "email",
-      "name": "Email",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "checkbox",
-          "id": "required",
-          "label": "Required",
-          "default": true
-        }, {
-          "type": "checkbox",
-          "id": "half_width",
-          "label": "Half width on large screens",
-          "default": false
-        }
-      ]
-    }, {
-      "type": "socmed_link",
-      "name": "Social Media Link",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "checkbox",
-          "id": "required",
-          "label": "Required",
-          "default": true
-        }, {
-          "type": "checkbox",
-          "id": "half_width",
-          "label": "Half width on large screens",
-          "default": false
-        }
-      ]
-    }, {
-      "type": "preferred_code",
-      "name": "Preferred Code",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "checkbox",
-          "id": "required",
-          "label": "Required",
-          "default": true
-        }, {
-          "type": "checkbox",
-          "id": "half_width",
-          "label": "Half width on large screens",
-          "default": false
-        }
-      ]
     }
   ],
   "presets": [
     {
-      "name": "Partner Form",
-      "blocks": [
-        {
-          "type": "first_name",
-          "settings": {
-            "half_width": true
-          }
-        }, {
-          "type": "last_name",
-          "settings": {
-            "half_width": true
-          }
-        }, {
-          "type": "email",
-          "settings": {
-            "half_width": false
-          }
-        }, {
-          "type": "socmed_link",
-          "settings": {
-            "half_width": false
-          }
-        }, {
-          "type": "preferred_code",
-          "settings": {
-            "half_width": false
-          }
-        }
-      ]
+      "name": "Partner Form"
     }
   ],
   "disabled_on": {
