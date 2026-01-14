@@ -28,13 +28,11 @@
     width: 100%;
     max-width: 900px;
     height: 100%;
-    max-height: 700px;
+    max-height: 700px; /* Adjust this to make it shorter/taller */
     border-radius: 15px;
     transition: transform 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: auto;
+    display: block;
+    overflow-y: auto; /* Ensures vertical scrolling works */
   }
   .Popup_Contact_form .form-title {
     margin-top: 40px;
@@ -262,6 +260,8 @@
                     >
 
                   {%- when 'last-name' -%}
+                    <!-- Added Label for Alignment -->
+                    <label class="label" for="last-name">Last Name</label>
                     <input
                       type="text"
                       class="input w-full"
