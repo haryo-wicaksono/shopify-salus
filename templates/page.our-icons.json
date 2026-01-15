@@ -130,10 +130,8 @@
             "review_detail3": "",
             "review_title4": "",
             "review_detail4": "",
-            "pd_title": "Gordon's Sauna",
-            "products": [
-              "horizon-6-person-barrel-sauna"
-            ]
+            "pd_title": "",
+            "products": []
           }
         },
         "column_FVpdbA": {
@@ -159,10 +157,8 @@
             "review_detail3": "",
             "review_title4": "",
             "review_detail4": "",
-            "pd_title": "Joe's Sauna",
-            "products": [
-              "horizon-6-person-barrel-sauna"
-            ]
+            "pd_title": "",
+            "products": []
           }
         },
         "column_RezAXx": {
@@ -188,10 +184,8 @@
             "review_detail3": "",
             "review_title4": "",
             "review_detail4": "",
-            "pd_title": "Ian’s Sauna",
-            "products": [
-              "revive"
-            ]
+            "pd_title": "",
+            "products": []
           }
         },
         "column_n9RDpj": {
@@ -308,7 +302,7 @@
           "type": "column",
           "settings": {
             "enable_media": true,
-            "image": "shopify://shop_images/Frame_17073.png",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-01-15_at_19.10.41.jpg",
             "media_scale": 100,
             "heading": "Claire Thomas",
             "subtext": "Influencer",
