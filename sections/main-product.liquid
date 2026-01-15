@@ -1935,6 +1935,32 @@
   });
 </script>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Select the main price (Source) - The one that currently works
+    const mainPrice = document.querySelector('.product-info .product-info__price');
+
+    // Select the sidebar price (Target) - The one that needs updating
+    const sidebarPrice = document.querySelector('.product-sidebar .product-info__price');
+
+    if (mainPrice && sidebarPrice) {
+      // Create an observer instance linked to the callback function
+      const observer = new MutationObserver(function (mutationsList) {
+        // Copy the content from main to sidebar whenever main changes
+        sidebarPrice.innerHTML = mainPrice.innerHTML;
+      });
+
+      // Start observing the target node for configured mutations
+      observer.observe(mainPrice, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
+    }
+  });
+</script>
+
 {% render 'modify-globo-tooltip' %}
 
 {% schema %}
