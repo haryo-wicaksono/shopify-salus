@@ -270,10 +270,8 @@
             "review_detail3": "",
             "review_title4": "",
             "review_detail4": "",
-            "pd_title": "Remi's Sauna",
-            "products": [
-              "marstrand-6-person-barrel-sauna"
-            ]
+            "pd_title": "",
+            "products": []
           }
         },
         "column_iRTQyU": {
@@ -328,17 +326,15 @@
             "review_detail3": "",
             "review_title4": "",
             "review_detail4": "",
-            "pd_title": "Claire's Sauna",
-            "products": [
-              "maximus"
-            ]
+            "pd_title": "",
+            "products": []
           }
         },
         "column_RjyMLA": {
           "type": "column",
           "settings": {
             "enable_media": true,
-            "image": "shopify://shop_images/icon-9.jpg",
+            "image": "shopify://shop_images/96f4ada6-f420-4033-95f5-a9516cae6843.jpg",
             "media_scale": 100,
             "heading": "Lauryn Bosstick",
             "subtext": "Influencer",
@@ -392,6 +388,7 @@
         },
         "column_aVRXEN": {
           "type": "column",
+          "disabled": true,
           "settings": {
             "enable_media": true,
             "image": "shopify://shop_images/Sauna_PNGs_1_10fb9cf7-9bda-4c8d-8b04-5d9937db2dbf.png",
@@ -447,6 +444,7 @@
         },
         "column_DEAGU9": {
           "type": "column",
+          "disabled": true,
           "settings": {
             "enable_media": true,
             "image": "shopify://shop_images/icon-11.jpg",
@@ -527,13 +525,14 @@
         },
         "column_iLXDrF": {
           "type": "column",
+          "disabled": true,
           "settings": {
-            "enable_media": true,
+            "enable_media": false,
             "image": "shopify://shop_images/icon-12.jpg",
             "media_scale": 100,
-            "heading": "Gabo Saturno",
-            "subtext": "Influencer",
-            "text": "<p>Fitness Influencer</p>",
+            "heading": "",
+            "subtext": "",
+            "text": "",
             "button_label": "",
             "button_link": "",
             "enable_popup": false,
