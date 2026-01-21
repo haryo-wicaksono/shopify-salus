@@ -559,6 +559,17 @@
         "products_to_display_collection": "traditional-saunas-highlight"
       }
     },
+    "product_carousel_fKidLh": {
+      "type": "product-carousel",
+      "name": "Product Carousel",
+      "settings": {
+        "title": "Discover our time-tested traditional saunas",
+        "button-label": "Shop Traditional",
+        "button_collection": "traditional-sauna-v2",
+        "affirm_product": "governor-mini-traditional-outdoor-sauna",
+        "products_to_display_collection": "traditional-saunas-highlight"
+      }
+    },
     "product_carousel_MGky87": {
       "type": "product-carousel",
       "name": "Product Carousel",
@@ -961,6 +972,7 @@
     "logo_list_DaqLFK",
     "homepage_featured_in_logos_dxK7jf",
     "product_carousel_p9jgXD",
+    "product_carousel_fKidLh",
     "product_carousel_MGky87",
     "celebrity_testimonials_PmJ8Jr",
     "video",
