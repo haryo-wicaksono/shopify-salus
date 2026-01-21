@@ -69,6 +69,16 @@
         "review_card_UT8acK": {
           "type": "review_card",
           "settings": {
+            "title": "Though we weren't able to install our sauna...",
+            "text": "Though we weren't able to install our sauna, Sal & his team were very mature and proactive from the moment we bought a sauna to assisting us with our return shipment. WE'LL DEFINITELY BE BACK!",
+            "author": "Fabian Iyar",
+            "date": "January 21, 2026",
+            "product_name": ""
+          }
+        },
+        "review_card_6jgQgE": {
+          "type": "review_card",
+          "settings": {
             "title": "George and his crew at Salus are great",
             "text": "Been a very long road from start to finish with many hiccups but Angelle, Sam and George have been great. George in customer service was unbelievably helpful and delivered exactly what I needed to resolve issues large or small. Sauna is beautiful and works great! Huge thanks go out to George and his crew at Salus",
             "author": "Joe DiCicco",
@@ -509,6 +519,7 @@
       },
       "block_order": [
         "review_card_UT8acK",
+        "review_card_6jgQgE",
         "review_card_j7ceTn",
         "review_card_hzQlHT",
         "review_card_IaEeUK",
