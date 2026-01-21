@@ -77,9 +77,9 @@
         "hero_slide_fXR8VU": {
           "type": "hero-slide",
           "settings": {
-            "slide_image_desktop": "shopify://shop_images/Val_Day_2026_-_Hero_Section_1.png",
+            "slide_image_desktop": "shopify://shop_images/Val_Day_2026_-_Hero_Section_2.png",
             "desktop_image_alt": "Hello",
-            "slide_image_mobile": "shopify://shop_images/Val_Day_2026_-_Hero_Section_1.png",
+            "slide_image_mobile": "shopify://shop_images/Val_Day_2026_-_Hero_Section_2.png",
             "mobile_image_alt": "Hello",
             "show_stars": true,
             "show_house_icon": false,
