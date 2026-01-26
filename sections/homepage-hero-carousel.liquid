@@ -12,19 +12,19 @@
 {{ 'homepage-hero-carousel.css' | asset_url | stylesheet_tag }}
 
 <style>
-  /* --- VALENTINE'S DAY SPECIAL STYLES --- */
+  /* --- VALENTINE'S DAY SPECIAL STYLES (CLICK VERSION) --- */
 
-  /* 1. The Button Override (Applied via class 'vday-special') */
+  /* 1. Base Styles for the Valentine Button */
   .homepage-hero-carousel__button--primary.vday-special {
-    background-color: #fff0f2 !important; /* Lavender Blush */
-    color: #d6336c !important; /* Deep Raspberry */
+    background-color: #fff0f2 !important;
+    color: #d6336c !important;
     border: 2px solid #d6336c !important;
     position: relative;
-    overflow: visible !important; /* Allows confetti to fly out */
+    overflow: visible !important;
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease !important;
   }
 
-  /* 2. Hover State */
+  /* 2. Hover State (Visual feedback only, NO confetti) */
   .homepage-hero-carousel__button--primary.vday-special:hover {
     background-color: #fff0f3 !important;
     transform: scale(1.05);
@@ -35,7 +35,7 @@
     fill: currentColor !important;
   }
 
-  /* 4. Confetti Animation Elements */
+  /* 4. Confetti Container */
   .vday-confetti {
     position: absolute;
     top: 50%;
@@ -43,8 +43,9 @@
     width: 0;
     height: 0;
     pointer-events: none;
-    z-index: -1;
+    z-index: 100; /* High z-index to show above other elements */
   }
+
   .vday-confetti i {
     position: absolute;
     top: 50%;
@@ -55,12 +56,12 @@
     font-weight: bold;
   }
 
-  /* Trigger Animation */
-  .homepage-hero-carousel__button--primary.vday-special:hover .vday-confetti i {
+  /* --- CHANGED: Trigger Animation on '.is-popping' class, NOT hover --- */
+  .homepage-hero-carousel__button--primary.vday-special.is-popping .vday-confetti i {
     animation: confettiPop 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   }
 
-  /* Confetti Directions & Colors */
+  /* Confetti Trajectories */
   .vday-confetti i:nth-child(1) {
     --tx: -90px;
     --ty: -90px;
@@ -424,6 +425,28 @@
             updatePaginationColor(swiper);
           }
         }
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // 1. Find the Valentine Button
+    const vDayBtn = document.querySelector('.homepage-hero-carousel__button--primary.vday-special');
+
+    if (vDayBtn) {
+      vDayBtn.addEventListener('click', function (e) {
+        // 2. Stop the browser from going to the link immediately
+        e.preventDefault();
+
+        // 3. Add the class that triggers the CSS animation
+        this.classList.add('is-popping');
+
+        // 4. Wait 800ms (0.8s) for animation to finish, then go to the URL
+        setTimeout(() => {
+          window.location.href = this.getAttribute('href');
+        }, 800);
       });
     }
   });
