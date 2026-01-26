@@ -98,6 +98,30 @@
             "color_scheme": "light"
           }
         },
+        "hero_slide_J4eVMm": {
+          "type": "hero-slide",
+          "settings": {
+            "slide_image_desktop": "shopify://shop_images/Val_Day_2026_-_Hero_Section_2.png",
+            "desktop_image_alt": "Hello",
+            "slide_image_mobile": "shopify://shop_images/Val_Day_2026_-_Hero_Section_2.png",
+            "mobile_image_alt": "Hello",
+            "show_stars": true,
+            "show_house_icon": false,
+            "reviews_text": "100s of verified 5-star reviews",
+            "headline": "Upgrade your date nights forever with our Valentine’s Sale",
+            "description": "<p>Warm on the outside, closer on the inside. Save on select 2 and 3-person saunas until February 14 with our swoon-worthy savings.</p>",
+            "button1_text": "Shop Valentine’s Sale",
+            "button1_link": "shopify://collections/all-saunas",
+            "show_button1_arrow": true,
+            "button2_text": "Consult Our Experts",
+            "button2_link": "mailto:sales@salussaunas.com",
+            "feature_item_1": "Free Shipping on all US orders",
+            "feature_item_2": "5-7 Year Limited Lifetime Sauna Warranty",
+            "feature_item_3": "Trusted by health professionals and athletes",
+            "feature_item_4": "FSA/HSA Eligible & Flexible Financing",
+            "color_scheme": "light"
+          }
+        },
         "hero_slide_gQxa68": {
           "type": "hero-slide",
           "settings": {
@@ -125,6 +149,7 @@
       },
       "block_order": [
         "hero_slide_fXR8VU",
+        "hero_slide_J4eVMm",
         "hero_slide_gQxa68"
       ],
       "name": "Homepage Hero Carousel",
