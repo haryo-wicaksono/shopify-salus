@@ -100,50 +100,50 @@
     },
     "partner_form_popup_wecWJ7": {
       "type": "partner-form-popup",
-      "blocks": {
-        "first_name_naBBby": {
-          "type": "first_name",
-          "settings": {
-            "required": true,
-            "half_width": true
-          }
-        },
-        "last_name_QibTVk": {
-          "type": "last_name",
-          "settings": {
-            "required": true,
-            "half_width": true
-          }
-        },
-        "email_6WNzJy": {
-          "type": "email",
-          "settings": {
-            "required": true,
-            "half_width": false
-          }
-        },
-        "socmed_link_Rpxdra": {
-          "type": "socmed_link",
-          "settings": {
-            "required": true,
-            "half_width": false
-          }
-        },
-        "preferred_code_rVq3zh": {
-          "type": "preferred_code",
-          "settings": {
-            "required": true,
-            "half_width": false
-          }
-        }
-      },
-      "block_order": [
-        "first_name_naBBby",
-        "last_name_QibTVk",
-        "email_6WNzJy",
-        "socmed_link_Rpxdra",
-        "preferred_code_rVq3zh"
-      ],
+      // "blocks": {
+      //   "first_name_naBBby": {
+      //     "type": "first_name",
+      //     "settings": {
+      //       "required": true,
+      //       "half_width": true
+      //     }
+      //   },
+      //   "last_name_QibTVk": {
+      //     "type": "last_name",
+      //     "settings": {
+      //       "required": true,
+      //       "half_width": true
+      //     }
+      //   },
+      //   "email_6WNzJy": {
+      //     "type": "email",
+      //     "settings": {
+      //       "required": true,
+      //       "half_width": false
+      //     }
+      //   },
+      //   "socmed_link_Rpxdra": {
+      //     "type": "socmed_link",
+      //     "settings": {
+      //       "required": true,
+      //       "half_width": false
+      //     }
+      //   },
+      //   "preferred_code_rVq3zh": {
+      //     "type": "preferred_code",
+      //     "settings": {
+      //       "required": true,
+      //       "half_width": false
+      //     }
+      //   }
+      // },
+      // "block_order": [
+      //   "first_name_naBBby",
+      //   "last_name_QibTVk",
+      //   "email_6WNzJy",
+      //   "socmed_link_Rpxdra",
+      //   "preferred_code_rVq3zh"
+      // ],
       "settings": {
         "heading": "Interested in becoming an affiliate? Let’s get to know each other!",
         "heading_align": "text-center",
