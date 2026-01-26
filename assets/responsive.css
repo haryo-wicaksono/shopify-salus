@@ -53,9 +53,9 @@
     padding: 50px var(--gutter);
   }
 
-  .main-menu__content ul.main-nav li:nth-of-type(1) .has--menu-products .child-nav li:last-child {
+  /* .main-menu__content ul.main-nav li:nth-of-type(1) .has--menu-products .child-nav li:last-child {
     grid-row: 4 / 5;
-  }
+  } */
 
   .main-article .article-banner-content h1 {
     font-size: 48px;
