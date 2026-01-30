@@ -183,9 +183,16 @@
               {{ block.shopify_attributes }}
             >
               <div class="homepage-hero-carousel__slide-inner">
+                {%- assign content_bg = section.settings.content_background_color -%}
+                {%- if block.settings.custom_content_bg != blank
+                  and block.settings.custom_content_bg != 'rgba(0,0,0,0)'
+                -%}
+                  {%- assign content_bg = block.settings.custom_content_bg -%}
+                {%- endif -%}
+
                 <div
                   class="homepage-hero-carousel__content-column"
-                  style="background-color: {{ section.settings.content_background_color }};"
+                  style="background-color: {{ content_bg }};"
                 >
                   {% if block.settings.reviews_text != blank %}
                     <div class="homepage-hero-carousel__reviews">
@@ -553,6 +560,12 @@
         {
           "type": "header",
           "content": "Slide Images"
+        },
+        {
+          "type": "color",
+          "id": "custom_content_bg",
+          "label": "Custom Content Background",
+          "info": "Overrides the global section background color for this specific slide."
         },
         {
           "type": "image_picker",
