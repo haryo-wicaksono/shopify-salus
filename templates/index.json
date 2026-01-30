@@ -573,17 +573,6 @@
         "title": "As featured in"
       }
     },
-    "product_carousel_p9jgXD": {
-      "type": "product-carousel",
-      "name": "Product Carousel",
-      "settings": {
-        "title": "Enjoy our Valentine's Day selection",
-        "button-label": "Shop Traditional",
-        "button_collection": "valentines-day-sale-2026",
-        "affirm_product": "superb-2-person-infrared-sauna",
-        "products_to_display_collection": "valentines-day-sale-2026"
-      }
-    },
     "product_carousel_fKidLh": {
       "type": "product-carousel",
       "name": "Product Carousel",
@@ -996,7 +985,6 @@
     "homepage_sauna_value_proposition_hFfREm",
     "logo_list_DaqLFK",
     "homepage_featured_in_logos_dxK7jf",
-    "product_carousel_p9jgXD",
     "product_carousel_fKidLh",
     "product_carousel_MGky87",
     "celebrity_testimonials_PmJ8Jr",
