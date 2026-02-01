@@ -320,7 +320,7 @@
 /* --- Mobile Styles (max-width: 767px) --- */
 @media screen and (max-width: 767px) {
     .swiper-wrapper {
-        background-color: #FDF7F1 !important;
+        background-color: #FDF7F1;
     }
 
     .homepage-hero-carousel {
@@ -449,7 +449,7 @@
 }
 
 .homepage-hero-carousel__slide--dark .homepage-hero-carousel__content-column {
-    background-color: #222120;
+    background-color: #222120 !important;
     color: #FBFBFB;
 }
 
