@@ -362,18 +362,322 @@
 </section>
 
 <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+{% comment %}
+  <script>
+    const slideColorSchemes = [
+      {% for block in section.blocks %}
+        "{{ block.settings.color_scheme }}"{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const carouselElement = document.querySelector('.homepage-hero-carousel__swiper');
+
+      // This function now uses the reliable 'realIndex'
+      function updatePaginationColor(swiper) {
+        if (!swiper.el || !slideColorSchemes || typeof swiper.realIndex === 'undefined') return;
+
+        const currentScheme = slideColorSchemes[swiper.realIndex];
+        const sectionEl = carouselElement.closest('.homepage-hero-carousel');
+
+        if (!sectionEl) return;
+
+        if (currentScheme === 'dark') {
+          sectionEl.classList.add('pagination-on-dark-slide');
+        } else {
+          sectionEl.classList.remove('pagination-on-dark-slide');
+        }
+      }
+
+      if (carouselElement) {
+        const swiper = new Swiper(carouselElement, {
+          loop: {{ section.settings.enable_loop }},
+          autoplay: {{ section.settings.enable_autoplay }} ? {
+            delay: {{ section.settings.autoplay_speed }},
+            disableOnInteraction: false,
+          } : false,
+          speed: 800,
+          grabCursor: true,
+
+          pagination: {
+            el: '.homepage-hero-carousel__pagination',
+            clickable: true,
+          },
+
+          navigation: {
+            nextEl: '.carousel-arrow.arrow-right',
+            prevEl: '.carousel-arrow.arrow-left',
+          },
+          {% comment %} autoHeight: true, {% endcomment %}
+          a11y: {
+            enabled: true,
+            prevSlideMessage: 'Previous slide',
+            nextSlideMessage: 'Next slide',
+            firstSlideMessage: 'This is the first slide',
+            lastSlideMessage: 'This is the last slide',
+            paginationBulletMessage: '{% raw %}Go to slide {{index}}{% endraw %}',
+          },
+
+          // Use 'slideChange' and 'realIndexChange' for loop mode
+          on: {
+            init: function(swiper) {
+              // Delay init check slightly to ensure 'realIndex' is set
+              setTimeout(() => updatePaginationColor(swiper), 0);
+            },
+            slideChange: function(swiper) {
+              updatePaginationColor(swiper);
+            },
+            // Add this as a fallback for loop mode
+            realIndexChange: function(swiper) {
+              updatePaginationColor(swiper);
+            }
+          }
+        });
+      }
+    });
+  </script>
+{% endcomment %}
+
+{% comment %}
+  <script>
+    // 1. Array for Light/Dark scheme (existing logic)
+    const slideColorSchemes = [
+      {% for block in section.blocks %}
+        "{{ block.settings.color_scheme }}"{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    // 2. New Array for Background Colors
+    // Priority: Custom Override > Dark Mode Hardcode > Global Setting
+    const slideBackgroundColors = [
+      {% for block in section.blocks %}
+        {%- assign bg_color = section.settings.content_background_color -%}
+        {%- if block.settings.color_scheme == 'dark' -%}
+          {%- assign bg_color = '#222120' -%}
+        {%- endif -%}
+        {%- if block.settings.custom_content_bg != blank and block.settings.custom_content_bg != 'rgba(0,0,0,0)' -%}
+          {%- assign bg_color = block.settings.custom_content_bg -%}
+        {%- endif -%}
+        "{{ bg_color }}"{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const carouselElement = document.querySelector('.homepage-hero-carousel__swiper');
+
+      // Helper: Update Pagination Dots based on Dark/Light scheme
+      function updatePaginationColor(swiper) {
+        if (!swiper.el || !slideColorSchemes || typeof swiper.realIndex === 'undefined') return;
+
+        const currentScheme = slideColorSchemes[swiper.realIndex];
+        const sectionEl = carouselElement.closest('.homepage-hero-carousel');
+
+        if (!sectionEl) return;
+
+        if (currentScheme === 'dark') {
+          sectionEl.classList.add('pagination-on-dark-slide');
+        } else {
+          sectionEl.classList.remove('pagination-on-dark-slide');
+        }
+      }
+
+      // Helper: Update Wrapper Background Color
+      function updateWrapperBackground(swiper) {
+        if (!swiper.wrapperEl || !slideBackgroundColors || typeof swiper.realIndex === 'undefined') return;
+
+        const newColor = slideBackgroundColors[swiper.realIndex];
+        // Apply color to the wrapper (covers the background gaps)
+        swiper.wrapperEl.style.backgroundColor = newColor;
+      }
+
+      if (carouselElement) {
+        // Add transition for smooth color change
+        const wrapper = carouselElement.querySelector('.swiper-wrapper');
+        if (wrapper) {
+          wrapper.style.transition = 'background-color 0.4s ease';
+        }
+
+        const swiper = new Swiper(carouselElement, {
+          loop: {{ section.settings.enable_loop }},
+          autoplay: {{ section.settings.enable_autoplay }} ? {
+            delay: {{ section.settings.autoplay_speed }},
+            disableOnInteraction: false,
+          } : false,
+          speed: 800,
+          grabCursor: true,
+
+          pagination: {
+            el: '.homepage-hero-carousel__pagination',
+            clickable: true,
+          },
+
+          navigation: {
+            nextEl: '.carousel-arrow.arrow-right',
+            prevEl: '.carousel-arrow.arrow-left',
+          },
+          a11y: {
+            enabled: true,
+            prevSlideMessage: 'Previous slide',
+            nextSlideMessage: 'Next slide',
+            firstSlideMessage: 'This is the first slide',
+            lastSlideMessage: 'This is the last slide',
+            paginationBulletMessage: 'Go to slide {{index}}',
+          },
+
+          on: {
+            init: function(swiper) {
+              // Run both updates on init
+              setTimeout(() => {
+                updatePaginationColor(swiper);
+                updateWrapperBackground(swiper);
+              }, 0);
+            },
+            slideChange: function(swiper) {
+              updatePaginationColor(swiper);
+              updateWrapperBackground(swiper);
+            },
+            realIndexChange: function(swiper) {
+              updatePaginationColor(swiper);
+              updateWrapperBackground(swiper);
+            }
+          }
+        });
+      }
+    });
+  </script>
+{% endcomment %}
+
+{% comment %}
+  <script>
+    // 1. Existing Color Scheme Array
+    const slideColorSchemes = [
+      {% for block in section.blocks %}
+        "{{ block.settings.color_scheme }}"{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    // 2. NEW: Background Color Array (Custom > Dark > Default)
+    const slideBackgroundColors = [
+      {% for block in section.blocks %}
+        {%- assign bg_color = section.settings.content_background_color -%}
+        {%- if block.settings.color_scheme == 'dark' -%}
+          {%- assign bg_color = '#222120' -%}
+        {%- endif -%}
+        {%- if block.settings.custom_content_bg != blank and block.settings.custom_content_bg != 'rgba(0,0,0,0)' -%}
+          {%- assign bg_color = block.settings.custom_content_bg -%}
+        {%- endif -%}
+        "{{ bg_color }}"{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const carouselElement = document.querySelector('.homepage-hero-carousel__swiper');
+
+      function updatePaginationColor(swiper) {
+        if (!swiper.el || !slideColorSchemes || typeof swiper.realIndex === 'undefined') return;
+
+        const currentScheme = slideColorSchemes[swiper.realIndex];
+        const sectionEl = carouselElement.closest('.homepage-hero-carousel');
+
+        if (!sectionEl) return;
+
+        if (currentScheme === 'dark') {
+          sectionEl.classList.add('pagination-on-dark-slide');
+        } else {
+          sectionEl.classList.remove('pagination-on-dark-slide');
+        }
+      }
+
+      // 3. NEW: Helper to update wrapper background smoothly
+      function updateWrapperBackground(swiper) {
+        if (!swiper.wrapperEl || !slideBackgroundColors || typeof swiper.realIndex === 'undefined') return;
+
+        // Ensure smooth transition
+        swiper.wrapperEl.style.transition = 'background-color 0.4s ease';
+        // Apply color from our array based on realIndex
+        swiper.wrapperEl.style.backgroundColor = slideBackgroundColors[swiper.realIndex];
+      }
+
+      if (carouselElement) {
+        const swiper = new Swiper(carouselElement, {
+          loop: {{ section.settings.enable_loop }},
+          autoplay: {{ section.settings.enable_autoplay }} ? {
+            delay: {{ section.settings.autoplay_speed }},
+            disableOnInteraction: false,
+          } : false,
+          speed: 800,
+          grabCursor: true,
+
+          pagination: {
+            el: '.homepage-hero-carousel__pagination',
+            clickable: true,
+          },
+
+          navigation: {
+            nextEl: '.carousel-arrow.arrow-right',
+            prevEl: '.carousel-arrow.arrow-left',
+          },
+          {% comment %} autoHeight: true, {% endcomment %}
+          a11y: {
+            enabled: true,
+            prevSlideMessage: 'Previous slide',
+            nextSlideMessage: 'Next slide',
+            firstSlideMessage: 'This is the first slide',
+            lastSlideMessage: 'This is the last slide',
+            paginationBulletMessage: '{% raw %}Go to slide {{index}}{% endraw %}',
+          },
+
+          // Use 'slideChange' and 'realIndexChange' for loop mode
+          on: {
+            init: function(swiper) {
+              // Delay init check slightly to ensure 'realIndex' is set
+              setTimeout(() => {
+                updatePaginationColor(swiper);
+                updateWrapperBackground(swiper); // Added
+              }, 0);
+            },
+            slideChange: function(swiper) {
+              updatePaginationColor(swiper);
+              updateWrapperBackground(swiper); // Added
+            },
+            // Add this as a fallback for loop mode
+            realIndexChange: function(swiper) {
+              updatePaginationColor(swiper);
+              updateWrapperBackground(swiper); // Added
+            }
+          }
+        });
+      }
+    });
+  </script>
+{% endcomment %}
 
 <script>
+  // 1. Color Scheme Array (Original)
   const slideColorSchemes = [
     {% for block in section.blocks %}
       "{{ block.settings.color_scheme }}"{% unless forloop.last %},{% endunless %}
     {% endfor %}
   ];
 
+  // 2. NEW: Background Color Array (Custom > Dark > Default)
+  const slideBackgroundColors = [
+    {% for block in section.blocks %}
+      {%- assign bg_color = section.settings.content_background_color -%}
+      {%- if block.settings.color_scheme == 'dark' -%}
+        {%- assign bg_color = '#222120' -%}
+      {%- endif -%}
+      {%- if block.settings.custom_content_bg != blank and block.settings.custom_content_bg != 'rgba(0,0,0,0)' -%}
+        {%- assign bg_color = block.settings.custom_content_bg -%}
+      {%- endif -%}
+      "{{ bg_color }}"{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
   document.addEventListener('DOMContentLoaded', function() {
     const carouselElement = document.querySelector('.homepage-hero-carousel__swiper');
 
-    // This function now uses the reliable 'realIndex'
+    // Original Pagination Logic
     function updatePaginationColor(swiper) {
       if (!swiper.el || !slideColorSchemes || typeof swiper.realIndex === 'undefined') return;
 
@@ -387,6 +691,13 @@
       } else {
         sectionEl.classList.remove('pagination-on-dark-slide');
       }
+    }
+
+    // NEW: Helper to update wrapper background only
+    function updateWrapperBackground(swiper) {
+      if (!swiper.wrapperEl || !slideBackgroundColors || typeof swiper.realIndex === 'undefined') return;
+      // We only set the color. Swiper's existing speed/transition handles the rest.
+      swiper.wrapperEl.style.backgroundColor = slideBackgroundColors[swiper.realIndex];
     }
 
     if (carouselElement) {
@@ -408,7 +719,6 @@
           nextEl: '.carousel-arrow.arrow-right',
           prevEl: '.carousel-arrow.arrow-left',
         },
-        {% comment %} autoHeight: true, {% endcomment %}
         a11y: {
           enabled: true,
           prevSlideMessage: 'Previous slide',
@@ -421,15 +731,18 @@
         // Use 'slideChange' and 'realIndexChange' for loop mode
         on: {
           init: function(swiper) {
-            // Delay init check slightly to ensure 'realIndex' is set
-            setTimeout(() => updatePaginationColor(swiper), 0);
+            setTimeout(() => {
+              updatePaginationColor(swiper);
+              updateWrapperBackground(swiper); // Added
+            }, 0);
           },
           slideChange: function(swiper) {
             updatePaginationColor(swiper);
+            updateWrapperBackground(swiper); // Added
           },
-          // Add this as a fallback for loop mode
           realIndexChange: function(swiper) {
             updatePaginationColor(swiper);
+            updateWrapperBackground(swiper); // Added
           }
         }
       });
