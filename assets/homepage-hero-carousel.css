@@ -379,7 +379,7 @@
     */
     .homepage-hero-carousel__content-column {
         height: auto;
-        background-color: #FDF7F1 !important;
+        background-color: #FDF7F1;
         /* Ensure it has a background */
         padding: 20px 20px;
     }
@@ -449,7 +449,7 @@
 }
 
 .homepage-hero-carousel__slide--dark .homepage-hero-carousel__content-column {
-    background-color: #222120 !important;
+    background-color: #222120;
     color: #FBFBFB;
 }
 
