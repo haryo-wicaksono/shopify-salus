@@ -1,0 +1,231 @@
+{%- assign google_script_url = 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE' -%}
+{%- assign trigger_id = 'btn-trigger-preorder' -%}
+
+<style>
+  #popup-preorder.custom-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  #popup-preorder .custom-popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    border-radius: 15px;
+    padding: 40px;
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  #popup-preorder .custom-popup-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  /* Layout */
+  #popup-preorder .popup-layout {
+    display: flex;
+    gap: 40px;
+  }
+  #popup-preorder .popup-left {
+    flex: 1;
+    text-align: center;
+  }
+  #popup-preorder .popup-right {
+    flex: 1.2;
+    align-content: center;
+  }
+
+  /* Product Info */
+  #popup-preorder .popup-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    object-fit: cover;
+    background-color: #fbf2e9;
+  }
+  #popup-preorder h3 {
+    margin: 10px 0 5px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  #popup-preorder .popup-price {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  /* Form */
+  #popup-preorder h2 {
+    margin-bottom: 20px;
+    font-family: Poppins, sans-serif;
+    font-size: 24px;
+  }
+  #popup-preorder .custom-popup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  #popup-preorder .custom-popup-full {
+    grid-column: span 2;
+  }
+  #popup-preorder input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  #popup-preorder button {
+    width: 100%;
+    padding: 15px;
+    background: #222120;
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  #popup-preorder button:hover {
+    background: #444;
+  }
+  #popup-preorder .status-msg {
+    margin-top: 15px;
+    text-align: center;
+    display: none;
+  }
+  .status-success {
+    color: green;
+  }
+  .status-error {
+    color: red;
+  }
+
+  @media (max-width: 768px) {
+    #popup-preorder .popup-layout {
+      flex-direction: column;
+      gap: 20px;
+    }
+    #popup-preorder .popup-left {
+      display: flex;
+      gap: 15px;
+      text-align: left;
+      align-items: center;
+    }
+    #popup-preorder .popup-img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 0;
+    }
+    #popup-preorder .custom-popup-grid {
+      grid-template-columns: 1fr;
+    }
+    #popup-preorder .custom-popup-full {
+      grid-column: span 1;
+    }
+  }
+</style>
+
+<div id="popup-preorder" class="custom-popup-overlay">
+  <div class="custom-popup-content">
+    <span id="close-preorder" class="custom-popup-close">&times;</span>
+
+    <div class="popup-layout">
+      <!-- Left Column: Product Info -->
+      <div class="popup-left">
+        {% if product.featured_media %}
+          <img class="popup-img" src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.title }}">
+        {% endif %}
+        <h3>{{ product.title }}</h3>
+        <div class="popup-price">{{ product.price | money }}</div>
+      </div>
+
+      <!-- Right Column: Form -->
+      <div class="popup-right">
+        <h2>Pre-Order Now</h2>
+        <form id="form-preorder">
+          <input type="hidden" name="form_type" value="Pre-order">
+          <input type="hidden" name="product_id" value="{{ product.id }}">
+          <input type="hidden" name="product_title" value="{{ product.title }}">
+          <div style="display:none;"><input type="text" name="bot_check" autocomplete="off"></div>
+
+          <div class="custom-popup-grid">
+            <div><label>First Name</label><input type="text" name="first_name" required></div>
+            <div><label>Last Name</label><input type="text" name="last_name" required></div>
+            <div class="custom-popup-full"><label>Email</label><input type="email" name="email" required></div>
+          </div>
+          <button type="submit" id="btn-submit-preorder">Submit Pre-Order</button>
+          <div id="status-preorder" class="status-msg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const popup = document.getElementById('popup-preorder');
+    const trigger = document.getElementById('{{ trigger_id }}');
+    const close = document.getElementById('close-preorder');
+    const form = document.getElementById('form-preorder');
+    const status = document.getElementById('status-preorder');
+    const btn = document.getElementById('btn-submit-preorder');
+    const scriptURL = '{{ google_script_url }}';
+
+    if (trigger)
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        popup.style.display = 'block';
+      });
+    if (close) close.addEventListener('click', () => (popup.style.display = 'none'));
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.innerText = 'Sending...';
+        const data = Object.fromEntries(new FormData(form).entries());
+
+        fetch(scriptURL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(data),
+        })
+          .then(() => {
+            status.innerText = 'Success! We will contact you shortly.';
+            status.className = 'status-msg status-success';
+            status.style.display = 'block';
+            form.reset();
+            setTimeout(() => {
+              popup.style.display = 'none';
+              status.style.display = 'none';
+            }, 3000);
+          })
+          .catch((err) => {
+            console.error(err);
+            status.innerText = 'Error. Please try again.';
+            status.className = 'status-msg status-error';
+            status.style.display = 'block';
+          })
+          .finally(() => {
+            btn.disabled = false;
+            btn.innerText = 'Submit Pre-Order';
+          });
+      });
+    }
+  });
+</script>
