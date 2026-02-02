@@ -78,9 +78,9 @@
           "type": "hero-slide",
           "settings": {
             "custom_content_bg": "#ffffff",
-            "slide_image_desktop": "shopify://shop_images/Frame_17300.png",
+            "slide_image_desktop": "shopify://shop_images/Salus_Saunas_-_10801350_7_2.png",
             "desktop_image_alt": "Hello",
-            "slide_image_mobile": "shopify://shop_images/Frame_17300.png",
+            "slide_image_mobile": "shopify://shop_images/Salus_Saunas_-_10801350_7_2.png",
             "mobile_image_alt": "Hello",
             "show_stars": true,
             "show_house_icon": false,
