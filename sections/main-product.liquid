@@ -1557,6 +1557,29 @@
                     {{ 'products.product.sold_out' | t }}
                   {%- endif -%}
                 </button>
+
+                <button type="button" id="btn-trigger-preorder" class="btn w-full extra-atc-btn">Pre-Order Now</button>
+                <button type="button" id="btn-trigger-waitlist" class="btn w-full extra-atc-btn">Join Waitlist</button>
+                <button type="button" id="btn-trigger-upcoming" class="btn w-full extra-atc-btn">Get Notified</button>
+                <!-- Custom Popups Triggers -->
+                {% comment %}
+                  {%- if product.metafields.custom.enable_preorder == true -%}
+                    <button type="button" id="btn-trigger-preorder" class="btn w-full extra-atc-btn">
+                      Pre-Order Now
+                    </button>
+                  {%- endif -%}
+
+                  {%- if product.metafields.custom.enable_waitlist == true -%}
+                    <button type="button" id="btn-trigger-waitlist" class="btn w-full extra-atc-btn">
+                      Join Waitlist
+                    </button>
+                  {%- endif -%}
+
+                  {%- if product.metafields.custom.enable_upcoming == true -%}
+                    <button type="button" id="btn-trigger-upcoming" class="btn w-full extra-atc-btn">Get Notified</button>
+                  {%- endif -%}
+                {% endcomment %}
+
                 {% comment %}
                   <a
                     href="mailto:{{ block.settings.email_address }}"
@@ -1962,6 +1985,9 @@
 </script>
 
 {% render 'modify-globo-tooltip' %}
+{% render 'popup-preorder' %}
+{% render 'popup-waitlist' %}
+{% render 'popup-upcoming' %}
 
 {% schema %}
 {
