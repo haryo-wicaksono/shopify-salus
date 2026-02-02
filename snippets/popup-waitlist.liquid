@@ -1,0 +1,231 @@
+{%- assign google_script_url = 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE' -%}
+{%- assign trigger_id = 'btn-trigger-waitlist' -%}
+
+<style>
+  #popup-waitlist.custom-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  #popup-waitlist .custom-popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    border-radius: 15px;
+    padding: 40px;
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  #popup-waitlist .custom-popup-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  /* Layout */
+  #popup-waitlist .popup-layout {
+    display: flex;
+    gap: 40px;
+  }
+  #popup-waitlist .popup-left {
+    flex: 1;
+    text-align: center;
+  }
+  #popup-waitlist .popup-right {
+    flex: 1.2;
+    align-content: center;
+  }
+
+  /* Product Info */
+  #popup-waitlist .popup-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    object-fit: cover;
+    background-color: #fbf2e9;
+  }
+  #popup-waitlist h3 {
+    margin: 10px 0 5px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  #popup-waitlist .popup-price {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  /* Form */
+  #popup-waitlist h2 {
+    margin-bottom: 20px;
+    font-family: Poppins, sans-serif;
+    font-size: 24px;
+  }
+  #popup-waitlist .custom-popup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  #popup-waitlist .custom-popup-full {
+    grid-column: span 2;
+  }
+  #popup-waitlist input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  #popup-waitlist button {
+    width: 100%;
+    padding: 15px;
+    background: #222120;
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  #popup-waitlist button:hover {
+    background: #444;
+  }
+  #popup-waitlist .status-msg {
+    margin-top: 15px;
+    text-align: center;
+    display: none;
+  }
+  .status-success {
+    color: green;
+  }
+  .status-error {
+    color: red;
+  }
+
+  @media (max-width: 768px) {
+    #popup-waitlist .popup-layout {
+      flex-direction: column;
+      gap: 20px;
+    }
+    #popup-waitlist .popup-left {
+      display: flex;
+      gap: 15px;
+      text-align: left;
+      align-items: center;
+    }
+    #popup-waitlist .popup-img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 0;
+    }
+    #popup-waitlist .custom-popup-grid {
+      grid-template-columns: 1fr;
+    }
+    #popup-waitlist .custom-popup-full {
+      grid-column: span 1;
+    }
+  }
+</style>
+
+<div id="popup-waitlist" class="custom-popup-overlay">
+  <div class="custom-popup-content">
+    <span id="close-waitlist" class="custom-popup-close">&times;</span>
+
+    <div class="popup-layout">
+      <!-- Left Column: Product Info -->
+      <div class="popup-left">
+        {% if product.featured_media %}
+          <img class="popup-img" src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.title }}">
+        {% endif %}
+        <h3>{{ product.title }}</h3>
+        <div class="popup-price">{{ product.price | money }}</div>
+      </div>
+
+      <!-- Right Column: Form -->
+      <div class="popup-right">
+        <h2>Join Waitlist</h2>
+        <form id="form-waitlist">
+          <input type="hidden" name="form_type" value="Waitlist">
+          <input type="hidden" name="product_id" value="{{ product.id }}">
+          <input type="hidden" name="product_title" value="{{ product.title }}">
+          <div style="display:none;"><input type="text" name="bot_check" autocomplete="off"></div>
+
+          <div class="custom-popup-grid">
+            <div><label>First Name</label><input type="text" name="first_name" required></div>
+            <div><label>Last Name</label><input type="text" name="last_name" required></div>
+            <div class="custom-popup-full"><label>Email</label><input type="email" name="email" required></div>
+          </div>
+          <button type="submit" id="btn-submit-waitlist">Join Waitlist</button>
+          <div id="status-waitlist" class="status-msg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const popup = document.getElementById('popup-waitlist');
+    const trigger = document.getElementById('{{ trigger_id }}');
+    const close = document.getElementById('close-waitlist');
+    const form = document.getElementById('form-waitlist');
+    const status = document.getElementById('status-waitlist');
+    const btn = document.getElementById('btn-submit-waitlist');
+    const scriptURL = '{{ google_script_url }}';
+
+    if (trigger)
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        popup.style.display = 'block';
+      });
+    if (close) close.addEventListener('click', () => (popup.style.display = 'none'));
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.innerText = 'Sending...';
+        const data = Object.fromEntries(new FormData(form).entries());
+
+        fetch(scriptURL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(data),
+        })
+          .then(() => {
+            status.innerText = 'You have been added to the waitlist!';
+            status.className = 'status-msg status-success';
+            status.style.display = 'block';
+            form.reset();
+            setTimeout(() => {
+              popup.style.display = 'none';
+              status.style.display = 'none';
+            }, 3000);
+          })
+          .catch((err) => {
+            console.error(err);
+            status.innerText = 'Error. Please try again.';
+            status.className = 'status-msg status-error';
+            status.style.display = 'block';
+          })
+          .finally(() => {
+            btn.disabled = false;
+            btn.innerText = 'Join Waitlist';
+          });
+      });
+    }
+  });
+</script>
