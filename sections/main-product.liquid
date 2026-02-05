@@ -66,6 +66,11 @@
       endif
     endfor
   endif
+
+  assign custom_popup_active = false
+  if product.metafields.custom.enable_preorder or product.metafields.custom.enable_waitlist or product.metafields.custom.enable_upcoming
+    assign custom_popup_active = true
+  endif
 -%}
 
 {%- style -%}
@@ -440,6 +445,37 @@
     border: 0;
   } {% endcomment %}
 </style>
+
+{%- if product.metafields.custom.enable_upcoming == true -%}
+  <style>
+    /* 1. Hide Standard Theme Prices */
+    .product-info__price,
+    .product-sidebar .product-info__price,
+    .sticky-atc-panel .price,
+    .product-info__price + hr {
+      display: none !important;
+    }
+
+    /* 2. Hide Globo-Specific Prices in custom cards */
+    .card-price-section,
+    .card-free-badge {
+      display: none !important;
+    }
+
+    /* 3. Hide Affirm/Truemed (Payment/Financing messages) */
+    .product-info__pay,
+    #truemed-prequalify,
+    .affirm-as-low-as {
+      display: none !important;
+    }
+
+    /* 4. Hide original GPO price elements if they leak through */
+    .gpo-tooltip__price,
+    .gpo-price-addon {
+      display: none !important;
+    }
+  </style>
+{%- endif -%}
 
 {%- if first_3d_model -%}
   <link
@@ -903,6 +939,9 @@
                           name="add"
                           {% if product.available == false %}
                             disabled
+                          {% endif %}
+                          {% if custom_popup_active %}
+                            style="display: none !important;" disabled
                           {% endif %}
                         >
                           {%- if product.available -%}
@@ -1536,86 +1575,82 @@
                   {%- endif -%}
                 {%- endcapture -%}
 
-                <button
-                  type="button"
-                  class="btn w-full extra-atc-btn"
-                  {% unless product.available %}
-                    disabled
-                  {% endunless %}
-                  onclick="
-                    (function() {
-                      var atc = document.getElementById('main-product-atc-{{ section.id }}');
-                      if (atc && !atc.disabled) {
-                        atc.click();
-                      }
-                    })();
-                  "
-                >
-                  {%- if product.available -%}
-                    {{ extra_atc_text }}
-                  {%- else -%}
-                    {{ 'products.product.sold_out' | t }}
-                  {%- endif -%}
-                </button>
+                {%- unless custom_popup_active -%}
+                  <button
+                    type="button"
+                    class="btn w-full extra-atc-btn"
+                    {% unless product.available %}
+                      disabled
+                    {% endunless %}
+                    onclick="(function() { var atc = document.getElementById('main-product-atc-{{ section.id }}'); if (atc && !atc.disabled) { atc.click(); } })();"
+                  >
+                    {%- if product.available -%}
+                      {{ extra_atc_text }}
+                    {%- else -%}
+                      {{ 'products.product.sold_out' | t }}
+                    {%- endif -%}
+                  </button>
+                {%- endunless -%}
 
-                <button type="button" id="btn-trigger-preorder" class="btn w-full extra-atc-btn">Pre-Order Now</button>
-                <button type="button" id="btn-trigger-waitlist" class="btn w-full extra-atc-btn">Join Waitlist</button>
-                <button type="button" id="btn-trigger-upcoming" class="btn w-full extra-atc-btn">Get Notified</button>
+                {% comment %}
+                  <button type="button" id="btn-trigger-preorder" class="btn w-full extra-atc-btn">Pre-Order Now</button>
+                  <button type="button" id="btn-trigger-waitlist" class="btn w-full extra-atc-btn">Join Waitlist</button>
+                  <button type="button" id="btn-trigger-upcoming" class="btn w-full extra-atc-btn">Get Notified</button>
+                {% endcomment %}
+
                 <!-- Custom Popups Triggers -->
-                {% comment %}
-                  {%- if product.metafields.custom.enable_preorder == true -%}
-                    <button type="button" id="btn-trigger-preorder" class="btn w-full extra-atc-btn">
-                      Pre-Order Now
-                    </button>
-                  {%- endif -%}
+                {%- if product.metafields.custom.enable_preorder == true -%}
+                  <button type="button" id="btn-trigger-preorder" class="btn w-full extra-atc-btn">
+                    Pre-Order Now
+                  </button>
+                {%- endif -%}
 
-                  {%- if product.metafields.custom.enable_waitlist == true -%}
-                    <button type="button" id="btn-trigger-waitlist" class="btn w-full extra-atc-btn">
-                      Join Waitlist
-                    </button>
-                  {%- endif -%}
+                {%- if product.metafields.custom.enable_waitlist == true -%}
+                  <button type="button" id="btn-trigger-waitlist" class="btn w-full extra-atc-btn">
+                    Join Waitlist
+                  </button>
+                {%- endif -%}
 
-                  {%- if product.metafields.custom.enable_upcoming == true -%}
-                    <button type="button" id="btn-trigger-upcoming" class="btn w-full extra-atc-btn">Get Notified</button>
-                  {%- endif -%}
-                {% endcomment %}
+                {%- if product.metafields.custom.enable_upcoming == true -%}
+                  <button type="button" id="btn-trigger-upcoming" class="btn w-full extra-atc-btn">Get Notified</button>
+                {%- endif -%}
 
                 {% comment %}
-                  <a
-                    href="mailto:{{ block.settings.email_address }}"
-                    class="btn btn--secondary w-full"
-                    style="background-color: white; border: 1px solid #1f4c46; color: #1f4c46;"
-                  >
-                    {{ block.settings.email_label }}
-                  </a>
-                {% endcomment %}
-              </div>
-
-              {% comment %}
-                {%- if block.settings.email_address != blank -%}
-                  <div
-                    class="text-center mt-4 text-sm"
-                    style="margin-top: 15px; text-align: center; font-size: 15px; font-weight: 500"
-                  >
-                    or
                     <a
                       href="mailto:{{ block.settings.email_address }}"
-                      style="text-decoration: underline;"
+                      class="btn btn--secondary w-full"
+                      style="background-color: white; border: 1px solid #1f4c46; color: #1f4c46;"
                     >
-                      send us an email
+                      {{ block.settings.email_label }}
                     </a>
                   </div>
-                {%- endif -%}
-              {% endcomment %}
+                {% endcomment %}
 
-              {% comment %}
-                {%- if block.settings.phone_text != blank -%}
-                  <div class="text-center mt-4 text-sm" style="margin-top: 15px; text-align: center; font-size: 14px;">
-                    {{ block.settings.phone_text }}
-                  </div>
-                {%- endif -%}
-              {% endcomment %}
-            </div>
+                {% comment %}
+                  {%- if block.settings.email_address != blank -%}
+                    <div
+                      class="text-center mt-4 text-sm"
+                      style="margin-top: 15px; text-align: center; font-size: 15px; font-weight: 500"
+                    >
+                      or
+                      <a
+                        href="mailto:{{ block.settings.email_address }}"
+                        style="text-decoration: underline;"
+                      >
+                        send us an email
+                      </a>
+                    </div>
+                  {%- endif -%}
+                {% endcomment %}
+
+                {% comment %}
+                  {%- if block.settings.phone_text != blank -%}
+                    <div class="text-center mt-4 text-sm" style="margin-top: 15px; text-align: center; font-size: 14px;">
+                      {{ block.settings.phone_text }}
+                    </div>
+                  {%- endif -%}
+                {% endcomment %}
+              </div>
           {%- endif -%}
         {%- endfor -%}
       </div>
