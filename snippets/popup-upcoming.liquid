@@ -1,5 +1,6 @@
 {%- if product.metafields.custom.enable_upcoming == true -%}
-  {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxdHA-FMBTqWr2nbN2LaQkTg7Z74eupH2yIeSPPslkir1p-Sovjb-nQ1ySeNU8oWMWSuQ/exec' -%}
+  {% comment %} {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxdHA-FMBTqWr2nbN2LaQkTg7Z74eupH2yIeSPPslkir1p-Sovjb-nQ1ySeNU8oWMWSuQ/exec' -%} {% endcomment %}
+  {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxKm4wrTJJ-zT0y_MzH_o1jbnhq9D7esNimqpydwI9GBUnSF0c1TSFzgGSvUPgINBUhzQ/exec' -%}
   {%- assign trigger_id = 'btn-trigger-upcoming' -%}
 
   <style>
@@ -26,7 +27,6 @@
       padding: 40px;
       overflow-y: auto;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      background-color: #fbf2e9;
     }
     #popup-upcoming .custom-popup-close {
       position: absolute;
@@ -57,6 +57,7 @@
       border-radius: 8px;
       margin-bottom: 15px;
       object-fit: cover;
+      background-color: #fbf2e9;
     }
     #popup-upcoming h3 {
       margin: 10px 0 5px;
@@ -151,7 +152,7 @@
             <img class="popup-img" src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.title }}">
           {% endif %}
           <h3>{{ product.title }}</h3>
-          <div class="popup-price">{{ product.price | money }}</div>
+          {% comment %} <div class="popup-price">{{ product.price | money }}</div> {% endcomment %}
         </div>
 
         <!-- Right Column: Form -->

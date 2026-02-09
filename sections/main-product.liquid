@@ -105,6 +105,33 @@
       margin-top: 24px;
     }
 
+    #popup-preorder .checkbox-wrapper,
+    #popup-waitlist .checkbox-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    #popup-preorder .checkbox-wrapper input[type="checkbox"],
+    #popup-waitlist .checkbox-wrapper input[type="checkbox"] {
+      width: 16px !important; /* Forces it to stay small */
+      height: 16px !important;
+      margin: 4px 0 0 0 !important; /* Aligns with first line of text */
+      flex-shrink: 0; /* Prevents squishing */
+      cursor: pointer;
+    }
+
+    #popup-preorder .checkbox-wrapper label,
+    #popup-waitlist .checkbox-wrapper label {
+      font-size: 14px;
+      line-height: 1.4;
+      cursor: pointer;
+      margin: 0;
+    }
+
     /* 2. Desktop 3-Column Layout */
     @media (min-width: 1024px) {
       .product.js-product {
@@ -472,6 +499,14 @@
     /* 4. Hide original GPO price elements if they leak through */
     .gpo-tooltip__price,
     .gpo-price-addon {
+      display: none !important;
+    }
+
+    .product-info__block.product-info__block--sm.product-info__pay {
+      display: none !important;
+    }
+
+    .product-info__block.product-info__block--sm.product-info__delivery.flex {
       display: none !important;
     }
   </style>
@@ -1612,7 +1647,12 @@
                 {%- endif -%}
 
                 {%- if product.metafields.custom.enable_upcoming == true -%}
-                  <button type="button" id="btn-trigger-upcoming" class="btn w-full extra-atc-btn">Get Notified</button>
+                  <button type="button" id="btn-trigger-upcoming" class="btn w-full extra-atc-btn">
+                    <div style="display: flex; flex-direction: row; justify-content: center;">
+                      {%- render 'upvote-icon' -%}
+                      <span style="display: block;">Upvote</span>
+                    </div>
+                  </button>
                 {%- endif -%}
 
                 {% comment %}
