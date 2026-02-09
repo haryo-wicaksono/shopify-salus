@@ -1,7 +1,10 @@
 {%- if product.metafields.custom.enable_preorder == true -%}
-  {% comment %} {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxdHA-FMBTqWr2nbN2LaQkTg7Z74eupH2yIeSPPslkir1p-Sovjb-nQ1ySeNU8oWMWSuQ/exec' -%} {% endcomment %}
-  {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxKm4wrTJJ-zT0y_MzH_o1jbnhq9D7esNimqpydwI9GBUnSF0c1TSFzgGSvUPgINBUhzQ/exec' -%}
+  {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxnLO4U1XG59Bt5D2vI7OnGLCSa7wLNgd_UBX9us_m9TNS7xHkdlrLmly53RSXEXVA2_w/exec' -%}
   {%- assign trigger_id = 'btn-trigger-preorder' -%}
+
+  <!-- External Assets for Phone Picker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/css/intlTelInput.css">
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/intlTelInput.min.js"></script>
 
   <style>
     #popup-preorder.custom-popup-overlay {
@@ -36,7 +39,6 @@
       cursor: pointer;
       z-index: 10;
     }
-    /* Layout */
     #popup-preorder .popup-layout {
       display: flex;
       gap: 40px;
@@ -44,13 +46,15 @@
     #popup-preorder .popup-left {
       flex: 1;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     #popup-preorder .popup-right {
       flex: 1.2;
       align-content: center;
     }
-
-    /* Product Info */
     #popup-preorder .popup-img {
       width: 100%;
       height: auto;
@@ -69,12 +73,11 @@
       color: #555;
       margin-bottom: 20px;
     }
-
-    /* Form */
     #popup-preorder h2 {
       margin-bottom: 20px;
       font-family: Poppins, sans-serif;
       font-size: 24px;
+      color: #000;
     }
     #popup-preorder .custom-popup-grid {
       display: grid;
@@ -84,26 +87,125 @@
     #popup-preorder .custom-popup-full {
       grid-column: span 2;
     }
-    #popup-preorder input {
+
+    /* UNIFORM INPUT STYLING - All inputs same border */
+    #popup-preorder input:not([type='checkbox']) {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: 1px solid #ccc !important;
+      border-radius: 5px !important;
+      height: 48px !important;
+      box-sizing: border-box;
     }
-    #popup-preorder button {
+
+    /* Checkbox Styling */
+    #popup-preorder .checkbox-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center; /* Changed from flex-start */
+      justify-content: left; /* Centers horizontally */
+      gap: 12px;
+      margin-top: 20px;
+      text-align: justify;
+    }
+    #popup-preorder .checkbox-wrapper input[type='checkbox'] {
+      width: 16px !important;
+      height: 16px !important;
+      margin: 4px 0 0 0 !important;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    #popup-preorder .checkbox-wrapper label {
+      font-size: 14px;
+      line-height: 1.4;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    /* Submit button styling */
+    #popup-preorder #btn-submit-preorder {
       width: 100%;
       padding: 15px;
-      background: #222120;
-      color: #fff;
+      background: #222120 !important;
+      color: #fff !important;
       border: none;
       border-radius: 100px;
       cursor: pointer;
       font-size: 18px;
       margin-top: 20px;
+      display: block;
     }
-    #popup-preorder button:hover {
-      background: #444;
+
+    #popup-preorder #btn-submit-preorder:hover {
+      background: #444 !important;
     }
+
+    /* Phone input flag picker */
+    .iti__selected-country {
+      background: none !important;
+      background-color: transparent !important;
+      border-radius: 0 !important;
+      width: auto !important;
+      padding: 0 6px !important;
+      margin: 0 !important;
+    }
+
+    /* Phone input field - extra left padding for flag */
+    #popup-preorder input#phone-input-preorder {
+      padding-left: 90px !important;
+    }
+
+    /* THE FIX: Remove grey padding/border from dropdown container */
+
+    .iti {
+      border: 0px solid #ffffff !important;
+      border-radius: 2px;
+    }
+    .iti--fullscreen-popup.iti--container {
+      padding: 0 !important;
+      border: 0 !important;
+      background-color: transparent !important;
+    }
+
+    /* Country dropdown container - hide initially */
+    .iti--container {
+      z-index: 999999 !important;
+      opacity: 0 !important;
+      transition: opacity 0.15s ease-in;
+    }
+
+    /* Show dropdown after positioning */
+    .iti--container.positioned {
+      opacity: 1 !important;
+    }
+
+    /* Country dropdown list */
+    .iti__dropdown-content {
+      background-color: white !important;
+      border: 1px solid #ccc !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+      max-height: 250px !important;
+      width: 300px !important;
+      overflow-y: auto !important;
+      font-size: 14px !important;
+    }
+
+    /* Search input inside dropdown */
+    .iti__search-input {
+      width: 100% !important;
+      padding: 8px !important;
+      margin: 5px 0 !important;
+      box-sizing: border-box !important;
+      border: 1px solid #eee !important;
+      border-radius: 4px !important;
+    }
+
+    /* Country list items */
+    .iti__country {
+      padding: 8px 10px !important;
+      line-height: 1.2 !important;
+    }
+
     #popup-preorder .status-msg {
       margin-top: 15px;
       text-align: center;
@@ -116,6 +218,20 @@
       color: red;
     }
 
+    /* Deposit disclaimer */
+    #popup-preorder .deposit-disclaimer {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    #popup-preorder .deposit-disclaimer a {
+      text-decoration: underline;
+      color: #000;
+    }
+
     @media (max-width: 768px) {
       #popup-preorder .popup-layout {
         flex-direction: column;
@@ -126,6 +242,7 @@
         gap: 15px;
         text-align: left;
         align-items: center;
+        flex-direction: row;
       }
       #popup-preorder .popup-img {
         width: 80px;
@@ -144,20 +261,21 @@
   <div id="popup-preorder" class="custom-popup-overlay">
     <div class="custom-popup-content">
       <span id="close-preorder" class="custom-popup-close">&times;</span>
-
       <div class="popup-layout">
-        <!-- Left Column: Product Info -->
         <div class="popup-left">
-          {% if product.featured_media %}
+          {% if product.featured_media -%}
             <img class="popup-img" src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.title }}">
-          {% endif %}
+          {%- endif %}
           <h3>{{ product.title }}</h3>
           <div class="popup-price">{{ product.price | money }}</div>
         </div>
 
-        <!-- Right Column: Form -->
         <div class="popup-right">
-          <h2>Pre-Order Now</h2>
+          <div style="text-align: center; margin-bottom: 20px; border-bottom: 1px solid #eee;">
+            <h2 style="margin-bottom: 5px;">
+              Pre-order and secure your dream sauna<span style="color: #e74c3c;">*</span>
+            </h2>
+          </div>
           <form id="form-preorder">
             <input type="hidden" name="form_type" value="Pre-order">
             <input type="hidden" name="product_id" value="{{ product.id }}">
@@ -165,32 +283,37 @@
             <div style="display:none;"><input type="text" name="bot_check" autocomplete="off"></div>
 
             <div class="custom-popup-grid">
-              <div><label>First Name</label><input type="text" name="first_name" required></div>
-              <div><label>Last Name</label><input type="text" name="last_name" required></div>
-              <div class="custom-popup-full"><label>Email</label><input type="email" name="email" required></div>
+              <div class="custom-popup-full">
+                <label>Full Name</label>
+                <input type="text" name="full_name" required>
+              </div>
+              <div class="custom-popup-full">
+                <label>Email</label>
+                <input type="email" name="email" required>
+              </div>
               <div class="custom-popup-full">
                 <label>Phone Number</label>
-                <div class="phone-input-wrapper">
-                  <span class="country-prefix">+1</span>
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="123 456 7890"
-                    required
-                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                  >
-                </div>
+                <input type="tel" id="phone-input-preorder" name="phone_full" required>
+                <input type="hidden" name="phone">
               </div>
             </div>
+
             <div class="checkbox-wrapper">
               <input type="checkbox" id="preorder-tc" name="tc_agreed" required>
-              <label for="preorder-tc"
-                >I agree to the
-                <a href="/pages/terms-and-condition-of-pre-order" target="_blank" style="text-decoration: underline;"
-                  >Terms and Conditions of the Pre-Order Policy</a
-                >.</label
-              >
+              <label for="preorder-tc">
+                I agree to the
+                <a href="/pages/terms-and-condition-of-pre-order" target="_blank" style="text-decoration: underline;">
+                  Terms and Conditions of the Pre-Order Policy </a
+                >.
+              </label>
             </div>
+
+            <div class="deposit-disclaimer">
+              <span style="color: #e74c3c;">*</span>A 50% deposit is required to secure your order. Please read our
+              <a href="/pages/terms-and-condition-of-pre-order" target="_blank"> Pre-Order Terms & Conditions </a> to
+              learn more.
+            </div>
+
             <button type="submit" id="btn-submit-preorder">Submit Pre-Order</button>
             <div id="status-preorder" class="status-msg"></div>
           </form>
@@ -209,23 +332,103 @@
       const btn = document.getElementById('btn-submit-preorder');
       const scriptURL = '{{ google_script_url }}';
 
-      if (trigger)
+      const phoneInput = document.querySelector('#phone-input-preorder');
+      let iti = null;
+
+      // Function to sync popup price with main price
+      function syncPopupPrice() {
+        const mainPriceElement = document.querySelector('.product-info__price .price__current');
+        const popupPriceElement = document.querySelector('#popup-preorder .popup-price');
+
+        if (mainPriceElement && popupPriceElement) {
+          const updatedPrice = mainPriceElement.textContent.trim();
+          popupPriceElement.textContent = updatedPrice;
+          console.log(`Updated popup price to: ${updatedPrice}`);
+        }
+      }
+
+      // Observe main price changes
+      const mainPriceElement = document.querySelector('.product-info__price .price__current');
+      if (mainPriceElement) {
+        const priceObserver = new MutationObserver(() => {
+          syncPopupPrice();
+        });
+
+        priceObserver.observe(mainPriceElement, {
+          characterData: true,
+          childList: true,
+          subtree: true,
+        });
+      }
+
+      if (trigger) {
         trigger.addEventListener('click', (e) => {
           e.preventDefault();
           popup.style.display = 'block';
+
+          // Sync price when popup opens
+          syncPopupPrice();
+
+          setTimeout(() => {
+            if (!iti) {
+              iti = window.intlTelInput(phoneInput, {
+                initialCountry: 'us',
+                separateDialCode: true,
+                dropdownContainer: document.body,
+                strictMode: true,
+                utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js',
+              });
+
+              const selectedFlag = phoneInput.parentElement.querySelector('.iti__selected-country');
+              if (selectedFlag) {
+                selectedFlag.addEventListener('click', () => {
+                  setTimeout(() => {
+                    const dropdownContainer = document.querySelector('.iti--container');
+                    const dropdown = document.querySelector('.iti__dropdown-content');
+
+                    if (dropdown && dropdownContainer) {
+                      const inputRect = phoneInput.getBoundingClientRect();
+
+                      dropdownContainer.style.position = 'fixed';
+                      dropdownContainer.style.top = inputRect.bottom + 'px';
+                      dropdownContainer.style.left = inputRect.left + 'px';
+
+                      requestAnimationFrame(() => {
+                        dropdownContainer.classList.add('positioned');
+                      });
+                    }
+                  }, 5);
+                });
+              }
+            }
+          }, 50);
         });
-      if (close) close.addEventListener('click', () => (popup.style.display = 'none'));
+      }
+
+      if (close) {
+        close.addEventListener('click', () => {
+          popup.style.display = 'none';
+        });
+      }
 
       if (form) {
         form.addEventListener('submit', (e) => {
           e.preventDefault();
+
+          if (!iti || !iti.isValidNumber()) {
+            status.innerText = 'Please enter a valid phone number.';
+            status.className = 'status-msg status-error';
+            status.style.display = 'block';
+            return;
+          }
+
           btn.disabled = true;
           btn.innerText = 'Sending...';
 
           const formData = new FormData(form);
           const data = Object.fromEntries(formData.entries());
+          data['phone'] = iti.getNumber();
 
-          // Scrape GPO and Variant ID
           let selectedOptions = [];
           document.querySelectorAll('[name^="properties"]').forEach((input) => {
             if ((input.type === 'radio' || input.type === 'checkbox') && !input.checked) return;
@@ -239,6 +442,26 @@
           data['variant_id'] = mainVariantInput
             ? mainVariantInput.value
             : '{{ product.selected_or_first_available_variant.id }}';
+
+          // Get total price from main product page
+          let totalPrice = null;
+
+          const priceElement = document.querySelector('.product-info__price .price__current');
+
+          if (priceElement) {
+            const priceText = priceElement.textContent || priceElement.innerText;
+            const priceValue = priceText.replace(/[^0-9.]/g, '');
+
+            if (priceValue && parseFloat(priceValue) > 0) {
+              totalPrice = parseFloat(priceValue).toFixed(2);
+            }
+          }
+
+          if (!totalPrice || parseFloat(totalPrice) <= 0) {
+            totalPrice = '{{ product.selected_or_first_available_variant.price | divided_by: 100.0 }}';
+          }
+
+          data['total_price'] = totalPrice;
 
           fetch(scriptURL, {
             method: 'POST',
