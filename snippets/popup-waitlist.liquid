@@ -1,5 +1,4 @@
 {%- if product.metafields.custom.enable_waitlist == true -%}
-  {% comment %} {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxdHA-FMBTqWr2nbN2LaQkTg7Z74eupH2yIeSPPslkir1p-Sovjb-nQ1ySeNU8oWMWSuQ/exec' -%} {% endcomment %}
   {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxKm4wrTJJ-zT0y_MzH_o1jbnhq9D7esNimqpydwI9GBUnSF0c1TSFzgGSvUPgINBUhzQ/exec' -%}
   {%- assign trigger_id = 'btn-trigger-waitlist' -%}
 
@@ -36,7 +35,6 @@
       cursor: pointer;
       z-index: 10;
     }
-    /* Layout */
     #popup-waitlist .popup-layout {
       display: flex;
       gap: 40px;
@@ -44,13 +42,15 @@
     #popup-waitlist .popup-left {
       flex: 1;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     #popup-waitlist .popup-right {
       flex: 1.2;
       align-content: center;
     }
-
-    /* Product Info */
     #popup-waitlist .popup-img {
       width: 100%;
       height: auto;
@@ -69,12 +69,11 @@
       color: #555;
       margin-bottom: 20px;
     }
-
-    /* Form */
     #popup-waitlist h2 {
       margin-bottom: 20px;
       font-family: Poppins, sans-serif;
       font-size: 24px;
+      color: #000;
     }
     #popup-waitlist .custom-popup-grid {
       display: grid;
@@ -84,26 +83,59 @@
     #popup-waitlist .custom-popup-full {
       grid-column: span 2;
     }
-    #popup-waitlist input {
+
+    /* UNIFORM INPUT STYLING */
+    #popup-waitlist input:not([type='checkbox']) {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: 1px solid #ccc !important;
+      border-radius: 5px !important;
+      height: 48px !important;
+      box-sizing: border-box;
     }
-    #popup-waitlist button {
+
+    /* Checkbox Styling */
+    #popup-waitlist .checkbox-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: left;
+      gap: 12px;
+      margin-top: 20px;
+      text-align: justify;
+    }
+    #popup-waitlist .checkbox-wrapper input[type='checkbox'] {
+      width: 16px !important;
+      height: 16px !important;
+      margin: 4px 0 0 0 !important;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    #popup-waitlist .checkbox-wrapper label {
+      font-size: 14px;
+      line-height: 1.4;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    /* Submit button styling */
+    #popup-waitlist #btn-submit-waitlist {
       width: 100%;
       padding: 15px;
-      background: #222120;
-      color: #fff;
+      background: #222120 !important;
+      color: #fff !important;
       border: none;
       border-radius: 100px;
       cursor: pointer;
       font-size: 18px;
       margin-top: 20px;
+      display: block;
     }
-    #popup-waitlist button:hover {
-      background: #444;
+
+    #popup-waitlist #btn-submit-waitlist:hover {
+      background: #444 !important;
     }
+
     #popup-waitlist .status-msg {
       margin-top: 15px;
       text-align: center;
@@ -116,6 +148,20 @@
       color: red;
     }
 
+    /* Deposit disclaimer */
+    #popup-waitlist .deposit-disclaimer {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    #popup-waitlist .deposit-disclaimer a {
+      text-decoration: underline;
+      color: #000;
+    }
+
     @media (max-width: 768px) {
       #popup-waitlist .popup-layout {
         flex-direction: column;
@@ -126,6 +172,7 @@
         gap: 15px;
         text-align: left;
         align-items: center;
+        flex-direction: row;
       }
       #popup-waitlist .popup-img {
         width: 80px;
@@ -144,20 +191,21 @@
   <div id="popup-waitlist" class="custom-popup-overlay">
     <div class="custom-popup-content">
       <span id="close-waitlist" class="custom-popup-close">&times;</span>
-
       <div class="popup-layout">
-        <!-- Left Column: Product Info -->
         <div class="popup-left">
-          {% if product.featured_media %}
+          {% if product.featured_media -%}
             <img class="popup-img" src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.title }}">
-          {% endif %}
+          {%- endif %}
           <h3>{{ product.title }}</h3>
           <div class="popup-price">{{ product.price | money }}</div>
         </div>
 
-        <!-- Right Column: Form -->
         <div class="popup-right">
-          <h2>Join Waitlist</h2>
+          <div style="text-align: center; margin-bottom: 20px; border-bottom: 1px solid #eee;">
+            <h2 style="margin-bottom: 5px;">
+              Join our waitlist and get notified early<span style="color: #e74c3c;">*</span>
+            </h2>
+          </div>
           <form id="form-waitlist">
             <input type="hidden" name="form_type" value="Waitlist">
             <input type="hidden" name="product_id" value="{{ product.id }}">
@@ -165,30 +213,24 @@
             <div style="display:none;"><input type="text" name="bot_check" autocomplete="off"></div>
 
             <div class="custom-popup-grid">
-              <div><label>First Name</label><input type="text" name="first_name" required></div>
-              <div><label>Last Name</label><input type="text" name="last_name" required></div>
-              <div class="custom-popup-full"><label>Email</label><input type="email" name="email" required></div>
               <div class="custom-popup-full">
-                <label>Phone Number</label>
-                <div class="phone-input-wrapper">
-                  <span class="country-prefix">+1</span>
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="123 456 7890"
-                    required
-                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                  >
-                </div>
+                <label>Full Name</label>
+                <input type="text" name="full_name" required>
+              </div>
+              <div class="custom-popup-full">
+                <label>Email</label>
+                <input type="email" name="email" required>
               </div>
             </div>
+
             <div class="checkbox-wrapper">
-              <input type="checkbox" id="waitlist-disclaimer" name="disclaimer_agreed" required>
-              <label for="waitlist-disclaimer"
-                >Adding a product to your waitlist will not reserve this product for you, you will only be notified when
-                the product is back in stock. To reserve this product, select pre-order instead.</label
-              >
+              <label for="waitlist-disclaimer">
+                <span style="color: #e74c3c;">*</span>Adding a product to your waitlist will not reserve this product
+                for you, you will only be notified when the product is back in stock. To reserve this product, select
+                pre-order instead.
+              </label>
             </div>
+
             <button type="submit" id="btn-submit-waitlist">Join Waitlist</button>
             <div id="status-waitlist" class="status-msg"></div>
           </form>
@@ -207,19 +249,89 @@
       const btn = document.getElementById('btn-submit-waitlist');
       const scriptURL = '{{ google_script_url }}';
 
-      if (trigger)
+      // Function to sync popup price with main price
+      function syncPopupPrice() {
+        const mainPriceElement = document.querySelector('.product-info__price .price__current');
+        const popupPriceElement = document.querySelector('#popup-waitlist .popup-price');
+
+        if (mainPriceElement && popupPriceElement) {
+          const updatedPrice = mainPriceElement.textContent.trim();
+          popupPriceElement.textContent = updatedPrice;
+        }
+      }
+
+      // Observe main price changes
+      const mainPriceElement = document.querySelector('.product-info__price .price__current');
+      if (mainPriceElement) {
+        const priceObserver = new MutationObserver(() => {
+          syncPopupPrice();
+        });
+
+        priceObserver.observe(mainPriceElement, {
+          characterData: true,
+          childList: true,
+          subtree: true,
+        });
+      }
+
+      if (trigger) {
         trigger.addEventListener('click', (e) => {
           e.preventDefault();
           popup.style.display = 'block';
+
+          // Sync price when popup opens
+          syncPopupPrice();
         });
-      if (close) close.addEventListener('click', () => (popup.style.display = 'none'));
+      }
+
+      if (close) {
+        close.addEventListener('click', () => {
+          popup.style.display = 'none';
+        });
+      }
 
       if (form) {
         form.addEventListener('submit', (e) => {
           e.preventDefault();
+
           btn.disabled = true;
           btn.innerText = 'Sending...';
-          const data = Object.fromEntries(new FormData(form).entries());
+
+          const formData = new FormData(form);
+          const data = Object.fromEntries(formData.entries());
+
+          let selectedOptions = [];
+          document.querySelectorAll('[name^="properties"]').forEach((input) => {
+            if ((input.type === 'radio' || input.type === 'checkbox') && !input.checked) return;
+            if (!input.value || input.value.trim() === '' || input.name.includes('_has_gpo')) return;
+            let label = input.name.replace('properties[', '').replace(']', '').replace('][', ' - ');
+            selectedOptions.push(`${label}: ${input.value}`);
+          });
+          data['custom_options'] = selectedOptions.length > 0 ? selectedOptions.join('\n') : 'No options selected';
+
+          const mainVariantInput = document.querySelector('form[action*="/cart/add"] [name="id"]');
+          data['variant_id'] = mainVariantInput
+            ? mainVariantInput.value
+            : '{{ product.selected_or_first_available_variant.id }}';
+
+          // Get total price
+          let totalPrice = null;
+          const priceElement = document.querySelector('.product-info__price .price__current');
+
+          if (priceElement) {
+            const priceText = priceElement.textContent || priceElement.innerText;
+            const priceValue = priceText.replace(/[^0-9.]/g, '');
+
+            if (priceValue && parseFloat(priceValue) > 0) {
+              totalPrice = parseFloat(priceValue).toFixed(2);
+            }
+          }
+
+          if (!totalPrice || parseFloat(totalPrice) <= 0) {
+            totalPrice = '{{ product.selected_or_first_available_variant.price | divided_by: 100.0 }}';
+          }
+
+          data['total_price'] = totalPrice;
 
           fetch(scriptURL, {
             method: 'POST',
@@ -228,7 +340,7 @@
             body: JSON.stringify(data),
           })
             .then(() => {
-              status.innerText = 'You have been added to the waitlist!';
+              status.innerText = 'Success! You have been added to the waitlist.';
               status.className = 'status-msg status-success';
               status.style.display = 'block';
               form.reset();
@@ -238,7 +350,6 @@
               }, 3000);
             })
             .catch((err) => {
-              console.error(err);
               status.innerText = 'Error. Please try again.';
               status.className = 'status-msg status-error';
               status.style.display = 'block';
