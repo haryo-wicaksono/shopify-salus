@@ -1,5 +1,6 @@
 {%- if product.metafields.custom.enable_waitlist == true -%}
-  {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxdHA-FMBTqWr2nbN2LaQkTg7Z74eupH2yIeSPPslkir1p-Sovjb-nQ1ySeNU8oWMWSuQ/exec' -%}
+  {% comment %} {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxdHA-FMBTqWr2nbN2LaQkTg7Z74eupH2yIeSPPslkir1p-Sovjb-nQ1ySeNU8oWMWSuQ/exec' -%} {% endcomment %}
+  {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxKm4wrTJJ-zT0y_MzH_o1jbnhq9D7esNimqpydwI9GBUnSF0c1TSFzgGSvUPgINBUhzQ/exec' -%}
   {%- assign trigger_id = 'btn-trigger-waitlist' -%}
 
   <style>
@@ -167,6 +168,26 @@
               <div><label>First Name</label><input type="text" name="first_name" required></div>
               <div><label>Last Name</label><input type="text" name="last_name" required></div>
               <div class="custom-popup-full"><label>Email</label><input type="email" name="email" required></div>
+              <div class="custom-popup-full">
+                <label>Phone Number</label>
+                <div class="phone-input-wrapper">
+                  <span class="country-prefix">+1</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="123 456 7890"
+                    required
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="waitlist-disclaimer" name="disclaimer_agreed" required>
+              <label for="waitlist-disclaimer"
+                >Adding a product to your waitlist will not reserve this product for you, you will only be notified when
+                the product is back in stock. To reserve this product, select pre-order instead.</label
+              >
             </div>
             <button type="submit" id="btn-submit-waitlist">Join Waitlist</button>
             <div id="status-waitlist" class="status-msg"></div>
