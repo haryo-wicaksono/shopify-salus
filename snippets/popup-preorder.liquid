@@ -243,8 +243,7 @@
     @media (max-width: 768px) {
       #popup-preorder .popup-layout {
         flex-direction: column;
-        {% comment %} gap: 20px; {% endcomment %}
-        gap: 10px;
+        gap: 15px;
       }
       #popup-preorder .popup-left {
         display: flex;
@@ -294,6 +293,10 @@
       .mobile-title {
         display: block;
       }
+      #popup-preorder .checkbox-wrapper label {
+        font-size: 11px;
+        margin-top: 5px;
+      }
       #popup-preorder .deposit-disclaimer {
         font-size: 11px;
       }
@@ -303,6 +306,9 @@
 
       #popup-preorder #btn-submit-preorder {
         margin-top: 15px;
+      }
+      .custom-popup-full label {
+        font-size: 12px;
       }
     }
   </style>
@@ -357,7 +363,7 @@
               <label for="preorder-tc">
                 I agree to the
                 <a href="/pages/terms-and-condition-of-pre-order" target="_blank" style="text-decoration: underline;">
-                  Terms and Conditions of the Pre-Order Policy </a
+                  Pre-Order Terms and Conditions</a
                 >.
               </label>
             </div>
