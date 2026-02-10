@@ -54,6 +54,7 @@
     #popup-preorder .popup-right {
       flex: 1.2;
       align-content: center;
+      border-bottom: 1px solid #eee;
     }
     #popup-preorder .popup-img {
       width: 100%;
@@ -235,7 +236,8 @@
     @media (max-width: 768px) {
       #popup-preorder .popup-layout {
         flex-direction: column;
-        gap: 20px;
+        {% comment %} gap: 20px; {% endcomment %}
+        gap: 10px;
       }
       #popup-preorder .popup-left {
         display: flex;
@@ -259,6 +261,21 @@
         display: flex;
         flex-direction: column;
       }
+      #popup-preorder .popup-right {
+        border-bottom: none;
+      }
+      #popup-preorder .popup-price {
+        margin-bottom: 0px;
+      }
+
+      #popup-preorder h3 {
+        font-size: 16px;
+        margin: 0px 0px 5px;
+      }
+
+      #popup-preorder .popup-price {
+        font-size: 14px;
+      }
     }
   </style>
 
@@ -277,7 +294,7 @@
         </div>
 
         <div class="popup-right">
-          <div style="text-align: center; margin-bottom: 20px; border-bottom: 1px solid #eee;">
+          <div style="text-align: center; margin-bottom: 20px;">
             <h2 style="margin-bottom: 5px;">
               Pre-order and secure your dream sauna<span style="color: #e74c3c;">*</span>
             </h2>

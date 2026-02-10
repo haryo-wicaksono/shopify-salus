@@ -89,14 +89,6 @@
       :root { --product-info-width: 400px !important; }
     }
   {%- endif -%}
-  {%- if product.metafields.custom.enable_preorder or product.metafields.custom.enable_waitlist -%}
-    @media screen and (max-width: 768px) {
-      .btn.w-full.send-us-email {
-        display: none !important;
-      }
-    }
-  {%- endif -%}
-  
 {%- endstyle -%}
 
 <style>
@@ -516,6 +508,32 @@
 
     .product-info__block.product-info__block--sm.product-info__delivery.flex {
       display: none !important;
+    }
+  </style>
+{%- endif -%}
+
+{%- if product.metafields.custom.enable_preorder or product.metafields.custom.enable_waitlist -%}
+  <style>
+    @media screen and (max-width: 768px) {
+      .btn.w-full.send-us-email {
+        display: none !important;
+      }
+
+      /* Waitlist button - outline style */
+      .product-questions-box button#btn-trigger-waitlist.extra-atc-btn {
+        background-color: #FFFFFF !important;
+        color: #1B8A81 !important;
+        border: 1px solid #1B8A81;
+      }
+
+      /* Waitlist button - hover/focus/active state */
+      .product-questions-box button#btn-trigger-waitlist.extra-atc-btn:focus,
+      .product-questions-box button#btn-trigger-waitlist.extra-atc-btn:active,
+      .product-questions-box button#btn-trigger-waitlist.extra-atc-btn:hover {
+        background-color: #1B8A81 !important;
+        border-color: #1B8A81 !important;
+        color: #FFFFFF !important;
+      }
     }
   </style>
 {%- endif -%}
