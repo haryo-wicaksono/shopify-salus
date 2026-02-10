@@ -185,6 +185,10 @@
       #popup-waitlist .custom-popup-full {
         grid-column: span 1;
       }
+      .title_subheading {
+        display: flex;
+        flex-direction: column;
+      }
     }
   </style>
 
@@ -196,8 +200,10 @@
           {% if product.featured_media -%}
             <img class="popup-img" src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.title }}">
           {%- endif %}
-          <h3>{{ product.title }}</h3>
-          <div class="popup-price">{{ product.price | money }}</div>
+          <div class="title_subheading">
+            <h3>{{ product.title }}</h3>
+            <div class="popup-price">{{ product.price | money }}</div>
+          </div>
         </div>
 
         <div class="popup-right">
@@ -289,6 +295,12 @@
           popup.style.display = 'none';
         });
       }
+
+      popup.addEventListener('click', (e) => {
+        if (e.target === popup) {
+          popup.style.display = 'none';
+        }
+      });
 
       if (form) {
         form.addEventListener('submit', (e) => {
