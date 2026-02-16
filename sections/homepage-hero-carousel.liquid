@@ -11,156 +11,158 @@
 {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
 {{ 'homepage-hero-carousel.css' | asset_url | stylesheet_tag }}
 
-<style>
-  /* --- VALENTINE'S DAY SPECIAL STYLES (CLICK VERSION) --- */
+{% comment %}
+  <style>
+    /* --- VALENTINE'S DAY SPECIAL STYLES (CLICK VERSION) --- */
 
-  /* 1. Base Styles for the Valentine Button */
-  .homepage-hero-carousel__button--primary.vday-special {
-    background-color: #fff0f2 !important;
-    color: #d6336c !important;
-    border: 2px solid #d6336c !important;
-    position: relative;
-    overflow: visible !important;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease !important;
-  }
-
-  /* 2. Hover State (Visual feedback only, NO confetti) */
-  .homepage-hero-carousel__button--primary.vday-special:hover {
-    background-color: #fff0f3 !important;
-    transform: scale(1.05);
-  }
-
-  /* 3. Force Arrow Icon Color */
-  .homepage-hero-carousel__button--primary.vday-special svg path {
-    fill: currentColor !important;
-  }
-
-  /* 4. Confetti Container */
-  .vday-confetti {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    pointer-events: none;
-    z-index: 100; /* High z-index to show above other elements */
-  }
-
-  .vday-confetti i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-    font-style: normal;
-    font-weight: bold;
-  }
-
-  /* --- CHANGED: Trigger Animation on '.is-popping' class, NOT hover --- */
-  .homepage-hero-carousel__button--primary.vday-special.is-popping .vday-confetti i {
-    animation: confettiPop 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-  }
-
-  /* Confetti Trajectories */
-  .vday-confetti i:nth-child(1) {
-    --tx: -90px;
-    --ty: -90px;
-    --r: -45deg;
-    color: #d6336c;
-    font-size: 20px;
-  }
-  .vday-confetti i:nth-child(2) {
-    --tx: -50px;
-    --ty: -120px;
-    --r: -20deg;
-    color: #ff8fa3;
-    font-size: 14px;
-  }
-  .vday-confetti i:nth-child(3) {
-    --tx: -120px;
-    --ty: -50px;
-    --r: -90deg;
-    color: #d6336c;
-    font-size: 24px;
-  }
-  .vday-confetti i:nth-child(4) {
-    --tx: 90px;
-    --ty: -90px;
-    --r: 45deg;
-    color: #ff8fa3;
-    font-size: 16px;
-  }
-  .vday-confetti i:nth-child(5) {
-    --tx: 60px;
-    --ty: -130px;
-    --r: 20deg;
-    color: #d6336c;
-    font-size: 22px;
-  }
-  .vday-confetti i:nth-child(6) {
-    --tx: 140px;
-    --ty: -40px;
-    --r: 80deg;
-    color: #ff8fa3;
-    font-size: 14px;
-  }
-  .vday-confetti i:nth-child(7) {
-    --tx: -80px;
-    --ty: 80px;
-    --r: -135deg;
-    color: #d6336c;
-    font-size: 18px;
-  }
-  .vday-confetti i:nth-child(8) {
-    --tx: -40px;
-    --ty: 120px;
-    --r: -160deg;
-    color: #ff8fa3;
-    font-size: 12px;
-  }
-  .vday-confetti i:nth-child(9) {
-    --tx: -130px;
-    --ty: 40px;
-    --r: -100deg;
-    color: #d6336c;
-    font-size: 20px;
-  }
-  .vday-confetti i:nth-child(10) {
-    --tx: 80px;
-    --ty: 80px;
-    --r: 135deg;
-    color: #ff8fa3;
-    font-size: 16px;
-  }
-  .vday-confetti i:nth-child(11) {
-    --tx: 40px;
-    --ty: 110px;
-    --r: 160deg;
-    color: #d6336c;
-    font-size: 22px;
-  }
-  .vday-confetti i:nth-child(12) {
-    --tx: 110px;
-    --ty: 30px;
-    --r: 110deg;
-    color: #ff8fa3;
-    font-size: 14px;
-  }
-
-  @keyframes confettiPop {
-    0% {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(0.5);
+    /* 1. Base Styles for the Valentine Button */
+    .homepage-hero-carousel__button--primary.vday-special {
+      background-color: #fff0f2 !important;
+      color: #d6336c !important;
+      border: 2px solid #d6336c !important;
+      position: relative;
+      overflow: visible !important;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease !important;
     }
-    50% {
-      opacity: 1;
+
+    /* 2. Hover State (Visual feedback only, NO confetti) */
+    .homepage-hero-carousel__button--primary.vday-special:hover {
+      background-color: #fff0f3 !important;
+      transform: scale(1.05);
     }
-    100% {
+
+    /* 3. Force Arrow Icon Color */
+    .homepage-hero-carousel__button--primary.vday-special svg path {
+      fill: currentColor !important;
+    }
+
+    /* 4. Confetti Container */
+    .vday-confetti {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      z-index: 100; /* High z-index to show above other elements */
+    }
+
+    .vday-confetti i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
       opacity: 0;
-      transform: translate(var(--tx), var(--ty)) scale(1.1) rotate(var(--r));
+      font-style: normal;
+      font-weight: bold;
     }
-  }
-</style>
+
+    /* --- CHANGED: Trigger Animation on '.is-popping' class, NOT hover --- */
+    .homepage-hero-carousel__button--primary.vday-special.is-popping .vday-confetti i {
+      animation: confettiPop 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    /* Confetti Trajectories */
+    .vday-confetti i:nth-child(1) {
+      --tx: -90px;
+      --ty: -90px;
+      --r: -45deg;
+      color: #d6336c;
+      font-size: 20px;
+    }
+    .vday-confetti i:nth-child(2) {
+      --tx: -50px;
+      --ty: -120px;
+      --r: -20deg;
+      color: #ff8fa3;
+      font-size: 14px;
+    }
+    .vday-confetti i:nth-child(3) {
+      --tx: -120px;
+      --ty: -50px;
+      --r: -90deg;
+      color: #d6336c;
+      font-size: 24px;
+    }
+    .vday-confetti i:nth-child(4) {
+      --tx: 90px;
+      --ty: -90px;
+      --r: 45deg;
+      color: #ff8fa3;
+      font-size: 16px;
+    }
+    .vday-confetti i:nth-child(5) {
+      --tx: 60px;
+      --ty: -130px;
+      --r: 20deg;
+      color: #d6336c;
+      font-size: 22px;
+    }
+    .vday-confetti i:nth-child(6) {
+      --tx: 140px;
+      --ty: -40px;
+      --r: 80deg;
+      color: #ff8fa3;
+      font-size: 14px;
+    }
+    .vday-confetti i:nth-child(7) {
+      --tx: -80px;
+      --ty: 80px;
+      --r: -135deg;
+      color: #d6336c;
+      font-size: 18px;
+    }
+    .vday-confetti i:nth-child(8) {
+      --tx: -40px;
+      --ty: 120px;
+      --r: -160deg;
+      color: #ff8fa3;
+      font-size: 12px;
+    }
+    .vday-confetti i:nth-child(9) {
+      --tx: -130px;
+      --ty: 40px;
+      --r: -100deg;
+      color: #d6336c;
+      font-size: 20px;
+    }
+    .vday-confetti i:nth-child(10) {
+      --tx: 80px;
+      --ty: 80px;
+      --r: 135deg;
+      color: #ff8fa3;
+      font-size: 16px;
+    }
+    .vday-confetti i:nth-child(11) {
+      --tx: 40px;
+      --ty: 110px;
+      --r: 160deg;
+      color: #d6336c;
+      font-size: 22px;
+    }
+    .vday-confetti i:nth-child(12) {
+      --tx: 110px;
+      --ty: 30px;
+      --r: 110deg;
+      color: #ff8fa3;
+      font-size: 14px;
+    }
+
+    @keyframes confettiPop {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(1.1) rotate(var(--r));
+      }
+    }
+  </style>
+{% endcomment %}
 
 <section
   class="homepage-hero-carousel"
@@ -235,20 +237,28 @@
                       {% endif %}
                     {% endcomment %}
                     {% if block.settings.button1_link != blank and block.settings.button1_text != blank %}
+                      {% comment %}
+                        <a
+                          href="{{ block.settings.button1_link }}"
+                          class="homepage-hero-carousel__button homepage-hero-carousel__button--primary {% if forloop.first %}vday-special{% endif %}"
+                        >
+                      {% endcomment %}
                       <a
                         href="{{ block.settings.button1_link }}"
-                        class="homepage-hero-carousel__button homepage-hero-carousel__button--primary {% if forloop.first %}vday-special{% endif %}"
+                        class="homepage-hero-carousel__button homepage-hero-carousel__button--primary"
                       >
                         {{ block.settings.button1_text }}
                         {% if block.settings.show_button1_arrow %}{% render 'icon-arrow-right-cta' %}{% endif %}
 
                         {% comment %} VALENTINE'S DAY CONFETTI - ONLY FOR FIRST SLIDE {% endcomment %}
-                        {% if forloop.first %}
-                          <div class="vday-confetti">
-                            <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i>
-                            <i>♥</i> <i>♡</i>
-                          </div>
-                        {% endif %}
+                        {% comment %}
+                          {% if forloop.first %}
+                            <div class="vday-confetti">
+                              <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i>
+                              <i>♥</i> <i>♡</i>
+                            </div>
+                          {% endif %}
+                        {% endcomment %}
                       </a>
                     {% endif %}
                     {% if block.settings.button2_link != blank and block.settings.button2_text != blank %}
