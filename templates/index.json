@@ -351,6 +351,16 @@
         "section_padding_bottom_mobile": 0
       }
     },
+    "upcoming_products_6w3aBU": {
+      "type": "upcoming-products",
+      "name": "Upcoming Products",
+      "settings": {
+        "title": "Upcoming Releases",
+        "description": "<p>Upvote your favorite upcoming products to get notified when they launch!</p>",
+        "collection": "all",
+        "products_to_show": 8
+      }
+    },
     "homepage_sauna_value_proposition_hFfREm": {
       "type": "homepage-sauna-value-proposition",
       "blocks": {
@@ -959,6 +969,7 @@
     "products_card_section_PzCHqp",
     "products_card_section_YF9fnK",
     "homepage_reviews_slider_2_gCdyWL",
+    "upcoming_products_6w3aBU",
     "homepage_sauna_value_proposition_hFfREm",
     "logo_list_DaqLFK",
     "homepage_featured_in_logos_dxK7jf",
