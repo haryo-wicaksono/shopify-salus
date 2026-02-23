@@ -22,7 +22,7 @@
     "main": {
       "type": "main-blog",
       "settings": {
-        "topics": ",",
+        "topics": "",
         "show_blog_title": false,
         "description": "",
         "show_share_links": false,
