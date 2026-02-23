@@ -593,6 +593,12 @@
         </div>
       </div>
 
+{%- liquid
+  assign is_upcoming = false
+  if product.metafields.custom.enable_upcoming == true or product.handle == 'horizon-6-person-barrel-sauna'
+    assign is_upcoming = true
+  endif
+-%}
       {%- if settings.enable_quick_add and disable_quickbuy != true and enable_quick_add != true -%}
         <div
           class="
@@ -606,9 +612,25 @@
             {% if settings.card_atc_desktop == "icon" %}desktop:card__quick-add--icon{% endif %}
           "
         >
-          {%- assign product_form_id = 'quick-add-' | append: section_id | append: product.id -%}
-
-          {%- if product.has_only_default_variant and product_not_for_sale == false -%}
+          {%- if is_upcoming -%}
+            <div class="card__quick-add-btn">
+              <button
+                type="button"
+                class="btn btn--primary w-full product-atc-btn js-btn-upcoming-trigger"
+                data-product-id="{{ product.id }}"
+                data-product-title="{{ product.title | escape }}"
+                data-product-image="{{ product.featured_media | img_url: '500x' }}"
+              >
+                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 8px;">
+                  {%- render 'upvote-icon' -%}
+                  <span style="display: block;">Upvote</span>
+                </div>
+              </button>
+            </div>
+            <a href="{{ product_url }}" class="btn btn--secondary quick-add-view-btn">
+              {{- 'products.product.view_details' | t -}}
+            </a>
+          {%- elsif product.has_only_default_variant and product_not_for_sale == false -%}
             <product-form>
               <div class="alert mb-8 bg-error-bg text-error-text js-form-error text-start" role="alert" hidden></div>
               {%- form 'product', product, class: 'js-product-form', id: product_form_id, novalidate: 'novalidate' -%}
@@ -646,6 +668,24 @@
                 </a>
               {%- endform -%}
             </product-form>
+          {%- elsif is_upcoming -%}
+            <div class="card__quick-add-btn">
+              <button
+                type="button"
+                class="btn btn--primary w-full product-atc-btn js-btn-upcoming-trigger"
+                data-product-id="{{ product.id }}"
+                data-product-title="{{ product.title | escape }}"
+                data-product-image="{{ product.featured_media | img_url: '500x' }}"
+              >
+                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 8px;">
+                  {%- render 'upvote-icon' -%}
+                  <span style="display: block;">Upvote</span>
+                </div>
+              </button>
+            </div>
+            <a href="{{ product_url }}" class="btn btn--secondary quick-add-view-btn">
+              {{- 'products.product.view_details' | t -}}
+            </a>
           {%- else -%}
             <div class="no-js-hidden">
               <button

@@ -1672,8 +1672,20 @@
                   </button>
                 {%- endif -%}
 
-                {%- if product.metafields.custom.enable_upcoming == true -%}
-                  <button type="button" id="btn-trigger-upcoming" class="btn w-full extra-atc-btn">
+                {%- liquid
+                  assign is_upcoming = false
+                  if product.metafields.custom.enable_upcoming == true or product.handle == 'horizon-6-person-barrel-sauna'
+                    assign is_upcoming = true
+                  endif
+                -%}
+                {%- if is_upcoming -%}
+                  <button
+                    type="button"
+                    class="btn w-full extra-atc-btn js-btn-upcoming-trigger"
+                    data-product-id="{{ product.id }}"
+                    data-product-title="{{ product.title | escape }}"
+                    data-product-image="{{ product.featured_media | img_url: '500x' }}"
+                  >
                     <div style="display: flex; flex-direction: row; justify-content: center;">
                       {%- render 'upvote-icon' -%}
                       <span style="display: block;">Upvote</span>

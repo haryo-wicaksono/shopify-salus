@@ -1,0 +1,142 @@
+<style>
+  .upcoming-carousel .product-card {
+    position: relative;
+  }
+  .upcoming-carousel .coming-soon-label {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background-color: #fbf2e9;
+    color: #222120;
+    font-weight: 600;
+    border-radius: 100px;
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+  }
+  .upcoming-carousel .product-image-wrapper {
+    background-color: #fbf2e9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .upcoming-carousel .product-info {
+    padding: 20px 0;
+  }
+  .upcoming-carousel .product-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: block;
+    color: #222120;
+    text-decoration: none;
+  }
+  /* Reuse existing carousel styles from product-carousel.css */
+</style>
+
+{{ 'product-carousel.css' | asset_url | stylesheet_tag }}
+
+<div class="carousel-background-wrapper upcoming-carousel">
+  <div class="carousel-section mx-auto">
+    <div class="carousel-header">
+      <div class="header-left">
+        <h2>{{ section.settings.title }}</h2>
+      </div>
+      <div class="header-right">
+        {%- if section.settings.description != blank -%}
+           <div class="rte">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+    
+    <div class="carousel-container">
+      <div class="carousel-track">
+        {%- assign collection = section.settings.collection -%}
+        {%- assign upcoming_count = 0 -%}
+        
+        {%- for product in collection.products -%}
+          {%- liquid
+            assign is_upcoming = false
+            if product.metafields.custom.enable_upcoming == true or product.handle == 'horizon-6-person-barrel-sauna'
+              assign is_upcoming = true
+            endif
+          -%}
+          
+          {%- if is_upcoming -%}
+            {%- assign upcoming_count = upcoming_count | plus: 1 -%}
+            <div class="product-card">
+              <div class="product-image-wrapper">
+                <a href="{{ product.url }}">
+                  <img
+                    src="{{ product.featured_image | image_url: width: 600 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    width="600"
+                    height="{{ 600 | divided_by: product.featured_image.aspect_ratio | round }}"
+                    loading="lazy"
+                    class="w-full h-full object-cover"
+                  >
+                </a>
+                <span class="badge release-badge">✦ Upcoming</span>
+              </div>
+              
+              <div class="product-info">
+                <a href="{{ product.url }}" class="product-title">{{ product.title }}</a>
+                
+                <div class="product-ext-tags">
+                  <span class="free-shipping-tag">Free Shipping</span>
+                  <span class="pd-delivery">{{ product.metafields.custom.delivery | default: 'Coming Soon' }} Delivery</span>
+                </div>
+
+                <div class="coming-soon-label">Coming Soon</div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if upcoming_count == 0 -%}
+           <div class="product-card--empty">
+            <p>No upcoming products found in the selected collection.</p>
+          </div>
+        {%- endif -%}
+      </div>
+      
+      {%- if upcoming_count > 1 -%}
+        <button class="carousel-arrow arrow-left" aria-label="Previous">❮</button>
+        <button class="carousel-arrow arrow-right" aria-label="Next">❯</button>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'product-carousel.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Upcoming Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Upcoming Releases"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "default": "all",
+      "info": "Select a collection to filter for 'Upcoming' products."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Upcoming Carousel"
+    }
+  ]
+}
+{% endschema %}

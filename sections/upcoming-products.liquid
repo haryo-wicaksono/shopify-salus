@@ -1,0 +1,142 @@
+{%- if section.index > 2 -%}
+  <link rel="stylesheet" href="{{ 'featured-collection.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="{{ 'product.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- else -%}
+  {{ 'featured-collection.css' | asset_url | stylesheet_tag }}
+  {{ 'product.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- if settings.enable_quick_add -%}
+  <link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'variant-picker.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'custom-select.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- liquid
+  assign collection = section.settings.collection
+
+  assign carousel_mobile_cols = 'grid-flow-col auto-cols-2 small-cards-mobile'
+  assign grid_mobile_cols = 'grid-cols-2 small-cards-mobile'
+  
+  assign carousel_desktop_small = ' md:auto-cols-3 lg:auto-cols-4 xl:auto-cols-5 small-cards-desktop'
+  assign grid_desktop_small = ' md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 small-cards-desktop'
+
+  assign grid_classes = carousel_mobile_cols | append: carousel_desktop_small
+  assign carousel = true
+
+  assign image_ratio = settings.prod_card_image_ratio
+-%}
+
+<div class="section">
+  {%- if section.settings.title != blank -%}
+    <div class="container">
+      <div class="section__header items-center flex flex-col text-center gap-x-theme"{% if settings.animations_enabled != "disabled" %} data-cc-animate{% endif %}>
+        <h2 class="h4 mb-0 flex-auto section__heading text-center">
+          {{- section.settings.title | escape -}}
+        </h2>
+        {%- if section.settings.description != blank -%}
+          <div class="rte mt-4 mb-8 text-center max-w-2xl mx-auto">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <carousel-slider class="carousel block" inactive>
+    <div class="container relative featured-collection-products">
+      <div class="slider" id="slider-{{ section.id }}">
+        <div class="container products-grid-container shrink-0">
+          <ul class="slider__grid grid {{ grid_classes }} gap-x-theme gap-y-8" role="list">
+            {%- assign upcoming_count = 0 -%}
+            {%- for product in collection.products -%}
+              {%- liquid
+                assign is_upcoming = false
+                if product.metafields.custom.enable_upcoming == true or product.handle == 'horizon-6-person-barrel-sauna'
+                  assign is_upcoming = true
+                endif
+              -%}
+              {%- if is_upcoming -%}
+                {%- assign upcoming_count = upcoming_count | plus: 1 -%}
+                <li class="slider__item"{% if settings.animations_enabled != "disabled" %} data-cc-animate data-cc-animate-delay="{{ upcoming_count | times: 0.07 }}s"{% endif %}>
+                  {% render 'product-card', product: product, collection: collection, image_ratio: image_ratio %}
+                </li>
+                {%- if upcoming_count >= section.settings.products_to_show -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if upcoming_count == 0 -%}
+              {%- for i in (1..section.settings.products_to_show) -%}
+                <li class="slider__item">
+                  {% render 'product-card', product: "", image_ratio: image_ratio %}
+                </li>
+              {%- endfor -%}
+            {%- endif -%}
+          </ul>
+        </div>
+      </div>
+
+      {%- if settings.slider_show_arrows != 'never' -%}
+        <div class="slider-nav absolute top-middle end {% if settings.slider_show_arrows == 'hover' %}slider-nav--show-on-hover no-hover-hidden {% endif %}hidden md:block no-js-hidden">
+          <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="next" aria-controls="slider-{{ section.id }}">
+            <span class="visually-hidden">{{ 'general.slider.next' | t }}</span>
+            {% render 'icon-chevron-right' %}
+          </button>
+          <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="prev" aria-controls="slider-{{ section.id }}">
+            <span class="visually-hidden">{{ 'general.slider.previous' | t }}</span>
+            {% render 'icon-chevron-left' %}
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+  </carousel-slider>
+</div>
+
+{% schema %}
+{
+  "name": "Upcoming Products",
+  "tag": "section",
+  "class": "cc-upcoming-products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Upcoming Releases"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Upvote your favorite upcoming products to get notified when they launch!</p>"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select a collection to filter for 'Upcoming' products."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Maximum products to show",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Upcoming Products",
+      "settings": {
+        "title": "Upcoming Releases"
+      }
+    }
+  ]
+}
+{% endschema %}
