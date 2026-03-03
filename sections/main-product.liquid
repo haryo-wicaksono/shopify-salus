@@ -779,21 +779,23 @@
               {% endif %}
 
             {% when 'pay_hsa_fsa' %}
-              <div
-                class="product-info__block product-info__block--sm product-info__pay"
-              >
-                {% render 'affirm-messaging' %}
+              {%- unless product.metafields.custom.enable_upcoming == true -%}
                 <div
-                  id="truemed-prequalify"
-                  style="font-size: 14px; text-align:center;"
-                  icon-height="12"
-                  data-public-id="tm_qual_5nnmm2nfwj"
-                ></div>
-                <script
-                  src="https://truemed-public.s3.us-west-1.amazonaws.com/truemed-ads/prequal-widget.min.js"
-                  defer
-                ></script>
-              </div>
+                  class="product-info__block product-info__block--sm product-info__pay"
+                >
+                  {% render 'affirm-messaging' %}
+                  <div
+                    id="truemed-prequalify"
+                    style="font-size: 14px; text-align:center;"
+                    icon-height="12"
+                    data-public-id="tm_qual_5nnmm2nfwj"
+                  ></div>
+                  <script
+                    src="https://truemed-public.s3.us-west-1.amazonaws.com/truemed-ads/prequal-widget.min.js"
+                    defer
+                  ></script>
+                </div>
+              {%- endunless -%}
             {% when 'copy_link' %}
               <div
                 class="product-info__block product-info__block--sm product-info__copy-link"
@@ -1014,7 +1016,7 @@
                       </div>
                     </div>
 
-                    {%- if enable_dynamic_checkout -%}
+                    {%- if enable_dynamic_checkout and product.metafields.custom.enable_upcoming != true -%}
                       <div class="dynamic-checkout-btn">
                         <button
                           type="button"

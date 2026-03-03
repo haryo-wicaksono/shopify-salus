@@ -545,9 +545,11 @@
         {%- endif -%}
       </div>
     </a>
-    <div class="collection-page-main-sauna-feature-item__financing">
-      {% render 'affirm-messaging', product: product %}
-    </div>
+    {%- unless is_upcoming_product -%}
+      <div class="collection-page-main-sauna-feature-item__financing">
+        {% render 'affirm-messaging', product: product %}
+      </div>
+    {%- endunless -%}
   </product-card>
 {%- else -%}
   <div class="card">
