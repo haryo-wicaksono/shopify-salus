@@ -1,2 +1,6 @@
 repomix*
 tmux*
+.claude/
+.codex/
+.gemini/
+openspec/
