@@ -97,6 +97,11 @@
   elsif product.template_suffix contains 'countdown'
     assign card_class = ' card--product-countdown'
   endif
+
+  assign is_upcoming_product = false
+  if product.metafields.custom.enable_upcoming == true
+    assign is_upcoming_product = true
+  endif
 -%}
 
 <link
@@ -371,7 +376,7 @@
               </div>
             {% endif %}
 
-            {%- if settings.card_price_bottom == false -%}
+            {%- if settings.card_price_bottom == false and is_upcoming_product == false -%}
               {%- render 'price', product: product, class: 'price--top' -%}
             {%- endif -%}
 
@@ -448,7 +453,7 @@
               {%- endunless -%}
             {%- endif -%}
 
-            {%- if settings.card_price_bottom -%}
+            {%- if settings.card_price_bottom and is_upcoming_product == false -%}
               <div class="flex grow items-end">
                 {%- render 'price', product: product, class: 'price--bottom' -%}
               </div>
