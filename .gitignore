@@ -3,4 +3,6 @@ tmux*
 .claude/
 .codex/
 .gemini/
+.agent/
 openspec/
+GEMINI.md
