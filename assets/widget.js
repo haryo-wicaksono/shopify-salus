@@ -5,6 +5,7 @@
   const BACKEND_FALLBACK = 'https://chat.salussaunastech.com';
   const STORAGE_KEY = 'salus_session_id';
   const POLL_INTERVAL_MS = 3000;
+  const BOT_STATUS_POLL_INTERVAL_MS = 10000;
   const MOBILE_BREAKPOINT = 600;
   const SYSTEM_CONNECTING_MESSAGE = 'Connecting you to our sales team...';
 
@@ -145,6 +146,11 @@
         linear-gradient(180deg, #f8fafc 0%, #f3f4f6 100%);
     }
 
+    .salus-widget--identity-required .salus-widget__messages,
+    .salus-widget--identity-required .salus-widget__composer {
+      display: none;
+    }
+
     .salus-widget__messages {
       flex: 1;
       min-height: 0;
@@ -165,6 +171,62 @@
       border-radius: 16px;
       background: rgba(255, 255, 255, 0.82);
       border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .salus-widget__identity-screen {
+      display: none;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+    }
+
+    .salus-widget--identity-required .salus-widget__identity-screen {
+      display: flex;
+    }
+
+    .salus-widget__identity-card {
+      width: 100%;
+      max-width: 320px;
+      padding: 24px 20px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 20px 44px rgba(15, 23, 42, 0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .salus-widget__identity-eyebrow {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.2;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #0f766e;
+      font-weight: 700;
+    }
+
+    .salus-widget__identity-title {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+      color: #111827;
+      font-weight: 700;
+    }
+
+    .salus-widget__identity-copy {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #475467;
+    }
+
+    .salus-widget__identity-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .salus-widget__message {
@@ -302,6 +364,12 @@
     .salus-widget__field:focus {
       border-color: #0f766e;
       box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+    }
+
+    .salus-widget__composer {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .salus-widget__actions {
@@ -463,17 +531,26 @@
             <div class="salus-widget__messages" aria-live="polite" aria-atomic="false">
               <div class="salus-widget__disclaimer">AI assistant — responses may not always be accurate</div>
             </div>
+            <div class="salus-widget__identity-screen">
+              <div class="salus-widget__identity-card">
+                <p class="salus-widget__identity-eyebrow">Before we start</p>
+                <h3 class="salus-widget__identity-title">Tell us where to reach you</h3>
+                <p class="salus-widget__identity-copy">We use your details to personalize the chat and make it easy for sales to follow up when needed.</p>
+                <form class="salus-widget__identity-form" novalidate>
+                  <input class="salus-widget__field salus-widget__identity-name" name="visitor_name" type="text" placeholder="Your name" required>
+                  <input class="salus-widget__field salus-widget__identity-email" name="visitor_email" type="email" placeholder="Email address" required>
+                  <button type="submit" class="salus-widget__button salus-widget__button--submit">Start chatting</button>
+                </form>
+              </div>
+            </div>
             <div class="salus-widget__footer">
               <div class="salus-widget__status" role="status"></div>
-              <form class="salus-widget__handoff" novalidate>
-                <input class="salus-widget__field salus-widget__handoff-name" name="name" type="text" placeholder="Your name" required>
-                <input class="salus-widget__field salus-widget__handoff-email" name="email" type="email" placeholder="Email address" required>
-                <button type="submit" class="salus-widget__button salus-widget__button--submit">Request handoff</button>
-              </form>
-              <button type="button" class="salus-widget__button salus-widget__button--ghost salus-widget__handoff-toggle">Talk to a human</button>
-              <div class="salus-widget__actions">
-                <textarea class="salus-widget__textarea" rows="1" placeholder="Ask about any sauna, feature, or setup"></textarea>
-                <button type="button" class="salus-widget__button salus-widget__button--send" aria-label="Send message">Send</button>
+              <div class="salus-widget__composer">
+                <button type="button" class="salus-widget__button salus-widget__button--ghost salus-widget__handoff-toggle">Talk to a human</button>
+                <div class="salus-widget__actions">
+                  <textarea class="salus-widget__textarea" rows="1" placeholder="Ask about any sauna, feature, or setup"></textarea>
+                  <button type="button" class="salus-widget__button salus-widget__button--send" aria-label="Send message">Send</button>
+                </div>
               </div>
               <button type="button" class="salus-widget__restart">Start new conversation</button>
             </div>
@@ -493,13 +570,14 @@
       bubble: shadow.querySelector('.salus-widget__bubble'),
       close: shadow.querySelector('.salus-widget__close'),
       messages: shadow.querySelector('.salus-widget__messages'),
+      identityForm: shadow.querySelector('.salus-widget__identity-form'),
+      identityName: shadow.querySelector('.salus-widget__identity-name'),
+      identityEmail: shadow.querySelector('.salus-widget__identity-email'),
       status: shadow.querySelector('.salus-widget__status'),
       textarea: shadow.querySelector('.salus-widget__textarea'),
       send: shadow.querySelector('.salus-widget__button--send'),
+      composer: shadow.querySelector('.salus-widget__composer'),
       handoffToggle: shadow.querySelector('.salus-widget__handoff-toggle'),
-      handoffForm: shadow.querySelector('.salus-widget__handoff'),
-      handoffName: shadow.querySelector('.salus-widget__handoff-name'),
-      handoffEmail: shadow.querySelector('.salus-widget__handoff-email'),
       restart: shadow.querySelector('.salus-widget__restart'),
     };
 
@@ -511,11 +589,14 @@
       sessionId: null,
       isStreaming: false,
       pollTimer: null,
+      backgroundPollTimer: null,
       renderedServerMessageCount: 0,
       optimisticQueue: [],
       typingNode: null,
       activeAssistantBody: null,
       viewportHandler: null,
+      visitorName: '',
+      visitorEmail: '',
     };
 
     function getSessionStorage() {
@@ -549,6 +630,24 @@
 
     function setSessionStatus(nextStatus) {
       state.sessionStatus = nextStatus || 'bot';
+    }
+
+    function hasVisitorIdentity() {
+      return Boolean(state.visitorName && state.visitorEmail);
+    }
+
+    function setVisitorIdentity(name, email) {
+      state.visitorName = (name || '').trim();
+      state.visitorEmail = (email || '').trim();
+      elements.identityName.value = state.visitorName;
+      elements.identityEmail.value = state.visitorEmail;
+    }
+
+    function syncIdentityFromSession(session) {
+      if (!session) return;
+      if (session.visitor_name || session.visitor_email) {
+        setVisitorIdentity(session.visitor_name || state.visitorName, session.visitor_email || state.visitorEmail);
+      }
     }
 
     function openWidget() {
@@ -699,15 +798,14 @@
     }
 
     function updateControls() {
-      const inputDisabled = state.isStreaming || state.sessionStatus === 'closed';
+      const identityRequired = !hasVisitorIdentity() && state.sessionStatus !== 'closed';
+      const inputDisabled = identityRequired || state.isStreaming || state.sessionStatus === 'closed';
       elements.textarea.disabled = inputDisabled;
       elements.send.disabled = inputDisabled;
+      elements.root.classList.toggle('salus-widget--identity-required', identityRequired);
 
-      const showHandoff = state.sessionStatus === 'bot';
+      const showHandoff = state.sessionStatus === 'bot' && !identityRequired;
       elements.handoffToggle.style.display = showHandoff ? 'inline-flex' : 'none';
-      if (!showHandoff) {
-        elements.handoffForm.classList.remove('is-visible');
-      }
 
       elements.restart.classList.toggle('is-visible', state.sessionStatus === 'closed');
 
@@ -729,6 +827,30 @@
       }
     }
 
+    function stopBackgroundPolling() {
+      if (state.backgroundPollTimer) {
+        window.clearInterval(state.backgroundPollTimer);
+        state.backgroundPollTimer = null;
+      }
+    }
+
+    function updatePollingStrategy() {
+      if (state.isStreaming || !state.sessionId || state.sessionStatus === 'closed') {
+        stopPolling();
+        stopBackgroundPolling();
+        return;
+      }
+
+      if (state.sessionStatus === 'waiting_for_human' || state.sessionStatus === 'human') {
+        stopBackgroundPolling();
+        startPolling();
+        return;
+      }
+
+      stopPolling();
+      startBackgroundPolling();
+    }
+
     async function fetchSession(sessionId) {
       const response = await fetch(state.backendUrl + '/api/sessions/' + encodeURIComponent(sessionId), {
         method: 'GET',
@@ -744,6 +866,26 @@
 
       if (!response.ok) {
         throw new Error('SESSION_FETCH_FAILED');
+      }
+
+      return response.json();
+    }
+
+    async function createSessionWithIdentity(name, email) {
+      const response = await fetch(state.backendUrl + '/api/sessions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          visitor_name: name,
+          visitor_email: email,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('SESSION_CREATE_FAILED');
       }
 
       return response.json();
@@ -796,6 +938,7 @@
       if (nextStatus === 'closed') {
         setUiState('CLOSED');
         stopPolling();
+        stopBackgroundPolling();
         saveSessionId(null);
       } else if (nextStatus === 'waiting_for_human' || nextStatus === 'human') {
         setUiState('HANDOFF');
@@ -806,12 +949,11 @@
         setUiState('STREAMING');
       } else if (state.sessionId) {
         setUiState('READY');
-        stopPolling();
       } else {
         setUiState('IDLE');
-        stopPolling();
       }
 
+      updatePollingStrategy();
       updateControls();
     }
 
@@ -827,11 +969,9 @@
 
       try {
         const session = await fetchSession(storedSessionId);
+        syncIdentityFromSession(session);
         renderServerMessages(session.messages || [], { reset: true });
         handleSessionStatus(session.status, { skipPollingStart: true });
-        if (state.sessionStatus === 'waiting_for_human' || state.sessionStatus === 'human') {
-          startPolling();
-        }
       } catch (error) {
         if (error.message === 'SESSION_NOT_FOUND') {
           clearMessages();
@@ -849,10 +989,11 @@
 
       try {
         const session = await fetchSession(state.sessionId);
+        syncIdentityFromSession(session);
         state.renderedServerMessageCount = session.messages ? session.messages.length : state.renderedServerMessageCount;
         if (session.status === 'waiting_for_human' || session.status === 'human') {
-          handleSessionStatus(session.status);
           renderServerMessages(session.messages || [], { reset: true });
+          handleSessionStatus(session.status);
         } else if (session.status === 'closed') {
           renderServerMessages(session.messages || [], { reset: true });
           handleSessionStatus('closed');
@@ -870,6 +1011,7 @@
 
       try {
         const session = await fetchSession(state.sessionId);
+        syncIdentityFromSession(session);
         renderServerMessages(session.messages || []);
 
         if (session.status === 'closed') {
@@ -895,10 +1037,44 @@
       }, POLL_INTERVAL_MS);
     }
 
+    async function backgroundStatusCheck() {
+      if (!state.sessionId || state.isStreaming || state.sessionStatus !== 'bot') return;
+
+      try {
+        const session = await fetchSession(state.sessionId);
+        syncIdentityFromSession(session);
+
+        if (session.status === 'waiting_for_human' || session.status === 'human') {
+          renderServerMessages(session.messages || [], { reset: true });
+          handleSessionStatus(session.status);
+          return;
+        }
+
+        if (session.status === 'closed') {
+          renderServerMessages(session.messages || [], { reset: true });
+          handleSessionStatus('closed');
+        }
+      } catch (error) {
+        if (error.message === 'SESSION_NOT_FOUND') {
+          clearMessages();
+          handleSessionStatus('bot', { skipPollingStart: true });
+        }
+      }
+    }
+
+    function startBackgroundPolling() {
+      if (!state.sessionId || state.backgroundPollTimer || state.isStreaming || state.sessionStatus !== 'bot') return;
+      state.backgroundPollTimer = window.setInterval(function () {
+        backgroundStatusCheck().catch(function () {});
+      }, BOT_STATUS_POLL_INTERVAL_MS);
+    }
+
     function resetConversation() {
       stopPolling();
+      stopBackgroundPolling();
       saveSessionId(null);
       clearMessages();
+      setVisitorIdentity('', '');
       setSessionStatus('bot');
       setUiState('IDLE');
       state.isStreaming = false;
@@ -909,7 +1085,7 @@
       openWidget();
     }
 
-    async function requestHandoff(name, email) {
+    async function requestHandoff() {
       if (!state.sessionId) {
         setStatusMessage('Send a message first so we can attach the handoff to your conversation.');
         return;
@@ -922,14 +1098,15 @@
             'Content-Type': 'application/json',
             Accept: 'application/json',
           },
-          body: JSON.stringify({ name: name, email: email }),
+          body: JSON.stringify({
+            name: state.visitorName || null,
+            email: state.visitorEmail || null,
+          }),
         });
 
         if (response.status !== 200 && response.status !== 409) {
           throw new Error('HANDOFF_FAILED');
         }
-
-        elements.handoffForm.classList.remove('is-visible');
 
         if (response.status === 200) {
           appendSystemMessage(SYSTEM_CONNECTING_MESSAGE);
@@ -1001,7 +1178,7 @@
 
     async function sendMessage(messageText) {
       const text = messageText.trim();
-      if (!text || state.isStreaming || state.sessionStatus === 'closed') return;
+      if (!text || state.isStreaming || state.sessionStatus === 'closed' || !hasVisitorIdentity() || !state.sessionId) return;
 
       openWidget();
       setStatusMessage('');
@@ -1014,6 +1191,7 @@
 
       state.isStreaming = true;
       setUiState('STREAMING');
+      updatePollingStrategy();
       updateControls();
 
       if (shouldShowTyping) {
@@ -1021,10 +1199,10 @@
       }
 
       try {
-        const body = { message: text };
-        if (state.sessionId) {
-          body.session_id = state.sessionId;
-        }
+        const body = {
+          message: text,
+          session_id: state.sessionId,
+        };
 
         const response = await fetch(state.backendUrl + '/api/chat/stream', {
           method: 'POST',
@@ -1077,6 +1255,7 @@
           setUiState('HANDOFF');
         }
 
+        updatePollingStrategy();
         updateControls();
         await postStreamStatusCheck();
       }
@@ -1128,25 +1307,36 @@
     elements.textarea.addEventListener('keydown', handleTextareaKeydown);
     elements.send.addEventListener('click', handleSendClick);
     elements.handoffToggle.addEventListener('click', function () {
-      elements.handoffForm.classList.toggle('is-visible');
-      if (elements.handoffForm.classList.contains('is-visible')) {
-        elements.handoffName.focus();
-      }
+      requestHandoff().catch(function () {});
     });
-    elements.handoffForm.addEventListener('submit', function (event) {
+    elements.identityForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      const name = elements.handoffName.value.trim();
-      const email = elements.handoffEmail.value.trim();
+      const name = elements.identityName.value.trim();
+      const email = elements.identityEmail.value.trim();
       if (!name || !email) {
-        setStatusMessage('Please add your name and email so our team can follow up.');
+        setStatusMessage('Please add your name and email so we can start the conversation.');
         return;
       }
-      if (!elements.handoffEmail.checkValidity()) {
+      if (!elements.identityEmail.checkValidity()) {
         setStatusMessage('Please enter a valid email address.');
-        elements.handoffEmail.focus();
+        elements.identityEmail.focus();
         return;
       }
-      requestHandoff(name, email).catch(function () {});
+
+      createSessionWithIdentity(name, email)
+        .then(function (session) {
+          setVisitorIdentity(name, email);
+          saveSessionId(session.session_id);
+          syncIdentityFromSession(session);
+          state.renderedServerMessageCount = Array.isArray(session.messages) ? session.messages.length : 0;
+          handleSessionStatus(session.status || 'bot', { skipPollingStart: true });
+          setStatusMessage('');
+          updateControls();
+          elements.textarea.focus();
+        })
+        .catch(function () {
+          setStatusMessage('Unable to start the chat right now. Please try again.');
+        });
     });
     elements.restart.addEventListener('click', resetConversation);
 
