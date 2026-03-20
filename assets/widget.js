@@ -449,7 +449,7 @@
     const shadow = host.attachShadow({ mode: 'open' });
     shadow.innerHTML = `
       <style>${WIDGET_STYLE}</style>
-      <div class="salus-widget" data-state="closed">
+      <div class="salus-widget">
         <div class="salus-widget__panel" aria-hidden="true">
           <div class="salus-widget__header">
             <div class="salus-widget__header-copy">
@@ -780,7 +780,7 @@
         if (message.role === 'system') {
           appendSystemMessage(message.content);
         } else if (message.role === 'assistant') {
-          appendMessage('assistant', message.content, message.sender_name || '');
+          appendMessage('assistant', message.content, message.sender_name || null);
         } else {
           appendMessage('user', message.content);
         }
@@ -1139,6 +1139,11 @@
       const email = elements.handoffEmail.value.trim();
       if (!name || !email) {
         setStatusMessage('Please add your name and email so our team can follow up.');
+        return;
+      }
+      if (!elements.handoffEmail.checkValidity()) {
+        setStatusMessage('Please enter a valid email address.');
+        elements.handoffEmail.focus();
         return;
       }
       requestHandoff(name, email).catch(function () {});
