@@ -5,7 +5,7 @@
   const BACKEND_FALLBACK = 'https://chat.salussaunastech.com';
   const STORAGE_KEY = 'salus_session_id';
   const POLL_INTERVAL_MS = 3000;
-  const BOT_STATUS_POLL_INTERVAL_MS = 10000;
+  const BOT_STATUS_POLL_INTERVAL_MS = 5000;
   const MOBILE_BREAKPOINT = 600;
   const SYSTEM_CONNECTING_MESSAGE = 'Connecting you to our sales team...';
 
@@ -104,17 +104,10 @@
     }
 
     .salus-widget__title {
-      font-size: 17px;
-      line-height: 1.3;
-      font-weight: 600;
+      font-size: 18px;
+      line-height: 1.35;
+      font-weight: 700;
       margin: 0;
-    }
-
-    .salus-widget__subtitle {
-      font-size: 12px;
-      line-height: 1.45;
-      margin: 4px 0 0;
-      opacity: 0.78;
     }
 
     .salus-widget__close {
@@ -340,16 +333,6 @@
       display: block;
     }
 
-    .salus-widget__handoff {
-      display: none;
-      gap: 10px;
-      flex-direction: column;
-    }
-
-    .salus-widget__handoff.is-visible {
-      display: flex;
-    }
-
     .salus-widget__field {
       width: 100%;
       border: 1px solid rgba(15, 23, 42, 0.14);
@@ -373,25 +356,23 @@
     }
 
     .salus-widget__actions {
-      display: flex;
-      gap: 8px;
-      align-items: flex-end;
+      position: relative;
     }
 
     .salus-widget__textarea {
-      min-height: 46px;
+      width: 100%;
+      min-height: 50px;
       max-height: 104px;
       resize: none;
-      flex: 1;
       border: 1px solid rgba(15, 23, 42, 0.14);
       border-radius: 16px;
-      padding: 12px 14px;
+      padding: 13px 62px 13px 14px;
       background: #ffffff;
       color: #111827;
       font: inherit;
       line-height: 1.45;
       outline: none;
-      overflow-y: auto;
+      overflow-y: hidden;
     }
 
     .salus-widget__textarea:focus {
@@ -421,6 +402,27 @@
       background: #111827;
       color: #ffffff;
       font-weight: 600;
+    }
+
+    .salus-widget__button--send {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      padding: 0;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 18px rgba(17, 24, 39, 0.18);
+    }
+
+    .salus-widget__button--send svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
     }
 
     .salus-widget__button--send:hover:not(:disabled),
@@ -521,9 +523,8 @@
         <div class="salus-widget__panel" aria-hidden="true">
           <div class="salus-widget__header">
             <div class="salus-widget__header-copy">
-              <p class="salus-widget__eyebrow">Salus Sales</p>
-              <h2 class="salus-widget__title">Ask our sauna assistant</h2>
-              <p class="salus-widget__subtitle">Get product guidance or request a human handoff.</p>
+              <p class="salus-widget__eyebrow">Salus Saunas</p>
+              <h2 class="salus-widget__title">Hi there! How can we help?</h2>
             </div>
             <button type="button" class="salus-widget__close" aria-label="Close chat">×</button>
           </div>
@@ -535,7 +536,7 @@
               <div class="salus-widget__identity-card">
                 <p class="salus-widget__identity-eyebrow">Before we start</p>
                 <h3 class="salus-widget__identity-title">Tell us where to reach you</h3>
-                <p class="salus-widget__identity-copy">We use your details to personalize the chat and make it easy for sales to follow up when needed.</p>
+                <p class="salus-widget__identity-copy">Add your details for tailored recommendations and an easier follow-up experience.</p>
                 <form class="salus-widget__identity-form" novalidate>
                   <input class="salus-widget__field salus-widget__identity-name" name="visitor_name" type="text" placeholder="Your name" required>
                   <input class="salus-widget__field salus-widget__identity-email" name="visitor_email" type="email" placeholder="Email address" required>
@@ -549,7 +550,11 @@
                 <button type="button" class="salus-widget__button salus-widget__button--ghost salus-widget__handoff-toggle">Talk to a human</button>
                 <div class="salus-widget__actions">
                   <textarea class="salus-widget__textarea" rows="1" placeholder="Ask about any sauna, feature, or setup"></textarea>
-                  <button type="button" class="salus-widget__button salus-widget__button--send" aria-label="Send message">Send</button>
+                  <button type="button" class="salus-widget__button salus-widget__button--send" aria-label="Send message">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M21.8 3.6a1 1 0 0 0-1.08-.2L3.1 10.8a1 1 0 0 0 .08 1.87l6.66 2.35 2.35 6.67a1 1 0 0 0 .92.67h.05a1 1 0 0 0 .91-.77l7.52-17.63a1 1 0 0 0-.2-1.08ZM12.9 18.22l-1.44-4.08a1 1 0 0 0-.6-.6L6.78 12.1l11.11-4.74Z"/>
+                    </svg>
+                  </button>
                 </div>
               </div>
               <button type="button" class="salus-widget__restart">Start new conversation</button>
@@ -685,6 +690,7 @@
       elements.textarea.style.height = 'auto';
       const nextHeight = Math.min(elements.textarea.scrollHeight, 104);
       elements.textarea.style.height = nextHeight + 'px';
+      elements.textarea.style.overflowY = elements.textarea.scrollHeight > 104 ? 'auto' : 'hidden';
     }
 
     function setStatusMessage(message) {
