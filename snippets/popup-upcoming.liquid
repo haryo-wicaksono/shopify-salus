@@ -3,6 +3,9 @@
   {%- assign google_script_url = 'https://script.google.com/macros/s/AKfycbxEJ7YSFtAxAC369i7McAQGKgRTZ6mJXRJit8kK_-gz738GUNzoA-CanPksCbPs0HwL5A/exec' -%}
   {%- assign trigger_id = 'btn-trigger-upcoming' -%}
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/css/intlTelInput.css">
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/intlTelInput.min.js"></script>
+
   <style>
     #popup-upcoming.custom-popup-overlay {
       display: none;
@@ -90,6 +93,9 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+    #popup-upcoming input#phone-input-upcoming {
+      padding-left: 90px !important;
+    }
     #popup-upcoming button {
       width: 100%;
       padding: 15px;
@@ -168,6 +174,11 @@
               <div><label>First Name</label><input type="text" name="first_name" required></div>
               <div><label>Last Name</label><input type="text" name="last_name" required></div>
               <div class="custom-popup-full"><label>Email</label><input type="email" name="email" required></div>
+              <div class="custom-popup-full">
+                <label>Phone Number</label>
+                <input type="tel" id="phone-input-upcoming" name="phone_full" required>
+                <input type="hidden" name="phone">
+              </div>
             </div>
             <button type="submit" id="btn-submit-upcoming">Get Notified</button>
             <div id="status-upcoming" class="status-msg"></div>
@@ -186,20 +197,42 @@
       const status = document.getElementById('status-upcoming');
       const btn = document.getElementById('btn-submit-upcoming');
       const scriptURL = '{{ google_script_url }}';
+      const phoneInput = document.querySelector('#phone-input-upcoming');
+      let iti = null;
 
       if (trigger)
         trigger.addEventListener('click', (e) => {
           e.preventDefault();
           popup.style.display = 'block';
+          setTimeout(() => {
+            if (!iti) {
+              iti = window.intlTelInput(phoneInput, {
+                initialCountry: 'us',
+                separateDialCode: true,
+                dropdownContainer: document.body,
+                strictMode: true,
+                utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js',
+              });
+            }
+          }, 50);
         });
       if (close) close.addEventListener('click', () => (popup.style.display = 'none'));
 
       if (form) {
         form.addEventListener('submit', (e) => {
           e.preventDefault();
+
+          if (!iti || !iti.isValidNumber()) {
+            status.innerText = 'Please enter a valid phone number.';
+            status.className = 'status-msg status-error';
+            status.style.display = 'block';
+            return;
+          }
+
           btn.disabled = true;
           btn.innerText = 'Sending...';
           const data = Object.fromEntries(new FormData(form).entries());
+          data['phone'] = iti.getNumber();
 
           fetch(scriptURL, {
             method: 'POST',
