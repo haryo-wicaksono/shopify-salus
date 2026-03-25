@@ -32,3 +32,24 @@ This theme follows Shopify Online Store 2.0 conventions and extends the Enterpri
 - Keep section settings minimal and use presets where possible.
 - Use data attributes to bind JS behavior.
 
+## Theme Structure and Dependencies
+
+This theme uses an exhaustive 8-layer dependency mapping system to track relationships between templates, sections, snippets, assets, theme settings, and Shopify data objects.
+
+For a visual representation of the theme's architecture, see [docs/THEME-STRUCTURE.md](THEME-STRUCTURE.md).
+
+### Dependency Layers
+1. **Structural:** JSON Templates and Section Groups.
+2. **Liquid:** Tags like `{% render %}`, `{% include %}`, and `{% section %}`.
+3. **Assets:** `asset_url` references and `<script>/<link>` tags.
+4. **Web Components:** HTML custom elements mapped to their JS source.
+5. **Dynamic AJAX:** Section and snippet fetches in JS.
+6. **Conditional:** Dependencies wrapped in `{% if %}` logic.
+7. **Data & App Coupling:** Dependencies on Collection handles and Metafields.
+8. **State Persistence:** `localStorage` and `sessionStorage` key mapping.
+
+To refresh the dependency manifest and visualization, run:
+```bash
+npm run theme:audit
+```
+

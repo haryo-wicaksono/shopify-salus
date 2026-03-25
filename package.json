@@ -1,0 +1,10 @@
+{
+  "name": "shopify-salus-theme",
+  "version": "1.5.2",
+  "description": "Exhaustive Shopify Theme Audit and Dependency Mapping",
+  "scripts": {
+    "theme:audit": "node scripts/generate-manifest.js"
+  },
+  "author": "Salus",
+  "license": "UNLICENSED"
+}
