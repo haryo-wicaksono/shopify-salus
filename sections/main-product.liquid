@@ -68,7 +68,7 @@
   endif
 
   assign custom_popup_active = false
-  if product.metafields.custom.enable_preorder or product.metafields.custom.enable_waitlist or product.metafields.custom.enable_upcoming
+  if product.metafields.custom.enable_preorder or product.metafields.custom.enable_waitlist or product.metafields.custom.enable_upcoming or product.metafields.custom.enable_contact_sales
     assign custom_popup_active = true
   endif
 -%}
@@ -512,6 +512,36 @@
   </style>
 {%- endif -%}
 
+{%- if product.metafields.custom.enable_contact_sales == true -%}
+  <style>
+    .product-info__price,
+    .product-sidebar .product-info__price,
+    .sticky-atc-panel .price,
+    .product-info__price + hr {
+      display: none !important;
+    }
+    .card-price-section,
+    .card-free-badge {
+      display: none !important;
+    }
+    .product-info__pay,
+    #truemed-prequalify,
+    .affirm-as-low-as {
+      display: none !important;
+    }
+    .gpo-tooltip__price,
+    .gpo-price-addon {
+      display: none !important;
+    }
+    .product-info__block.product-info__block--sm.product-info__pay {
+      display: none !important;
+    }
+    .product-info__block.product-info__block--sm.product-info__delivery.flex {
+      display: none !important;
+    }
+  </style>
+{%- endif -%}
+
 {%- if product.metafields.custom.enable_preorder or product.metafields.custom.enable_waitlist -%}
   <style>
     @media screen and (max-width: 768px) {
@@ -779,7 +809,7 @@
               {% endif %}
 
             {% when 'pay_hsa_fsa' %}
-              {%- unless product.metafields.custom.enable_upcoming == true -%}
+              {%- unless product.metafields.custom.enable_upcoming == true or product.metafields.custom.enable_contact_sales == true -%}
                 <div
                   class="product-info__block product-info__block--sm product-info__pay"
                 >
@@ -1016,7 +1046,7 @@
                       </div>
                     </div>
 
-                    {%- if enable_dynamic_checkout and product.metafields.custom.enable_upcoming != true -%}
+                    {%- if enable_dynamic_checkout and product.metafields.custom.enable_upcoming != true and product.metafields.custom.enable_contact_sales != true -%}
                       <div class="dynamic-checkout-btn">
                         <button
                           type="button"
@@ -1676,6 +1706,16 @@
 
                 {%- if product.metafields.custom.enable_upcoming == true -%}
                   <button type="button" id="btn-trigger-upcoming" class="btn w-full extra-atc-btn">Contact Sales</button>
+                {%- endif -%}
+
+                {%- if product.metafields.custom.enable_contact_sales == true -%}
+                  <a
+                    href="mailto:sales@salussaunas.com"
+                    class="btn w-full extra-atc-btn"
+                    style="text-align: center; text-decoration: none; display: block;"
+                  >
+                    Contact Sales
+                  </a>
                 {%- endif -%}
 
                 {% comment %}
