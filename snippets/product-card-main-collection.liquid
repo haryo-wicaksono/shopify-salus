@@ -99,7 +99,7 @@
   endif
 
   assign is_upcoming_product = false
-  if product.metafields.custom.enable_upcoming == true
+  if product.metafields.custom.enable_upcoming == true or product.metafields.custom.enable_contact_sales == true
     assign is_upcoming_product = true
   endif
 -%}
