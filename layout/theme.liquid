@@ -492,6 +492,7 @@
           pSearchLimitScope: 'each',
           pSearchIncludeSkus: {{ settings.predictive_search_include_skus | json }},
           pSearchIncludeTags: {{ settings.predictive_search_include_tags | json }},
+          pSearchSortByPrice: {{ settings.predictive_search_sort_by_price | json }},
           sliderItemsPerNav: '{{ settings.slider_items_per_nav }}',
           {% if settings.show_blur_messages %}
             blurMessage1: {{ settings.blur_message_1 | json }},
