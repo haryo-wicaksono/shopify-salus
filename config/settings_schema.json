@@ -2574,6 +2574,12 @@
       },
       {
         "type": "checkbox",
+        "id": "predictive_search_sort_by_price",
+        "label": "Prioritize higher-priced products in predictive search",
+        "default": true
+      },
+      {
+        "type": "checkbox",
         "id": "predictive_search_include_skus",
         "label": "Search SKUs",
         "default": true
