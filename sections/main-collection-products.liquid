@@ -47,7 +47,15 @@
     assign grid_mobile_cols = 'grid-cols-1'
   endif
 
-  if collection.products.size > 0
+  assign hide_zero_price_items = settings.hide_zero_price_collection_items
+  assign filtered_products_count = 0
+  for product in collection.products
+    if hide_zero_price_items == false or product.price > 0
+      assign filtered_products_count = filtered_products_count | plus: 1
+    endif
+  endfor
+
+  if filtered_products_count > 0
     if section.settings.card_size == 'small'
       assign grid_classes_filters_open = grid_mobile_cols | append: ' sm:grid-cols-3 xl:grid-cols-4 small-cards-desktop'
       assign grid_classes_filters_closed = grid_mobile_cols | append: ' sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 small-cards-desktop'
@@ -115,7 +123,7 @@
   }
 </style>
 
-<div class="container main-collection-container" data-num-results="{{ collection.products_count }}">
+<div class="container main-collection-container" data-num-results="{{ filtered_products_count }}">
   {%- if section.settings.enable_filtering
     or section.settings.show_layout_toggle
     or section.settings.enable_sorting
@@ -140,7 +148,7 @@
       {%- endif -%}
 
       <div class="main-products-grid__results relative flex-auto" id="filter-results">
-        {%- if collection.products.size == 0 -%}
+        {%- if filtered_products_count == 0 -%}
           <p>{{ 'sections.collection.empty' | t }}</p>
         {%- else -%}
           {%- liquid
@@ -202,8 +210,17 @@
             {%- endfor -%}
 
             {%- assign rendered_product_ids = '' -%}
+            {%- assign visible_index = 0 -%}
             {%- for product in collection.products -%}
-              {%- assign product_index = forloop.index -%}
+              {%- liquid
+                assign show_product = true
+                if hide_zero_price_items and product.price == 0
+                  assign show_product = false
+                endif
+              -%}
+              {%- if show_product -%}
+                {%- assign visible_index = visible_index | plus: 1 -%}
+                {%- assign product_index = visible_index -%}
               {%- for block in section.blocks -%}
                 {%- liquid
                   assign show_promo = false
@@ -214,7 +231,7 @@
                       if paginate.pages == 0 or paginate.current_page == 1
                         if active_filters_count == 0 or block.settings.hide_on_filter == false
                           assign show_promo = true
-                          if product_index == collection.products.size and block.settings.position > product_index
+                          if product_index == filtered_products_count and block.settings.position > product_index
                             assign is_last_position = true
                           endif
                         endif
@@ -304,7 +321,7 @@
                 {% comment %}
                   {% if banners != blank %}
                   <!-- IF THE COLLECTION HAS LESS THAN 6 PRODUCTS SHOW BANNER AFTER 3RD PRODUCT -->
-                  {% if collection.products_count <= 6 %}
+                  {% if filtered_products_count <= 6 %}
                   {% for banner in banners limit: 2 %}
                   {% if product_index == 3 %}
                   {% render 'product-grid-banner', banner: banner %}
@@ -325,7 +342,7 @@
                   {% endif %}
 
                   {% if banners != blank and paginate.current_page == paginate.pages %}
-                  {% if product_index == collection.products.size %}
+                  {% if product_index == filtered_products_count %}
                   {% for banner in banners limit: 2 %}
                   {% if forloop.index == 1 %}
                   {% render 'product-grid-banner'
@@ -340,6 +357,7 @@
                   {% endif %}
                 {% endcomment %}
               {%- endunless -%}
+              {%- endif -%}
             {%- endfor -%}
 
             {%- comment -%}Process wide promos aligned bottom{%- endcomment -%}

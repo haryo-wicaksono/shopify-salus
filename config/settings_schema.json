@@ -816,6 +816,12 @@
       },
       {
         "type": "checkbox",
+        "id": "hide_zero_price_collection_items",
+        "label": "Hide $0 products on collection pages",
+        "default": true
+      },
+      {
+        "type": "checkbox",
         "id": "coll_show_link",
         "label": "Show 'View collection' link",
         "default": true
