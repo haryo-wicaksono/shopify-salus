@@ -124,14 +124,14 @@
             "show_underline": false,
             "menu_products": [
               "ally-2-person-traditional-indoor-sauna",
-              "governor-mini-traditional-outdoor-sauna",
               "governor-mini-front-glass-traditional-outdoor-sauna",
+              "renew",
               "monarch-ii"
             ],
-            "product_tag_1": "Best Value",
+            "product_tag_1": "Popular",
             "product_tag_2": "Popular",
             "product_tag_3": "New",
-            "product_tag_4": "Best Value",
+            "product_tag_4": "Advanced",
             "promo_position": "right",
             "promo_min_height": 200,
             "promo_text_color": "#ffffff",
