@@ -2,7 +2,7 @@
   <ul class="predictive-search__list" role="list">
     {%- for item in items -%}
       {% unless item.tags contains 'globo-product-options' or item.handle == "responder-discount" %}
-        <li class="predictive-search__item" role="option">
+        <li class="predictive-search__item" role="option"{% if type == 'products' %} data-price="{{ item.price | default: 0 }}"{% endif %}>
           <a class="predictive-result flex items-start focus-inset js-search-link" href="{{ item.url }}"{% if settings.preload_links %} data-instant{% endif %}>
             {%- if type == 'products' or type == 'collections' -%}
               {%- liquid

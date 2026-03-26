@@ -255,9 +255,58 @@ if (!customElements.get('predictive-search')) {
      * @param {string} resultsMarkup - Results markup.
      */
     renderResults(resultsMarkup) {
-      this.results.innerHTML = resultsMarkup;
+      const markup = theme.settings.pSearchSortByPrice
+        ? this.sortProductResultsByPrice(resultsMarkup)
+        : resultsMarkup;
+      if (typeof markup === 'string') {
+        this.results.innerHTML = markup;
+      } else {
+        this.results.innerHTML = '';
+        this.results.appendChild(markup);
+      }
       this.setAttribute('results', true);
       this.open();
+    }
+
+    /**
+     * Sorts predictive search product results by price (descending).
+     * @param {string} resultsMarkup - Results markup.
+     * @returns {string|DocumentFragment}
+     */
+    sortProductResultsByPrice(resultsMarkup) {
+      const tmpl = document.createElement('template');
+      tmpl.innerHTML = resultsMarkup;
+
+      const escapeId =
+        window.CSS && typeof window.CSS.escape === 'function'
+          ? window.CSS.escape
+          : (value) => value.replace(/[ !"#$%&'()*+,.\\/\\:;<=>?@[\\]^`{|}~]/g, '\\\\$&');
+      const panelId = `${this.input.id}-products`;
+      const productsPanel = tmpl.content.querySelector(`#${escapeId(panelId)}`);
+      if (!productsPanel) return resultsMarkup;
+
+      const list = productsPanel.querySelector('.predictive-search__list');
+      if (!list) return resultsMarkup;
+
+      const items = Array.from(list.querySelectorAll('.predictive-search__item')).filter(
+        (item) => !item.classList.contains('js-submit')
+      );
+      if (items.length < 2) return resultsMarkup;
+      if (items.some((item) => !item.dataset.price)) return resultsMarkup;
+
+      const sorted = items
+        .map((item, index) => ({
+          item,
+          index,
+          price: Number(item.dataset.price) || 0
+        }))
+        .sort((a, b) => (b.price - a.price) || (a.index - b.index));
+
+      const viewAll = list.querySelector('.js-submit');
+      sorted.forEach(({ item }) => list.appendChild(item));
+      if (viewAll) list.appendChild(viewAll);
+
+      return tmpl.content;
     }
 
     /**
