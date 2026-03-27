@@ -11,6 +11,7 @@
     /* Dynamic padding set via Liquid variables */
     padding-top: var(--homepage-hero-carousel-padding-top-desktop);
     padding-bottom: var(--homepage-hero-carousel-padding-bottom-desktop);
+    --homepage-hero-carousel-desktop-height: 550px;
     position: relative;
     /* Needed for absolute positioning of nav/pagination if not in swiper */
     overflow: hidden;
@@ -31,9 +32,7 @@
     display: flex;
     /* Make the slide a flex container for its inner columns */
     align-items: stretch;
-    /* Ensures columns stretch to equal height */
-    min-height: 550px;
-    /* Example minimum height for the slide, adjust as needed */
+    min-height: var(--homepage-hero-carousel-desktop-height);
     background-color: transparent;
     /* Default, will be overridden by content column or image */
 }
@@ -45,7 +44,7 @@
     gap: 0;
     /* No gap between columns */
     width: 100%;
-    height: 100%;
+    min-height: var(--homepage-hero-carousel-desktop-height);
 }
 
 /* --- Content Column (Left on Desktop, Overlay on Mobile) --- */
@@ -64,6 +63,7 @@
     /* Generous padding around the content on desktop */
     flex: 1;
     flex-direction: column;
+    min-height: var(--homepage-hero-carousel-desktop-height);
 }
 
 .homepage-hero-carousel__content-wrapper {
@@ -274,7 +274,7 @@
     background-color: #f8f8f8;
     /* A subtle background in case image doesn't fill */
     height: 100%;
-    min-height: 550px;
+    min-height: var(--homepage-hero-carousel-desktop-height);
 }
 
 .homepage-hero-carousel__image-column img {
@@ -379,6 +379,7 @@
     */
     .homepage-hero-carousel__content-column {
         height: auto;
+        min-height: 0;
         background-color: #FDF7F1;
         /* Ensure it has a background */
         padding: 20px 20px;
