@@ -1914,16 +1914,18 @@ a.btn.btn--secondary:hover {
 }
 
 .main-menu__content ul.main-nav li:nth-of-type(1) .has--menu-products .child-nav {
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(2, max-content);
+  align-content: start;
 }
 
 .main-menu__content ul.main-nav li:nth-of-type(1) .has--menu-products .child-nav li:nth-of-type(3) {
-  grid-row: span 12;
+  grid-row: auto;
 }
 
 .main-menu__content ul.main-nav li:nth-of-type(1) .has--menu-products .child-nav li:last-child {
-  grid-area: 2 / 3 / -1 / 4;
-  height: fit-content;
+  grid-area: 2 / 3 / 3 / 4;
+  height: auto;
+  align-self: start;
 }
 
 .main-menu__content ul.main-nav li:nth-of-type(1) .has--menu-products .child-nav li:last-child a {
@@ -2219,6 +2221,18 @@ ul.main-nav li:last-child .mega-nav--promos-right ul.child-nav {
   /* height: 540px !important; */
   min-height: 540px !important;
   max-height: max-content !important;
+}
+
+@media (min-width: 1025px) {
+  .has--menu-products,
+  .mega-nav--promos-right {
+    min-height: auto !important;
+    max-height: none !important;
+  }
+
+  .mega-nav--promos-right ul.child-nav {
+    height: 100%;
+  }
 }
 
 .footer-menu__links>li {

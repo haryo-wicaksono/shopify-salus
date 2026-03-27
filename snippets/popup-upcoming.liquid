@@ -96,6 +96,62 @@
     #popup-upcoming input#phone-input-upcoming {
       padding-left: 90px !important;
     }
+    #popup-upcoming .iti {
+      width: 100%;
+      border: 0 solid #fff !important;
+      border-radius: 2px;
+    }
+    #popup-upcoming .iti__selected-country {
+      background: none !important;
+      background-color: transparent !important;
+      border-radius: 0 !important;
+      width: auto !important;
+      min-height: 46px;
+      padding: 0 6px !important;
+      margin: 0 !important;
+      display: flex;
+      align-items: center;
+    }
+    #popup-upcoming .iti__selected-country-primary {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .iti--container.upcoming-phone-dropdown.iti--fullscreen-popup {
+      padding: 0 !important;
+      border: 0 !important;
+      background-color: transparent !important;
+    }
+    .iti--container.upcoming-phone-dropdown {
+      z-index: 999999 !important;
+      opacity: 0 !important;
+      transition: opacity 0.15s ease-in;
+    }
+    .iti--container.upcoming-phone-dropdown.positioned {
+      opacity: 1 !important;
+    }
+    .iti--container.upcoming-phone-dropdown .iti__dropdown-content {
+      background-color: #fff !important;
+      border: 1px solid #ccc !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+      max-height: 250px !important;
+      width: 300px !important;
+      overflow-y: auto !important;
+      font-size: 14px !important;
+    }
+    .iti--container.upcoming-phone-dropdown .iti__search-input {
+      width: 100% !important;
+      padding: 8px !important;
+      margin: 5px 0 !important;
+      box-sizing: border-box !important;
+      border: 1px solid #eee !important;
+      border-radius: 4px !important;
+    }
+    .iti--container.upcoming-phone-dropdown .iti__country {
+      padding: 8px 10px !important;
+      line-height: 1.2 !important;
+    }
     #popup-upcoming button {
       width: 100%;
       padding: 15px;
@@ -213,6 +269,29 @@
                 strictMode: true,
                 utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js',
               });
+
+              const selectedFlag = phoneInput.parentElement.querySelector('.iti__selected-country');
+              if (selectedFlag) {
+                selectedFlag.addEventListener('click', () => {
+                  setTimeout(() => {
+                    const dropdownContainer = document.querySelector('.iti--container');
+                    const dropdown = document.querySelector('.iti__dropdown-content');
+
+                    if (dropdown && dropdownContainer) {
+                      const inputRect = phoneInput.getBoundingClientRect();
+
+                      dropdownContainer.classList.add('upcoming-phone-dropdown');
+                      dropdownContainer.style.position = 'fixed';
+                      dropdownContainer.style.top = `${inputRect.bottom}px`;
+                      dropdownContainer.style.left = `${inputRect.left}px`;
+
+                      requestAnimationFrame(() => {
+                        dropdownContainer.classList.add('positioned');
+                      });
+                    }
+                  }, 5);
+                });
+              }
             }
           }, 50);
         });
