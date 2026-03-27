@@ -134,7 +134,7 @@
           } */
   ul.main-nav li:last-child .mega-nav--promos-right ul.child-nav {
     gap: 30px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
   .products-card-sec .grid product-card {
