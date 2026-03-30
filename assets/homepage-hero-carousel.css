@@ -259,32 +259,30 @@
 */
 
 /* --- Image Column (Right on Desktop) --- */
-.homepage-hero-carousel__image-column {
+.homepage-hero-carousel__image-wrapper {
     overflow: hidden;
     position: relative;
-    /* Hide anything that spills out, especially rounded corners if applied to img */
     display: flex;
     flex: 1;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /* Helps center image if it's smaller than column */
-    justify-content: center;
-    align-items: center;
     background-color: #f8f8f8;
-    /* A subtle background in case image doesn't fill */
     height: 100%;
     min-height: var(--homepage-hero-carousel-desktop-height);
 }
 
-.homepage-hero-carousel__image-column img {
+.homepage-hero-carousel__image--desktop {
+    display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: absolute;
     top: 0;
     left: 0;
-    /* Ensures image covers the area, cropping if necessary */
+}
+
+.homepage-hero-carousel__image--mobile {
+    display: none;
 }
 
 /* Styling for pagination dots */
@@ -302,14 +300,6 @@
     background-color: #33B6AB;
 } */
 
-.homepage-hero-carousel-desktop {
-    display: block;
-}
-
-.homepage-hero-carousel-mobile {
-    display: none;
-}
-
 @media screen and (min-width: 1550px) {
     .homepage-hero-carousel__content-column {
         padding-right: 80px;
@@ -326,14 +316,7 @@
     .homepage-hero-carousel {
         padding-top: var(--homepage-hero-carousel-padding-top-mobile);
         padding-bottom: var(--homepage-hero-carousel-padding-bottom-mobile);
-    }
-
-    .homepage-hero-carousel-desktop {
-        display: none;
-    }
-
-    .homepage-hero-carousel-mobile {
-        display: block;
+        --homepage-hero-carousel-desktop-height: 0px;
     }
 
     /*
@@ -350,28 +333,26 @@
     .homepage-hero-carousel__slide-inner {
         display: flex;
         flex-direction: column-reverse;
-        /* The key fix for ordering */
+        min-height: 0;
     }
 
-    /*
-      Ensure the image column has a reasonable height without creating large gaps.
-      Using aspect-ratio is a modern way to maintain image shape.
-    */
-    .homepage-hero-carousel__image-column {
+    .homepage-hero-carousel__image-wrapper {
         height: 200px;
         min-height: 0;
-        /* Reset min-height */
-        /* aspect-ratio: 4 / 3; Give the image a default shape, adjust if needed */
+        flex: none;
     }
 
-    /* The image itself should cover its container. */
-    .homepage-hero-carousel__image-column img,
-    .homepage-hero-carousel__image {
-        position: static;
-        /* Let the image sit naturally in the document flow */
-        height: 200px;
+    .homepage-hero-carousel__image--mobile {
+        display: block;
+        height: 100%;
         width: 100%;
-        object-fit: cover;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .homepage-hero-carousel__image--desktop {
+        display: none;
     }
 
     /*
