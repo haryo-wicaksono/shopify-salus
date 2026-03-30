@@ -599,6 +599,7 @@
       optimisticQueue: [],
       typingNode: null,
       activeAssistantBody: null,
+      activeAssistantRawText: null,
       viewportHandler: null,
       visitorName: '',
       visitorEmail: '',
@@ -711,7 +712,19 @@
       state.renderedServerMessageCount = 0;
       state.optimisticQueue = [];
       state.activeAssistantBody = null;
+      state.activeAssistantRawText = null;
       removeTypingIndicator();
+    }
+
+    function parseBasicMarkdown(text) {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\*\*\*([\s\S]*?)\*\*\*/g, '<strong><em>$1</em></strong>')
+        .replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*([\s\S]*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>');
     }
 
     function createMessageNode(role, content, senderName) {
@@ -728,7 +741,11 @@
 
       const bubble = document.createElement('div');
       bubble.className = 'salus-widget__bubble-copy';
-      bubble.textContent = content;
+      if (role === 'assistant') {
+        bubble.innerHTML = parseBasicMarkdown(content);
+      } else {
+        bubble.textContent = content;
+      }
       wrapper.appendChild(bubble);
 
       elements.messages.appendChild(wrapper);
@@ -758,8 +775,10 @@
     function appendAssistantToken(content) {
       if (!state.activeAssistantBody) {
         createAssistantStreamMessage();
+        state.activeAssistantRawText = '';
       }
-      state.activeAssistantBody.textContent += content;
+      state.activeAssistantRawText += content;
+      state.activeAssistantBody.innerHTML = parseBasicMarkdown(state.activeAssistantRawText);
       scrollMessagesToBottom();
     }
 
@@ -1251,6 +1270,7 @@
       } finally {
         removeTypingIndicator();
         state.activeAssistantBody = null;
+        state.activeAssistantRawText = null;
         state.isStreaming = false;
 
         if (state.sessionStatus === 'bot') {
