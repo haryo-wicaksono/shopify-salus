@@ -9,7 +9,7 @@
   const MOBILE_BREAKPOINT = 768;
   const SYSTEM_CONNECTING_MESSAGE = 'Connecting you to our sales team...';
 
-  const WIDGET_STYLE = `
+    const WIDGET_STYLE = `
     :host {
       all: initial;
     }
@@ -28,7 +28,7 @@
       bottom: 24px;
       z-index: 999999;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #121826;
+      color: #2c2c2c;
     }
 
     .salus-widget--open .salus-widget__panel {
@@ -42,9 +42,9 @@
       height: 64px;
       border: 0;
       border-radius: 999px;
-      background: linear-gradient(135deg, #101828 0%, #1d2939 100%);
+      background: linear-gradient(135deg, #1a4731 0%, #264e3a 100%);
       color: #ffffff;
-      box-shadow: 0 18px 40px rgba(16, 24, 40, 0.28);
+      box-shadow: 0 18px 40px rgba(26, 71, 49, 0.28);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -54,8 +54,9 @@
 
     .salus-widget__bubble:hover,
     .salus-widget__bubble:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 24px 48px rgba(16, 24, 40, 0.34);
+      transform: translateY(-6px);
+      background: #348E85;
+      box-shadow: 0 24px 48px rgba(52, 142, 133, 0.35);
       outline: none;
     }
 
@@ -72,9 +73,9 @@
       width: min(380px, calc(100vw - 32px));
       height: min(680px, calc(100vh - 136px));
       background: #ffffff;
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      border-radius: 24px;
-      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.18);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 28px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -85,7 +86,7 @@
     }
 
     .salus-widget__header {
-      background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
+      background: linear-gradient(135deg, #1a4731 0%, #163a28 100%);
       color: #ffffff;
       padding: 16px 18px;
       display: flex;
@@ -104,7 +105,7 @@
       line-height: 1.2;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      opacity: 0.72;
+      opacity: 0.8;
       margin: 0 0 4px;
     }
 
@@ -121,7 +122,7 @@
       height: 36px;
       border: 0;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.15);
       color: #ffffff;
       cursor: pointer;
       font-size: 18px;
@@ -130,7 +131,7 @@
 
     .salus-widget__close:hover,
     .salus-widget__close:focus-visible {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.25);
       outline: none;
     }
 
@@ -140,8 +141,8 @@
       display: flex;
       flex-direction: column;
       background:
-        radial-gradient(circle at top right, rgba(15, 118, 110, 0.08), transparent 28%),
-        linear-gradient(180deg, #f8fafc 0%, #f3f4f6 100%);
+        radial-gradient(circle at top right, rgba(26, 71, 49, 0.05), transparent 28%),
+        linear-gradient(180deg, #faf9f7 0%, #f5f2ed 100%);
     }
 
     .salus-widget--identity-required .salus-widget__messages,
@@ -164,12 +165,12 @@
     .salus-widget__disclaimer {
       font-size: 12px;
       line-height: 1.5;
-      color: #667085;
+      color: #6b6560;
       text-align: center;
       padding: 10px 12px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.82);
-      border: 1px solid rgba(15, 23, 42, 0.06);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .salus-widget__identity-screen {
@@ -188,10 +189,10 @@
       width: 100%;
       max-width: 320px;
       padding: 24px 20px;
-      border-radius: 22px;
+      border-radius: 24px;
       background: rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      box-shadow: 0 20px 44px rgba(15, 23, 42, 0.12);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.06);
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -203,7 +204,7 @@
       line-height: 1.2;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #0f766e;
+      color: #1a4731;
       font-weight: 700;
     }
 
@@ -211,7 +212,7 @@
       margin: 0;
       font-size: 22px;
       line-height: 1.25;
-      color: #111827;
+      color: #2c2c2c;
       font-weight: 700;
     }
 
@@ -219,7 +220,7 @@
       margin: 0;
       font-size: 13px;
       line-height: 1.6;
-      color: #475467;
+      color: #5c5c5c;
     }
 
     .salus-widget__identity-form {
@@ -249,14 +250,14 @@
     .salus-widget__sender {
       font-size: 11px;
       line-height: 1.4;
-      color: #667085;
+      color: #6b6560;
       padding: 0 4px;
     }
 
     .salus-widget__bubble-copy {
       max-width: 88%;
-      padding: 12px 14px;
-      border-radius: 18px;
+      padding: 12px 18px;
+      border-radius: 22px;
       font-size: 14px;
       line-height: 1.55;
       white-space: pre-wrap;
@@ -264,16 +265,16 @@
     }
 
     .salus-widget__message--user .salus-widget__bubble-copy {
-      background: linear-gradient(135deg, #0f766e 0%, #0f9b8e 100%);
+      background: linear-gradient(135deg, #1a4731 0%, #245a3e 100%);
       color: #ffffff;
       border-bottom-right-radius: 6px;
-      box-shadow: 0 10px 24px rgba(15, 118, 110, 0.18);
+      box-shadow: 0 10px 24px rgba(26, 71, 49, 0.15);
     }
 
     .salus-widget__message--assistant .salus-widget__bubble-copy {
       background: #ffffff;
-      color: #111827;
-      border: 1px solid rgba(15, 23, 42, 0.08);
+      color: #2c2c2c;
+      border: 1px solid rgba(0, 0, 0, 0.06);
       border-bottom-left-radius: 6px;
     }
 
@@ -282,7 +283,7 @@
       padding: 0;
       background: transparent;
       border: 0;
-      color: #667085;
+      color: #6b6560;
       font-size: 12px;
       text-align: center;
       box-shadow: none;
@@ -292,18 +293,18 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 10px 12px;
-      border-radius: 18px;
+      padding: 10px 14px;
+      border-radius: 999px;
       border-bottom-left-radius: 6px;
       background: #ffffff;
-      border: 1px solid rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.06);
     }
 
     .salus-widget__typing-dot {
       width: 7px;
       height: 7px;
       border-radius: 999px;
-      background: #98a2b3;
+      background: #9e9a96;
       animation: salus-widget-bounce 900ms infinite ease-in-out;
     }
 
@@ -316,8 +317,8 @@
     }
 
     .salus-widget__footer {
-      border-top: 1px solid rgba(15, 23, 42, 0.08);
-      background: rgba(255, 255, 255, 0.96);
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      background: rgba(255, 255, 255, 0.98);
       padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
       display: flex;
       flex-direction: column;
@@ -329,11 +330,11 @@
       display: none;
       font-size: 12px;
       line-height: 1.5;
-      color: #475467;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: #f8fafc;
-      border: 1px solid rgba(15, 23, 42, 0.06);
+      color: #5c5c5c;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #faf9f7;
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .salus-widget__status.is-visible {
@@ -342,18 +343,18 @@
 
     .salus-widget__field {
       width: 100%;
-      border: 1px solid rgba(15, 23, 42, 0.14);
-      border-radius: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 999px;
       background: #ffffff;
-      color: #111827;
+      color: #2c2c2c;
       font: inherit;
-      padding: 11px 12px;
+      padding: 11px 16px;
       outline: none;
     }
 
     .salus-widget__field:focus {
-      border-color: #0f766e;
-      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+      border-color: #1a4731;
+      box-shadow: 0 0 0 4px rgba(26, 71, 49, 0.1);
     }
 
     .salus-widget__composer {
@@ -371,11 +372,11 @@
       min-height: 50px;
       max-height: 104px;
       resize: none;
-      border: 1px solid rgba(15, 23, 42, 0.14);
-      border-radius: 16px;
-      padding: 13px 62px 13px 14px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 28px;
+      padding: 13px 62px 13px 18px;
       background: #ffffff;
-      color: #111827;
+      color: #2c2c2c;
       font: inherit;
       line-height: 1.45;
       outline: none;
@@ -383,14 +384,14 @@
     }
 
     .salus-widget__textarea:focus {
-      border-color: #0f766e;
-      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+      border-color: #1a4731;
+      box-shadow: 0 0 0 4px rgba(26, 71, 49, 0.1);
     }
 
     .salus-widget__button {
       border: 0;
       cursor: pointer;
-      border-radius: 14px;
+      border-radius: 999px;
       font: inherit;
       transition: opacity 140ms ease, transform 140ms ease, background 140ms ease;
     }
@@ -406,7 +407,7 @@
       flex: none;
       min-width: 52px;
       padding: 12px 14px;
-      background: #111827;
+      background: #1a4731;
       color: #ffffff;
       font-weight: 600;
     }
@@ -423,7 +424,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 18px rgba(17, 24, 39, 0.18);
+      box-shadow: 0 8px 18px rgba(26, 71, 49, 0.2);
     }
 
     .salus-widget__button--send svg {
@@ -440,7 +441,7 @@
 
     .salus-widget__button--ghost {
       background: transparent;
-      color: #0f766e;
+      color: #1a4731;
       font-size: 13px;
       line-height: 1.4;
       padding: 0;
@@ -454,7 +455,7 @@
       background: transparent;
       border: 0;
       padding: 0;
-      color: #0f766e;
+      color: #1a4731;
       cursor: pointer;
       font: inherit;
       font-size: 13px;
@@ -469,7 +470,7 @@
       margin-top: 6px;
       font-size: 12px;
       line-height: 1.5;
-      color: #b42318;
+      color: #a63228;
     }
 
     @keyframes salus-widget-bounce {
@@ -1479,6 +1480,11 @@
     elements.close.addEventListener('click', closeWidget);
     elements.textarea.addEventListener('input', resizeTextarea);
     elements.textarea.addEventListener('keydown', handleTextareaKeydown);
+    document.addEventListener('click', function(event) {
+      if (state.isOpen && !host.contains(event.target)) {
+        closeWidget();
+      }
+    });
     elements.send.addEventListener('click', handleSendClick);
     elements.handoffToggle.addEventListener('click', function () {
       requestHandoff().catch(function () {});
