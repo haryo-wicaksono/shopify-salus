@@ -18,6 +18,10 @@
       box-sizing: border-box;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
     .salus-widget {
       position: fixed;
       right: 24px;
@@ -509,6 +513,10 @@
       typeof window.SalusWidgetConfig.backendUrl === 'string' &&
       window.SalusWidgetConfig.backendUrl
     ) || BACKEND_FALLBACK;
+    const isProductPage = Boolean(
+      (window.SalusWidgetConfig && window.SalusWidgetConfig.isProductPage) ||
+      (document.body && document.body.classList.contains('template--product'))
+    );
 
     if (document.getElementById('salus-chat-widget')) return;
 
@@ -588,6 +596,7 @@
 
     const state = {
       backendUrl: backendUrl.replace(/\/+$/, ''),
+      isProductPage: isProductPage,
       isOpen: false,
       uiState: 'IDLE',
       sessionStatus: 'bot',
@@ -604,6 +613,21 @@
       visitorName: '',
       visitorEmail: '',
     };
+
+    function emitWidgetStateChange() {
+      document.dispatchEvent(new CustomEvent('salus-widget:state-change', {
+        detail: {
+          isOpen: state.isOpen,
+          isProductPage: state.isProductPage,
+        },
+      }));
+    }
+
+    function syncBubbleVisibility() {
+      elements.bubble.hidden = state.isProductPage;
+      elements.bubble.setAttribute('aria-hidden', state.isProductPage ? 'true' : 'false');
+      elements.bubble.tabIndex = state.isProductPage ? -1 : 0;
+    }
 
     function getSessionStorage() {
       try {
@@ -663,6 +687,7 @@
       elements.bubble.setAttribute('aria-label', 'Close chat');
       scrollMessagesToBottom();
       updateViewportHeight();
+      emitWidgetStateChange();
     }
 
     function closeWidget() {
@@ -671,6 +696,7 @@
       elements.panel.setAttribute('aria-hidden', 'true');
       elements.bubble.setAttribute('aria-label', 'Open chat');
       clearViewportHeight();
+      emitWidgetStateChange();
     }
 
     function toggleWidget() {
@@ -1321,6 +1347,15 @@
       window.visualViewport.addEventListener('resize', state.viewportHandler);
     }
 
+    window.SalusWidget = {
+      open: openWidget,
+      close: closeWidget,
+      toggle: toggleWidget,
+      isOpen: function () {
+        return state.isOpen;
+      },
+    };
+
     elements.bubble.addEventListener('click', toggleWidget);
     elements.bubble.addEventListener('keydown', function (event) {
       if (event.key === 'Enter' || event.key === ' ') {
@@ -1367,6 +1402,8 @@
     elements.restart.addEventListener('click', resetConversation);
 
     bindViewportEvents();
+    syncBubbleVisibility();
+    emitWidgetStateChange();
     resizeTextarea();
     updateControls();
     restoreSession().catch(function () {});
