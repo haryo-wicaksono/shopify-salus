@@ -1950,142 +1950,47 @@
   });
 </script>
 
-{% comment %}
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var chatButtons = document.querySelectorAll('.js-open-livechat');
-      if (!chatButtons.length) return;
-
-      // Local toggle state for clicks on THIS button
-      var isOpen = false;
-
-      function hasNewAPI() {
-        return window.LiveChatWidget && typeof LiveChatWidget.call === 'function';
-      }
-
-      function hasOldAPI() {
-        return (
-          window.LC_API &&
-          (typeof LC_API.open_chat_window === 'function' || typeof LC_API.minimize_chat_window === 'function')
-        );
-      }
-
-      function openChat() {
-        if (hasNewAPI()) {
-          LiveChatWidget.call('maximize');
-        } else if (hasOldAPI()) {
-          LC_API.open_chat_window && LC_API.open_chat_window();
-        }
-      }
-
-      function closeChat() {
-        if (hasNewAPI()) {
-          // Depending on config, you might want 'hide' instead of 'minimize'
-          LiveChatWidget.call('minimize');
-        } else if (hasOldAPI()) {
-          if (typeof LC_API.minimize_chat_window === 'function') {
-            LC_API.minimize_chat_window();
-          } else if (typeof LC_API.hide_chat_window === 'function') {
-            LC_API.hide_chat_window();
-          }
-        }
-      }
-
-      function toggleChat() {
-        // If widget still isn't loaded, just try opening
-        if (!hasNewAPI() && !hasOldAPI()) {
-          // Optional: you could console.warn here, but not required
-          return;
-        }
-
-        if (isOpen) {
-          closeChat();
-        } else {
-          openChat();
-        }
-
-        isOpen = !isOpen;
-      }
-
-      chatButtons.forEach(function (btn) {
-        btn.addEventListener('click', function (e) {
-          e.preventDefault();
-          toggleChat();
-        });
-      });
-    });
-  </script>
-{% endcomment %}
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var chatButtons = document.querySelectorAll('.js-open-livechat');
     if (!chatButtons.length) return;
 
-    // one shared state for all "Talk to a live agent" buttons
-    var chatIsOpen = false;
-
-    function hasNewAPI() {
-      return window.LiveChatWidget && typeof LiveChatWidget.call === 'function';
+    function getSalusWidget() {
+      return window.SalusWidget && typeof window.SalusWidget.toggle === 'function'
+        ? window.SalusWidget
+        : null;
     }
 
-    function hasOldAPI() {
-      return (
-        window.LC_API &&
-        (typeof LC_API.open_chat_window === 'function' ||
-          typeof LC_API.minimize_chat_window === 'function' ||
-          typeof LC_API.hide_chat_window === 'function')
-      );
-    }
-
-    function openChat() {
-      if (hasNewAPI()) {
-        LiveChatWidget.call('maximize');
-      } else if (hasOldAPI()) {
-        LC_API.open_chat_window && LC_API.open_chat_window();
-      }
-    }
-
-    function closeChat() {
-      if (hasNewAPI()) {
-        // try minimize; if your setup prefers 'hide', just swap it
-        LiveChatWidget.call('minimize');
-      } else if (hasOldAPI()) {
-        if (typeof LC_API.minimize_chat_window === 'function') {
-          LC_API.minimize_chat_window();
-        } else if (typeof LC_API.hide_chat_window === 'function') {
-          LC_API.hide_chat_window();
-        }
-      }
-    }
-
-    function updateButtonStyles() {
+    function updateButtonStyles(isOpen) {
       chatButtons.forEach(function (btn) {
-        btn.classList.toggle('chat-open', chatIsOpen);
+        btn.classList.toggle('chat-open', Boolean(isOpen));
       });
+    }
+
+    function syncButtonState() {
+      var widget = getSalusWidget();
+      updateButtonStyles(widget && typeof widget.isOpen === 'function' ? widget.isOpen() : false);
     }
 
     chatButtons.forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
 
-        if (!hasNewAPI() && !hasOldAPI()) {
-          // widget not ready; you can optionally console.warn here
+        var widget = getSalusWidget();
+        if (!widget) {
           return;
         }
 
-        if (chatIsOpen) {
-          closeChat();
-        } else {
-          openChat();
-        }
-
-        chatIsOpen = !chatIsOpen;
-        updateButtonStyles();
+        widget.toggle();
+        syncButtonState();
       });
     });
 
-    // optional: if LiveChat has callbacks, you could sync chatIsOpen here too
+    document.addEventListener('salus-widget:state-change', function (event) {
+      updateButtonStyles(event.detail && event.detail.isOpen);
+    });
+
+    syncButtonState();
   });
 </script>
 
