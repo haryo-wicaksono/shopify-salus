@@ -6,7 +6,7 @@
   const STORAGE_KEY = 'salus_session_id';
   const POLL_INTERVAL_MS = 3000;
   const BOT_STATUS_POLL_INTERVAL_MS = 5000;
-  const MOBILE_BREAKPOINT = 600;
+  const MOBILE_BREAKPOINT = 768;
   const SYSTEM_CONNECTING_MESSAGE = 'Connecting you to our sales team...';
 
   const WIDGET_STYLE = `
@@ -623,10 +623,15 @@
       }));
     }
 
+    function shouldHideBubble() {
+      return state.isProductPage && window.innerWidth <= 768;
+    }
+
     function syncBubbleVisibility() {
-      elements.bubble.hidden = state.isProductPage;
-      elements.bubble.setAttribute('aria-hidden', state.isProductPage ? 'true' : 'false');
-      elements.bubble.tabIndex = state.isProductPage ? -1 : 0;
+      var hide = shouldHideBubble();
+      elements.bubble.hidden = hide;
+      elements.bubble.setAttribute('aria-hidden', hide ? 'true' : 'false');
+      elements.bubble.tabIndex = hide ? -1 : 0;
     }
 
     function getSessionStorage() {
@@ -1401,7 +1406,16 @@
     });
     elements.restart.addEventListener('click', resetConversation);
 
+    function bindResizeSync() {
+      var debounceTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(syncBubbleVisibility, 150);
+      });
+    }
+
     bindViewportEvents();
+    bindResizeSync();
     syncBubbleVisibility();
     emitWidgetStateChange();
     resizeTextarea();
