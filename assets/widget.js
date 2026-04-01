@@ -92,6 +92,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      flex: none;
     }
 
     .salus-widget__header-copy {
@@ -157,6 +158,7 @@
       flex-direction: column;
       gap: 12px;
       scroll-behavior: smooth;
+      min-height: 100px;
     }
 
     .salus-widget__disclaimer {
@@ -320,6 +322,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      flex: none;
     }
 
     .salus-widget__status {
@@ -480,20 +483,20 @@
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .salus-widget {
         right: 16px;
         bottom: 16px;
       }
 
       .salus-widget__panel {
-        inset: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: auto;
         width: 100vw;
-        height: 100vh;
         border-radius: 0;
         border: 0;
-        right: auto;
-        bottom: auto;
       }
 
       .salus-widget__bubble {
@@ -586,6 +589,7 @@
       identityForm: shadow.querySelector('.salus-widget__identity-form'),
       identityName: shadow.querySelector('.salus-widget__identity-name'),
       identityEmail: shadow.querySelector('.salus-widget__identity-email'),
+      identityScreen: shadow.querySelector('.salus-widget__identity-screen'),
       status: shadow.querySelector('.salus-widget__status'),
       textarea: shadow.querySelector('.salus-widget__textarea'),
       send: shadow.querySelector('.salus-widget__button--send'),
@@ -610,8 +614,12 @@
       activeAssistantBody: null,
       activeAssistantRawText: null,
       viewportHandler: null,
+      viewportSettleTimer: null,
+      viewportFrame: null,
       visitorName: '',
       visitorEmail: '',
+      bodyScrollLocked: false,
+      lockedScrollY: 0,
     };
 
     function emitWidgetStateChange() {
@@ -692,6 +700,7 @@
       elements.bubble.setAttribute('aria-label', 'Close chat');
       scrollMessagesToBottom();
       updateViewportHeight();
+      if (window.innerWidth <= MOBILE_BREAKPOINT) lockBodyScroll();
       emitWidgetStateChange();
     }
 
@@ -701,6 +710,7 @@
       elements.panel.setAttribute('aria-hidden', 'true');
       elements.bubble.setAttribute('aria-label', 'Open chat');
       clearViewportHeight();
+      unlockBodyScroll();
       emitWidgetStateChange();
     }
 
@@ -716,6 +726,28 @@
       requestAnimationFrame(function () {
         elements.messages.scrollTop = elements.messages.scrollHeight;
       });
+    }
+
+    function lockBodyScroll() {
+      if (state.bodyScrollLocked) return;
+      state.lockedScrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + state.lockedScrollY + 'px';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+      state.bodyScrollLocked = true;
+    }
+
+    function unlockBodyScroll() {
+      if (!state.bodyScrollLocked) return;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, state.lockedScrollY);
+      state.bodyScrollLocked = false;
     }
 
     function resizeTextarea() {
@@ -1336,20 +1368,93 @@
     }
 
     function updateViewportHeight() {
-      if (!state.isOpen || window.innerWidth > MOBILE_BREAKPOINT || !window.visualViewport) return;
-      elements.panel.style.height = window.visualViewport.height + 'px';
+      if (!state.isOpen || window.innerWidth > MOBILE_BREAKPOINT) {
+        clearViewportHeight();
+        return;
+      }
+      lockBodyScroll();
+      var viewport = window.visualViewport;
+      if (viewport) {
+        elements.panel.style.top = Math.round(viewport.offsetTop) + 'px';
+        elements.panel.style.height = Math.round(viewport.height) + 'px';
+        if (elements.identityScreen && viewport.height < window.innerHeight) {
+          elements.identityScreen.style.alignItems = 'flex-start';
+          elements.identityScreen.style.paddingTop = '20px';
+        }
+      } else {
+        elements.panel.style.top = '0px';
+        elements.panel.style.height = '100vh';
+      }
+      scrollMessagesToBottom();
     }
 
     function clearViewportHeight() {
+      if (state.viewportFrame) {
+        window.cancelAnimationFrame(state.viewportFrame);
+        state.viewportFrame = null;
+      }
+      if (state.viewportSettleTimer) {
+        window.clearTimeout(state.viewportSettleTimer);
+        state.viewportSettleTimer = null;
+      }
+      elements.panel.style.top = '';
       elements.panel.style.height = '';
+      if (elements.identityScreen) {
+        elements.identityScreen.style.alignItems = '';
+        elements.identityScreen.style.paddingTop = '';
+      }
+      unlockBodyScroll();
+    }
+
+    function scheduleViewportSync() {
+      if (state.viewportFrame) {
+        window.cancelAnimationFrame(state.viewportFrame);
+      }
+      if (state.viewportSettleTimer) {
+        window.clearTimeout(state.viewportSettleTimer);
+      }
+      state.viewportFrame = window.requestAnimationFrame(function () {
+        state.viewportFrame = null;
+        updateViewportHeight();
+      });
+      state.viewportSettleTimer = window.setTimeout(function () {
+        state.viewportSettleTimer = null;
+        updateViewportHeight();
+      }, 400);
     }
 
     function bindViewportEvents() {
-      if (!window.visualViewport) return;
       state.viewportHandler = function () {
-        updateViewportHeight();
+        scheduleViewportSync();
       };
-      window.visualViewport.addEventListener('resize', state.viewportHandler);
+
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', state.viewportHandler);
+        window.visualViewport.addEventListener('scroll', state.viewportHandler);
+      }
+
+      window.addEventListener('orientationchange', function () {
+        scheduleViewportSync();
+        syncBubbleVisibility();
+      });
+
+      var focusTimer = null;
+      function handleInputFocus() {
+        if (focusTimer) clearTimeout(focusTimer);
+        updateViewportHeight();
+        focusTimer = setTimeout(updateViewportHeight, 300);
+      }
+      function handleInputBlur() {
+        if (focusTimer) clearTimeout(focusTimer);
+        focusTimer = setTimeout(updateViewportHeight, 100);
+      }
+
+      elements.textarea.addEventListener('focus', handleInputFocus);
+      elements.textarea.addEventListener('blur', handleInputBlur);
+      elements.identityName.addEventListener('focus', handleInputFocus);
+      elements.identityName.addEventListener('blur', handleInputBlur);
+      elements.identityEmail.addEventListener('focus', handleInputFocus);
+      elements.identityEmail.addEventListener('blur', handleInputBlur);
     }
 
     window.SalusWidget = {
