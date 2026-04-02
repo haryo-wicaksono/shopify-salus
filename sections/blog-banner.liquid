@@ -41,61 +41,33 @@
     </div>
   </div>
 </div>
-{% if section.settings.topic_list != blank %}
-  {% comment %}
-    <div class="collection-secondary-nav">
-      <div class="container">
-        <div class="blog-nav-inner">
-          <h4>Topic Categories:</h4>
-          <div class="col-nav">
-            <ul>
-              {% assign links = section.settings.topic_list | split: ',' %}
-              <li>
-                {% assign request_path = request.path | split: '/' | last %}
-                <a
-                  href="/blogs/{{ blog.handle }}"
-                  {% if request_path == blog.handle %}
-                    class="active"
-                  {% endif %}
-                >
-                  All Articles
-                </a>
-              </li>
-              {% for link in links %}
-                {% assign tag = link | handleize %}
-                <li>
-                  <a
-                    href="/blogs/{{ blog.handle }}/tagged/{{ tag }}"
-                    {% if request.path contains tag %}
-                      class="active"
-                    {% endif %}
-                  >
-                    {{- link -}}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  {% endcomment %}
-{% elsif section.settings.blog_menu != blank %}
+{% if blog.all_tags.size > 0 %}
   <div class="collection-secondary-nav">
     <div class="container">
       <div class="blog-nav-inner">
         <h4>Topic Categories:</h4>
         <div class="col-nav">
           <ul>
-            {% for link in section.settings.blog_menu.links %}
+            <li>
+              {% assign request_path = request.path | split: '/' | last %}
+              <a
+                href="/blogs/{{ blog.handle }}"
+            {% if request_path == blog.handle %}
+              class="active"
+            {% endif %}
+          >
+            All Articles
+          </a>
+        </li>
+            {% for tag in blog.all_tags %}
               <li>
                 <a
-                  href="{{ link.url }}"
-                  {% if link.active %}
+                  href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}"
+                  {% if current_tags contains tag %}
                     class="active"
                   {% endif %}
                 >
-                  {{- link.title -}}
+                  {{- tag -}}
                 </a>
               </li>
             {% endfor %}
@@ -145,11 +117,6 @@
     {
       "type": "header",
       "content": "Style"
-    },
-    {
-      "type":"link_list",
-      "id":"blog_menu",
-      "label":"Blog Menu"
     },
     {
       "type": "select",
