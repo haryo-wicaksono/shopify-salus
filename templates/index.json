@@ -94,10 +94,10 @@
             "show_button1_arrow": true,
             "button2_text": "Consult Our Experts",
             "button2_link": "shopify://pages/contact",
-            "feature_item_1": "Free Shipping on all US orders",
-            "feature_item_2": "5-7 Year Limited Lifetime Sauna Warranty",
-            "feature_item_3": "Trusted by health professionals and athletes",
-            "feature_item_4": "FSA/HSA Eligible & Flexible Financing",
+            "feature_item_1": "",
+            "feature_item_2": "",
+            "feature_item_3": "",
+            "feature_item_4": "",
             "color_scheme": "light"
           }
         },
