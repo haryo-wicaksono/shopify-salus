@@ -901,6 +901,11 @@
       const sectionEl = carouselElement.closest('.homepage-hero-carousel');
       if (!sectionEl) return;
 
+      const headerGroup = document.querySelector('#shopify-section-header-group');
+      const headerArea = headerGroup || document.querySelector('.cc-header');
+      const headerHeight = headerArea ? headerArea.getBoundingClientRect().height : 0;
+      sectionEl.style.setProperty('--homepage-hero-carousel-header-offset', `${Math.ceil(headerHeight)}px`);
+
       if (window.innerWidth <= 767) {
         sectionEl.style.removeProperty('--homepage-hero-carousel-desktop-height');
         return;
