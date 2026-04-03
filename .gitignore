@@ -4,6 +4,7 @@ tmux*
 .codex/
 .gemini/
 .agent/
+.kilo/
 openspec/
 GEMINI.md
 CLAUDE.md

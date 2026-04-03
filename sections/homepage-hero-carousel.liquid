@@ -180,105 +180,273 @@
       <div class="swiper-container homepage-hero-carousel__swiper">
         <div class="swiper-wrapper">
           {% for block in section.blocks %}
+            {%- assign slide_layout = block.settings.slide_layout | default: 'split' -%}
             <div
-              class="swiper-slide homepage-hero-carousel__slide homepage-hero-carousel__slide--{{ block.settings.color_scheme }}"
+              class="swiper-slide homepage-hero-carousel__slide homepage-hero-carousel__slide--{{ block.settings.color_scheme }} homepage-hero-carousel__slide--{{ slide_layout }}"
               {{ block.shopify_attributes }}
             >
-              <div class="homepage-hero-carousel__slide-inner">
-                {%- assign content_bg = section.settings.content_background_color -%}
-                {%- if block.settings.custom_content_bg != blank
-                  and block.settings.custom_content_bg != 'rgba(0,0,0,0)'
-                -%}
-                  {%- assign content_bg = block.settings.custom_content_bg -%}
-                {%- endif -%}
+              {%- if slide_layout == 'full-background-centered' -%}
+                {%- comment -%}
+                  ============================================================
+                  FULL-BACKGROUND CENTERED LAYOUT
+                  Full-bleed media (video or image) with centered overlay content.
+                  ============================================================
+                {%- endcomment -%}
+                <div class="homepage-hero-carousel__slide-inner homepage-hero-carousel__slide-inner--full-bg-centered">
+                  <div class="homepage-hero-carousel__bg-media">
+                    {%- assign bg_video_desktop = block.settings.bg_video_desktop -%}
+                    {%- assign bg_video_mobile = block.settings.bg_video_mobile -%}
+                    {%- assign bg_image_desktop = block.settings.slide_image_desktop -%}
+                    {%- assign bg_image_mobile = block.settings.slide_image_mobile -%}
 
-                <div
-                  class="homepage-hero-carousel__content-column"
-                  style="background-color: {{ content_bg }};"
-                >
-                  {% if block.settings.reviews_text != blank %}
-                    <div class="homepage-hero-carousel__reviews">
-                      {% if block.settings.show_stars %}
-                        <span class="homepage-hero-carousel__star-rating">
-                          {% render 'icon-star' %}
-                          {% render 'icon-star' %}
-                          {% render 'icon-star' %}
-                          {% render 'icon-star' %}
-                          {% render 'icon-star' %}
-                        </span>
+                    {%- if bg_video_desktop != blank or bg_video_mobile != blank -%}
+                      {% if bg_video_desktop != blank %}
+                        {{ bg_video_desktop | video_tag:
+                          class: "homepage-hero-carousel__bg-video homepage-hero-carousel__bg-video--desktop",
+                          autoplay: true,
+                          loop: true,
+                          muted: true,
+                          playsinline: true,
+                          preload: "auto",
+                          controls: false
+                        }}
                       {% endif %}
-                      {% if block.settings.show_house_icon %}
-                        <span class="homepage-hero-carousel__review-icon-house">
-                          {% render 'icon-review-house' %}
-                        </span>
+                      {% if bg_video_mobile != blank %}
+                        {{ bg_video_mobile | video_tag:
+                          class: "homepage-hero-carousel__bg-video homepage-hero-carousel__bg-video--mobile",
+                          autoplay: true,
+                          loop: true,
+                          muted: true,
+                          playsinline: true,
+                          preload: "auto",
+                          controls: false
+                        }}
                       {% endif %}
-                      <p class="homepage-hero-carousel__reviews-text">{{ block.settings.reviews_text }}</p>
-                    </div>
-                  {% endif %}
-
-                  {% if block.settings.headline != blank %}
-                    <h2 class="homepage-hero-carousel__headline">{{ block.settings.headline }}</h2>
-                  {% endif %}
-
-                  {% if block.settings.description != blank %}
-                    <div class="homepage-hero-carousel__description">{{ block.settings.description }}</div>
-                  {% endif %}
-
-                  <div class="homepage-hero-carousel__cta-buttons">
-                    {% if block.settings.button1_link != blank and block.settings.button1_text != blank %}
-                      {% comment %}
-                        <a
-                          href="{{ block.settings.button1_link }}"
-                          class="homepage-hero-carousel__button homepage-hero-carousel__button--primary {% if forloop.first %}vday-special{% endif %}"
-                        >
-                      {% endcomment %}
-                      <a
-                        href="{{ block.settings.button1_link }}"
-                        class="homepage-hero-carousel__button homepage-hero-carousel__button--primary"
-                      >
-                        {{ block.settings.button1_text }}
-                        {% if block.settings.show_button1_arrow %}{% render 'icon-arrow-right-cta' %}{% endif %}
-                        {% comment %} VALENTINE'S DAY CONFETTI - ONLY FOR FIRST SLIDE {% endcomment %}
-                        {% comment %}
-                          {% if forloop.first %}
-                            <div class="vday-confetti">
-                              <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i>
-                              <i>♥</i> <i>♡</i>
-                            </div>
-                          {% endif %}
-                        {% endcomment %}
-                      </a>
-                    {% endif %}
-                    {% if block.settings.button2_link != blank and block.settings.button2_text != blank %}
-                      <a
-                        href="{{ block.settings.button2_link }}"
-                        class="homepage-hero-carousel__button homepage-hero-carousel__button--secondary"
-                      >
-                        {% if block.settings.button2_icon != blank %}
-                          {% assign button2_icon_img = block.settings.button2_icon %}
-                          <img
-                            src="{{ button2_icon_img | image_url: '20x20' }}"
-                            alt="{{ button2_icon_img.alt | default: 'Button icon' }}"
-                            class="homepage-hero-carousel__button-icon"
-                            width="20"
-                            height="20"
-                            loading="lazy"
-                          >
+                      {% if bg_image_desktop != blank or bg_image_mobile != blank %}
+                        {% if bg_image_mobile != blank %}
+                          <div
+                            class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--mobile"
+                            style="background-image: url({{ bg_image_mobile | image_url: width: 768 }});"
+                          ></div>
                         {% endif %}
-                        {{ block.settings.button2_text }}
-                      </a>
-                    {% endif %}
+                        {% if bg_image_desktop != blank %}
+                          <div
+                            class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--desktop"
+                            style="background-image: url({{ bg_image_desktop | image_url: width: 1400 }});"
+                          ></div>
+                        {% endif %}
+                      {% endif %}
+                    {%- else -%}
+                      {% if bg_image_desktop != blank or bg_image_mobile != blank %}
+                        {% if bg_image_mobile != blank %}
+                          <div
+                            class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--mobile"
+                            style="background-image: url({{ bg_image_mobile | image_url: width: 768 }});"
+                          ></div>
+                        {% endif %}
+                        {% if bg_image_desktop != blank %}
+                          <div
+                            class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--desktop"
+                            style="background-image: url({{ bg_image_desktop | image_url: width: 1400 }});"
+                          ></div>
+                        {% endif %}
+                      {% else %}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    {%- endif -%}
                   </div>
 
-                  <ul class="homepage-hero-carousel__feature-list">
-                    {% if block.settings.feature_item_1 != blank %}
-                      <li class="homepage-hero-carousel__feature-item">
-                        {% render 'icon-checkmark' %}
-                        {{ block.settings.feature_item_1 }}
-                      </li>
+                  {%- comment -%}Centered overlay content layer{%- endcomment -%}
+                  <div class="homepage-hero-carousel__content-column homepage-hero-carousel__content-column--centered">
+                    {% if block.settings.reviews_text != blank %}
+                      <div class="homepage-hero-carousel__reviews">
+                        {% if block.settings.show_stars %}
+                          <span class="homepage-hero-carousel__star-rating">
+                            {% render 'icon-star' %}
+                            {% render 'icon-star' %}
+                            {% render 'icon-star' %}
+                            {% render 'icon-star' %}
+                            {% render 'icon-star' %}
+                          </span>
+                        {% endif %}
+                        {% if block.settings.show_house_icon %}
+                          <span class="homepage-hero-carousel__review-icon-house">
+                            {% render 'icon-review-house' %}
+                          </span>
+                        {% endif %}
+                        <p class="homepage-hero-carousel__reviews-text">{{ block.settings.reviews_text }}</p>
+                      </div>
                     {% endif %}
-                    {% if block.settings.feature_item_2 != blank %}
-                      <li class="homepage-hero-carousel__feature-item">
+
+                    {% if block.settings.headline != blank %}
+                      <h2 class="homepage-hero-carousel__headline">{{ block.settings.headline }}</h2>
+                    {% endif %}
+
+                    {% if block.settings.description != blank %}
+                      <div class="homepage-hero-carousel__description">{{ block.settings.description }}</div>
+                    {% endif %}
+
+                    <div class="homepage-hero-carousel__cta-buttons">
+                      {% if block.settings.button1_link != blank and block.settings.button1_text != blank %}
+                        <a
+                          href="{{ block.settings.button1_link }}"
+                          class="homepage-hero-carousel__button homepage-hero-carousel__button--primary"
+                        >
+                          {{ block.settings.button1_text }}
+                          {% if block.settings.show_button1_arrow %}{% render 'icon-arrow-right-cta' %}{% endif %}
+                        </a>
+                      {% endif %}
+                      {% if block.settings.button2_link != blank and block.settings.button2_text != blank %}
+                        <a
+                          href="{{ block.settings.button2_link }}"
+                          class="homepage-hero-carousel__button homepage-hero-carousel__button--secondary"
+                        >
+                          {% if block.settings.button2_icon != blank %}
+                            {% assign button2_icon_img = block.settings.button2_icon %}
+                            <img
+                              src="{{ button2_icon_img | image_url: '20x20' }}"
+                              alt="{{ button2_icon_img.alt | default: 'Button icon' }}"
+                              class="homepage-hero-carousel__button-icon"
+                              width="20"
+                              height="20"
+                              loading="lazy"
+                            >
+                          {% endif %}
+                          {{ block.settings.button2_text }}
+                        </a>
+                      {% endif %}
+                    </div>
+
+                    <ul class="homepage-hero-carousel__feature-list">
+                      {% if block.settings.feature_item_1 != blank %}
+                        <li class="homepage-hero-carousel__feature-item">
+                          {% render 'icon-checkmark' %}
+                          {{ block.settings.feature_item_1 }}
+                        </li>
+                      {% endif %}
+                      {% if block.settings.feature_item_2 != blank %}
+                        <li class="homepage-hero-carousel__feature-item">
+                          {% render 'icon-checkmark' %}
+                          {{ block.settings.feature_item_2 }}
+                        </li>
+                      {% endif %}
+                      {% if block.settings.feature_item_3 != blank %}
+                        <li class="homepage-hero-carousel__feature-item">
+                          {% render 'icon-checkmark' %}
+                          {{ block.settings.feature_item_3 }}
+                        </li>
+                      {% endif %}
+                      {% if block.settings.feature_item_4 != blank %}
+                        <li class="homepage-hero-carousel__feature-item">
+                          {% render 'icon-checkmark' %}
+                          {{ block.settings.feature_item_4 }}
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </div>
+              {%- else -%}
+                {%- comment -%}
+                  ============================================================
+                  SPLIT LAYOUT (existing default)
+                  Two-column: content left, media right.
+                  ============================================================
+                {%- endcomment -%}
+                <div class="homepage-hero-carousel__slide-inner">
+                  {%- assign content_bg = section.settings.content_background_color -%}
+                  {%- if block.settings.custom_content_bg != blank
+                    and block.settings.custom_content_bg != 'rgba(0,0,0,0)'
+                  -%}
+                    {%- assign content_bg = block.settings.custom_content_bg -%}
+                  {%- endif -%}
+
+                  <div
+                    class="homepage-hero-carousel__content-column"
+                    style="background-color: {{ content_bg }};"
+                  >
+                    {% if block.settings.reviews_text != blank %}
+                      <div class="homepage-hero-carousel__reviews">
+                        {% if block.settings.show_stars %}
+                          <span class="homepage-hero-carousel__star-rating">
+                            {% render 'icon-star' %}
+                            {% render 'icon-star' %}
+                            {% render 'icon-star' %}
+                            {% render 'icon-star' %}
+                            {% render 'icon-star' %}
+                          </span>
+                        {% endif %}
+                        {% if block.settings.show_house_icon %}
+                          <span class="homepage-hero-carousel__review-icon-house">
+                            {% render 'icon-review-house' %}
+                          </span>
+                        {% endif %}
+                        <p class="homepage-hero-carousel__reviews-text">{{ block.settings.reviews_text }}</p>
+                      </div>
+                    {% endif %}
+
+                    {% if block.settings.headline != blank %}
+                      <h2 class="homepage-hero-carousel__headline">{{ block.settings.headline }}</h2>
+                    {% endif %}
+
+                    {% if block.settings.description != blank %}
+                      <div class="homepage-hero-carousel__description">{{ block.settings.description }}</div>
+                    {% endif %}
+
+                    <div class="homepage-hero-carousel__cta-buttons">
+                      {% if block.settings.button1_link != blank and block.settings.button1_text != blank %}
+                        {% comment %}
+                          <a
+                            href="{{ block.settings.button1_link }}"
+                            class="homepage-hero-carousel__button homepage-hero-carousel__button--primary {% if forloop.first %}vday-special{% endif %}"
+                          >
+                        {% endcomment %}
+                        <a
+                          href="{{ block.settings.button1_link }}"
+                          class="homepage-hero-carousel__button homepage-hero-carousel__button--primary"
+                        >
+                          {{ block.settings.button1_text }}
+                          {% if block.settings.show_button1_arrow %}{% render 'icon-arrow-right-cta' %}{% endif %}
+                          {% comment %} VALENTINE'S DAY CONFETTI - ONLY FOR FIRST SLIDE {% endcomment %}
+                          {% comment %}
+                            {% if forloop.first %}
+                              <div class="vday-confetti">
+                                <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i> <i>♥</i> <i>♡</i>
+                                <i>♥</i> <i>♡</i>
+                              </div>
+                            {% endif %}
+                          {% endcomment %}
+                        </a>
+                      {% endif %}
+                      {% if block.settings.button2_link != blank and block.settings.button2_text != blank %}
+                        <a
+                          href="{{ block.settings.button2_link }}"
+                          class="homepage-hero-carousel__button homepage-hero-carousel__button--secondary"
+                        >
+                          {% if block.settings.button2_icon != blank %}
+                            {% assign button2_icon_img = block.settings.button2_icon %}
+                            <img
+                              src="{{ button2_icon_img | image_url: '20x20' }}"
+                              alt="{{ button2_icon_img.alt | default: 'Button icon' }}"
+                              class="homepage-hero-carousel__button-icon"
+                              width="20"
+                              height="20"
+                              loading="lazy"
+                            >
+                          {% endif %}
+                          {{ block.settings.button2_text }}
+                        </a>
+                      {% endif %}
+                    </div>
+
+                    <ul class="homepage-hero-carousel__feature-list">
+                      {% if block.settings.feature_item_1 != blank %}
+                        <li class="homepage-hero-carousel__feature-item">
+                          {% render 'icon-checkmark' %}
+                          {{ block.settings.feature_item_1 }}
+                        </li>
+                      {% endif %}
+                      {% if block.settings.feature_item_2 != blank %}
+                        <li class="homepage-hero-carousel__feature-item">
                         {% render 'icon-checkmark' %}
                         {{ block.settings.feature_item_2 }}
                       </li>
@@ -320,6 +488,7 @@
                   {% endif %}
                 </div>
               </div>
+              {%- endif -%}
             </div>
           {% endfor %}
         </div>
@@ -671,8 +840,17 @@
       let maxHeight = 550;
 
       slides.forEach((slide) => {
-        const contentColumn = slide.querySelector('.homepage-hero-carousel__content-column');
-        const slideHeight = contentColumn ? contentColumn.scrollHeight : slide.scrollHeight;
+        const isFullBg = slide.classList.contains('homepage-hero-carousel__slide--full-background-centered');
+        let slideHeight;
+
+        if (isFullBg) {
+          const contentCol = slide.querySelector('.homepage-hero-carousel__content-column--centered');
+          slideHeight = contentCol ? contentCol.scrollHeight : slide.scrollHeight;
+        } else {
+          const contentColumn = slide.querySelector('.homepage-hero-carousel__content-column');
+          slideHeight = contentColumn ? contentColumn.scrollHeight : slide.scrollHeight;
+        }
+
         maxHeight = Math.max(maxHeight, slideHeight);
       });
 
@@ -874,19 +1052,34 @@
       "settings": [
         {
           "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "slide_layout",
+          "label": "Slide layout",
+          "options": [
+            { "value": "split", "label": "Split (content + media side by side)" },
+            { "value": "full-background-centered", "label": "Full background media (centered content)" }
+          ],
+          "default": "split",
+          "info": "Split: existing two-column layout. Full background: media fills the slide with centered overlay content."
+        },
+        {
+          "type": "header",
           "content": "Slide Images"
         },
         {
           "type": "color",
           "id": "custom_content_bg",
           "label": "Custom Content Background",
-          "info": "Overrides the global section background color for this specific slide."
+          "info": "Overrides the global section background color for this specific slide. Only applies to split layout."
         },
         {
           "type": "image_picker",
           "id": "slide_image_desktop",
           "label": "Desktop Slide Image",
-          "info": "Displays on wider screens (e.g., desktops)."
+          "info": "Split layout: displays in right column. Full background: used as background image fallback."
         },
         {
           "type": "text",
@@ -905,6 +1098,22 @@
           "id": "mobile_image_alt",
           "label": "Mobile Image Alt Text",
           "info": "Important for SEO and accessibility."
+        },
+        {
+          "type": "header",
+          "content": "Background Video (Full background layout only)"
+        },
+        {
+          "type": "video",
+          "id": "bg_video_desktop",
+          "label": "Desktop background video",
+          "info": "Shopify-hosted video for full-background slides on desktop. Image fields above act as fallback."
+        },
+        {
+          "type": "video",
+          "id": "bg_video_mobile",
+          "label": "Mobile background video",
+          "info": "Shopify-hosted video for full-background slides on mobile. Falls back to desktop video if not set."
         },
         {
           "type": "header",
