@@ -72,6 +72,17 @@
     overflow: hidden;
 }
 
+.homepage-hero-carousel__media-wrapper--with-fallback .homepage-hero-carousel__bg-video,
+.homepage-hero-carousel__media-wrapper--with-fallback .homepage-hero-carousel__split-video {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.homepage-hero-carousel__media-wrapper--with-fallback.is-video-ready .homepage-hero-carousel__bg-video,
+.homepage-hero-carousel__media-wrapper--with-fallback.is-video-ready .homepage-hero-carousel__split-video {
+    opacity: 1;
+}
+
 /* Background image layers */
 .homepage-hero-carousel__bg-image {
     position: absolute;
