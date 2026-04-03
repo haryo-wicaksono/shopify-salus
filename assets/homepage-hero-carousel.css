@@ -422,6 +422,19 @@
     left: 0;
 }
 
+.homepage-hero-carousel__split-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.homepage-hero-carousel__split-video--mobile {
+    display: none;
+}
+
 .homepage-hero-carousel__image--mobile {
     display: none;
 }
@@ -493,6 +506,14 @@
     }
 
     .homepage-hero-carousel__image--desktop {
+        display: none;
+    }
+
+    .homepage-hero-carousel__split-video--mobile {
+        display: block;
+    }
+
+    .homepage-hero-carousel__split-video--desktop {
         display: none;
     }
 
