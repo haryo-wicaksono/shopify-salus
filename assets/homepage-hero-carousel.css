@@ -141,8 +141,11 @@
     display: inline;
 }
 
-.homepage-hero-carousel__description .homepage-hero-carousel__desktop-only,
 .homepage-hero-carousel__description .homepage-hero-carousel__mobile-only {
+    display: none;
+}
+
+.homepage-hero-carousel__description .homepage-hero-carousel__desktop-only {
     display: block;
 }
 
@@ -556,6 +559,10 @@
 
     .homepage-hero-carousel__mobile-only {
         display: inline !important;
+    }
+
+    .homepage-hero-carousel__description .homepage-hero-carousel__desktop-only {
+        display: none !important;
     }
 
     .homepage-hero-carousel__description .homepage-hero-carousel__mobile-only {
