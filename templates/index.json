@@ -398,8 +398,8 @@
         "show_navigation_arrows": true,
         "button_label": "Show me more reviews",
         "button_link": "shopify://pages/reviews",
-        "section_padding_top_desktop": 50,
-        "section_padding_bottom_desktop": 70,
+        "section_padding_top_desktop": 0,
+        "section_padding_bottom_desktop": 0,
         "section_padding_top_mobile": 0,
         "section_padding_bottom_mobile": 0
       }
@@ -953,7 +953,7 @@
         "color_scheme": "4",
         "full_width": false,
         "enable_fw": false,
-        "top_padding": 0,
+        "top_padding": 40,
         "bottom_padding": 0
       }
     },
