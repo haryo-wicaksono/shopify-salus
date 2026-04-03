@@ -128,7 +128,7 @@
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description,
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__cta-buttons,
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-list {
-    max-width: 700px;
+    max-width: 550px;
     width: 100%;
     margin-left: 0;
     margin-right: 0;
@@ -136,20 +136,52 @@
 
 /* Full-background content: headline sizing */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline {
-    font-size: 48px;
+    font-size: 42px;
     line-height: 1.1;
     margin-bottom: 20px;
 }
 
 /* Full-background content: description */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description {
+    font-size: 16px;
     margin-bottom: 30px;
 }
 
 /* Full-background content: CTA buttons left-aligned */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__cta-buttons {
     justify-content: flex-start;
+    gap: 12px;
     margin-bottom: 30px;
+}
+
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__button {
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+/* Full-background CTAs should match the old split template regardless of slide scheme */
+.homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--primary {
+    background-color: #222120;
+    color: #FBFBFB;
+    border: 1px solid #222120;
+}
+
+.homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--secondary {
+    background-color: transparent;
+    color: #222120;
+    border: 2px solid #222120;
+}
+
+.homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--primary:hover {
+    background-color: #1F8A81;
+    color: #FBFBFB;
+    border-color: #1F8A81;
+}
+
+.homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--secondary:hover {
+    background-color: #1F8A81;
+    color: #FBFBFB;
+    border-color: #1F8A81;
 }
 
 /* Full-background content: feature list left-aligned */
