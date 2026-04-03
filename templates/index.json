@@ -159,6 +159,7 @@
         },
         "hero_slide_gQxa68": {
           "type": "hero-slide",
+          "disabled": true,
           "settings": {
             "slide_layout": "split",
             "custom_content_bg": "",
