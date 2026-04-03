@@ -47,6 +47,123 @@
     min-height: var(--homepage-hero-carousel-desktop-height);
 }
 
+/* ============================================================
+   FULL-BACKGROUND CENTERED LAYOUT
+   ============================================================ */
+
+/* Slide inner: full-bleed container with stacked layers */
+.homepage-hero-carousel__slide-inner--full-bg-centered {
+    display: block;
+    position: relative;
+    width: 100%;
+    min-height: var(--homepage-hero-carousel-desktop-height);
+    overflow: hidden;
+}
+
+/* Background media layer: fills the entire slide */
+.homepage-hero-carousel__bg-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Background image layers */
+.homepage-hero-carousel__bg-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+.homepage-hero-carousel__bg-image--mobile {
+    display: none;
+}
+
+/* Background video layers */
+.homepage-hero-carousel__bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+}
+
+.homepage-hero-carousel__bg-video--mobile {
+    display: none;
+    z-index: 2;
+}
+
+/* Centered overlay content column */
+.homepage-hero-carousel__content-column--centered {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    min-height: var(--homepage-hero-carousel-desktop-height);
+    padding: 80px calc(var(--gutter) + 40px);
+    background-color: transparent !important;
+}
+
+/* Centered content: constrain max width for readability */
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews,
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline,
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description,
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__cta-buttons,
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-list {
+    max-width: 700px;
+    width: 100%;
+}
+
+/* Centered content: headline sizing */
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline {
+    font-size: 48px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+/* Centered content: description */
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description {
+    margin-bottom: 30px;
+}
+
+/* Centered content: CTA buttons centered */
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__cta-buttons {
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+/* Centered content: feature list centered */
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-list {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Dark scheme on full-background slides: text stays light */
+.homepage-hero-carousel__slide--dark.homepage-hero-carousel__slide--full-background-centered
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline,
+.homepage-hero-carousel__slide--dark.homepage-hero-carousel__slide--full-background-centered
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description,
+.homepage-hero-carousel__slide--dark.homepage-hero-carousel__slide--full-background-centered
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews-text,
+.homepage-hero-carousel__slide--dark.homepage-hero-carousel__slide--full-background-centered
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-item {
+    color: #FBFBFB;
+}
+
 /* --- Content Column (Left on Desktop, Overlay on Mobile) --- */
 .homepage-hero-carousel__content-column {
     /* Background color set via Liquid variable */
@@ -407,6 +524,67 @@
 
     .homepage-hero-carousel__pagination.swiper-pagination-bullets {
         bottom: 15px;
+    }
+
+    /* Full-background centered layout on mobile */
+    .homepage-hero-carousel__slide-inner--full-bg-centered {
+        display: block;
+        position: relative;
+        min-height: 60vh;
+    }
+
+    .homepage-hero-carousel__bg-media {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        min-height: 60vh;
+    }
+
+    .homepage-hero-carousel__bg-image--mobile,
+    .homepage-hero-carousel__bg-video--mobile {
+        display: block;
+    }
+
+    .homepage-hero-carousel__bg-image--desktop {
+        display: none;
+    }
+
+    .homepage-hero-carousel__content-column--centered {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 60vh;
+        padding: 30px 20px;
+        background-color: transparent !important;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__cta-buttons {
+        margin-bottom: 20px;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews {
+        margin-bottom: 12px;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews-text {
+        font-size: 12px;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-list {
+        margin-bottom: 20px;
     }
 }
 
