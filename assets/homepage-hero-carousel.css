@@ -102,27 +102,27 @@
     z-index: 2;
 }
 
-/* Centered overlay content column */
+/* Full-background overlay content column */
 .homepage-hero-carousel__content-column--centered {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    text-align: center;
+    text-align: left;
     width: 100%;
     min-height: var(--homepage-hero-carousel-desktop-height);
-    padding: 80px calc(var(--gutter) + 40px);
+    padding: 80px 60px 80px calc(var(--gutter) + 10px);
     background-color: transparent !important;
 }
 
-/* Centered content: review row centered */
+/* Full-background content: review row left-aligned */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews {
-    justify-content: center;
+    justify-content: flex-start;
 }
 
-/* Centered content: constrain max width for readability */
+/* Full-background content: constrain max width for readability */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews,
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline,
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description,
@@ -130,38 +130,38 @@
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-list {
     max-width: 700px;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 0;
+    margin-right: 0;
 }
 
-/* Centered content: headline sizing */
+/* Full-background content: headline sizing */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline {
     font-size: 48px;
     line-height: 1.1;
     margin-bottom: 20px;
 }
 
-/* Centered content: description */
+/* Full-background content: description */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description {
     margin-bottom: 30px;
 }
 
-/* Centered content: CTA buttons centered */
+/* Full-background content: CTA buttons left-aligned */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__cta-buttons {
-    justify-content: center;
+    justify-content: flex-start;
     margin-bottom: 30px;
 }
 
-/* Centered content: feature list centered */
+/* Full-background content: feature list left-aligned */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-list {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
-/* Centered content: feature item rows centered */
+/* Full-background content: feature item rows left-aligned */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-item {
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 /* Full-background slides: white overlay text on desktop (all color schemes) */
@@ -612,9 +612,9 @@
         z-index: 2;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
-        text-align: center;
+        text-align: left;
         min-height: calc(100vh - var(--homepage-hero-carousel-padding-top-mobile) - var(--homepage-hero-carousel-padding-bottom-mobile));
         padding: 30px 20px;
         background-color: transparent !important;
