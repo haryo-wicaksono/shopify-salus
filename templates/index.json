@@ -610,7 +610,7 @@
       ],
       "name": "Featured In Logos",
       "settings": {
-        "title": "As featured in"
+        "title": ""
       }
     },
     "product_carousel_fKidLh": {
@@ -1019,15 +1019,15 @@
   "order": [
     "slideshow",
     "homepage_hero_carousel_iKVfwn",
+    "homepage_featured_in_logos_dxK7jf",
+    "logo_list_DaqLFK",
+    "celebrity_testimonials_PmJ8Jr",
     "products_card_section_PzCHqp",
     "products_card_section_YF9fnK",
     "homepage_reviews_slider_2_gCdyWL",
-    "homepage_sauna_value_proposition_hFfREm",
-    "logo_list_DaqLFK",
-    "homepage_featured_in_logos_dxK7jf",
     "product_carousel_fKidLh",
     "product_carousel_MGky87",
-    "celebrity_testimonials_PmJ8Jr",
+    "homepage_sauna_value_proposition_hFfREm",
     "video",
     "promo_strip_yHMmpR",
     "promo_strip_MEtcbi",
