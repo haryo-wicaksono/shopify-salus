@@ -242,6 +242,16 @@
     border-color: #1F8A81;
 }
 
+@media screen and (min-width: 1600px) {
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description {
+        font-size: 18px;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__button {
+        font-size: 18px;
+    }
+}
+
 /* Full-background content: feature list left-aligned */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-list {
     display: flex;
