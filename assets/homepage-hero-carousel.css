@@ -102,19 +102,38 @@
     z-index: 2;
 }
 
+.homepage-hero-carousel__slide--full-background-centered {
+    min-height: 0;
+}
+
+.homepage-hero-carousel__slide-inner--full-bg-centered {
+    position: relative;
+    width: 100%;
+    min-height: 0;
+    aspect-ratio: var(--full-bg-desktop-aspect-ratio, 1.7777778);
+    overflow: hidden;
+}
+
 /* Full-background overlay content column */
 .homepage-hero-carousel__content-column--centered {
-    position: relative;
-    z-index: 1;
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: block;
+    width: 100%;
+    min-height: 0;
+    padding: 0 60px 0 calc(var(--gutter) + 10px);
+    background-color: transparent !important;
+}
+
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__content-inner {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    text-align: left;
     width: 100%;
-    min-height: var(--homepage-hero-carousel-desktop-height);
-    padding: 80px 60px 80px calc(var(--gutter) + 10px);
-    background-color: transparent !important;
+    height: 100%;
+    max-width: 550px;
 }
 
 /* Full-background content: review row left-aligned */
@@ -128,7 +147,6 @@
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description,
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__cta-buttons,
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-list {
-    max-width: 550px;
     width: 100%;
     margin-left: 0;
     margin-right: 0;
@@ -159,17 +177,22 @@
     font-size: 16px;
 }
 
-/* Full-background CTAs should match the old split template regardless of slide scheme */
+/* Full-background CTAs should match the split dark-theme treatment */
 .homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--primary {
-    background-color: #222120;
-    color: #FBFBFB;
-    border: 1px solid #222120;
+    background-color: #FBFBFB;
+    color: #222120;
+    border: 2px solid #FBFBFB;
+}
+
+.homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--primary svg,
+.homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--primary svg path {
+    fill: currentColor !important;
 }
 
 .homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--secondary {
-    background-color: transparent;
-    color: #222120;
-    border: 2px solid #222120;
+    background-color: #222120;
+    color: #FBFBFB;
+    border: 2px solid #FBFBFB;
 }
 
 .homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--primary:hover {
@@ -606,21 +629,21 @@
     /* Full-background centered layout on mobile */
     .homepage-hero-carousel__slide--full-background-centered {
         position: relative;
-        min-height: calc(100vh - var(--homepage-hero-carousel-padding-top-mobile) - var(--homepage-hero-carousel-padding-bottom-mobile));
+        min-height: 0;
     }
 
     .homepage-hero-carousel__slide-inner--full-bg-centered {
-        display: block;
-        position: absolute;
-        inset: 0;
-        min-height: calc(100vh - var(--homepage-hero-carousel-padding-top-mobile) - var(--homepage-hero-carousel-padding-bottom-mobile));
+        position: relative;
+        inset: auto;
+        min-height: 0;
+        aspect-ratio: var(--full-bg-mobile-aspect-ratio, var(--full-bg-desktop-aspect-ratio, 1.7777778));
     }
 
     .homepage-hero-carousel__bg-media {
         position: absolute;
         inset: 0;
         height: 100%;
-        min-height: calc(100vh - var(--homepage-hero-carousel-padding-top-mobile) - var(--homepage-hero-carousel-padding-bottom-mobile));
+        min-height: 0;
         background-color: #000;
     }
 
@@ -642,13 +665,9 @@
         position: absolute;
         inset: 0;
         z-index: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        text-align: left;
-        min-height: calc(100vh - var(--homepage-hero-carousel-padding-top-mobile) - var(--homepage-hero-carousel-padding-bottom-mobile));
-        padding: 30px 20px;
+        display: block;
+        min-height: 0;
+        padding: 0 20px;
         background-color: transparent !important;
     }
 
