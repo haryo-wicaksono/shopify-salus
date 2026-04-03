@@ -192,12 +192,29 @@
                   Full-bleed media (video or image) with centered overlay content.
                   ============================================================
                 {%- endcomment -%}
-                <div class="homepage-hero-carousel__slide-inner homepage-hero-carousel__slide-inner--full-bg-centered">
+                {%- assign bg_video_desktop = block.settings.bg_video_desktop -%}
+                {%- assign bg_video_mobile = block.settings.bg_video_mobile -%}
+                {%- assign bg_image_desktop = block.settings.slide_image_desktop -%}
+                {%- assign bg_image_mobile = block.settings.slide_image_mobile -%}
+                {%- assign desktop_aspect_ratio = 1.7777778 -%}
+                {%- assign mobile_aspect_ratio = desktop_aspect_ratio -%}
+                {%- if bg_video_desktop != blank and bg_video_desktop.aspect_ratio != blank -%}
+                  {%- assign desktop_aspect_ratio = bg_video_desktop.aspect_ratio -%}
+                {%- elsif bg_image_desktop != blank and bg_image_desktop.aspect_ratio != blank -%}
+                  {%- assign desktop_aspect_ratio = bg_image_desktop.aspect_ratio -%}
+                {%- endif -%}
+                {%- if bg_video_mobile != blank and bg_video_mobile.aspect_ratio != blank -%}
+                  {%- assign mobile_aspect_ratio = bg_video_mobile.aspect_ratio -%}
+                {%- elsif bg_image_mobile != blank and bg_image_mobile.aspect_ratio != blank -%}
+                  {%- assign mobile_aspect_ratio = bg_image_mobile.aspect_ratio -%}
+                {%- else -%}
+                  {%- assign mobile_aspect_ratio = desktop_aspect_ratio -%}
+                {%- endif -%}
+                <div
+                  class="homepage-hero-carousel__slide-inner homepage-hero-carousel__slide-inner--full-bg-centered"
+                  style="--full-bg-desktop-aspect-ratio: {{ desktop_aspect_ratio }}; --full-bg-mobile-aspect-ratio: {{ mobile_aspect_ratio }};"
+                >
                   <div class="homepage-hero-carousel__bg-media">
-                    {%- assign bg_video_desktop = block.settings.bg_video_desktop -%}
-                    {%- assign bg_video_mobile = block.settings.bg_video_mobile -%}
-                    {%- assign bg_image_desktop = block.settings.slide_image_desktop -%}
-                    {%- assign bg_image_mobile = block.settings.slide_image_mobile -%}
 
                     {%- if bg_video_desktop != blank or bg_video_mobile != blank -%}
                       {% if bg_video_desktop != blank %}
@@ -258,91 +275,93 @@
 
                   {%- comment -%}Centered overlay content layer{%- endcomment -%}
                   <div class="homepage-hero-carousel__content-column homepage-hero-carousel__content-column--centered">
-                    {% if block.settings.reviews_text != blank %}
-                      <div class="homepage-hero-carousel__reviews">
-                        {% if block.settings.show_stars %}
-                          <span class="homepage-hero-carousel__star-rating">
-                            {% render 'icon-star' %}
-                            {% render 'icon-star' %}
-                            {% render 'icon-star' %}
-                            {% render 'icon-star' %}
-                            {% render 'icon-star' %}
-                          </span>
-                        {% endif %}
-                        {% if block.settings.show_house_icon %}
-                          <span class="homepage-hero-carousel__review-icon-house">
-                            {% render 'icon-review-house' %}
-                          </span>
-                        {% endif %}
-                        <p class="homepage-hero-carousel__reviews-text">{{ block.settings.reviews_text }}</p>
-                      </div>
-                    {% endif %}
-
-                    {% if block.settings.headline != blank %}
-                      <h2 class="homepage-hero-carousel__headline">{{ block.settings.headline }}</h2>
-                    {% endif %}
-
-                    {% if block.settings.description != blank %}
-                      <div class="homepage-hero-carousel__description">{{ block.settings.description }}</div>
-                    {% endif %}
-
-                    <div class="homepage-hero-carousel__cta-buttons">
-                      {% if block.settings.button1_link != blank and block.settings.button1_text != blank %}
-                        <a
-                          href="{{ block.settings.button1_link }}"
-                          class="homepage-hero-carousel__button homepage-hero-carousel__button--primary"
-                        >
-                          {{ block.settings.button1_text }}
-                          {% if block.settings.show_button1_arrow %}{% render 'icon-arrow-right-cta' %}{% endif %}
-                        </a>
-                      {% endif %}
-                      {% if block.settings.button2_link != blank and block.settings.button2_text != blank %}
-                        <a
-                          href="{{ block.settings.button2_link }}"
-                          class="homepage-hero-carousel__button homepage-hero-carousel__button--secondary"
-                        >
-                          {% if block.settings.button2_icon != blank %}
-                            {% assign button2_icon_img = block.settings.button2_icon %}
-                            <img
-                              src="{{ button2_icon_img | image_url: '20x20' }}"
-                              alt="{{ button2_icon_img.alt | default: 'Button icon' }}"
-                              class="homepage-hero-carousel__button-icon"
-                              width="20"
-                              height="20"
-                              loading="lazy"
-                            >
+                    <div class="homepage-hero-carousel__content-inner">
+                      {% if block.settings.reviews_text != blank %}
+                        <div class="homepage-hero-carousel__reviews">
+                          {% if block.settings.show_stars %}
+                            <span class="homepage-hero-carousel__star-rating">
+                              {% render 'icon-star' %}
+                              {% render 'icon-star' %}
+                              {% render 'icon-star' %}
+                              {% render 'icon-star' %}
+                              {% render 'icon-star' %}
+                            </span>
                           {% endif %}
-                          {{ block.settings.button2_text }}
-                        </a>
+                          {% if block.settings.show_house_icon %}
+                            <span class="homepage-hero-carousel__review-icon-house">
+                              {% render 'icon-review-house' %}
+                            </span>
+                          {% endif %}
+                          <p class="homepage-hero-carousel__reviews-text">{{ block.settings.reviews_text }}</p>
+                        </div>
                       {% endif %}
-                    </div>
 
-                    <ul class="homepage-hero-carousel__feature-list">
-                      {% if block.settings.feature_item_1 != blank %}
-                        <li class="homepage-hero-carousel__feature-item">
-                          {% render 'icon-checkmark' %}
-                          {{ block.settings.feature_item_1 }}
-                        </li>
+                      {% if block.settings.headline != blank %}
+                        <h2 class="homepage-hero-carousel__headline">{{ block.settings.headline }}</h2>
                       {% endif %}
-                      {% if block.settings.feature_item_2 != blank %}
-                        <li class="homepage-hero-carousel__feature-item">
-                          {% render 'icon-checkmark' %}
-                          {{ block.settings.feature_item_2 }}
-                        </li>
+
+                      {% if block.settings.description != blank %}
+                        <div class="homepage-hero-carousel__description">{{ block.settings.description }}</div>
                       {% endif %}
-                      {% if block.settings.feature_item_3 != blank %}
-                        <li class="homepage-hero-carousel__feature-item">
-                          {% render 'icon-checkmark' %}
-                          {{ block.settings.feature_item_3 }}
-                        </li>
-                      {% endif %}
-                      {% if block.settings.feature_item_4 != blank %}
-                        <li class="homepage-hero-carousel__feature-item">
-                          {% render 'icon-checkmark' %}
-                          {{ block.settings.feature_item_4 }}
-                        </li>
-                      {% endif %}
-                    </ul>
+
+                      <div class="homepage-hero-carousel__cta-buttons">
+                        {% if block.settings.button1_link != blank and block.settings.button1_text != blank %}
+                          <a
+                            href="{{ block.settings.button1_link }}"
+                            class="homepage-hero-carousel__button homepage-hero-carousel__button--primary"
+                          >
+                            {{ block.settings.button1_text }}
+                            {% if block.settings.show_button1_arrow %}{% render 'icon-arrow-right-cta' %}{% endif %}
+                          </a>
+                        {% endif %}
+                        {% if block.settings.button2_link != blank and block.settings.button2_text != blank %}
+                          <a
+                            href="{{ block.settings.button2_link }}"
+                            class="homepage-hero-carousel__button homepage-hero-carousel__button--secondary"
+                          >
+                            {% if block.settings.button2_icon != blank %}
+                              {% assign button2_icon_img = block.settings.button2_icon %}
+                              <img
+                                src="{{ button2_icon_img | image_url: '20x20' }}"
+                                alt="{{ button2_icon_img.alt | default: 'Button icon' }}"
+                                class="homepage-hero-carousel__button-icon"
+                                width="20"
+                                height="20"
+                                loading="lazy"
+                              >
+                            {% endif %}
+                            {{ block.settings.button2_text }}
+                          </a>
+                        {% endif %}
+                      </div>
+
+                      <ul class="homepage-hero-carousel__feature-list">
+                        {% if block.settings.feature_item_1 != blank %}
+                          <li class="homepage-hero-carousel__feature-item">
+                            {% render 'icon-checkmark' %}
+                            {{ block.settings.feature_item_1 }}
+                          </li>
+                        {% endif %}
+                        {% if block.settings.feature_item_2 != blank %}
+                          <li class="homepage-hero-carousel__feature-item">
+                            {% render 'icon-checkmark' %}
+                            {{ block.settings.feature_item_2 }}
+                          </li>
+                        {% endif %}
+                        {% if block.settings.feature_item_3 != blank %}
+                          <li class="homepage-hero-carousel__feature-item">
+                            {% render 'icon-checkmark' %}
+                            {{ block.settings.feature_item_3 }}
+                          </li>
+                        {% endif %}
+                        {% if block.settings.feature_item_4 != blank %}
+                          <li class="homepage-hero-carousel__feature-item">
+                            {% render 'icon-checkmark' %}
+                            {{ block.settings.feature_item_4 }}
+                          </li>
+                        {% endif %}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               {%- else -%}

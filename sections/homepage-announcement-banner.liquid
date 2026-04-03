@@ -48,20 +48,28 @@
   }
 </style>
 
-<div class="announcement-banner">
-  <div class="announcement-banner__content">
-    {% render 'call-icon', class: 'announcement-banner__icon', color: section.settings.text_color, width: 18, height: 18 %}
-    <p class="announcement-banner__text">
-      {{ section.settings.text | escape }}
-      <a href="tel:{{ section.settings.phone_number | escape }}">{{ section.settings.phone_number | escape }}</a>
-    </p>
+{% if section.settings.show_banner %}
+  <div class="announcement-banner">
+    <div class="announcement-banner__content">
+      {% render 'call-icon', class: 'announcement-banner__icon', color: section.settings.text_color, width: 18, height: 18 %}
+      <p class="announcement-banner__text">
+        {{ section.settings.text | escape }}
+        <a href="tel:{{ section.settings.phone_number | escape }}">{{ section.settings.phone_number | escape }}</a>
+      </p>
+    </div>
   </div>
-</div>
+{% endif %}
 
 {% schema %}
 {
   "name": "Announcement Banner",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Show banner",
+      "default": false
+    },
     {
       "type": "text",
       "id": "text",
