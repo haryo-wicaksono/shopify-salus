@@ -74,41 +74,16 @@
     "homepage_hero_carousel_iKVfwn": {
       "type": "homepage-hero-carousel",
       "blocks": {
-        "hero_slide_PxmF3b": {
-          "type": "hero-slide",
-          "settings": {
-            "slide_layout": "full-background-centered",
-            "custom_content_bg": "",
-            "desktop_image_alt": "",
-            "mobile_image_alt": "",
-            "bg_video_desktop": "shopify://files/videos/Salus Web Header.mp4",
-            "bg_video_mobile": "shopify://files/videos/tolstoy_a2781b71-8a76-43c6-80bb-b865c2015e5b_preview.mp4",
-            "show_stars": true,
-            "show_house_icon": true,
-            "reviews_text": "100s of verified 5-star reviews",
-            "headline": "Unlock evidence-based wellness, powered by heat",
-            "description": "<p>From longevity, sleep and recovery, to mental health, saunas brings it all together — make smarter choices today that your future self will thank you for.</p>",
-            "button1_text": "Shop All Saunas",
-            "button1_link": "",
-            "show_button1_arrow": true,
-            "button2_text": "Consult Our Experts",
-            "button2_link": "",
-            "feature_item_1": "Free Shipping on all US orders",
-            "feature_item_2": "5-7 Year Limited Lifetime Sauna Warranty",
-            "feature_item_3": "Trusted by health professionals and athletes",
-            "feature_item_4": "FSA/HSA Eligible & Flexible Financing",
-            "color_scheme": "light"
-          }
-        },
         "hero_slide_J4eVMm": {
           "type": "hero-slide",
           "settings": {
             "slide_layout": "split",
             "custom_content_bg": "",
-            "slide_image_desktop": "shopify://shop_images/Untitled_design_3_91f7fc63-a5ea-41ac-a364-221fd68e7d9f.png",
             "desktop_image_alt": "Hello",
-            "slide_image_mobile": "shopify://shop_images/Untitled_design_3_91f7fc63-a5ea-41ac-a364-221fd68e7d9f.png",
             "mobile_image_alt": "Hello",
+            "bg_video_desktop": "shopify://files/videos/Salus Web Header.mp4",
+            "bg_video_mobile": "shopify://files/videos/tolstoy_a2781b71-8a76-43c6-80bb-b865c2015e5b_preview.mp4",
+            "split_media_type": "image",
             "show_stars": true,
             "show_house_icon": false,
             "reviews_text": "100s of verified 5-star reviews",
@@ -126,6 +101,33 @@
             "color_scheme": "light"
           }
         },
+        "hero_slide_PxmF3b": {
+          "type": "hero-slide",
+          "settings": {
+            "slide_layout": "full-background-centered",
+            "custom_content_bg": "",
+            "desktop_image_alt": "",
+            "mobile_image_alt": "",
+            "bg_video_desktop": "shopify://files/videos/Salus Web Header.mp4",
+            "bg_video_mobile": "shopify://files/videos/tolstoy_a2781b71-8a76-43c6-80bb-b865c2015e5b_preview.mp4",
+            "split_media_type": "image",
+            "show_stars": true,
+            "show_house_icon": true,
+            "reviews_text": "100s of verified 5-star reviews",
+            "headline": "Unlock evidence-based wellness, powered by heat",
+            "description": "<p>From longevity, sleep and recovery, to mental health, saunas brings it all together — make smarter choices today that your future self will thank you for.</p>",
+            "button1_text": "Shop All Saunas",
+            "button1_link": "",
+            "show_button1_arrow": true,
+            "button2_text": "Consult Our Experts",
+            "button2_link": "",
+            "feature_item_1": "Free Shipping on all US orders",
+            "feature_item_2": "5-7 Year Limited Lifetime Sauna Warranty",
+            "feature_item_3": "Trusted by health professionals and athletes",
+            "feature_item_4": "FSA/HSA Eligible & Flexible Financing",
+            "color_scheme": "light"
+          }
+        },
         "hero_slide_gQxa68": {
           "type": "hero-slide",
           "settings": {
@@ -135,6 +137,7 @@
             "desktop_image_alt": "Hello",
             "slide_image_mobile": "shopify://shop_images/dark_mode_slide_hero_section_sauna.png",
             "mobile_image_alt": "Hello",
+            "split_media_type": "image",
             "show_stars": false,
             "show_house_icon": true,
             "reviews_text": "Highly rated for build quality and craftsmanship",
@@ -154,8 +157,8 @@
         }
       },
       "block_order": [
-        "hero_slide_PxmF3b",
         "hero_slide_J4eVMm",
+        "hero_slide_PxmF3b",
         "hero_slide_gQxa68"
       ],
       "name": "Homepage Hero Carousel",
