@@ -117,6 +117,11 @@
     background-color: transparent !important;
 }
 
+/* Centered content: review row centered */
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews {
+    justify-content: center;
+}
+
 /* Centered content: constrain max width for readability */
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews,
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline,
@@ -125,6 +130,8 @@
 .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-list {
     max-width: 700px;
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Centered content: headline sizing */
@@ -150,6 +157,23 @@
     display: inline-flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* Centered content: feature item rows centered */
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-item {
+    justify-content: center;
+}
+
+/* Full-background slides: white overlay text on desktop (all color schemes) */
+.homepage-hero-carousel__slide--full-background-centered
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline,
+.homepage-hero-carousel__slide--full-background-centered
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description,
+.homepage-hero-carousel__slide--full-background-centered
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews-text,
+.homepage-hero-carousel__slide--full-background-centered
+.homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-item {
+    color: #FBFBFB;
 }
 
 /* Dark scheme on full-background slides: text stays light */
@@ -527,17 +551,24 @@
     }
 
     /* Full-background centered layout on mobile */
+    .homepage-hero-carousel__slide--full-background-centered {
+        position: relative;
+        min-height: calc(100vh - var(--homepage-hero-carousel-padding-top-mobile) - var(--homepage-hero-carousel-padding-bottom-mobile));
+    }
+
     .homepage-hero-carousel__slide-inner--full-bg-centered {
         display: block;
-        position: relative;
-        min-height: 60vh;
+        position: absolute;
+        inset: 0;
+        min-height: calc(100vh - var(--homepage-hero-carousel-padding-top-mobile) - var(--homepage-hero-carousel-padding-bottom-mobile));
     }
 
     .homepage-hero-carousel__bg-media {
         position: absolute;
         inset: 0;
         height: 100%;
-        min-height: 60vh;
+        min-height: calc(100vh - var(--homepage-hero-carousel-padding-top-mobile) - var(--homepage-hero-carousel-padding-bottom-mobile));
+        background-color: #000;
     }
 
     .homepage-hero-carousel__bg-image--mobile,
@@ -545,18 +576,25 @@
         display: block;
     }
 
-    .homepage-hero-carousel__bg-image--desktop {
+    .homepage-hero-carousel__bg-image--desktop,
+    .homepage-hero-carousel__bg-video--desktop {
         display: none;
+    }
+
+    .homepage-hero-carousel__bg-video--mobile {
+        object-fit: cover;
     }
 
     .homepage-hero-carousel__content-column--centered {
         position: absolute;
         inset: 0;
+        z-index: 2;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 60vh;
+        text-align: center;
+        min-height: calc(100vh - var(--homepage-hero-carousel-padding-top-mobile) - var(--homepage-hero-carousel-padding-bottom-mobile));
         padding: 30px 20px;
         background-color: transparent !important;
     }
@@ -585,6 +623,13 @@
 
     .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-list {
         margin-bottom: 20px;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline,
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description,
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews-text,
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__feature-item {
+        color: #FBFBFB;
     }
 }
 
