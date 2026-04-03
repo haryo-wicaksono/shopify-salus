@@ -225,9 +225,9 @@
 }
 
 .homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--secondary {
-    background-color: #222120;
+    background-color: transparent;
     color: #FBFBFB;
-    border: 2px solid #FBFBFB;
+    border: 1px solid #FBFBFB;
 }
 
 .homepage-hero-carousel__slide--full-background-centered .homepage-hero-carousel__button--primary:hover {
@@ -734,12 +734,12 @@
     }
 
     .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline {
-        font-size: 20px;
+        font-size: 24px;
         margin-bottom: 15px;
     }
 
     .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description {
-        font-size: 15px;
+        font-size: 14px;
         margin-bottom: 20px;
     }
 
@@ -749,10 +749,11 @@
     }
 
     .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__cta-buttons .homepage-hero-carousel__button {
-        flex: 1 1 0;
+        flex: 0 0 auto;
+        width: auto;
         min-width: 0;
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 20px;
+        padding-right: 20px;
         gap: 8px;
     }
 
@@ -763,6 +764,11 @@
 
     .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__cta-buttons .homepage-hero-carousel__button--primary svg path {
         fill: currentColor !important;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__cta-buttons .homepage-hero-carousel__button--secondary {
+        background-color: transparent;
+        border-width: 1px;
     }
 
     .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__reviews {
