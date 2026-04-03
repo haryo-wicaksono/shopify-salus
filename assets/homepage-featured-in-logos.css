@@ -1,5 +1,5 @@
 .featured-in-section {
-  padding: 40px 15px;
+  padding: 80px 15px;
   text-align: center;
   overflow: hidden;
 }
@@ -24,7 +24,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 30px 40px; /* Vertical and horizontal gap */
+  gap: 50px;
 }
 
 .logo-bar__item {
@@ -110,7 +110,7 @@
   .logo-bar {
     flex-wrap: nowrap;
     justify-content: center;
-    gap: clamp(20px, 2vw, 36px);
+    gap: 50px;
     width: 100%;
   }
 
@@ -155,6 +155,11 @@
 }
 
 @media (max-width: 768px) {
+  .featured-in-section {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
   .featured-in-title {
     font-size: 18px;
   }
@@ -180,7 +185,7 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     padding: 0;
-    gap: 30px 40px;
+    gap: 50px;
     width: fit-content;
     animation: scroll 20s linear infinite;
     display: flex;

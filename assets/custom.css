@@ -4007,3 +4007,24 @@ a.secondary-nav__item.secondary-nav__cta {
     line-height: 20px;
   }
 }
+
+.faqs-section.section {
+  padding-top: 120px !important;
+  padding-bottom: 120px !important;
+  margin-bottom: 0 !important;
+}
+
+.faqs-section.section .container.color-scheme.color-scheme--4 {
+  background-color: #FAFAFA !important;
+}
+
+.detail-contact-form .container {
+  background-color: #FAFAFA !important;
+}
+
+@media screen and (max-width: 768px) {
+  .faqs-section.section {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+  }
+}
