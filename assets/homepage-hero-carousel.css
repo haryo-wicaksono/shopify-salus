@@ -12,6 +12,8 @@
     padding-top: var(--homepage-hero-carousel-padding-top-desktop);
     padding-bottom: var(--homepage-hero-carousel-padding-bottom-desktop);
     --homepage-hero-carousel-desktop-height: 550px;
+    --homepage-hero-carousel-header-offset: 0px;
+    --homepage-hero-carousel-available-height: calc(100vh - var(--homepage-hero-carousel-header-offset) - var(--homepage-hero-carousel-padding-top-desktop) - var(--homepage-hero-carousel-padding-bottom-desktop));
     position: relative;
     /* Needed for absolute positioning of nav/pagination if not in swiper */
     overflow: hidden;
@@ -102,15 +104,32 @@
     z-index: 2;
 }
 
+@media screen and (min-width: 770px) {
+    .homepage-hero-carousel__bg-image--mobile,
+    .homepage-hero-carousel__bg-video--mobile,
+    .homepage-hero-carousel__split-video--mobile {
+        display: none !important;
+    }
+
+    .homepage-hero-carousel__bg-image--desktop,
+    .homepage-hero-carousel__bg-video--desktop,
+    .homepage-hero-carousel__split-video--desktop {
+        display: block;
+    }
+}
+
 .homepage-hero-carousel__slide--full-background-centered {
     min-height: 0;
+    display: flex;
+    justify-content: stretch;
 }
 
 .homepage-hero-carousel__slide-inner--full-bg-centered {
     position: relative;
     width: 100%;
+    height: var(--homepage-hero-carousel-available-height);
     min-height: 0;
-    aspect-ratio: var(--full-bg-desktop-aspect-ratio, 1.7777778);
+    max-height: var(--homepage-hero-carousel-available-height);
     overflow: hidden;
 }
 
@@ -630,12 +649,16 @@
     .homepage-hero-carousel__slide--full-background-centered {
         position: relative;
         min-height: 0;
+        display: block;
     }
 
     .homepage-hero-carousel__slide-inner--full-bg-centered {
+        width: 100%;
+        height: auto;
         position: relative;
         inset: auto;
         min-height: 0;
+        max-height: none;
         aspect-ratio: var(--full-bg-mobile-aspect-ratio, var(--full-bg-desktop-aspect-ratio, 1.7777778));
     }
 
