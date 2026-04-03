@@ -79,7 +79,9 @@
           "settings": {
             "slide_layout": "full-background-centered",
             "custom_content_bg": "",
+            "slide_image_desktop": "shopify://shop_images/Hero_-_section.png",
             "desktop_image_alt": "",
+            "slide_image_mobile": "shopify://shop_images/Frame_17322.png",
             "mobile_image_alt": "",
             "bg_video_desktop": "shopify://files/videos/One ritual, many forms. Designed for how you live and unwind..mp4",
             "bg_video_mobile": "shopify://files/videos/HERO VIDEO - Mobile (online-video-cutter.com).mp4",
