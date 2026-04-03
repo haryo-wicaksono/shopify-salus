@@ -103,6 +103,7 @@
         },
         "hero_slide_J4eVMm": {
           "type": "hero-slide",
+          "disabled": true,
           "settings": {
             "slide_layout": "split",
             "custom_content_bg": "",
@@ -130,6 +131,7 @@
         },
         "hero_slide_PxmF3b": {
           "type": "hero-slide",
+          "disabled": true,
           "settings": {
             "slide_layout": "full-background-centered",
             "custom_content_bg": "",
