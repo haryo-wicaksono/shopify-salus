@@ -85,7 +85,7 @@
             "bg_video_mobile": "shopify://files/videos/tolstoy_a2781b71-8a76-43c6-80bb-b865c2015e5b_preview.mp4",
             "split_media_type": "image",
             "show_stars": true,
-            "show_house_icon": true,
+            "show_house_icon": false,
             "reviews_text": "100s of verified 5-star reviews",
             "headline": "One ritual, many forms. Designed for how you live and unwind.",
             "description": "<p>Premium saunas for every space — indoor, outdoor, traditional, infrared, and hybrid. Find your perfect ritual.</p>",
