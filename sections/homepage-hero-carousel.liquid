@@ -471,21 +471,72 @@
                 </div>
 
                 <div class="homepage-hero-carousel__image-wrapper">
-                  {% assign desktop_image = block.settings.slide_image_desktop %}
-                  {% assign mobile_image = block.settings.slide_image_mobile %}
+                  {%- assign split_media_type = block.settings.split_media_type | default: 'image' -%}
+                  {%- if split_media_type == 'video' -%}
+                    {%- assign split_video_desktop = block.settings.split_video_desktop -%}
+                    {%- assign split_video_mobile = block.settings.split_video_mobile -%}
+                    {%- assign desktop_image = block.settings.slide_image_desktop -%}
+                    {%- assign mobile_image = block.settings.slide_image_mobile -%}
 
-                  {% if desktop_image != blank or mobile_image != blank %}
-                    <div
-                      class="homepage-hero-carousel__image--mobile"
-                      style="background-image: url({{ mobile_image | image_url: width: 768 }});"
-                    ></div>
-                    <div
-                      class="homepage-hero-carousel__image--desktop"
-                      style="background-image: url({{ desktop_image | image_url: width: 1400 }});"
-                    ></div>
-                  {% else %}
-                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                  {% endif %}
+                    {%- if split_video_desktop != blank or split_video_mobile != blank -%}
+                      {% if split_video_desktop != blank %}
+                        {{ split_video_desktop | video_tag:
+                          class: "homepage-hero-carousel__split-video homepage-hero-carousel__split-video--desktop",
+                          autoplay: true,
+                          loop: true,
+                          muted: true,
+                          playsinline: true,
+                          preload: "auto",
+                          controls: false
+                        }}
+                      {% endif %}
+                      {% if split_video_mobile != blank %}
+                        {{ split_video_mobile | video_tag:
+                          class: "homepage-hero-carousel__split-video homepage-hero-carousel__split-video--mobile",
+                          autoplay: true,
+                          loop: true,
+                          muted: true,
+                          playsinline: true,
+                          preload: "auto",
+                          controls: false
+                        }}
+                      {% endif %}
+                    {%- else -%}
+                      {% if desktop_image != blank or mobile_image != blank %}
+                        {% if mobile_image != blank %}
+                          <div
+                            class="homepage-hero-carousel__image--mobile"
+                            style="background-image: url({{ mobile_image | image_url: width: 768 }});"
+                          ></div>
+                        {% endif %}
+                        {% if desktop_image != blank %}
+                          <div
+                            class="homepage-hero-carousel__image--desktop"
+                            style="background-image: url({{ desktop_image | image_url: width: 1400 }});"
+                          ></div>
+                        {% endif %}
+                      {% else %}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    {%- endif -%}
+                  {%- else -%}
+                    {%- comment -%}Image-only (existing behavior){%- endcomment -%}
+                    {% assign desktop_image = block.settings.slide_image_desktop %}
+                    {% assign mobile_image = block.settings.slide_image_mobile %}
+
+                    {% if desktop_image != blank or mobile_image != blank %}
+                      <div
+                        class="homepage-hero-carousel__image--mobile"
+                        style="background-image: url({{ mobile_image | image_url: width: 768 }});"
+                      ></div>
+                      <div
+                        class="homepage-hero-carousel__image--desktop"
+                        style="background-image: url({{ desktop_image | image_url: width: 1400 }});"
+                      ></div>
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  {%- endif -%}
                 </div>
               </div>
               {%- endif -%}
@@ -1114,6 +1165,33 @@
           "id": "bg_video_mobile",
           "label": "Mobile background video",
           "info": "Shopify-hosted video for full-background slides on mobile. Falls back to desktop video if not set."
+        },
+        {
+          "type": "header",
+          "content": "Split Layout Media (Split layout only)"
+        },
+        {
+          "type": "select",
+          "id": "split_media_type",
+          "label": "Media type",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ],
+          "default": "image",
+          "info": "For split layout slides: choose image or autoplaying video for the right-side media column."
+        },
+        {
+          "type": "video",
+          "id": "split_video_desktop",
+          "label": "Desktop video",
+          "info": "Shopify-hosted video for split layout slides on desktop."
+        },
+        {
+          "type": "video",
+          "id": "split_video_mobile",
+          "label": "Mobile video",
+          "info": "Shopify-hosted video for split layout slides on mobile."
         },
         {
           "type": "header",
