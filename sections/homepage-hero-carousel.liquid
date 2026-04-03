@@ -198,6 +198,10 @@
                 {%- assign bg_image_mobile = block.settings.slide_image_mobile -%}
                 {%- assign desktop_aspect_ratio = 1.7777778 -%}
                 {%- assign mobile_aspect_ratio = desktop_aspect_ratio -%}
+                {%- assign mobile_headline = block.settings.mobile_headline | default: block.settings.headline -%}
+                {%- assign mobile_description = block.settings.mobile_description | default: block.settings.description -%}
+                {%- assign mobile_button1_text = block.settings.mobile_button1_text | default: block.settings.button1_text -%}
+                {%- assign mobile_button2_text = block.settings.mobile_button2_text | default: block.settings.button2_text -%}
                 {%- if bg_video_desktop != blank and bg_video_desktop.aspect_ratio != blank -%}
                   {%- assign desktop_aspect_ratio = bg_video_desktop.aspect_ratio -%}
                 {%- elsif bg_image_desktop != blank and bg_image_desktop.aspect_ratio != blank -%}
@@ -296,12 +300,18 @@
                         </div>
                       {% endif %}
 
-                      {% if block.settings.headline != blank %}
-                        <h2 class="homepage-hero-carousel__headline">{{ block.settings.headline }}</h2>
+                      {% if block.settings.headline != blank or mobile_headline != blank %}
+                        <h2 class="homepage-hero-carousel__headline">
+                          <span class="homepage-hero-carousel__desktop-only">{{ block.settings.headline }}</span>
+                          <span class="homepage-hero-carousel__mobile-only">{{ mobile_headline }}</span>
+                        </h2>
                       {% endif %}
 
-                      {% if block.settings.description != blank %}
-                        <div class="homepage-hero-carousel__description">{{ block.settings.description }}</div>
+                      {% if block.settings.description != blank or mobile_description != blank %}
+                        <div class="homepage-hero-carousel__description">
+                          <div class="homepage-hero-carousel__desktop-only">{{ block.settings.description }}</div>
+                          <div class="homepage-hero-carousel__mobile-only">{{ mobile_description }}</div>
+                        </div>
                       {% endif %}
 
                       <div class="homepage-hero-carousel__cta-buttons">
@@ -310,7 +320,8 @@
                             href="{{ block.settings.button1_link }}"
                             class="homepage-hero-carousel__button homepage-hero-carousel__button--primary"
                           >
-                            {{ block.settings.button1_text }}
+                            <span class="homepage-hero-carousel__desktop-only">{{ block.settings.button1_text }}</span>
+                            <span class="homepage-hero-carousel__mobile-only">{{ mobile_button1_text }}</span>
                             {% if block.settings.show_button1_arrow %}{% render 'icon-arrow-right-cta' %}{% endif %}
                           </a>
                         {% endif %}
@@ -371,6 +382,10 @@
                   Two-column: content left, media right.
                   ============================================================
                 {%- endcomment -%}
+                {%- assign mobile_headline = block.settings.mobile_headline | default: block.settings.headline -%}
+                {%- assign mobile_description = block.settings.mobile_description | default: block.settings.description -%}
+                {%- assign mobile_button1_text = block.settings.mobile_button1_text | default: block.settings.button1_text -%}
+                {%- assign mobile_button2_text = block.settings.mobile_button2_text | default: block.settings.button2_text -%}
                 <div class="homepage-hero-carousel__slide-inner">
                   {%- assign content_bg = section.settings.content_background_color -%}
                   {%- if block.settings.custom_content_bg != blank
@@ -403,12 +418,18 @@
                       </div>
                     {% endif %}
 
-                    {% if block.settings.headline != blank %}
-                      <h2 class="homepage-hero-carousel__headline">{{ block.settings.headline }}</h2>
+                    {% if block.settings.headline != blank or mobile_headline != blank %}
+                      <h2 class="homepage-hero-carousel__headline">
+                        <span class="homepage-hero-carousel__desktop-only">{{ block.settings.headline }}</span>
+                        <span class="homepage-hero-carousel__mobile-only">{{ mobile_headline }}</span>
+                      </h2>
                     {% endif %}
 
-                    {% if block.settings.description != blank %}
-                      <div class="homepage-hero-carousel__description">{{ block.settings.description }}</div>
+                    {% if block.settings.description != blank or mobile_description != blank %}
+                      <div class="homepage-hero-carousel__description">
+                        <div class="homepage-hero-carousel__desktop-only">{{ block.settings.description }}</div>
+                        <div class="homepage-hero-carousel__mobile-only">{{ mobile_description }}</div>
+                      </div>
                     {% endif %}
 
                     <div class="homepage-hero-carousel__cta-buttons">
@@ -423,7 +444,8 @@
                           href="{{ block.settings.button1_link }}"
                           class="homepage-hero-carousel__button homepage-hero-carousel__button--primary"
                         >
-                          {{ block.settings.button1_text }}
+                          <span class="homepage-hero-carousel__desktop-only">{{ block.settings.button1_text }}</span>
+                          <span class="homepage-hero-carousel__mobile-only">{{ mobile_button1_text }}</span>
                           {% if block.settings.show_button1_arrow %}{% render 'icon-arrow-right-cta' %}{% endif %}
                           {% comment %} VALENTINE'S DAY CONFETTI - ONLY FOR FIRST SLIDE {% endcomment %}
                           {% comment %}
@@ -452,7 +474,8 @@
                               loading="lazy"
                             >
                           {% endif %}
-                          {{ block.settings.button2_text }}
+                          <span class="homepage-hero-carousel__desktop-only">{{ block.settings.button2_text }}</span>
+                          <span class="homepage-hero-carousel__mobile-only">{{ mobile_button2_text }}</span>
                         </a>
                       {% endif %}
                     </div>
@@ -1246,10 +1269,22 @@
           "default": "Unlock evidence-based wellness, powered by heat"
         },
         {
+          "type": "text",
+          "id": "mobile_headline",
+          "label": "Mobile headline",
+          "info": "Optional. If blank, uses the desktop headline."
+        },
+        {
           "type": "richtext",
           "id": "description",
           "label": "Description",
           "default": "<p>From longevity, sleep and recovery, to mental health, saunas brings it all together — make smarter choices today that your future self will thank you for.</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "mobile_description",
+          "label": "Mobile description",
+          "info": "Optional. If blank, uses the desktop description."
         },
         {
           "type": "header",
@@ -1260,6 +1295,12 @@
           "id": "button1_text",
           "label": "Button 1 Text",
           "default": "Shop All Saunas"
+        },
+        {
+          "type": "text",
+          "id": "mobile_button1_text",
+          "label": "Mobile button 1 text",
+          "info": "Optional. If blank, uses the desktop button 1 text."
         },
         {
           "type": "url",
@@ -1278,6 +1319,12 @@
           "id": "button2_text",
           "label": "Button 2 Text",
           "default": "Consult Our Experts"
+        },
+        {
+          "type": "text",
+          "id": "mobile_button2_text",
+          "label": "Mobile button 2 text",
+          "info": "Optional. If blank, uses the desktop button 2 text."
         },
         {
           "type": "url",
