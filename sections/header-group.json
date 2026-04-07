@@ -15,6 +15,7 @@
       "type": "homepage-announcement-banner",
       "name": "Homepage Announcement Banner",
       "settings": {
+        "show_banner": false,
         "text": "Need assistance? Call",
         "phone_number": "(888) 287-0111",
         "background_color": "#ffffff",
@@ -211,54 +212,6 @@
             "badge3_text": ""
           }
         },
-        "columns_PxyWTC": {
-          "type": "columns",
-          "settings": {
-            "title": "Heaters",
-            "collection_images": "none",
-            "collection_use_product_image": false,
-            "show_underline": true,
-            "menu_products": [
-              "harvia-electric-kip-heater",
-              "harvia-electric-kip-heater-w-wifi",
-              "harvia-spirit-heater-w-wifi",
-              "huum-cliff-heater-w-wifi-bundle"
-            ],
-            "product_tag_1": "",
-            "product_tag_2": "",
-            "product_tag_3": "",
-            "product_tag_4": "",
-            "promo_position": "bottom",
-            "promo_min_height": 200,
-            "promo_text_color": "#ffffff",
-            "promo_tint_color": "#000000",
-            "promo_tint_opacity": 20,
-            "promo1_content": "",
-            "promo1_link_url": "",
-            "promo1_text_size": 16,
-            "promo1_text_width": 100,
-            "promo1_text_alignment": "justify-center items-center text-center",
-            "promo2_content": "",
-            "promo2_link_url": "",
-            "promo2_text_size": 16,
-            "promo2_text_width": 100,
-            "promo2_text_alignment": "justify-center items-center text-center",
-            "promo3_content": "",
-            "promo3_link_url": "",
-            "promo3_text_size": 16,
-            "promo3_text_width": 100,
-            "promo3_text_alignment": "justify-center items-center text-center",
-            "badge1_color": "#000000",
-            "badge1_link": "",
-            "badge1_text": "",
-            "badge2_color": "#000000",
-            "badge2_link": "",
-            "badge2_text": "",
-            "badge3_color": "#000000",
-            "badge3_link": "",
-            "badge3_text": ""
-          }
-        },
         "columns_BjLAQB": {
           "type": "columns",
           "settings": {
@@ -307,18 +260,15 @@
             "badge3_text": ""
           }
         },
-        "columns_EUE4ja": {
+        "columns_LcMrCU": {
           "type": "columns",
           "settings": {
-            "title": "Main menu 2.0,Heaters & Accessories",
+            "title": "Heater Accessories",
             "collection_images": "none",
             "collection_use_product_image": false,
             "show_underline": true,
             "menu_products": [
-              "harvia-electric-kip-heater-w-wifi",
-              "huum-hive-mini-heater-w-wifi-bundle",
-              "backrest",
-              "ellipse-sauna-shower"
+              "waterproof-boxes-for-main-modules-wifi-controllers"
             ],
             "product_tag_1": "",
             "product_tag_2": "",
@@ -397,15 +347,114 @@
             "badge3_link": "",
             "badge3_text": ""
           }
+        },
+        "columns_PxyWTC": {
+          "type": "columns",
+          "disabled": true,
+          "settings": {
+            "title": "Heaters",
+            "collection_images": "none",
+            "collection_use_product_image": false,
+            "show_underline": true,
+            "menu_products": [
+              "harvia-electric-kip-heater",
+              "harvia-electric-kip-heater-w-wifi",
+              "harvia-spirit-heater-w-wifi",
+              "huum-cliff-heater-w-wifi-bundle"
+            ],
+            "product_tag_1": "",
+            "product_tag_2": "",
+            "product_tag_3": "",
+            "product_tag_4": "",
+            "promo_position": "bottom",
+            "promo_min_height": 200,
+            "promo_text_color": "#ffffff",
+            "promo_tint_color": "#000000",
+            "promo_tint_opacity": 20,
+            "promo1_content": "",
+            "promo1_link_url": "",
+            "promo1_text_size": 16,
+            "promo1_text_width": 100,
+            "promo1_text_alignment": "justify-center items-center text-center",
+            "promo2_content": "",
+            "promo2_link_url": "",
+            "promo2_text_size": 16,
+            "promo2_text_width": 100,
+            "promo2_text_alignment": "justify-center items-center text-center",
+            "promo3_content": "",
+            "promo3_link_url": "",
+            "promo3_text_size": 16,
+            "promo3_text_width": 100,
+            "promo3_text_alignment": "justify-center items-center text-center",
+            "badge1_color": "#000000",
+            "badge1_link": "",
+            "badge1_text": "",
+            "badge2_color": "#000000",
+            "badge2_link": "",
+            "badge2_text": "",
+            "badge3_color": "#000000",
+            "badge3_link": "",
+            "badge3_text": ""
+          }
+        },
+        "columns_EUE4ja": {
+          "type": "columns",
+          "disabled": true,
+          "settings": {
+            "title": "Main menu 2.0,Heaters & Accessories",
+            "collection_images": "none",
+            "collection_use_product_image": false,
+            "show_underline": true,
+            "menu_products": [
+              "harvia-electric-kip-heater-w-wifi",
+              "huum-hive-mini-heater-w-wifi-bundle",
+              "backrest",
+              "ellipse-sauna-shower"
+            ],
+            "product_tag_1": "",
+            "product_tag_2": "",
+            "product_tag_3": "",
+            "product_tag_4": "",
+            "promo_position": "bottom",
+            "promo_min_height": 200,
+            "promo_text_color": "#ffffff",
+            "promo_tint_color": "#000000",
+            "promo_tint_opacity": 20,
+            "promo1_content": "",
+            "promo1_link_url": "",
+            "promo1_text_size": 16,
+            "promo1_text_width": 100,
+            "promo1_text_alignment": "justify-center items-center text-center",
+            "promo2_content": "",
+            "promo2_link_url": "",
+            "promo2_text_size": 16,
+            "promo2_text_width": 100,
+            "promo2_text_alignment": "justify-center items-center text-center",
+            "promo3_content": "",
+            "promo3_link_url": "",
+            "promo3_text_size": 16,
+            "promo3_text_width": 100,
+            "promo3_text_alignment": "justify-center items-center text-center",
+            "badge1_color": "#000000",
+            "badge1_link": "",
+            "badge1_text": "",
+            "badge2_color": "#000000",
+            "badge2_link": "",
+            "badge2_text": "",
+            "badge3_color": "#000000",
+            "badge3_link": "",
+            "badge3_text": ""
+          }
         }
       },
       "block_order": [
         "columns_wNqK9K",
         "columns_3fnJRk",
-        "columns_PxyWTC",
         "columns_BjLAQB",
-        "columns_EUE4ja",
-        "columns_4gALyE"
+        "columns_LcMrCU",
+        "columns_4gALyE",
+        "columns_PxyWTC",
+        "columns_EUE4ja"
       ],
       "settings": {
         "enable_sticky": true,
