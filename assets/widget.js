@@ -612,7 +612,7 @@
       optimisticQueue: [],
       typingNode: null,
       activeAssistantBody: null,
-      activeAssistantRawText: null,
+      activeAssistantRawText: '',
       viewportHandler: null,
       viewportSettleTimer: null,
       viewportFrame: null,
@@ -775,7 +775,7 @@
       state.renderedServerMessageCount = 0;
       state.optimisticQueue = [];
       state.activeAssistantBody = null;
-      state.activeAssistantRawText = null;
+      state.activeAssistantRawText = '';
       removeTypingIndicator();
     }
 
@@ -833,14 +833,17 @@
     function createAssistantStreamMessage() {
       const created = appendMessage('assistant', '');
       state.activeAssistantBody = created.body;
+      state.activeAssistantRawText = '';
     }
 
     function appendAssistantToken(content) {
       if (!state.activeAssistantBody) {
         createAssistantStreamMessage();
+      }
+      if (typeof state.activeAssistantRawText !== 'string') {
         state.activeAssistantRawText = '';
       }
-      state.activeAssistantRawText += content;
+      state.activeAssistantRawText += content || '';
       state.activeAssistantBody.innerHTML = parseBasicMarkdown(state.activeAssistantRawText);
       scrollMessagesToBottom();
     }
@@ -1333,7 +1336,7 @@
       } finally {
         removeTypingIndicator();
         state.activeAssistantBody = null;
-        state.activeAssistantRawText = null;
+        state.activeAssistantRawText = '';
         state.isStreaming = false;
 
         if (state.sessionStatus === 'bot') {
