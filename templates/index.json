@@ -521,66 +521,6 @@
         "full_width": true
       }
     },
-    "meet_our_icons_grid_aT8PAH": {
-      "type": "meet-our-icons-grid",
-      "blocks": {
-        "static_testimonial_card_TdTWP8": {
-          "type": "static-testimonial-card",
-          "settings": {
-            "quote": "Incredible results!",
-            "name": "Wes Kitts",
-            "description": "US Olympian, Weightlifting Champion"
-          }
-        },
-        "static_testimonial_card_4xbkim": {
-          "type": "static-testimonial-card",
-          "settings": {
-            "quote": "A game changer!",
-            "name": "Teixeira Family",
-            "description": "Former UFC Lightweight Champion"
-          }
-        },
-        "video_testimonial_card_yrqngU": {
-          "type": "video-testimonial-card",
-          "settings": {
-            "name": "Joe Rogan",
-            "description": "Host of the JRE Podcast, Comedian"
-          }
-        },
-        "static_testimonial_card_Rm4km3": {
-          "type": "static-testimonial-card",
-          "settings": {
-            "quote": "A game changer!",
-            "name": "Frankie Edgar",
-            "description": "Former UFC Lightweight Champion"
-          }
-        },
-        "video_testimonial_card_kNtN6m": {
-          "type": "video-testimonial-card",
-          "settings": {
-            "name": "Gordon Ryan",
-            "description": "Greatest no-gi grappler of all time"
-          }
-        }
-      },
-      "block_order": [
-        "static_testimonial_card_TdTWP8",
-        "static_testimonial_card_4xbkim",
-        "video_testimonial_card_yrqngU",
-        "static_testimonial_card_Rm4km3",
-        "video_testimonial_card_kNtN6m"
-      ],
-      "name": "Meet Our Icons Grid",
-      "settings": {
-        "subheading": "<p>100s of verified 5-star reviews</p>",
-        "heading": "Trusted by leading athletes & figures",
-        "button_text": "See More",
-        "button_link": "shopify://pages/our-icons",
-        "desktop_cards_per_row": 5,
-        "tablet_cards_per_row": 2,
-        "mobile_cards_per_row": 2
-      }
-    },
     "celebrity_testimonials_PmJ8Jr": {
       "type": "celebrity-testimonials",
       "blocks": {
@@ -1099,7 +1039,6 @@
     "homepage_featured_in_logos_dxK7jf",
     "homepage_reviews_slider_2_gCdyWL",
     "logo_list_DaqLFK",
-    "meet_our_icons_grid_aT8PAH",
     "celebrity_testimonials_PmJ8Jr",
     "products_card_section_PzCHqp",
     "products_card_section_YF9fnK",
