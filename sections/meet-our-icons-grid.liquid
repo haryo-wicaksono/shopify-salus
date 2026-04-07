@@ -36,7 +36,8 @@
           {% assign card_image = null %}
           {% assign is_video_card = false %}
           {% assign card_alt_text = block.settings.name %}
-          {% assign media_wrapper_padding = '100%' %}
+          {% assign card_variant = block.settings.card_variant | default: 'media' %}
+          {% assign media_height = block.settings.media_height | default: 'tall' %}
 
           {% if block.type == 'static-testimonial-card' %}
             {% assign card_image = block.settings.image %}
@@ -52,19 +53,11 @@
                 {% assign card_image = block.settings.video_file.preview_image %}
                 {% assign card_alt_text = block.settings.video_file.preview_image.alt | default: block.settings.name %}
               {% endif %}
-
-              {% if block.settings.video_file.aspect_ratio %}
-                {% assign media_wrapper_padding = 1
-                  | divided_by: block.settings.video_file.aspect_ratio
-                  | times: 100
-                  | append: '%'
-                %}
-              {% endif %}
             {% endif %}
           {% endif %}
 
           <div class="meet-our-icons-grid__card" {{ block.shopify_attributes }}>
-            <div class="meet-our-icons-grid__media-wrapper" style="padding-bottom: {{ media_wrapper_padding }};">
+            <div class="meet-our-icons-grid__media-wrapper meet-our-icons-grid__media-wrapper--{{ media_height }}">
               {% if card_image != blank %}
                 <img
                   class="meet-our-icons-grid__image"
@@ -115,10 +108,21 @@
                   </svg>
                 </button>
               {% endif %}
+
+              {% if block.settings.caption_line_1 != blank or block.settings.caption_line_2 != blank %}
+                <div class="meet-our-icons-grid__caption">
+                  {% if block.settings.caption_line_1 != blank %}
+                    <span>{{ block.settings.caption_line_1 }}</span>
+                  {% endif %}
+                  {% if block.settings.caption_line_2 != blank %}
+                    <span>{{ block.settings.caption_line_2 }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
             </div>
 
-            <div class="meet-our-icons-grid__content">
-              {% if block.type == 'static-testimonial-card' %}
+            <div class="meet-our-icons-grid__content{% if card_variant == 'review' %} meet-our-icons-grid__content--review{% endif %}">
+              {% if card_variant == 'review' %}
                 <div class="meet-our-icons-grid__stars">
                   {% for i in (1..5) %}
                     {% render 'icon-star' %}
@@ -127,11 +131,18 @@
                 {% if block.settings.quote != blank %}
                   <p class="meet-our-icons-grid__quote">{{ block.settings.quote }}</p>
                 {% endif %}
-              {% endif %}
 
-              <p class="meet-our-icons-grid__name">{{ block.settings.name }}</p>
-              {% if block.settings.description != blank %}
-                <p class="meet-our-icons-grid__description">{{ block.settings.description }}</p>
+                <div class="meet-our-icons-grid__author-info">
+                  <p class="meet-our-icons-grid__name">{{ block.settings.name }}</p>
+                  {% if block.settings.description != blank %}
+                    <p class="meet-our-icons-grid__description">{{ block.settings.description }}</p>
+                  {% endif %}
+                </div>
+              {% else %}
+                <p class="meet-our-icons-grid__name">{{ block.settings.name }}</p>
+                {% if block.settings.description != blank %}
+                  <p class="meet-our-icons-grid__description">{{ block.settings.description }}</p>
+                {% endif %}
               {% endif %}
             </div>
           </div>
@@ -214,6 +225,26 @@
           "info": "Required. The main image for this static testimonial."
         },
         {
+          "type": "select",
+          "id": "card_variant",
+          "label": "Card style",
+          "default": "review",
+          "options": [
+            { "value": "media", "label": "Media card" },
+            { "value": "review", "label": "Review card" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "media_height",
+          "label": "Media height",
+          "default": "short",
+          "options": [
+            { "value": "tall", "label": "Tall" },
+            { "value": "short", "label": "Short" }
+          ]
+        },
+        {
           "type": "text",
           "id": "quote",
           "label": "Quote",
@@ -250,6 +281,42 @@
           "info": "Select a video file from your Shopify 'Content > Files'. The thumbnail and aspect ratio will be automatically handled."
         },
         {
+          "type": "select",
+          "id": "card_variant",
+          "label": "Card style",
+          "default": "media",
+          "options": [
+            { "value": "media", "label": "Media card" },
+            { "value": "review", "label": "Review card" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "media_height",
+          "label": "Media height",
+          "default": "tall",
+          "options": [
+            { "value": "tall", "label": "Tall" },
+            { "value": "short", "label": "Short" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "quote",
+          "label": "Quote",
+          "info": "Optional. Used when card style is set to Review."
+        },
+        {
+          "type": "text",
+          "id": "caption_line_1",
+          "label": "Caption line 1"
+        },
+        {
+          "type": "text",
+          "id": "caption_line_2",
+          "label": "Caption line 2"
+        },
+        {
           "type": "text",
           "id": "name",
           "default": "Name Surname",
@@ -271,6 +338,8 @@
         {
           "type": "static-testimonial-card",
           "settings": {
+            "card_variant": "media",
+            "media_height": "tall",
             "name": "Wes Kitts",
             "description": "US Olympian, Weightlifting Champion",
             "quote": "Incredible results!"
@@ -279,6 +348,8 @@
         {
           "type": "static-testimonial-card",
           "settings": {
+            "card_variant": "review",
+            "media_height": "short",
             "name": "Teixeira Family",
             "description": "Former UFC Lightweight Champion",
             "quote": "A game changer!"
@@ -287,6 +358,8 @@
         {
           "type": "video-testimonial-card",
           "settings": {
+            "card_variant": "media",
+            "media_height": "tall",
             "name": "Joe Rogan",
             "description": "Host of the JRE Podcast, Comedian"
           }
@@ -294,6 +367,8 @@
         {
           "type": "static-testimonial-card",
           "settings": {
+            "card_variant": "review",
+            "media_height": "short",
             "name": "Frankie Edgar",
             "description": "Former UFC Lightweight Champion",
             "quote": "A game changer!"
@@ -302,8 +377,12 @@
         {
           "type": "video-testimonial-card",
           "settings": {
+            "card_variant": "media",
+            "media_height": "tall",
             "name": "Gordon Ryan",
-            "description": "Greatest no-gi grappler of all time"
+            "description": "Greatest no-gi grappler of all time",
+            "caption_line_1": "I forgot to",
+            "caption_line_2": "introduced"
           }
         }
       ]
