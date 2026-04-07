@@ -560,6 +560,19 @@
             "description": "Host of the JRE Podcast, Comedian"
           }
         },
+        "video_testimonial_card_WVrm6Q": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Joe Rogan Testimonials.mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "caption_line_1": "",
+            "caption_line_2": "",
+            "name": "Joe Rogan",
+            "description": "Host of the JRE Podcast, Comedian"
+          }
+        },
         "static_testimonial_card_QM4aMJ": {
           "type": "static-testimonial-card",
           "settings": {
@@ -589,6 +602,7 @@
         "video_testimonial_card_LwzfAM",
         "static_testimonial_card_KURMXf",
         "video_testimonial_card_iW7TJn",
+        "video_testimonial_card_WVrm6Q",
         "static_testimonial_card_QM4aMJ",
         "video_testimonial_card_CrmEcz"
       ],
