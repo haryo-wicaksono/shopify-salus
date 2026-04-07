@@ -537,7 +537,6 @@
         "video_testimonial_MwAyiX": {
           "type": "video_testimonial",
           "settings": {
-            "custom_thumbnail_image": "shopify://shop_images/Wes_Kitts_Testimonials.jpg",
             "video_file": "shopify://files/videos/Wes Kitts Testimonials.mp4",
             "show_review_panel": false,
             "show_stars": true,
