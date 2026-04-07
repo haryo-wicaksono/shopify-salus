@@ -1,0 +1,683 @@
+<style>
+  #MeetOurIcons-{{ section.id }} {
+    --meet-our-icons-gap: 20px;
+    --meet-our-icons-padding-desktop: 80px;
+    --meet-our-icons-padding-mobile: 40px;
+    --meet-our-icons-card-width-mobile: min(78vw, 250px);
+    --meet-our-icons-card-width-tablet: 250px;
+    --meet-our-icons-card-width-desktop: 230px;
+    padding: var(--meet-our-icons-padding-desktop) 0;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 38px;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__header-copy {
+    max-width: 760px;
+    min-width: 0;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__reviews-summary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 12px;
+    color: #3f4344;
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__reviews-summary p {
+    margin: 0;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__reviews-summary svg {
+    width: 13px;
+    height: 13px;
+    fill: #1f8a81;
+    flex: 0 0 auto;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__heading {
+    margin: 0;
+    color: #232629;
+    font-size: clamp(28px, 3.2vw, 44px);
+    line-height: 1.08;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 12px 26px;
+    border: 1px solid #7a7d80;
+    border-radius: 999px;
+    background: #fff;
+    color: #232629;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__button:hover {
+    background: #f5f5f2;
+    border-color: #232629;
+    color: #232629;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__carousel {
+    position: relative;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__nav {
+    pointer-events: none;
+    justify-content: space-between;
+    inset: 0 -16px;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__nav .slider-nav__btn {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin: 0;
+    border: 1px solid rgba(35, 38, 41, 0.15);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.96);
+    color: #232629;
+    box-shadow: 0 10px 24px rgba(17, 19, 20, 0.08);
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__nav .slider-nav__btn[disabled] {
+    opacity: 0.35;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__slider {
+    padding: 0;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--meet-our-icons-card-width-mobile);
+    gap: var(--meet-our-icons-gap);
+    align-items: start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__item {
+    width: 100%;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__card {
+    width: 100%;
+    color: #232629;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__media-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #ece8e0;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__image,
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__media-wrapper video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__image {
+    z-index: 2;
+    transition: opacity 0.3s ease;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__media-wrapper video {
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__media-wrapper.is-playing .meet-our-icons__image,
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__media-wrapper.is-playing .meet-our-icons__play-button {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__media-wrapper.is-playing video {
+    opacity: 1;
+    z-index: 4;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+    transition: background-color 0.2s ease, opacity 0.3s ease;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__play-button:hover {
+    background: rgba(255, 255, 255, 0.24);
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__play-button svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__review-panel {
+    margin-top: 16px;
+    padding: 18px 18px 16px;
+    border-radius: 0;
+    background: #f6f6f3;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__stars {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__stars svg {
+    width: 15px;
+    height: 15px;
+    fill: #1f8a81;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__quote {
+    margin: 0;
+    color: #232629;
+    font-size: 17px;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__meta {
+    margin-top: 14px;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__name {
+    margin: 0 0 4px;
+    color: #232629;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__description {
+    margin: 0;
+    color: #555a5d;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  #MeetOurIcons-{{ section.id }} .meet-our-icons__empty {
+    margin: 0;
+    color: #555a5d;
+  }
+
+  @media screen and (min-width: 768px) {
+    #MeetOurIcons-{{ section.id }} .meet-our-icons__grid {
+      grid-auto-columns: var(--meet-our-icons-card-width-tablet);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    #MeetOurIcons-{{ section.id }} .meet-our-icons__grid {
+      grid-auto-columns: var(--meet-our-icons-card-width-desktop);
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    #MeetOurIcons-{{ section.id }} .meet-our-icons__nav {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    #MeetOurIcons-{{ section.id }} {
+      padding: var(--meet-our-icons-padding-mobile) 0;
+    }
+
+    #MeetOurIcons-{{ section.id }} .meet-our-icons__inner {
+      padding: 0 16px;
+    }
+
+    #MeetOurIcons-{{ section.id }} .meet-our-icons__header {
+      align-items: stretch;
+      flex-direction: column;
+      margin-bottom: 28px;
+    }
+
+    #MeetOurIcons-{{ section.id }} .meet-our-icons__button {
+      align-self: flex-start;
+    }
+  }
+</style>
+
+<section id="MeetOurIcons-{{ section.id }}" class="meet-our-icons">
+  <div class="meet-our-icons__inner">
+    <div class="meet-our-icons__header">
+      <div class="meet-our-icons__header-copy">
+        {% if section.settings.subheading != blank %}
+          <div class="meet-our-icons__reviews-summary">
+            {% for i in (1..5) %}
+              {% render 'icon-star' %}
+            {% endfor %}
+            {{ section.settings.subheading }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="meet-our-icons__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+      </div>
+
+      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="meet-our-icons__button">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <carousel-slider class="meet-our-icons__carousel carousel block relative" inactive>
+        <div class="meet-our-icons__nav slider-nav slide-nav--inline flex absolute top-0 h-full no-js-hidden">
+          <button
+            type="button"
+            class="slider-nav__btn btn text-current has-ltr-icon"
+            name="prev"
+            aria-controls="slider-{{ section.id }}"
+          >
+            <span class="visually-hidden">{{ 'general.slider.previous' | t }}</span>
+            {% render 'icon-chevron-left' %}
+          </button>
+          <button
+            type="button"
+            class="slider-nav__btn btn text-current has-ltr-icon"
+            name="next"
+            aria-controls="slider-{{ section.id }}"
+          >
+            <span class="visually-hidden">{{ 'general.slider.next' | t }}</span>
+            {% render 'icon-chevron-right' %}
+          </button>
+        </div>
+
+        <div class="meet-our-icons__slider slider slider--contained slider--no-scrollbar" id="slider-{{ section.id }}">
+          <ul class="meet-our-icons__grid slider__grid grid" role="list">
+            {% for block in section.blocks %}
+              {% assign card_image = null %}
+              {% assign is_video_card = false %}
+              {% assign card_alt_text = block.settings.name %}
+              {% assign media_wrapper_padding = '100%' %}
+
+              {% if block.type == 'image_testimonial' %}
+                {% assign card_image = block.settings.image %}
+                {% assign card_alt_text = block.settings.image.alt | default: block.settings.name %}
+              {% elsif block.type == 'video_testimonial' %}
+                {% if block.settings.video_file != blank %}
+                  {% assign is_video_card = true %}
+
+                  {% if block.settings.custom_thumbnail_image != blank %}
+                    {% assign card_image = block.settings.custom_thumbnail_image %}
+                    {% assign card_alt_text = block.settings.custom_thumbnail_image.alt | default: block.settings.name %}
+                  {% else %}
+                    {% assign card_image = block.settings.video_file.preview_image %}
+                    {% assign card_alt_text = block.settings.video_file.preview_image.alt | default: block.settings.name %}
+                  {% endif %}
+
+                  {% if block.settings.video_file.aspect_ratio %}
+                    {% assign media_wrapper_padding = 1
+                      | divided_by: block.settings.video_file.aspect_ratio
+                      | times: 100
+                      | append: '%'
+                    %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+
+              <li class="meet-our-icons__item slider__item" {{ block.shopify_attributes }}>
+                <article class="meet-our-icons__card">
+                  <div class="meet-our-icons__media-wrapper" style="padding-bottom: {{ media_wrapper_padding }};">
+                    {% if card_image != blank %}
+                      <img
+                        class="meet-our-icons__image"
+                        src="{{ card_image | image_url: width: 500 }}"
+                        srcset="
+                          {{ card_image | image_url: width: 300 }} 300w,
+                          {{ card_image | image_url: width: 500 }} 500w,
+                          {{ card_image | image_url: width: 700 }} 700w,
+                          {{ card_image | image_url: width: 1000 }} 1000w
+                        "
+                        sizes="
+                          (min-width: 1024px) 230px,
+                          (min-width: 768px) 250px,
+                          min(78vw, 250px)
+                        "
+                        alt="{{ card_alt_text | escape }}"
+                        loading="lazy"
+                        width="{{ card_image.width }}"
+                        height="{{ card_image.height }}"
+                      >
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag: 'meet-our-icons__image' }}
+                    {% endif %}
+
+                    {% if is_video_card and block.settings.video_file != blank %}
+                      {{
+                        block.settings.video_file
+                        | video_tag:
+                          poster: card_image,
+                          autoplay: false,
+                          controls: true,
+                          muted: true,
+                          playsinline: true,
+                          class: 'meet-our-icons__inline-video'
+                      }}
+                      <button
+                        class="meet-our-icons__play-button"
+                        aria-label="Play video by {{ block.settings.name | escape }}"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          role="presentation"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                        >
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </button>
+                    {% endif %}
+                  </div>
+
+                  {% if block.settings.show_review_panel %}
+                    <div class="meet-our-icons__review-panel">
+                      {% if block.settings.show_stars %}
+                        <div class="meet-our-icons__stars">
+                          {% for i in (1..5) %}
+                            {% render 'icon-star' %}
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+
+                      {% if block.settings.quote != blank %}
+                        <p class="meet-our-icons__quote">{{ block.settings.quote }}</p>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+
+                  <div class="meet-our-icons__meta">
+                    <p class="meet-our-icons__name">{{ block.settings.name }}</p>
+                    {% if block.settings.description != blank %}
+                      <p class="meet-our-icons__description">{{ block.settings.description }}</p>
+                    {% endif %}
+                  </div>
+                </article>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </carousel-slider>
+    {% else %}
+      <p class="meet-our-icons__empty">Please add cards to this section.</p>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  (function () {
+    const section = document.getElementById('MeetOurIcons-{{ section.id }}');
+    if (!section) return;
+
+    const playButtons = section.querySelectorAll('.meet-our-icons__play-button');
+    let currentPlayingVideo = null;
+
+    playButtons.forEach((button) => {
+      const mediaWrapper = button.closest('.meet-our-icons__media-wrapper');
+      const videoElement = mediaWrapper ? mediaWrapper.querySelector('.meet-our-icons__inline-video') : null;
+
+      if (!videoElement || !mediaWrapper) return;
+
+      const resetVideoState = () => {
+        mediaWrapper.classList.remove('is-playing');
+        if (currentPlayingVideo === videoElement) {
+          currentPlayingVideo = null;
+        }
+      };
+
+      videoElement.addEventListener('pause', resetVideoState);
+      videoElement.addEventListener('ended', resetVideoState);
+
+      button.addEventListener('click', () => {
+        if (currentPlayingVideo && currentPlayingVideo !== videoElement && !currentPlayingVideo.paused) {
+          currentPlayingVideo.pause();
+          currentPlayingVideo.closest('.meet-our-icons__media-wrapper').classList.remove('is-playing');
+        }
+
+        if (currentPlayingVideo === videoElement && !videoElement.paused) {
+          videoElement.pause();
+          mediaWrapper.classList.remove('is-playing');
+          return;
+        }
+
+        videoElement
+          .play()
+          .then(() => {
+            mediaWrapper.classList.add('is-playing');
+            currentPlayingVideo = videoElement;
+          })
+          .catch(() => {
+            mediaWrapper.classList.remove('is-playing');
+            currentPlayingVideo = null;
+          });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Meet Our Icons",
+  "tag": "section",
+  "class": "cc-meet-our-icons-carousel",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Review summary",
+      "default": "<p>100s of verified 5-star reviews</p>"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trusted by leading athletes & renowned figures"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "See More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image_testimonial",
+      "name": "Image Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_review_panel",
+          "label": "Show review panel",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_stars",
+          "label": "Show stars in review panel",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "quote",
+          "label": "Quote",
+          "default": "A game changer!"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Name Surname"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Title or affiliation"
+        }
+      ]
+    },
+    {
+      "type": "video_testimonial",
+      "name": "Video Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "custom_thumbnail_image",
+          "label": "Custom thumbnail"
+        },
+        {
+          "type": "video",
+          "id": "video_file",
+          "label": "Video file"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_review_panel",
+          "label": "Show review panel",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_stars",
+          "label": "Show stars in review panel",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "quote",
+          "label": "Quote",
+          "default": "A game changer!"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Name Surname"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Title or affiliation"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meet Our Icons",
+      "blocks": [
+        {
+          "type": "video_testimonial",
+          "settings": {
+            "name": "Wes Kitts",
+            "description": "US Olympian, Weightlifting Champion"
+          }
+        },
+        {
+          "type": "image_testimonial",
+          "settings": {
+            "show_review_panel": true,
+            "name": "Teixeira Family",
+            "description": "Former UFC Lightweight Champion",
+            "quote": "A game changer!"
+          }
+        },
+        {
+          "type": "video_testimonial",
+          "settings": {
+            "name": "Joe Rogan",
+            "description": "Host of the JRE Podcast, UFC commentator, Comedian"
+          }
+        },
+        {
+          "type": "video_testimonial",
+          "settings": {
+            "name": "Gordon Ryan",
+            "description": "Greatest no-gi grappler of all time"
+          }
+        },
+        {
+          "type": "image_testimonial",
+          "settings": {
+            "show_review_panel": true,
+            "name": "Frankie Edgar",
+            "description": "Former UFC Lightweight Champion",
+            "quote": "A game changer!"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
