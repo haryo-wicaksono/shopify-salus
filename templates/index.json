@@ -617,6 +617,29 @@
         "mobile_cards_per_row": 2
       }
     },
+    "cinematic_sauna_showcase_MEede4": {
+      "type": "cinematic-sauna-showcase",
+      "name": "Cinematic Sauna Showcase",
+      "settings": {
+        "heading": "Premium saunas for every home and need",
+        "bullet_1": "Indoor & outdoor models",
+        "bullet_2": "Traditional, infrared, and hybrid models",
+        "bullet_3": "Compact & spacious 1-8 person models",
+        "bullet_4": "Barrel, cabin, and luxury style models",
+        "button_text": "Shop All Saunas",
+        "button_link": "",
+        "desktop_video": "shopify://files/videos/SECTION VIDEO - Desktop (1).mp4",
+        "desktop_object_position": "72% center",
+        "mobile_video": "shopify://files/videos/SECTION VIDEO - Mobile.mp4",
+        "mobile_object_position": "center center",
+        "desktop_min_height": 640,
+        "mobile_min_height": 620,
+        "desktop_content_width": 420,
+        "desktop_content_left_offset": 72,
+        "desktop_overlay_opacity": 80,
+        "mobile_overlay_opacity": 90
+      }
+    },
     "celebrity_testimonials_PmJ8Jr": {
       "type": "celebrity-testimonials",
       "blocks": {
@@ -1137,6 +1160,7 @@
     "homepage_reviews_slider_2_gCdyWL",
     "logo_list_DaqLFK",
     "meet_our_icons_slider_kUAKwp",
+    "cinematic_sauna_showcase_MEede4",
     "celebrity_testimonials_PmJ8Jr",
     "products_card_section_PzCHqp",
     "products_card_section_YF9fnK",
