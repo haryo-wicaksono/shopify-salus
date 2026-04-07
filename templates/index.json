@@ -560,6 +560,7 @@
         "video_testimonial_KVrgA7": {
           "type": "video_testimonial",
           "settings": {
+            "video_file": "shopify://files/videos/Remi Ishizuka Testimonials.mp4",
             "show_review_panel": false,
             "show_stars": true,
             "quote": "A game changer!",
@@ -567,24 +568,25 @@
             "description": "Wellness & Lifestyle Creator"
           }
         },
-        "image_testimonial_rCri7Q": {
-          "type": "image_testimonial",
-          "settings": {
-            "show_review_panel": true,
-            "show_stars": true,
-            "quote": "A game changer!",
-            "name": "Teixeira Family",
-            "description": "Former UFC Lightweight Champion"
-          }
-        },
         "video_testimonial_bABnUU": {
           "type": "video_testimonial",
           "settings": {
+            "video_file": "shopify://files/videos/Gordon Ryan Testimonials.mp4",
             "show_review_panel": false,
             "show_stars": true,
             "quote": "A game changer!",
             "name": "Gordon Ryan",
             "description": "Greatest no-gi grappler of all time"
+          }
+        },
+        "video_testimonial_xNTiRA": {
+          "type": "video_testimonial",
+          "settings": {
+            "show_review_panel": false,
+            "show_stars": true,
+            "quote": "",
+            "name": "Shelby Robins",
+            "description": "Fitness Creator"
           }
         }
       },
@@ -593,8 +595,8 @@
         "video_testimonial_FeyBCq",
         "image_testimonial_marEBc",
         "video_testimonial_KVrgA7",
-        "image_testimonial_rCri7Q",
-        "video_testimonial_bABnUU"
+        "video_testimonial_bABnUU",
+        "video_testimonial_xNTiRA"
       ],
       "name": "Meet Our Icons",
       "settings": {
