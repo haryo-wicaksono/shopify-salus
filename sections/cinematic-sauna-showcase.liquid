@@ -5,34 +5,29 @@
   assign mobile_video = section.settings.mobile_video
   assign desktop_image = section.settings.desktop_image_fallback
   assign mobile_image = section.settings.mobile_image_fallback
-  assign effective_desktop_video = desktop_video
-  assign effective_mobile_video = mobile_video
-  assign effective_desktop_image = desktop_image
-  assign effective_mobile_image = mobile_image
   assign desktop_media_position = section.settings.desktop_object_position | default: '72% center'
   assign mobile_media_position = section.settings.mobile_object_position | default: 'center center'
   assign desktop_overlay_opacity = section.settings.desktop_overlay_opacity | divided_by: 100.0
   assign mobile_overlay_opacity = section.settings.mobile_overlay_opacity | divided_by: 100.0
-  assign button_href = section.settings.button_link | default: routes.collections_url
   assign has_desktop_media = false
   assign has_mobile_media = false
   assign has_bullets = false
 
-  if effective_desktop_video == blank and effective_desktop_image == blank
-    assign effective_desktop_video = mobile_video
-    assign effective_desktop_image = mobile_image
+  if desktop_video == blank and desktop_image == blank
+    assign desktop_video = mobile_video
+    assign desktop_image = mobile_image
   endif
 
-  if effective_mobile_video == blank and effective_mobile_image == blank
-    assign effective_mobile_video = desktop_video
-    assign effective_mobile_image = desktop_image
+  if mobile_video == blank and mobile_image == blank
+    assign mobile_video = desktop_video
+    assign mobile_image = desktop_image
   endif
 
-  if effective_desktop_video != blank or effective_desktop_image != blank
+  if desktop_video != blank or desktop_image != blank
     assign has_desktop_media = true
   endif
 
-  if effective_mobile_video != blank or effective_mobile_image != blank
+  if mobile_video != blank or mobile_image != blank
     assign has_mobile_media = true
   endif
 
@@ -64,9 +59,9 @@
   <div class="cinematic-sauna-showcase__frame">
     <div class="cinematic-sauna-showcase__media">
       {% if has_desktop_media %}
-        {% if effective_desktop_video != blank %}
+        {% if desktop_video != blank %}
           {{
-            effective_desktop_video
+            desktop_video
             | video_tag:
               class: 'cinematic-sauna-showcase__video cinematic-sauna-showcase__video--desktop',
               autoplay: true,
@@ -76,23 +71,29 @@
               controls: false,
               preload: 'metadata'
           }}
-        {% elsif effective_desktop_image != blank %}
-          {{
-            effective_desktop_image
-            | image_url: width: 2400
-            | image_tag:
-              class: 'cinematic-sauna-showcase__image cinematic-sauna-showcase__image--desktop',
-              widths: '1200, 1600, 2000, 2400',
-              loading: 'lazy',
-              alt: effective_desktop_image.alt
-          }}
+        {% elsif desktop_image != blank %}
+          <img
+            class="cinematic-sauna-showcase__image cinematic-sauna-showcase__image--desktop"
+            src="{{ desktop_image | image_url: width: 2400 }}"
+            srcset="
+              {{ desktop_image | image_url: width: 1200 }} 1200w,
+              {{ desktop_image | image_url: width: 1600 }} 1600w,
+              {{ desktop_image | image_url: width: 2000 }} 2000w,
+              {{ desktop_image | image_url: width: 2400 }} 2400w
+            "
+            sizes="100vw"
+            alt="{{ desktop_image.alt | escape }}"
+            loading="lazy"
+            width="2400"
+            height="{{ 2400 | divided_by: desktop_image.aspect_ratio | round }}"
+          >
         {% endif %}
       {% endif %}
 
       {% if has_mobile_media %}
-        {% if effective_mobile_video != blank %}
+        {% if mobile_video != blank %}
           {{
-            effective_mobile_video
+            mobile_video
             | video_tag:
               class: 'cinematic-sauna-showcase__video cinematic-sauna-showcase__video--mobile',
               autoplay: true,
@@ -102,16 +103,22 @@
               controls: false,
               preload: 'metadata'
           }}
-        {% elsif effective_mobile_image != blank %}
-          {{
-            effective_mobile_image
-            | image_url: width: 1200
-            | image_tag:
-              class: 'cinematic-sauna-showcase__image cinematic-sauna-showcase__image--mobile',
-              widths: '480, 720, 960, 1200',
-              loading: 'lazy',
-              alt: effective_mobile_image.alt
-          }}
+        {% elsif mobile_image != blank %}
+          <img
+            class="cinematic-sauna-showcase__image cinematic-sauna-showcase__image--mobile"
+            src="{{ mobile_image | image_url: width: 1200 }}"
+            srcset="
+              {{ mobile_image | image_url: width: 480 }} 480w,
+              {{ mobile_image | image_url: width: 720 }} 720w,
+              {{ mobile_image | image_url: width: 960 }} 960w,
+              {{ mobile_image | image_url: width: 1200 }} 1200w
+            "
+            sizes="100vw"
+            alt="{{ mobile_image.alt | escape }}"
+            loading="lazy"
+            width="1200"
+            height="{{ 1200 | divided_by: mobile_image.aspect_ratio | round }}"
+          >
         {% endif %}
       {% endif %}
 
@@ -162,9 +169,9 @@
           </ul>
         {% endif %}
 
-        {% if section.settings.button_text != blank %}
+        {% if section.settings.button_text != blank and section.settings.button_link != blank %}
           <div class="cinematic-sauna-showcase__actions">
-            <a href="{{ button_href }}" class="cinematic-sauna-showcase__button">
+            <a href="{{ section.settings.button_link }}" class="cinematic-sauna-showcase__button">
               <span>{{ section.settings.button_text }}</span>
               {% render 'icon-arrow-right-cta' %}
             </a>
@@ -184,7 +191,7 @@
       "content": "Content"
     },
     {
-      "type": "inline_richtext",
+      "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "Premium saunas for every home and need"
