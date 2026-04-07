@@ -305,13 +305,18 @@
             </div>
 
             <div class="affiliate-popup-form__field--full">
+              <label for="affiliate-country" class="affiliate-popup-form__label--required">Country of residence</label>
+              <input type="text" id="affiliate-country" required>
+            </div>
+
+            <div class="affiliate-popup-form__field--full">
               <label for="affiliate-discount-code" class="affiliate-popup-form__label--required">{{ section.settings.discount_code_label }}</label>
               <input type="text" id="affiliate-discount-code" required>
             </div>
 
             <div class="affiliate-popup-form__field--full">
               <label for="affiliate-promo-link" class="affiliate-popup-form__label--required">{{ section.settings.promo_link_label }}</label>
-              <input type="text" id="affiliate-promo-link" required inputmode="url" placeholder="this-is-cool.com">
+              <input type="text" id="affiliate-promo-link" required inputmode="url" placeholder="yourwebsite.com/promo">
             </div>
 
             <div class="affiliate-popup-form__field--full affiliate-popup-form__terms">
@@ -428,6 +433,7 @@
           lastName: document.getElementById('affiliate-last-name').value,
           email: document.getElementById('affiliate-email').value,
           phone: document.getElementById('affiliate-phone').value,
+          'affiliate-country': document.getElementById('affiliate-country').value.trim(),
           discountCode: document.getElementById('affiliate-discount-code').value,
           promoLink: normalizedPromoLink,
           agreedToTerms: document.getElementById('affiliate-terms').checked,
