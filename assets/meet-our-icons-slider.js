@@ -1,14 +1,14 @@
 (function () {
-  function initMeetOurIconsGrid(root) {
-    if (!root || root.dataset.meetOurIconsGridInitialized === 'true') return;
-    root.dataset.meetOurIconsGridInitialized = 'true';
+  function initMeetOurIconsSlider(root) {
+    if (!root || root.dataset.meetOurIconsSliderInitialized === 'true') return;
+    root.dataset.meetOurIconsSliderInitialized = 'true';
 
-    const playButtons = root.querySelectorAll('.meet-our-icons-grid__play-button');
+    const playButtons = root.querySelectorAll('.meet-our-icons-slider__play-button');
     let currentPlayingVideo = null;
 
     playButtons.forEach((button) => {
-      const mediaWrapper = button.closest('.meet-our-icons-grid__media-wrapper');
-      const videoElement = mediaWrapper ? mediaWrapper.querySelector('.meet-our-icons-grid__inline-video') : null;
+      const mediaWrapper = button.closest('.meet-our-icons-slider__media-wrapper');
+      const videoElement = mediaWrapper ? mediaWrapper.querySelector('.meet-our-icons-slider__inline-video') : null;
 
       if (!mediaWrapper || !videoElement) return;
 
@@ -25,7 +25,7 @@
       button.addEventListener('click', () => {
         if (currentPlayingVideo && currentPlayingVideo !== videoElement && !currentPlayingVideo.paused) {
           currentPlayingVideo.pause();
-          const currentWrapper = currentPlayingVideo.closest('.meet-our-icons-grid__media-wrapper');
+          const currentWrapper = currentPlayingVideo.closest('.meet-our-icons-slider__media-wrapper');
           if (currentWrapper) currentWrapper.classList.remove('is-playing');
         }
 
@@ -47,7 +47,7 @@
             currentPlayingVideo = videoElement;
           })
           .catch((error) => {
-            console.error('Meet Our Icons video play failed:', error);
+            console.error('Meet Our Icons slider video play failed:', error);
             mediaWrapper.classList.remove('is-playing');
             currentPlayingVideo = null;
           });
@@ -55,19 +55,19 @@
     });
   }
 
-  function initAllMeetOurIconsGrids(container) {
+  function initAllMeetOurIconsSliders(container) {
     const scope = container || document;
-    if (scope.matches && scope.matches('.js-meet-our-icons-grid')) {
-      initMeetOurIconsGrid(scope);
+    if (scope.matches && scope.matches('.js-meet-our-icons-slider')) {
+      initMeetOurIconsSlider(scope);
     }
-    scope.querySelectorAll('.js-meet-our-icons-grid').forEach(initMeetOurIconsGrid);
+    scope.querySelectorAll('.js-meet-our-icons-slider').forEach(initMeetOurIconsSlider);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    initAllMeetOurIconsGrids(document);
+    initAllMeetOurIconsSliders(document);
   });
 
   document.addEventListener('shopify:section:load', function (event) {
-    initAllMeetOurIconsGrids(event.target);
+    initAllMeetOurIconsSliders(event.target);
   });
 })();
