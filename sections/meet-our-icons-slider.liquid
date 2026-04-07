@@ -1,17 +1,17 @@
-{{ 'meet-our-icons-grid.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'meet-our-icons-grid.js' | asset_url }}" defer="defer"></script>
+{{ 'meet-our-icons-slider.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'meet-our-icons-slider.js' | asset_url }}" defer="defer"></script>
 
 <div
-  class="meet-our-icons-grid meet-our-icons-grid-container mx-auto js-meet-our-icons-grid"
+  class="meet-our-icons-slider meet-our-icons-slider-container mx-auto js-meet-our-icons-slider"
   data-mobile-columns="{{ section.settings.mobile_cards_per_row }}"
   data-tablet-columns="{{ section.settings.tablet_cards_per_row }}"
   data-desktop-columns="{{ section.settings.desktop_cards_per_row }}"
 >
-  <div class="meet-our-icons-grid__container">
-    <div class="meet-our-icons-grid__header">
-      <div class="meet-our-icons-grid__header-left">
+  <div class="meet-our-icons-slider__container">
+    <div class="meet-our-icons-slider__header">
+      <div class="meet-our-icons-slider__header-left">
         {% if section.settings.subheading != blank %}
-          <div class="meet-our-icons-grid__reviews-summary">
+          <div class="meet-our-icons-slider__reviews-summary">
             {% for i in (1..5) %}
               {% render 'icon-star' %}
             {% endfor %}
@@ -19,19 +19,19 @@
           </div>
         {% endif %}
         {% if section.settings.heading != blank %}
-          <h2 class="meet-our-icons-grid__heading">{{ section.settings.heading }}</h2>
+          <h2 class="meet-our-icons-slider__heading">{{ section.settings.heading }}</h2>
         {% endif %}
       </div>
 
       {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="meet-our-icons-grid__button">
+        <a href="{{ section.settings.button_link }}" class="meet-our-icons-slider__button">
           {{ section.settings.button_text }}
         </a>
       {% endif %}
     </div>
 
     {% if section.blocks.size > 0 %}
-      <div class="meet-our-icons-grid__cards">
+      <div class="meet-our-icons-slider__cards">
         {% for block in section.blocks limit: 10 %}
           {% assign card_image = null %}
           {% assign is_video_card = false %}
@@ -56,11 +56,11 @@
             {% endif %}
           {% endif %}
 
-          <div class="meet-our-icons-grid__card" {{ block.shopify_attributes }}>
-            <div class="meet-our-icons-grid__media-wrapper meet-our-icons-grid__media-wrapper--{{ media_height }}">
+          <div class="meet-our-icons-slider__card" {{ block.shopify_attributes }}>
+            <div class="meet-our-icons-slider__media-wrapper meet-our-icons-slider__media-wrapper--{{ media_height }}">
               {% if card_image != blank %}
                 <img
-                  class="meet-our-icons-grid__image"
+                  class="meet-our-icons-slider__image"
                   src="{{ card_image | image_url: width: 300 }}"
                   srcset="
                     {{ card_image | image_url: width: 300 }} 300w,
@@ -79,7 +79,7 @@
                   height="{{ card_image.height }}"
                 >
               {% else %}
-                {{ 'image' | placeholder_svg_tag: 'meet-our-icons-grid__image' }}
+                {{ 'image' | placeholder_svg_tag: 'meet-our-icons-slider__image' }}
               {% endif %}
 
               {% if is_video_card and block.settings.video_file != blank %}
@@ -91,10 +91,10 @@
                     controls: true,
                     muted: true,
                     playsinline: true,
-                    class: 'meet-our-icons-grid__inline-video'
+                    class: 'meet-our-icons-slider__inline-video'
                 }}
                 <button
-                  class="meet-our-icons-grid__play-button"
+                  class="meet-our-icons-slider__play-button"
                   aria-label="Play video by {{ block.settings.name | escape }}"
                 >
                   <svg
@@ -110,7 +110,7 @@
               {% endif %}
 
               {% if block.settings.caption_line_1 != blank or block.settings.caption_line_2 != blank %}
-                <div class="meet-our-icons-grid__caption">
+                <div class="meet-our-icons-slider__caption">
                   {% if block.settings.caption_line_1 != blank %}
                     <span>{{ block.settings.caption_line_1 }}</span>
                   {% endif %}
@@ -121,27 +121,27 @@
               {% endif %}
             </div>
 
-            <div class="meet-our-icons-grid__content{% if card_variant == 'review' %} meet-our-icons-grid__content--review{% endif %}">
+            <div class="meet-our-icons-slider__content{% if card_variant == 'review' %} meet-our-icons-slider__content--review{% endif %}">
               {% if card_variant == 'review' %}
-                <div class="meet-our-icons-grid__stars">
+                <div class="meet-our-icons-slider__stars">
                   {% for i in (1..5) %}
                     {% render 'icon-star' %}
                   {% endfor %}
                 </div>
                 {% if block.settings.quote != blank %}
-                  <p class="meet-our-icons-grid__quote">{{ block.settings.quote }}</p>
+                  <p class="meet-our-icons-slider__quote">{{ block.settings.quote }}</p>
                 {% endif %}
 
-                <div class="meet-our-icons-grid__author-info">
-                  <p class="meet-our-icons-grid__name">{{ block.settings.name }}</p>
+                <div class="meet-our-icons-slider__author-info">
+                  <p class="meet-our-icons-slider__name">{{ block.settings.name }}</p>
                   {% if block.settings.description != blank %}
-                    <p class="meet-our-icons-grid__description">{{ block.settings.description }}</p>
+                    <p class="meet-our-icons-slider__description">{{ block.settings.description }}</p>
                   {% endif %}
                 </div>
               {% else %}
-                <p class="meet-our-icons-grid__name">{{ block.settings.name }}</p>
+                <p class="meet-our-icons-slider__name">{{ block.settings.name }}</p>
                 {% if block.settings.description != blank %}
-                  <p class="meet-our-icons-grid__description">{{ block.settings.description }}</p>
+                  <p class="meet-our-icons-slider__description">{{ block.settings.description }}</p>
                 {% endif %}
               {% endif %}
             </div>
@@ -149,14 +149,14 @@
         {% endfor %}
       </div>
     {% else %}
-      <p class="meet-our-icons-grid__empty">Please add testimonial cards to this section.</p>
+      <p class="meet-our-icons-slider__empty">Please add testimonial cards to this section.</p>
     {% endif %}
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Meet Our Icons Grid",
+  "name": "Meet Our Icons Slider",
   "tag": "section",
   "settings": [
     {
@@ -333,7 +333,7 @@
   ],
   "presets": [
     {
-      "name": "Meet Our Icons Grid",
+      "name": "Meet Our Icons Slider",
       "blocks": [
         {
           "type": "static-testimonial-card",
