@@ -630,12 +630,9 @@
         "button_link": "",
         "desktop_video": "shopify://files/videos/SECTION VIDEO - Desktop (1).mp4",
         "desktop_object_position": "72% center",
-        "mobile_video": "shopify://files/videos/SECTION VIDEO - Mobile.mp4",
+        "mobile_video": "shopify://files/videos/SECTION VIDEO - Mobile (online-video-cutter.com) (1).mp4",
         "mobile_object_position": "center center",
-        "desktop_min_height": 640,
-        "mobile_min_height": 620,
         "desktop_content_width": 420,
-        "desktop_content_left_offset": 72,
         "desktop_overlay_opacity": 80,
         "mobile_overlay_opacity": 90
       }
