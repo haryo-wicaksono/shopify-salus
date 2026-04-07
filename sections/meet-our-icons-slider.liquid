@@ -25,10 +25,18 @@
         {% endif %}
       </div>
 
-      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="meet-our-icons-slider__button">
-          {{ section.settings.button_text }}
-        </a>
+      {% if section.settings.button_text != blank %}
+        <div class="meet-our-icons-slider__button-wrapper meet-our-icons-slider__button-wrapper--desktop">
+          {% if section.settings.button_link != blank %}
+            <a href="{{ section.settings.button_link }}" class="meet-our-icons-slider__button">
+              {{ section.settings.button_text }}
+            </a>
+          {% else %}
+            <span class="meet-our-icons-slider__button" aria-disabled="true">
+              {{ section.settings.button_text }}
+            </span>
+          {% endif %}
+        </div>
       {% endif %}
     </div>
 
@@ -153,6 +161,20 @@
       </div>
     {% else %}
       <p class="meet-our-icons-slider__empty">Please add testimonial cards to this section.</p>
+    {% endif %}
+
+    {% if section.settings.button_text != blank %}
+      <div class="meet-our-icons-slider__button-wrapper meet-our-icons-slider__button-wrapper--mobile">
+        {% if section.settings.button_link != blank %}
+          <a href="{{ section.settings.button_link }}" class="meet-our-icons-slider__button">
+            {{ section.settings.button_text }}
+          </a>
+        {% else %}
+          <span class="meet-our-icons-slider__button" aria-disabled="true">
+            {{ section.settings.button_text }}
+          </span>
+        {% endif %}
+      </div>
     {% endif %}
   </div>
 </div>
