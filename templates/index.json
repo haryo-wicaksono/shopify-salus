@@ -524,16 +524,6 @@
     "meet_our_icons_carousel_LQgzhr": {
       "type": "meet-our-icons-carousel",
       "blocks": {
-        "video_testimonial_FeyBCq": {
-          "type": "video_testimonial",
-          "settings": {
-            "show_review_panel": false,
-            "show_stars": true,
-            "quote": "A game changer!",
-            "name": "Name Surname",
-            "description": "Title or affiliation"
-          }
-        },
         "video_testimonial_MwAyiX": {
           "type": "video_testimonial",
           "settings": {
@@ -543,6 +533,17 @@
             "quote": "A game changer!",
             "name": "Wes Kitts",
             "description": "US Olympian, Weightlifting Champion"
+          }
+        },
+        "video_testimonial_FeyBCq": {
+          "type": "video_testimonial",
+          "settings": {
+            "video_file": "shopify://files/videos/Joe Rogan Testimonials.mp4",
+            "show_review_panel": false,
+            "show_stars": true,
+            "quote": "",
+            "name": "Joe Rogan",
+            "description": "Host of the JRE Podcast, UFC commentator, Comedian"
           }
         },
         "image_testimonial_rCri7Q": {
@@ -587,8 +588,8 @@
         }
       },
       "block_order": [
-        "video_testimonial_FeyBCq",
         "video_testimonial_MwAyiX",
+        "video_testimonial_FeyBCq",
         "image_testimonial_rCri7Q",
         "video_testimonial_KVrgA7",
         "video_testimonial_bABnUU",
@@ -599,7 +600,7 @@
         "subheading": "<p>100s of verified 5-star reviews</p>",
         "heading": "Trusted by leading athletes & renowned figures",
         "button_text": "See More",
-        "button_link": ""
+        "button_link": "shopify://pages/our-icons"
       }
     },
     "celebrity_testimonials_PmJ8Jr": {
