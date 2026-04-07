@@ -3,8 +3,40 @@
     if (!root || root.dataset.meetOurIconsSliderInitialized === 'true') return;
     root.dataset.meetOurIconsSliderInitialized = 'true';
 
+    const viewport = root.querySelector('.meet-our-icons-slider__viewport');
     const playButtons = root.querySelectorAll('.meet-our-icons-slider__play-button');
     let currentPlayingVideo = null;
+
+    if (viewport) {
+      let isDragging = false;
+      let startX = 0;
+      let scrollLeft = 0;
+
+      viewport.addEventListener('mousedown', (event) => {
+        isDragging = true;
+        viewport.classList.add('is-dragging');
+        startX = event.pageX - viewport.offsetLeft;
+        scrollLeft = viewport.scrollLeft;
+      });
+
+      viewport.addEventListener('mouseleave', () => {
+        isDragging = false;
+        viewport.classList.remove('is-dragging');
+      });
+
+      viewport.addEventListener('mouseup', () => {
+        isDragging = false;
+        viewport.classList.remove('is-dragging');
+      });
+
+      viewport.addEventListener('mousemove', (event) => {
+        if (!isDragging) return;
+        event.preventDefault();
+        const x = event.pageX - viewport.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        viewport.scrollLeft = scrollLeft - walk;
+      });
+    }
 
     playButtons.forEach((button) => {
       const mediaWrapper = button.closest('.meet-our-icons-slider__media-wrapper');
