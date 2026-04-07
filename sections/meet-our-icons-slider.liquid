@@ -3,9 +3,11 @@
 
 <div
   class="meet-our-icons-slider meet-our-icons-slider-container mx-auto js-meet-our-icons-slider"
-  data-mobile-columns="{{ section.settings.mobile_cards_per_row }}"
-  data-tablet-columns="{{ section.settings.tablet_cards_per_row }}"
-  data-desktop-columns="{{ section.settings.desktop_cards_per_row }}"
+  style="
+    --meet-our-icons-slider-mobile-columns: {{ section.settings.mobile_cards_per_row }};
+    --meet-our-icons-slider-tablet-columns: {{ section.settings.tablet_cards_per_row }};
+    --meet-our-icons-slider-desktop-columns: {{ section.settings.desktop_cards_per_row }};
+  "
 >
   <div class="meet-our-icons-slider__container">
     <div class="meet-our-icons-slider__header">
@@ -31,122 +33,123 @@
     </div>
 
     {% if section.blocks.size > 0 %}
-      <div class="meet-our-icons-slider__cards">
-        {% for block in section.blocks limit: 10 %}
-          {% assign card_image = null %}
-          {% assign is_video_card = false %}
-          {% assign card_alt_text = block.settings.name %}
-          {% assign card_variant = block.settings.card_variant | default: 'media' %}
-          {% assign media_height = block.settings.media_height | default: 'tall' %}
+      <div class="meet-our-icons-slider__viewport">
+        <div class="meet-our-icons-slider__track">
+          {% for block in section.blocks limit: 10 %}
+            {% assign card_image = null %}
+            {% assign is_video_card = false %}
+            {% assign card_alt_text = block.settings.name %}
+            {% assign card_variant = block.settings.card_variant | default: 'media' %}
+            {% assign media_wrapper_padding = '100%' %}
 
-          {% if block.type == 'static-testimonial-card' %}
-            {% assign card_image = block.settings.image %}
-            {% assign card_alt_text = block.settings.image.alt | default: block.settings.name %}
-          {% elsif block.type == 'video-testimonial-card' %}
-            {% if block.settings.video_file != blank %}
-              {% assign is_video_card = true %}
+            {% if block.type == 'static-testimonial-card' %}
+              {% assign card_image = block.settings.image %}
+              {% assign card_alt_text = block.settings.image.alt | default: block.settings.name %}
+            {% elsif block.type == 'video-testimonial-card' %}
+              {% if block.settings.video_file != blank %}
+                {% assign is_video_card = true %}
 
-              {% if block.settings.custom_thumbnail_image != blank %}
-                {% assign card_image = block.settings.custom_thumbnail_image %}
-                {% assign card_alt_text = block.settings.custom_thumbnail_image.alt | default: block.settings.name %}
-              {% else %}
-                {% assign card_image = block.settings.video_file.preview_image %}
-                {% assign card_alt_text = block.settings.video_file.preview_image.alt | default: block.settings.name %}
+                {% if block.settings.custom_thumbnail_image != blank %}
+                  {% assign card_image = block.settings.custom_thumbnail_image %}
+                  {% assign card_alt_text = block.settings.custom_thumbnail_image.alt | default: block.settings.name %}
+                {% else %}
+                  {% assign card_image = block.settings.video_file.preview_image %}
+                  {% assign card_alt_text = block.settings.video_file.preview_image.alt | default: block.settings.name %}
+                {% endif %}
+
+                {% if block.settings.video_file.aspect_ratio %}
+                  {% assign media_wrapper_padding = 1
+                    | divided_by: block.settings.video_file.aspect_ratio
+                    | times: 100
+                    | append: '%'
+                  %}
+                {% endif %}
               {% endif %}
             {% endif %}
-          {% endif %}
 
-          <div class="meet-our-icons-slider__card" {{ block.shopify_attributes }}>
-            <div class="meet-our-icons-slider__media-wrapper meet-our-icons-slider__media-wrapper--{{ media_height }}">
-              {% if card_image != blank %}
-                <img
-                  class="meet-our-icons-slider__image"
-                  src="{{ card_image | image_url: width: 300 }}"
-                  srcset="
-                    {{ card_image | image_url: width: 300 }} 300w,
-                    {{ card_image | image_url: width: 500 }} 500w,
-                    {{ card_image | image_url: width: 700 }} 700w,
-                    {{ card_image | image_url: width: 1000 }} 1000w
-                  "
-                  sizes="
-                    (min-width: 1024px) calc((var(--page-width, 1400px) - 90px) / {{ section.settings.desktop_cards_per_row }}),
-                    (min-width: 768px) calc((100vw - 60px) / {{ section.settings.tablet_cards_per_row }}),
-                    calc(100vw - 30px)
-                  "
-                  alt="{{ card_alt_text }}"
-                  loading="lazy"
-                  width="{{ card_image.width }}"
-                  height="{{ card_image.height }}"
-                >
-              {% else %}
-                {{ 'image' | placeholder_svg_tag: 'meet-our-icons-slider__image' }}
-              {% endif %}
-
-              {% if is_video_card and block.settings.video_file != blank %}
-                {{
-                  block.settings.video_file
-                  | video_tag:
-                    poster: card_image,
-                    autoplay: false,
-                    controls: true,
-                    muted: true,
-                    playsinline: true,
-                    class: 'meet-our-icons-slider__inline-video'
-                }}
-                <button
-                  class="meet-our-icons-slider__play-button"
-                  aria-label="Play video by {{ block.settings.name | escape }}"
-                >
-                  <svg
-                    aria-hidden="true"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </button>
-              {% endif %}
-
-              {% if block.settings.caption_line_1 != blank or block.settings.caption_line_2 != blank %}
-                <div class="meet-our-icons-slider__caption">
-                  {% if block.settings.caption_line_1 != blank %}
-                    <span>{{ block.settings.caption_line_1 }}</span>
+            <div class="meet-our-icons-slider__slide">
+              <div class="meet-our-icons-slider__card" {{ block.shopify_attributes }}>
+                <div class="meet-our-icons-slider__media-wrapper" style="padding-bottom: {{ media_wrapper_padding }};">
+                  {% if card_image != blank %}
+                    <img
+                      class="meet-our-icons-slider__image"
+                      src="{{ card_image | image_url: width: 300 }}"
+                      srcset="
+                        {{ card_image | image_url: width: 300 }} 300w,
+                        {{ card_image | image_url: width: 500 }} 500w,
+                        {{ card_image | image_url: width: 700 }} 700w,
+                        {{ card_image | image_url: width: 1000 }} 1000w
+                      "
+                      sizes="
+                        (min-width: 1024px) calc((100vw - 240px - (20px * (var(--meet-our-icons-slider-desktop-columns) - 1))) / var(--meet-our-icons-slider-desktop-columns)),
+                        (min-width: 768px) calc((100vw - 80px - (20px * (var(--meet-our-icons-slider-tablet-columns) - 1))) / var(--meet-our-icons-slider-tablet-columns)),
+                        calc((100vw - 46px - 16px) / 2)
+                      "
+                      alt="{{ card_alt_text }}"
+                      loading="lazy"
+                      width="{{ card_image.width }}"
+                      height="{{ card_image.height }}"
+                    >
+                  {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'meet-our-icons-slider__image' }}
                   {% endif %}
-                  {% if block.settings.caption_line_2 != blank %}
-                    <span>{{ block.settings.caption_line_2 }}</span>
+
+                  {% if is_video_card and block.settings.video_file != blank %}
+                    {{
+                      block.settings.video_file
+                      | video_tag:
+                        poster: card_image,
+                        autoplay: false,
+                        controls: true,
+                        muted: true,
+                        playsinline: true,
+                        class: 'meet-our-icons-slider__inline-video'
+                    }}
+                    <button
+                      class="meet-our-icons-slider__play-button"
+                      aria-label="Play video by {{ block.settings.name | escape }}"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        role="presentation"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </button>
                   {% endif %}
                 </div>
-              {% endif %}
+
+                <div class="meet-our-icons-slider__content{% if card_variant == 'review' %} meet-our-icons-slider__content--review{% endif %}">
+                  {% if card_variant == 'review' %}
+                    <div class="meet-our-icons-slider__stars">
+                      {% for i in (1..5) %}
+                        {% render 'icon-star' %}
+                      {% endfor %}
+                    </div>
+                    {% if block.settings.quote != blank %}
+                      <p class="meet-our-icons-slider__quote">{{ block.settings.quote }}</p>
+                    {% endif %}
+
+                    <div class="meet-our-icons-slider__author-info">
+                      <p class="meet-our-icons-slider__name">{{ block.settings.name }}</p>
+                      {% if block.settings.description != blank %}
+                        <p class="meet-our-icons-slider__description">{{ block.settings.description }}</p>
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <p class="meet-our-icons-slider__name">{{ block.settings.name }}</p>
+                    {% if block.settings.description != blank %}
+                      <p class="meet-our-icons-slider__description">{{ block.settings.description }}</p>
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
             </div>
-
-            <div class="meet-our-icons-slider__content{% if card_variant == 'review' %} meet-our-icons-slider__content--review{% endif %}">
-              {% if card_variant == 'review' %}
-                <div class="meet-our-icons-slider__stars">
-                  {% for i in (1..5) %}
-                    {% render 'icon-star' %}
-                  {% endfor %}
-                </div>
-                {% if block.settings.quote != blank %}
-                  <p class="meet-our-icons-slider__quote">{{ block.settings.quote }}</p>
-                {% endif %}
-
-                <div class="meet-our-icons-slider__author-info">
-                  <p class="meet-our-icons-slider__name">{{ block.settings.name }}</p>
-                  {% if block.settings.description != blank %}
-                    <p class="meet-our-icons-slider__description">{{ block.settings.description }}</p>
-                  {% endif %}
-                </div>
-              {% else %}
-                <p class="meet-our-icons-slider__name">{{ block.settings.name }}</p>
-                {% if block.settings.description != blank %}
-                  <p class="meet-our-icons-slider__description">{{ block.settings.description }}</p>
-                {% endif %}
-              {% endif %}
-            </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
     {% else %}
       <p class="meet-our-icons-slider__empty">Please add testimonial cards to this section.</p>
@@ -308,15 +311,6 @@
         },
         {
           "type": "text",
-          "id": "caption_line_1",
-          "label": "Caption line 1"
-        },
-        {
-          "type": "text",
-          "id": "caption_line_2",
-          "label": "Caption line 2"
-        },
-        {
           "type": "text",
           "id": "name",
           "default": "Name Surname",
@@ -380,9 +374,7 @@
             "card_variant": "media",
             "media_height": "tall",
             "name": "Gordon Ryan",
-            "description": "Greatest no-gi grappler of all time",
-            "caption_line_1": "I forgot to",
-            "caption_line_2": "introduced"
+            "description": "Greatest no-gi grappler of all time"
           }
         }
       ]
