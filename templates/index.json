@@ -521,6 +521,77 @@
         "full_width": true
       }
     },
+    "meet_our_icons_carousel_LQgzhr": {
+      "type": "meet-our-icons-carousel",
+      "blocks": {
+        "video_testimonial_MwAyiX": {
+          "type": "video_testimonial",
+          "settings": {
+            "custom_thumbnail_image": "shopify://shop_images/Wes_Kitts_Testimonials.jpg",
+            "video_file": "shopify://files/videos/Wes Kitts Testimonials.mp4",
+            "show_review_panel": false,
+            "show_stars": true,
+            "quote": "A game changer!",
+            "name": "Wes Kitts",
+            "description": "US Olympian, Weightlifting Champion"
+          }
+        },
+        "image_testimonial_rCri7Q": {
+          "type": "image_testimonial",
+          "settings": {
+            "show_review_panel": true,
+            "show_stars": true,
+            "quote": "A game changer!",
+            "name": "Teixeira Family",
+            "description": "Former UFC Lightweight Champion"
+          }
+        },
+        "video_testimonial_KVrgA7": {
+          "type": "video_testimonial",
+          "settings": {
+            "show_review_panel": false,
+            "show_stars": true,
+            "quote": "A game changer!",
+            "name": "Joe Rogan",
+            "description": "Host of the JRE Podcast, UFC commentator, Comedian"
+          }
+        },
+        "video_testimonial_bABnUU": {
+          "type": "video_testimonial",
+          "settings": {
+            "show_review_panel": false,
+            "show_stars": true,
+            "quote": "A game changer!",
+            "name": "Gordon Ryan",
+            "description": "Greatest no-gi grappler of all time"
+          }
+        },
+        "image_testimonial_marEBc": {
+          "type": "image_testimonial",
+          "settings": {
+            "show_review_panel": true,
+            "show_stars": true,
+            "quote": "A game changer!",
+            "name": "Frankie Edgar",
+            "description": "Former UFC Lightweight Champion"
+          }
+        }
+      },
+      "block_order": [
+        "video_testimonial_MwAyiX",
+        "image_testimonial_rCri7Q",
+        "video_testimonial_KVrgA7",
+        "video_testimonial_bABnUU",
+        "image_testimonial_marEBc"
+      ],
+      "name": "Meet Our Icons",
+      "settings": {
+        "subheading": "<p>100s of verified 5-star reviews</p>",
+        "heading": "Trusted by leading athletes & renowned figures",
+        "button_text": "See More",
+        "button_link": ""
+      }
+    },
     "celebrity_testimonials_PmJ8Jr": {
       "type": "celebrity-testimonials",
       "blocks": {
@@ -1039,6 +1110,7 @@
     "homepage_featured_in_logos_dxK7jf",
     "homepage_reviews_slider_2_gCdyWL",
     "logo_list_DaqLFK",
+    "meet_our_icons_carousel_LQgzhr",
     "celebrity_testimonials_PmJ8Jr",
     "products_card_section_PzCHqp",
     "products_card_section_YF9fnK",
