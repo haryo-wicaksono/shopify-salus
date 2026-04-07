@@ -1,0 +1,313 @@
+{{ 'meet-our-icons-grid.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'meet-our-icons-grid.js' | asset_url }}" defer="defer"></script>
+
+<div
+  class="meet-our-icons-grid meet-our-icons-grid-container mx-auto js-meet-our-icons-grid"
+  data-mobile-columns="{{ section.settings.mobile_cards_per_row }}"
+  data-tablet-columns="{{ section.settings.tablet_cards_per_row }}"
+  data-desktop-columns="{{ section.settings.desktop_cards_per_row }}"
+>
+  <div class="meet-our-icons-grid__container">
+    <div class="meet-our-icons-grid__header">
+      <div class="meet-our-icons-grid__header-left">
+        {% if section.settings.subheading != blank %}
+          <div class="meet-our-icons-grid__reviews-summary">
+            {% for i in (1..5) %}
+              {% render 'icon-star' %}
+            {% endfor %}
+            {{ section.settings.subheading }}
+          </div>
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          <h2 class="meet-our-icons-grid__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+      </div>
+
+      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="meet-our-icons-grid__button">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="meet-our-icons-grid__cards">
+        {% for block in section.blocks limit: 10 %}
+          {% assign card_image = null %}
+          {% assign is_video_card = false %}
+          {% assign card_alt_text = block.settings.name %}
+          {% assign media_wrapper_padding = '100%' %}
+
+          {% if block.type == 'static-testimonial-card' %}
+            {% assign card_image = block.settings.image %}
+            {% assign card_alt_text = block.settings.image.alt | default: block.settings.name %}
+          {% elsif block.type == 'video-testimonial-card' %}
+            {% if block.settings.video_file != blank %}
+              {% assign is_video_card = true %}
+
+              {% if block.settings.custom_thumbnail_image != blank %}
+                {% assign card_image = block.settings.custom_thumbnail_image %}
+                {% assign card_alt_text = block.settings.custom_thumbnail_image.alt | default: block.settings.name %}
+              {% else %}
+                {% assign card_image = block.settings.video_file.preview_image %}
+                {% assign card_alt_text = block.settings.video_file.preview_image.alt | default: block.settings.name %}
+              {% endif %}
+
+              {% if block.settings.video_file.aspect_ratio %}
+                {% assign media_wrapper_padding = 1
+                  | divided_by: block.settings.video_file.aspect_ratio
+                  | times: 100
+                  | append: '%'
+                %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+
+          <div class="meet-our-icons-grid__card" {{ block.shopify_attributes }}>
+            <div class="meet-our-icons-grid__media-wrapper" style="padding-bottom: {{ media_wrapper_padding }};">
+              {% if card_image != blank %}
+                <img
+                  class="meet-our-icons-grid__image"
+                  src="{{ card_image | image_url: width: 300 }}"
+                  srcset="
+                    {{ card_image | image_url: width: 300 }} 300w,
+                    {{ card_image | image_url: width: 500 }} 500w,
+                    {{ card_image | image_url: width: 700 }} 700w,
+                    {{ card_image | image_url: width: 1000 }} 1000w
+                  "
+                  sizes="
+                    (min-width: 1024px) calc((var(--page-width, 1400px) - 90px) / {{ section.settings.desktop_cards_per_row }}),
+                    (min-width: 768px) calc((100vw - 60px) / {{ section.settings.tablet_cards_per_row }}),
+                    calc(100vw - 30px)
+                  "
+                  alt="{{ card_alt_text }}"
+                  loading="lazy"
+                  width="{{ card_image.width }}"
+                  height="{{ card_image.height }}"
+                >
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'meet-our-icons-grid__image' }}
+              {% endif %}
+
+              {% if is_video_card and block.settings.video_file != blank %}
+                {{
+                  block.settings.video_file
+                  | video_tag:
+                    poster: card_image,
+                    autoplay: false,
+                    controls: true,
+                    muted: true,
+                    playsinline: true,
+                    class: 'meet-our-icons-grid__inline-video'
+                }}
+                <button
+                  class="meet-our-icons-grid__play-button"
+                  aria-label="Play video by {{ block.settings.name | escape }}"
+                >
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    role="presentation"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </button>
+              {% endif %}
+            </div>
+
+            <div class="meet-our-icons-grid__content">
+              {% if block.type == 'static-testimonial-card' %}
+                <div class="meet-our-icons-grid__stars">
+                  {% for i in (1..5) %}
+                    {% render 'icon-star' %}
+                  {% endfor %}
+                </div>
+                {% if block.settings.quote != blank %}
+                  <p class="meet-our-icons-grid__quote">{{ block.settings.quote }}</p>
+                {% endif %}
+              {% endif %}
+
+              <p class="meet-our-icons-grid__name">{{ block.settings.name }}</p>
+              {% if block.settings.description != blank %}
+                <p class="meet-our-icons-grid__description">{{ block.settings.description }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="meet-our-icons-grid__empty">Please add testimonial cards to this section.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Meet Our Icons Grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>100s of verified 5-star reviews</p>"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trusted by leading athletes & figures"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "See More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "desktop_cards_per_row",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "unit": "crd",
+      "label": "Cards per row (Desktop)",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "tablet_cards_per_row",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "crd",
+      "label": "Cards per row (Tablet)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "mobile_cards_per_row",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "crd",
+      "label": "Cards per row (Mobile)",
+      "default": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "static-testimonial-card",
+      "name": "Image Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Testimonial Image",
+          "info": "Required. The main image for this static testimonial."
+        },
+        {
+          "type": "text",
+          "id": "quote",
+          "label": "Quote",
+          "info": "e.g. 'A game changer!'"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "default": "Name Surname",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "default": "Title/Affiliation",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "video-testimonial-card",
+      "name": "Video Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "custom_thumbnail_image",
+          "label": "Custom Video Thumbnail (Optional)",
+          "info": "Upload an image to use as the video thumbnail. If left blank, Shopify's auto-generated preview image will be used."
+        },
+        {
+          "type": "video",
+          "id": "video_file",
+          "label": "Video File (from Shopify Files)",
+          "info": "Select a video file from your Shopify 'Content > Files'. The thumbnail and aspect ratio will be automatically handled."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "default": "Name Surname",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "default": "Title/Affiliation",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meet Our Icons Grid",
+      "blocks": [
+        {
+          "type": "static-testimonial-card",
+          "settings": {
+            "name": "Wes Kitts",
+            "description": "US Olympian, Weightlifting Champion",
+            "quote": "Incredible results!"
+          }
+        },
+        {
+          "type": "static-testimonial-card",
+          "settings": {
+            "name": "Teixeira Family",
+            "description": "Former UFC Lightweight Champion",
+            "quote": "A game changer!"
+          }
+        },
+        {
+          "type": "video-testimonial-card",
+          "settings": {
+            "name": "Joe Rogan",
+            "description": "Host of the JRE Podcast, Comedian"
+          }
+        },
+        {
+          "type": "static-testimonial-card",
+          "settings": {
+            "name": "Frankie Edgar",
+            "description": "Former UFC Lightweight Champion",
+            "quote": "A game changer!"
+          }
+        },
+        {
+          "type": "video-testimonial-card",
+          "settings": {
+            "name": "Gordon Ryan",
+            "description": "Greatest no-gi grappler of all time"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
