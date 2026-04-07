@@ -2,12 +2,12 @@
   position: relative;
   width: 100%;
   color: #fbfbfb;
-  background: #111;
 }
 
 .cinematic-sauna-showcase__frame {
   position: relative;
-  min-height: var(--cinematic-sauna-showcase-desktop-min-height);
+  width: 100%;
+  aspect-ratio: var(--cinematic-sauna-showcase-desktop-aspect-ratio, 2.5263158);
   overflow: hidden;
   background: #111;
 }
@@ -85,17 +85,20 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  padding: 48px var(--gutter, 24px);
+  justify-content: flex-start;
+  padding: 48px 100px;
+  height: 100%;
 }
 
 .cinematic-sauna-showcase__content-inner {
   width: min(100%, var(--cinematic-sauna-showcase-desktop-content-width));
-  margin-left: var(--cinematic-sauna-showcase-desktop-content-offset);
+  margin-left: 0;
+  margin-right: auto;
 }
 
 .cinematic-sauna-showcase__heading {
   margin: 0 0 34px;
-  font-size: clamp(40px, 4vw, 58px);
+  font-size: 36px;
   line-height: 1.15;
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -113,7 +116,7 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 22px;
-  font-size: clamp(18px, 1.5vw, 22px);
+  font-size: 18px;
   line-height: 1.45;
   color: #fbfbfb;
 }
@@ -166,7 +169,7 @@
 
 @media screen and (max-width: 767px) {
   .cinematic-sauna-showcase__frame {
-    min-height: var(--cinematic-sauna-showcase-mobile-min-height);
+    aspect-ratio: var(--cinematic-sauna-showcase-mobile-aspect-ratio, var(--cinematic-sauna-showcase-desktop-aspect-ratio, 2.5263158));
   }
 
   .cinematic-sauna-showcase__image--desktop,
@@ -199,18 +202,19 @@
   .cinematic-sauna-showcase__content {
     align-items: flex-end;
     justify-content: center;
-    padding: 32px 22px 30px;
+    padding: 0 0 44px;
     text-align: center;
   }
 
   .cinematic-sauna-showcase__content-inner {
     width: min(100%, 360px);
     margin-left: 0;
+    margin-right: 0;
   }
 
   .cinematic-sauna-showcase__heading {
     margin-bottom: 26px;
-    font-size: clamp(26px, 9vw, 42px);
+    font-size: 22px;
     line-height: 1.2;
   }
 
@@ -218,13 +222,13 @@
     justify-content: center;
     gap: 10px;
     margin-bottom: 16px;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.5;
   }
 
   .cinematic-sauna-showcase__bullet svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
 
   .cinematic-sauna-showcase__actions {
