@@ -8,9 +8,29 @@
     let currentPlayingVideo = null;
 
     if (viewport) {
+      const syncSlideWidth = () => {
+        const rootStyles = window.getComputedStyle(root);
+        const gap = parseFloat(rootStyles.getPropertyValue('--meet-our-icons-slider-gap')) || 0;
+        const visibleColumns = parseFloat(rootStyles.getPropertyValue('--meet-our-icons-slider-visible-columns')) || 1;
+        const slideWidth = (viewport.clientWidth - gap * (visibleColumns - 1)) / visibleColumns;
+
+        if (slideWidth > 0) {
+          root.style.setProperty('--meet-our-icons-slider-slide-width', slideWidth + 'px');
+        }
+      };
+
       let isDragging = false;
       let startX = 0;
       let scrollLeft = 0;
+
+      syncSlideWidth();
+
+      if (window.ResizeObserver) {
+        const resizeObserver = new ResizeObserver(syncSlideWidth);
+        resizeObserver.observe(viewport);
+      } else {
+        window.addEventListener('resize', syncSlideWidth);
+      }
 
       viewport.addEventListener('mousedown', (event) => {
         isDragging = true;
