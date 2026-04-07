@@ -1,0 +1,340 @@
+{{ 'cinematic-sauna-showcase.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign desktop_video = section.settings.desktop_video
+  assign mobile_video = section.settings.mobile_video
+  assign desktop_image = section.settings.desktop_image_fallback
+  assign mobile_image = section.settings.mobile_image_fallback
+  assign effective_desktop_video = desktop_video
+  assign effective_mobile_video = mobile_video
+  assign effective_desktop_image = desktop_image
+  assign effective_mobile_image = mobile_image
+  assign desktop_media_position = section.settings.desktop_object_position | default: '72% center'
+  assign mobile_media_position = section.settings.mobile_object_position | default: 'center center'
+  assign desktop_overlay_opacity = section.settings.desktop_overlay_opacity | divided_by: 100.0
+  assign mobile_overlay_opacity = section.settings.mobile_overlay_opacity | divided_by: 100.0
+  assign button_href = section.settings.button_link | default: routes.collections_url
+  assign has_desktop_media = false
+  assign has_mobile_media = false
+  assign has_bullets = false
+
+  if effective_desktop_video == blank and effective_desktop_image == blank
+    assign effective_desktop_video = mobile_video
+    assign effective_desktop_image = mobile_image
+  endif
+
+  if effective_mobile_video == blank and effective_mobile_image == blank
+    assign effective_mobile_video = desktop_video
+    assign effective_mobile_image = desktop_image
+  endif
+
+  if effective_desktop_video != blank or effective_desktop_image != blank
+    assign has_desktop_media = true
+  endif
+
+  if effective_mobile_video != blank or effective_mobile_image != blank
+    assign has_mobile_media = true
+  endif
+
+  if section.settings.bullet_1 != blank
+    assign has_bullets = true
+  elsif section.settings.bullet_2 != blank
+    assign has_bullets = true
+  elsif section.settings.bullet_3 != blank
+    assign has_bullets = true
+  elsif section.settings.bullet_4 != blank
+    assign has_bullets = true
+  endif
+-%}
+
+<section
+  class="cinematic-sauna-showcase"
+  data-section-id="{{ section.id }}"
+  style="
+    --cinematic-sauna-showcase-desktop-min-height: {{ section.settings.desktop_min_height }}px;
+    --cinematic-sauna-showcase-mobile-min-height: {{ section.settings.mobile_min_height }}px;
+    --cinematic-sauna-showcase-desktop-overlay-opacity: {{ desktop_overlay_opacity }};
+    --cinematic-sauna-showcase-mobile-overlay-opacity: {{ mobile_overlay_opacity }};
+    --cinematic-sauna-showcase-desktop-content-width: {{ section.settings.desktop_content_width }}px;
+    --cinematic-sauna-showcase-desktop-content-offset: {{ section.settings.desktop_content_left_offset }}px;
+    --cinematic-sauna-showcase-desktop-object-position: {{ desktop_media_position }};
+    --cinematic-sauna-showcase-mobile-object-position: {{ mobile_media_position }};
+  "
+>
+  <div class="cinematic-sauna-showcase__frame">
+    <div class="cinematic-sauna-showcase__media">
+      {% if has_desktop_media %}
+        {% if effective_desktop_video != blank %}
+          {{
+            effective_desktop_video
+            | video_tag:
+              class: 'cinematic-sauna-showcase__video cinematic-sauna-showcase__video--desktop',
+              autoplay: true,
+              loop: true,
+              muted: true,
+              playsinline: true,
+              controls: false,
+              preload: 'metadata'
+          }}
+        {% elsif effective_desktop_image != blank %}
+          {{
+            effective_desktop_image
+            | image_url: width: 2400
+            | image_tag:
+              class: 'cinematic-sauna-showcase__image cinematic-sauna-showcase__image--desktop',
+              widths: '1200, 1600, 2000, 2400',
+              loading: 'lazy',
+              alt: effective_desktop_image.alt
+          }}
+        {% endif %}
+      {% endif %}
+
+      {% if has_mobile_media %}
+        {% if effective_mobile_video != blank %}
+          {{
+            effective_mobile_video
+            | video_tag:
+              class: 'cinematic-sauna-showcase__video cinematic-sauna-showcase__video--mobile',
+              autoplay: true,
+              loop: true,
+              muted: true,
+              playsinline: true,
+              controls: false,
+              preload: 'metadata'
+          }}
+        {% elsif effective_mobile_image != blank %}
+          {{
+            effective_mobile_image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'cinematic-sauna-showcase__image cinematic-sauna-showcase__image--mobile',
+              widths: '480, 720, 960, 1200',
+              loading: 'lazy',
+              alt: effective_mobile_image.alt
+          }}
+        {% endif %}
+      {% endif %}
+
+      {% if has_desktop_media == false and has_mobile_media == false %}
+        <div class="cinematic-sauna-showcase__placeholder">
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'cinematic-sauna-showcase__placeholder-svg' }}
+        </div>
+      {% endif %}
+
+      <div class="cinematic-sauna-showcase__overlay cinematic-sauna-showcase__overlay--desktop"></div>
+      <div class="cinematic-sauna-showcase__overlay cinematic-sauna-showcase__overlay--mobile"></div>
+    </div>
+
+    <div class="cinematic-sauna-showcase__content">
+      <div class="cinematic-sauna-showcase__content-inner">
+        {% if section.settings.heading != blank %}
+          <h2 class="cinematic-sauna-showcase__heading">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+
+        {% if has_bullets %}
+          <ul class="cinematic-sauna-showcase__bullets" role="list">
+            {% if section.settings.bullet_1 != blank %}
+              <li class="cinematic-sauna-showcase__bullet">
+                {% render 'icon-checkmark' %}
+                <span>{{ section.settings.bullet_1 }}</span>
+              </li>
+            {% endif %}
+            {% if section.settings.bullet_2 != blank %}
+              <li class="cinematic-sauna-showcase__bullet">
+                {% render 'icon-checkmark' %}
+                <span>{{ section.settings.bullet_2 }}</span>
+              </li>
+            {% endif %}
+            {% if section.settings.bullet_3 != blank %}
+              <li class="cinematic-sauna-showcase__bullet">
+                {% render 'icon-checkmark' %}
+                <span>{{ section.settings.bullet_3 }}</span>
+              </li>
+            {% endif %}
+            {% if section.settings.bullet_4 != blank %}
+              <li class="cinematic-sauna-showcase__bullet">
+                {% render 'icon-checkmark' %}
+                <span>{{ section.settings.bullet_4 }}</span>
+              </li>
+            {% endif %}
+          </ul>
+        {% endif %}
+
+        {% if section.settings.button_text != blank %}
+          <div class="cinematic-sauna-showcase__actions">
+            <a href="{{ button_href }}" class="cinematic-sauna-showcase__button">
+              <span>{{ section.settings.button_text }}</span>
+              {% render 'icon-arrow-right-cta' %}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cinematic Sauna Showcase",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Premium saunas for every home and need"
+    },
+    {
+      "type": "text",
+      "id": "bullet_1",
+      "label": "Bullet 1",
+      "default": "Indoor & outdoor models"
+    },
+    {
+      "type": "text",
+      "id": "bullet_2",
+      "label": "Bullet 2",
+      "default": "Traditional, infrared, and hybrid models"
+    },
+    {
+      "type": "text",
+      "id": "bullet_3",
+      "label": "Bullet 3",
+      "default": "Compact & spacious 1-8 person models"
+    },
+    {
+      "type": "text",
+      "id": "bullet_4",
+      "label": "Bullet 4",
+      "default": "Barrel, cabin, and luxury style models"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button label",
+      "default": "Shop All Saunas"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Desktop media"
+    },
+    {
+      "type": "video",
+      "id": "desktop_video",
+      "label": "Desktop video"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image_fallback",
+      "label": "Desktop image fallback"
+    },
+    {
+      "type": "text",
+      "id": "desktop_object_position",
+      "label": "Desktop media position",
+      "default": "72% center",
+      "info": "CSS object-position value, for example '72% center' or 'center center'."
+    },
+    {
+      "type": "header",
+      "content": "Mobile media"
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile video"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_fallback",
+      "label": "Mobile image fallback"
+    },
+    {
+      "type": "text",
+      "id": "mobile_object_position",
+      "label": "Mobile media position",
+      "default": "center center",
+      "info": "CSS object-position value, for example 'center center' or '50% 25%'."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_min_height",
+      "label": "Desktop minimum height",
+      "min": 420,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 640
+    },
+    {
+      "type": "range",
+      "id": "mobile_min_height",
+      "label": "Mobile minimum height",
+      "min": 420,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 620
+    },
+    {
+      "type": "range",
+      "id": "desktop_content_width",
+      "label": "Desktop content width",
+      "min": 360,
+      "max": 720,
+      "step": 20,
+      "unit": "px",
+      "default": 420
+    },
+    {
+      "type": "range",
+      "id": "desktop_content_left_offset",
+      "label": "Desktop content left offset",
+      "min": 24,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "desktop_overlay_opacity",
+      "label": "Desktop overlay strength",
+      "min": 10,
+      "max": 95,
+      "step": 5,
+      "unit": "%",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_overlay_opacity",
+      "label": "Mobile overlay strength",
+      "min": 10,
+      "max": 95,
+      "step": 5,
+      "unit": "%",
+      "default": 88
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cinematic Sauna Showcase"
+    }
+  ]
+}
+{% endschema %}
