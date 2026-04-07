@@ -521,6 +521,88 @@
         "full_width": true
       }
     },
+    "meet_our_icons_slider_kUAKwp": {
+      "type": "meet-our-icons-slider",
+      "blocks": {
+        "video_testimonial_card_LwzfAM": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Wes Kitts Testimonials.mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "caption_line_1": "",
+            "caption_line_2": "",
+            "name": "Wes Kitts",
+            "description": "US Olympian, Weightlifting Champion"
+          }
+        },
+        "static_testimonial_card_KURMXf": {
+          "type": "static-testimonial-card",
+          "settings": {
+            "card_variant": "review",
+            "media_height": "short",
+            "quote": "A game changer!",
+            "name": "Teixeira Family",
+            "description": "Former UFC Lightweight Champion"
+          }
+        },
+        "video_testimonial_card_iW7TJn": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Joe Rogan Testimonials.mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "caption_line_1": "",
+            "caption_line_2": "",
+            "name": "Joe Rogan",
+            "description": "Host of the JRE Podcast, Comedian"
+          }
+        },
+        "static_testimonial_card_QM4aMJ": {
+          "type": "static-testimonial-card",
+          "settings": {
+            "image": "shopify://shop_images/Frankie_Edgar_-_Icons_Page.png",
+            "card_variant": "review",
+            "media_height": "short",
+            "quote": "A game changer!",
+            "name": "Frankie Edgar",
+            "description": "Former UFC Lightweight Champion"
+          }
+        },
+        "video_testimonial_card_CrmEcz": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Gordon Ryan Testimonials.mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "caption_line_1": "I forgot to",
+            "caption_line_2": "introduced",
+            "name": "Gordon Ryan",
+            "description": "Greatest no-gi grappler of all time"
+          }
+        }
+      },
+      "block_order": [
+        "video_testimonial_card_LwzfAM",
+        "static_testimonial_card_KURMXf",
+        "video_testimonial_card_iW7TJn",
+        "static_testimonial_card_QM4aMJ",
+        "video_testimonial_card_CrmEcz"
+      ],
+      "name": "Meet Our Icons Slider",
+      "settings": {
+        "subheading": "<p>100s of verified 5-star reviews</p>",
+        "heading": "Trusted by leading athletes & figures",
+        "button_text": "See More",
+        "button_link": "",
+        "desktop_cards_per_row": 5,
+        "tablet_cards_per_row": 2,
+        "mobile_cards_per_row": 2
+      }
+    },
     "celebrity_testimonials_PmJ8Jr": {
       "type": "celebrity-testimonials",
       "blocks": {
@@ -1039,6 +1121,7 @@
     "homepage_featured_in_logos_dxK7jf",
     "homepage_reviews_slider_2_gCdyWL",
     "logo_list_DaqLFK",
+    "meet_our_icons_slider_kUAKwp",
     "celebrity_testimonials_PmJ8Jr",
     "products_card_section_PzCHqp",
     "products_card_section_YF9fnK",
