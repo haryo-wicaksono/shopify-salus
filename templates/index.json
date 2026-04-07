@@ -546,13 +546,14 @@
             "description": "Host of the JRE Podcast, UFC commentator, Comedian"
           }
         },
-        "image_testimonial_rCri7Q": {
+        "image_testimonial_marEBc": {
           "type": "image_testimonial",
           "settings": {
+            "image": "shopify://shop_images/Frankie_Edgar_-_Icons_Page.png",
             "show_review_panel": true,
             "show_stars": true,
             "quote": "A game changer!",
-            "name": "Teixeira Family",
+            "name": "Frankie Edgar",
             "description": "Former UFC Lightweight Champion"
           }
         },
@@ -562,8 +563,18 @@
             "show_review_panel": false,
             "show_stars": true,
             "quote": "A game changer!",
-            "name": "Joe Rogan",
-            "description": "Host of the JRE Podcast, UFC commentator, Comedian"
+            "name": "Remi Ishizuka",
+            "description": "Wellness & Lifestyle Creator"
+          }
+        },
+        "image_testimonial_rCri7Q": {
+          "type": "image_testimonial",
+          "settings": {
+            "show_review_panel": true,
+            "show_stars": true,
+            "quote": "A game changer!",
+            "name": "Teixeira Family",
+            "description": "Former UFC Lightweight Champion"
           }
         },
         "video_testimonial_bABnUU": {
@@ -575,25 +586,15 @@
             "name": "Gordon Ryan",
             "description": "Greatest no-gi grappler of all time"
           }
-        },
-        "image_testimonial_marEBc": {
-          "type": "image_testimonial",
-          "settings": {
-            "show_review_panel": true,
-            "show_stars": true,
-            "quote": "A game changer!",
-            "name": "Frankie Edgar",
-            "description": "Former UFC Lightweight Champion"
-          }
         }
       },
       "block_order": [
         "video_testimonial_MwAyiX",
         "video_testimonial_FeyBCq",
-        "image_testimonial_rCri7Q",
+        "image_testimonial_marEBc",
         "video_testimonial_KVrgA7",
-        "video_testimonial_bABnUU",
-        "image_testimonial_marEBc"
+        "image_testimonial_rCri7Q",
+        "video_testimonial_bABnUU"
       ],
       "name": "Meet Our Icons",
       "settings": {
