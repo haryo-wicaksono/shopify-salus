@@ -869,6 +869,55 @@
         "products_to_display_collection": "infrared-saunas-highlight"
       }
     },
+    "product_categories_promo_PdtNEC": {
+      "type": "product-categories-promo",
+      "blocks": {
+        "category_card_rAiyk9": {
+          "type": "category_card",
+          "settings": {
+            "image": "shopify://shop_images/Frame_17328.png",
+            "mobile_image": "shopify://shop_images/Frame_17328.png",
+            "title": "Indoor & Outdoor Saunas",
+            "description": "Whether you're looking for traditional, infrared, or hybrid combination saunas, only bring home the best.",
+            "button_label": "Shop Saunas",
+            "link_url": "shopify://collections/all-saunas"
+          }
+        },
+        "category_card_z9raNq": {
+          "type": "category_card",
+          "settings": {
+            "image": "shopify://shop_images/Frame_17331_1.png",
+            "mobile_image": "shopify://shop_images/Frame_17331_1.png",
+            "title": "Cold Plunges & Tubs",
+            "description": "Whether you're looking for traditional, infrared, or hybrid combination saunas, only bring home the best.",
+            "button_label": "Shop Cold Plunges",
+            "link_url": "shopify://collections/cold-plunges"
+          }
+        },
+        "category_card_iAQxWG": {
+          "type": "category_card",
+          "settings": {
+            "image": "shopify://shop_images/Frame_17332.png",
+            "mobile_image": "shopify://shop_images/Frame_17332.png",
+            "title": "Sauna Accessories",
+            "description": "Whether you're looking for traditional, infrared, or hybrid combination saunas, only bring home the best.",
+            "button_label": "Shop Accessories",
+            "link_url": "shopify://collections/all-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "category_card_rAiyk9",
+        "category_card_z9raNq",
+        "category_card_iAQxWG"
+      ],
+      "name": "Product Categories Promo",
+      "settings": {
+        "title": "Explore by Product Categories",
+        "mobile_title": "Explore Product Categories",
+        "affirm_product": ""
+      }
+    },
     "homepage_sauna_value_proposition_hFfREm": {
       "type": "homepage-sauna-value-proposition",
       "blocks": {
@@ -1173,6 +1222,7 @@
     "indoor_outdoor_sauna_grid_8JFwLb",
     "product_carousel_fKidLh",
     "product_carousel_MGky87",
+    "product_categories_promo_PdtNEC",
     "homepage_sauna_value_proposition_hFfREm",
     "video",
     "promo_strip_yHMmpR",
