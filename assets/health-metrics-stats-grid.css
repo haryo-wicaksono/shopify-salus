@@ -1,6 +1,6 @@
 .health-metrics-stats-grid-section {
   padding: 0px;
-  margin: 40px 0px;
+  margin: 50px 0px;
   background: #0c0b0a;
 }
 
@@ -83,8 +83,8 @@
 
 .health-metrics-stats-grid__eyebrow-icon {
   display: inline-flex;
-  width: 22px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   flex: 0 0 auto;
 }
 
@@ -97,7 +97,7 @@
 .health-metrics-stats-grid__heading {
   margin: 0 0 40px;
   color: #f6f1ea;
-  font-size: 32px;
+  font-size: 28px;
   line-height: 1.18;
   font-weight: 400;
   letter-spacing: -0.03em;
