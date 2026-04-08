@@ -236,16 +236,6 @@
             "description": "US Olympian, Weightlifting Champion"
           }
         },
-        "static_testimonial_card_KURMXf": {
-          "type": "static-testimonial-card",
-          "settings": {
-            "card_variant": "review",
-            "media_height": "short",
-            "quote": "A game changer!",
-            "name": "Teixeira Family",
-            "description": "Former UFC Lightweight Champion"
-          }
-        },
         "video_testimonial_card_iW7TJn": {
           "type": "video-testimonial-card",
           "settings": {
@@ -257,26 +247,26 @@
             "description": "Host of the JRE Podcast, Comedian"
           }
         },
-        "video_testimonial_card_WVrm6Q": {
+        "video_testimonial_card_B8Hx7K": {
           "type": "video-testimonial-card",
           "settings": {
-            "video_file": "shopify://files/videos/Joe Rogan Testimonials.mp4",
+            "video_file": "shopify://files/videos/Kagan Dunlap - Testimonial - Mobile.mp4",
             "card_variant": "media",
             "media_height": "tall",
             "quote": "",
-            "name": "Joe Rogan",
-            "description": "Host of the JRE Podcast, Comedian"
+            "name": "Kagan Dunlap",
+            "description": "Military Veteran, YouTube Host"
           }
         },
-        "static_testimonial_card_QM4aMJ": {
-          "type": "static-testimonial-card",
+        "video_testimonial_card_WVrm6Q": {
+          "type": "video-testimonial-card",
           "settings": {
-            "image": "shopify://shop_images/Frankie_Edgar_-_Icons_Page.png",
-            "card_variant": "review",
-            "media_height": "short",
-            "quote": "A game changer!",
-            "name": "Frankie Edgar",
-            "description": "Former UFC Lightweight Champion"
+            "video_file": "shopify://files/videos/Remi Ishizuka Testimonials.mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "name": "Remi Ishizuka",
+            "description": "Wellness & Lifestyle Creator"
           }
         },
         "video_testimonial_card_CrmEcz": {
@@ -289,15 +279,74 @@
             "name": "Gordon Ryan",
             "description": "Greatest no-gi grappler of all time"
           }
+        },
+        "video_testimonial_card_jJmDQq": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/30-60 second UGC-type videoSalus_dfca601e-1e54-48a4-8a97-be3602184baf.MOV",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "name": "Shelby Robins",
+            "description": "Fitness Creator"
+          }
+        },
+        "video_testimonial_card_KdNDfF": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Kaleo Wassman Testimonials.mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "name": "Kaleo Wassman",
+            "description": "Pepper’s Lead Vocalist/Guitarist"
+          }
+        },
+        "video_testimonial_card_A34QPb": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Teixeira Family Sauna Build.mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "name": "Teixeira Family",
+            "description": "Wellness & Lifestyle Creators"
+          }
+        },
+        "video_testimonial_card_KwJyJ8": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Snapinst.app_video_AQPj08Xk43MCfK0ImyUGkQFNTn27nddqoJps4hiCeegEmZTkJLrPu3DOnbvECXhJdvnFmsWLpny--Czhnut2tvCPd4POD6SujyTfgzs.mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "name": "Claire P. Thomas",
+            "description": "Fitness Creator"
+          }
+        },
+        "video_testimonial_card_t8xLcB": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Ian Somerhalder Clip (1).mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "name": "Ian Somerhalder",
+            "description": "Actor, Entrepreneur"
+          }
         }
       },
       "block_order": [
         "video_testimonial_card_LwzfAM",
-        "static_testimonial_card_KURMXf",
         "video_testimonial_card_iW7TJn",
+        "video_testimonial_card_B8Hx7K",
         "video_testimonial_card_WVrm6Q",
-        "static_testimonial_card_QM4aMJ",
-        "video_testimonial_card_CrmEcz"
+        "video_testimonial_card_CrmEcz",
+        "video_testimonial_card_jJmDQq",
+        "video_testimonial_card_KdNDfF",
+        "video_testimonial_card_A34QPb",
+        "video_testimonial_card_KwJyJ8",
+        "video_testimonial_card_t8xLcB"
       ],
       "name": "Meet Our Icons Slider",
       "settings": {
