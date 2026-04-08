@@ -318,6 +318,14 @@
   }
 }
 
+@media screen and (min-width: 1280px) {
+  .meet-our-icons-slider__container {
+    max-width: calc(var(--page-width, 1320px) + 240px);
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .meet-our-icons-slider {
     padding: 40px 0;

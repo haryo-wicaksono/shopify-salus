@@ -11,7 +11,17 @@
       const syncSlideWidth = () => {
         const rootStyles = window.getComputedStyle(root);
         const gap = parseFloat(rootStyles.getPropertyValue('--meet-our-icons-slider-gap')) || 0;
-        const visibleColumns = parseFloat(rootStyles.getPropertyValue('--meet-our-icons-slider-visible-columns')) || 1;
+        const mobileColumns = parseFloat(rootStyles.getPropertyValue('--meet-our-icons-slider-mobile-columns')) || 1;
+        const tabletColumns = parseFloat(rootStyles.getPropertyValue('--meet-our-icons-slider-tablet-columns')) || mobileColumns;
+        const desktopColumns = parseFloat(rootStyles.getPropertyValue('--meet-our-icons-slider-desktop-columns')) || tabletColumns;
+        let visibleColumns = mobileColumns;
+
+        if (window.innerWidth >= 1024) {
+          visibleColumns = desktopColumns;
+        } else if (window.innerWidth >= 768) {
+          visibleColumns = tabletColumns;
+        }
+
         const slideWidth = (viewport.clientWidth - gap * (visibleColumns - 1)) / visibleColumns;
 
         if (slideWidth > 0) {

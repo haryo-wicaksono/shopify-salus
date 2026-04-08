@@ -222,3 +222,11 @@
     display: none;
   }
 }
+
+@media (min-width: 1280px) {
+  .product-categories-promo-section > .container {
+    max-width: calc(var(--page-width, 1320px) + 240px);
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
