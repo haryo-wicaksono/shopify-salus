@@ -46,7 +46,7 @@
   font-size: 28px;
   line-height: 1.15;
   letter-spacing: -0.5px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .meet-our-icons-slider__reviews-summary {
@@ -55,13 +55,13 @@
   gap: 5px;
   margin-bottom: 10px;
   color: #1a1a1a;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 }
 
 .meet-our-icons-slider__reviews-summary p {
   margin-bottom: 0;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -79,7 +79,7 @@
   background-color: transparent;
   color: #1a1a1a;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   flex-shrink: 0;
@@ -275,9 +275,10 @@
 }
 
 .meet-our-icons-slider__content:not(.meet-our-icons-slider__content--review) .meet-our-icons-slider__name {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   margin-bottom: 5px;
+  color: #000;
 }
 
 .meet-our-icons-slider__content:not(.meet-our-icons-slider__content--review) .meet-our-icons-slider__description {
@@ -286,12 +287,12 @@
 }
 
 .meet-our-icons-slider__content:not(.meet-our-icons-slider__content--review) {
-  height: 100%;
+  height: auto;
 }
 
 .meet-our-icons-slider__content:not(.meet-our-icons-slider__content--review) .meet-our-icons-slider__name,
 .meet-our-icons-slider__content:not(.meet-our-icons-slider__content--review) .meet-our-icons-slider__description {
-  margin-top: auto;
+  margin-top: 0;
 }
 
 .meet-our-icons-slider__content:not(.meet-our-icons-slider__content--review) .meet-our-icons-slider__description {

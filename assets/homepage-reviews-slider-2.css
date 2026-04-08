@@ -18,7 +18,7 @@
     /* width: 33%; */
     max-width: calc(var(--page-width, 1320px) + var(--gutter) * 2);
     margin: 0 auto;
-    padding: 40px var(--gutter);
+    padding: 50px var(--gutter) 40px;
     position: relative;
     overflow: hidden;
 }
@@ -63,14 +63,19 @@
 }
 
 .homepage-reviews-slider__text {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 28px;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     font-style: italic;
     /* Applied font style */
     text-align: left;
     /* Adjusted alignment */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    text-overflow: ellipsis;
 }
 
 .homepage-reviews-slider__text p {
@@ -81,28 +86,33 @@
     display: flex;
     gap: 2px;
     /* Narrower spacing between stars */
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     align-self: flex-start;
     /* Left-align the stars within the card */
 }
 
 .homepage-reviews-slider__star-rating svg {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     fill: #38A169;
 }
 
 .homepage-reviews-slider__title {
-    font-size: 21px;
+    font-size: 18px;
     line-height: 36px;
     font-weight: 600;
     color: #222;
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: left;
     /* Adjusted alignment */
     align-self: flex-start;
     /* Ensure left alignment within the card */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
 }
 
 .homepage-reviews-slider__author-details {
@@ -123,8 +133,8 @@
 .homepage-reviews-slider__author-image {
     object-fit: cover;
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     /* Made circular */
     overflow: hidden;
@@ -132,7 +142,7 @@
 }
 
 .homepage-reviews-slider__author-name {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     color: #222;
     margin: 0;
@@ -141,9 +151,10 @@
     gap: 5px;
 }
 
-.homepage-reviews-slider__author-name .icon-checkmark-blue {
-    width: 22px;
-    height: 22px;
+.homepage-reviews-slider__author-name .icon-checkmark-blue,
+.homepage-reviews-slider__author-name svg {
+    width: 15px;
+    height: 15px;
     flex-shrink: 0;
     fill: #007AFF;
 }
