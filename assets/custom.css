@@ -4009,7 +4009,7 @@ a.secondary-nav__item.secondary-nav__cta {
 }
 
 .faqs-section.section {
-  padding-top: 0 !important;
+  padding-top: 50px !important;
   padding-bottom: 120px !important;
   margin-bottom: 0 !important;
 }

@@ -180,21 +180,23 @@
 }
 
 .homepage-reviews-slider__button {
-    background-color: #1B413E;
-    color: #FFFFFF;
-    padding: 15px 30px;
+    background-color: transparent;
+    color: #1a1a1a;
+    padding: 10px 24px;
     margin-top: 20px;
-    border-radius: 50px;
+    border-radius: 9999px;
     font-size: 18px;
     font-weight: 500;
     text-decoration: none;
-    transition: background-color 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     white-space: nowrap;
-    border: none;
+    border: 1px solid #1a1a1a;
 }
 
 .homepage-reviews-slider__button:hover {
     background-color: #1F8A81;
+    color: #FBFBFB;
+    border-color: #1F8A81;
 }
 
 @media screen and (max-width: 767px) {
