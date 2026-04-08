@@ -39,7 +39,7 @@
         "button_dcgWBG": {
           "type": "button",
           "settings": {
-            "button_1_label": "See Our Icons",
+            "button_1_label": "Learn More",
             "button_1_link": "#our-icons",
             "button_1_style": "btn btn--secondary",
             "button_2_label": "",
@@ -85,7 +85,7 @@
         "text_7GdTrK": {
           "type": "text",
           "settings": {
-            "text": "<p>We’re honored to partner and provide some of the world’s most prominent figures with their sauna needs</p>",
+            "text": "<p>We’re honored to provide some of the world’s most prominent figures with their sauna needs</p>",
             "enlarge_text": false
           }
         }
