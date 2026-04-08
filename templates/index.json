@@ -284,144 +284,6 @@
         "title": ""
       }
     },
-    "homepage_reviews_slider_2_gCdyWL": {
-      "type": "homepage-reviews-slider-2",
-      "blocks": {
-        "review_card_7Krz7A": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>I have had an amazing experience with Salus Saunas. The build quality is fantastic, it works very well, and the customer service is by far one of the best I've worked with. I highly recommend this product to anyone looking for a high quality infrared sauna.</p>",
-            "review_title": "The build quality is fantastic",
-            "author_image": "shopify://shop_images/Frame_17127_1.png",
-            "author_name": "Dr. Joaquin Rosado",
-            "is_verified": true
-          }
-        },
-        "review_card_qyUQ8X": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>Also they are all ultra low or near zero EMF! Wow! And I have to say, I appreciate their customer service too. They even have hours for east coast customers which means their employees are on the phone lines starting at 6am their time. That’s above and beyond...</p>",
-            "review_title": "7 year warranty & free shipping!",
-            "author_image": "shopify://shop_images/Frame_17125.png",
-            "author_name": "Ashley Soltes",
-            "is_verified": true
-          }
-        },
-        "review_card_XdaTEj": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>You gotta’ get a Salus Saunas, they’re the guys that did ours and they have serious heaters. Mine gets to 200°F!</p>",
-            "review_title": "Mine gets to 200°F!",
-            "author_image": "shopify://shop_images/Frame_17127_2.png",
-            "author_name": "Joe Rogan",
-            "is_verified": true
-          }
-        },
-        "review_card_394HCY": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>I use it nearly every day and it’s completely revolutionized our backyard into a home spa. It’s a wonderful addition and I truly feel the health benefits. The customer service, product quality, and overall experience has been top notch at every stage.</p>",
-            "review_title": "Love my Salus Saunas!!!!",
-            "author_image": "shopify://shop_images/Frame_17127.png",
-            "author_name": "Ben Feldman",
-            "is_verified": true
-          }
-        },
-        "review_card_jNPzcC": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>This company deserves 10 stars!! From the moment I spoke with Amber to purchase it, to its delivery everything was perfection. Easy install and works like a charm. Delivery company is top notch! I love it !</p>",
-            "review_title": "Deserves 10 stars!!",
-            "author_image": "shopify://shop_images/Frame_17127_3.png",
-            "author_name": "Bryan Nagle",
-            "is_verified": true
-          }
-        },
-        "review_card_9ftpeB": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>They were professional, knowledgeable, kind and prompt and when I had a problem with a broken piece due to the shipping, they were quick to respond with a replacement piece. I’ve been very happy with my beautiful Sauna!!!</p>",
-            "review_title": "Can’t say enough good things!",
-            "author_image": "shopify://shop_images/Frame_17127_4.png",
-            "author_name": "noelle sprenger",
-            "is_verified": true
-          }
-        },
-        "review_card_jLtUnf": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>We have had our Salus Sauna for nearly a year, and our family uses it daily. The key differentiator has been the exemplary level of customer service! Mark and Ethan provide immediate responses and work to assure total satisfaction!!</p>",
-            "review_title": "Our family uses it daily",
-            "author_image": "shopify://shop_images/Frame_17126.png",
-            "author_name": "Greg Wharton",
-            "is_verified": true
-          }
-        },
-        "review_card_BLQmXy": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>Excellent service. Very professional and helpful during purchase and setup. Especially when it came to working with our electrician and explaining the setup steps.</p>",
-            "review_title": "Excellent service",
-            "author_image": "shopify://shop_images/Frame_17127_5.png",
-            "author_name": "Ramesh Rajagopal",
-            "is_verified": true
-          }
-        },
-        "review_card_DwnnLY": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>We LOVE our Salus Sauna! Ordering was easy, customer service was great, assembly was simple. All in all it was a great buying experience and an even better SAUNA experience!</p>",
-            "review_title": "We LOVE our Salus Saunas!",
-            "author_image": "shopify://shop_images/Frame_17127_6.png",
-            "author_name": "Taylor Doolittle",
-            "is_verified": true
-          }
-        },
-        "review_card_a3wVfw": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>Any time I ran into challenges or had questions, the staff was very responsive and helped out any way they could. Even 3 years later, they are still ready and willing to help with questions or concerns. I recommend getting a sauna from Salus has been great!</p>",
-            "review_title": "Fun to build!",
-            "author_image": "shopify://shop_images/Frame_17125_1.png",
-            "author_name": "Josh Anderson",
-            "is_verified": true
-          }
-        },
-        "review_card_a3WzmR": {
-          "type": "review_card",
-          "settings": {
-            "review_text": "<p>Because there are so many different saunas out there and it's an expensive proposition for something that hopefully you will keep for a lifetime I did a lot of research. I am so glad that I found this sauna. It is so well made, so beautiful and so enjoyable to be in it's one of the best purchases I've ever made.</p>",
-            "review_title": "Friendly, competent And Timely",
-            "author_image": "shopify://shop_images/Frame_17127_7.png",
-            "author_name": "Elijah Nisenboim",
-            "is_verified": true
-          }
-        }
-      },
-      "block_order": [
-        "review_card_7Krz7A",
-        "review_card_qyUQ8X",
-        "review_card_XdaTEj",
-        "review_card_394HCY",
-        "review_card_jNPzcC",
-        "review_card_9ftpeB",
-        "review_card_jLtUnf",
-        "review_card_BLQmXy",
-        "review_card_DwnnLY",
-        "review_card_a3wVfw",
-        "review_card_a3WzmR"
-      ],
-      "name": "Homepage Reviews Slider",
-      "settings": {
-        "show_navigation_arrows": true,
-        "button_label": "Show me more reviews",
-        "button_link": "shopify://pages/reviews",
-        "section_padding_top_desktop": 0,
-        "section_padding_bottom_desktop": 0,
-        "section_padding_top_mobile": 0,
-        "section_padding_bottom_mobile": 0
-      }
-    },
     "logo_list_DaqLFK": {
       "type": "logo-list",
       "blocks": {
@@ -1071,6 +933,144 @@
         "mobile_background_image": "shopify://shop_images/Frame_17319_1.png"
       }
     },
+    "homepage_reviews_slider_2_gCdyWL": {
+      "type": "homepage-reviews-slider-2",
+      "blocks": {
+        "review_card_7Krz7A": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>I have had an amazing experience with Salus Saunas. The build quality is fantastic, it works very well, and the customer service is by far one of the best I've worked with. I highly recommend this product to anyone looking for a high quality infrared sauna.</p>",
+            "review_title": "The build quality is fantastic",
+            "author_image": "shopify://shop_images/Frame_17127_1.png",
+            "author_name": "Dr. Joaquin Rosado",
+            "is_verified": true
+          }
+        },
+        "review_card_qyUQ8X": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>Also they are all ultra low or near zero EMF! Wow! And I have to say, I appreciate their customer service too. They even have hours for east coast customers which means their employees are on the phone lines starting at 6am their time. That’s above and beyond...</p>",
+            "review_title": "7 year warranty & free shipping!",
+            "author_image": "shopify://shop_images/Frame_17125.png",
+            "author_name": "Ashley Soltes",
+            "is_verified": true
+          }
+        },
+        "review_card_XdaTEj": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>You gotta’ get a Salus Saunas, they’re the guys that did ours and they have serious heaters. Mine gets to 200°F!</p>",
+            "review_title": "Mine gets to 200°F!",
+            "author_image": "shopify://shop_images/Frame_17127_2.png",
+            "author_name": "Joe Rogan",
+            "is_verified": true
+          }
+        },
+        "review_card_394HCY": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>I use it nearly every day and it’s completely revolutionized our backyard into a home spa. It’s a wonderful addition and I truly feel the health benefits. The customer service, product quality, and overall experience has been top notch at every stage.</p>",
+            "review_title": "Love my Salus Saunas!!!!",
+            "author_image": "shopify://shop_images/Frame_17127.png",
+            "author_name": "Ben Feldman",
+            "is_verified": true
+          }
+        },
+        "review_card_jNPzcC": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>This company deserves 10 stars!! From the moment I spoke with Amber to purchase it, to its delivery everything was perfection. Easy install and works like a charm. Delivery company is top notch! I love it !</p>",
+            "review_title": "Deserves 10 stars!!",
+            "author_image": "shopify://shop_images/Frame_17127_3.png",
+            "author_name": "Bryan Nagle",
+            "is_verified": true
+          }
+        },
+        "review_card_9ftpeB": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>They were professional, knowledgeable, kind and prompt and when I had a problem with a broken piece due to the shipping, they were quick to respond with a replacement piece. I’ve been very happy with my beautiful Sauna!!!</p>",
+            "review_title": "Can’t say enough good things!",
+            "author_image": "shopify://shop_images/Frame_17127_4.png",
+            "author_name": "noelle sprenger",
+            "is_verified": true
+          }
+        },
+        "review_card_jLtUnf": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>We have had our Salus Sauna for nearly a year, and our family uses it daily. The key differentiator has been the exemplary level of customer service! Mark and Ethan provide immediate responses and work to assure total satisfaction!!</p>",
+            "review_title": "Our family uses it daily",
+            "author_image": "shopify://shop_images/Frame_17126.png",
+            "author_name": "Greg Wharton",
+            "is_verified": true
+          }
+        },
+        "review_card_BLQmXy": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>Excellent service. Very professional and helpful during purchase and setup. Especially when it came to working with our electrician and explaining the setup steps.</p>",
+            "review_title": "Excellent service",
+            "author_image": "shopify://shop_images/Frame_17127_5.png",
+            "author_name": "Ramesh Rajagopal",
+            "is_verified": true
+          }
+        },
+        "review_card_DwnnLY": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>We LOVE our Salus Sauna! Ordering was easy, customer service was great, assembly was simple. All in all it was a great buying experience and an even better SAUNA experience!</p>",
+            "review_title": "We LOVE our Salus Saunas!",
+            "author_image": "shopify://shop_images/Frame_17127_6.png",
+            "author_name": "Taylor Doolittle",
+            "is_verified": true
+          }
+        },
+        "review_card_a3wVfw": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>Any time I ran into challenges or had questions, the staff was very responsive and helped out any way they could. Even 3 years later, they are still ready and willing to help with questions or concerns. I recommend getting a sauna from Salus has been great!</p>",
+            "review_title": "Fun to build!",
+            "author_image": "shopify://shop_images/Frame_17125_1.png",
+            "author_name": "Josh Anderson",
+            "is_verified": true
+          }
+        },
+        "review_card_a3WzmR": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "<p>Because there are so many different saunas out there and it's an expensive proposition for something that hopefully you will keep for a lifetime I did a lot of research. I am so glad that I found this sauna. It is so well made, so beautiful and so enjoyable to be in it's one of the best purchases I've ever made.</p>",
+            "review_title": "Friendly, competent And Timely",
+            "author_image": "shopify://shop_images/Frame_17127_7.png",
+            "author_name": "Elijah Nisenboim",
+            "is_verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_card_7Krz7A",
+        "review_card_qyUQ8X",
+        "review_card_XdaTEj",
+        "review_card_394HCY",
+        "review_card_jNPzcC",
+        "review_card_9ftpeB",
+        "review_card_jLtUnf",
+        "review_card_BLQmXy",
+        "review_card_DwnnLY",
+        "review_card_a3wVfw",
+        "review_card_a3WzmR"
+      ],
+      "name": "Homepage Reviews Slider",
+      "settings": {
+        "show_navigation_arrows": true,
+        "button_label": "Show me more reviews",
+        "button_link": "shopify://pages/reviews",
+        "section_padding_top_desktop": 0,
+        "section_padding_bottom_desktop": 0,
+        "section_padding_top_mobile": 0,
+        "section_padding_bottom_mobile": 0
+      }
+    },
     "faq_T9BgCP": {
       "type": "faq",
       "blocks": {
@@ -1218,22 +1218,22 @@
     }
   },
   "order": [
-    "slideshow",
     "homepage_hero_carousel_iKVfwn",
     "homepage_featured_in_logos_dxK7jf",
-    "homepage_reviews_slider_2_gCdyWL",
-    "logo_list_DaqLFK",
     "meet_our_icons_slider_kUAKwp",
     "cinematic_sauna_showcase_MEede4",
-    "products_card_section_PzCHqp",
-    "products_card_section_YF9fnK",
     "indoor_outdoor_sauna_grid_8JFwLb",
     "product_categories_promo_PdtNEC",
+    "health_metrics_stats_grid_xXtcW9",
+    "homepage_reviews_slider_2_gCdyWL",
+    "faq_T9BgCP",
+    "content_with_form_Q3amKV",
+    "slideshow",
     "video",
     "promo_strip_yHMmpR",
+    "logo_list_DaqLFK",
     "promo_strip_MEtcbi",
-    "health_metrics_stats_grid_xXtcW9",
-    "faq_T9BgCP",
-    "content_with_form_Q3amKV"
+    "products_card_section_YF9fnK",
+    "products_card_section_PzCHqp"
   ]
 }
