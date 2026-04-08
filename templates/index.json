@@ -1076,48 +1076,48 @@
         "metric_LbVYqY": {
           "type": "metric",
           "settings": {
-            "value": "~40%",
-            "label": "Lower All-Cause\nMortality",
+            "value": "+32%",
+            "label": "Increase in Time\nto Exhaustion",
             "show_on_mobile": true
           }
         },
         "metric_drJ9BQ": {
           "type": "metric",
           "settings": {
-            "value": "~40%",
-            "label": "Lower All-Cause\nMortality",
+            "value": "~16x",
+            "label": "In Growth\nHormone",
             "show_on_mobile": true
           }
         },
         "metric_MaGkKe": {
           "type": "metric",
           "settings": {
-            "value": "~40%",
-            "label": "Lower All-Cause\nMortality",
+            "value": "~70%",
+            "label": "More Deep\nSleep",
             "show_on_mobile": true
           }
         },
         "metric_mQjTem": {
           "type": "metric",
           "settings": {
-            "value": "~40%",
-            "label": "Lower All-Cause\nMortality",
-            "show_on_mobile": true
+            "value": "~63%",
+            "label": "Lower Risk of\nHeart Disease",
+            "show_on_mobile": false
           }
         },
         "metric_k4QrRL": {
           "type": "metric",
           "settings": {
-            "value": "~40%",
-            "label": "Lower All-Cause\nMortality",
+            "value": "~66%",
+            "label": "Lower Risk of\nDementia",
             "show_on_mobile": true
           }
         },
         "metric_wHBhmr": {
           "type": "metric",
           "settings": {
-            "value": "~40%",
-            "label": "Lower All-Cause\nMortality",
+            "value": "~33%",
+            "label": "Lower Risk of\nBlood Clots",
             "show_on_mobile": true
           }
         }
@@ -1135,7 +1135,7 @@
       "settings": {
         "eyebrow": "Science-backed benefits",
         "heading": "Old World Practice, Modern Day Proof",
-        "mobile_heading": "",
+        "mobile_heading": "Old world practice\nModern day proof",
         "background_image": "shopify://shop_images/Frame_17348_1.png",
         "mobile_background_image": "shopify://shop_images/Frame_17319_1.png"
       }
