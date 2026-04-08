@@ -9,8 +9,8 @@
   assign mobile_media_position = section.settings.mobile_object_position | default: 'center center'
   assign desktop_overlay_opacity = section.settings.desktop_overlay_opacity | divided_by: 100.0
   assign mobile_overlay_opacity = section.settings.mobile_overlay_opacity | divided_by: 100.0
-  assign desktop_aspect_ratio = 1.7777778
-  assign mobile_aspect_ratio = desktop_aspect_ratio
+  assign desktop_section_height = section.settings.desktop_section_height | default: 560
+  assign mobile_section_height = section.settings.mobile_section_height | default: 620
   assign has_desktop_media = false
   assign has_mobile_media = false
   assign has_bullets = false
@@ -33,20 +33,6 @@
     assign has_mobile_media = true
   endif
 
-  if desktop_video != blank and desktop_video.aspect_ratio != blank
-    assign desktop_aspect_ratio = desktop_video.aspect_ratio
-  elsif desktop_image != blank and desktop_image.aspect_ratio != blank
-    assign desktop_aspect_ratio = desktop_image.aspect_ratio
-  endif
-
-  if mobile_video != blank and mobile_video.aspect_ratio != blank
-    assign mobile_aspect_ratio = mobile_video.aspect_ratio
-  elsif mobile_image != blank and mobile_image.aspect_ratio != blank
-    assign mobile_aspect_ratio = mobile_image.aspect_ratio
-  else
-    assign mobile_aspect_ratio = desktop_aspect_ratio
-  endif
-
   if section.settings.bullet_1 != blank
     assign has_bullets = true
   elsif section.settings.bullet_2 != blank
@@ -65,8 +51,8 @@
     --cinematic-sauna-showcase-desktop-overlay-opacity: {{ desktop_overlay_opacity }};
     --cinematic-sauna-showcase-mobile-overlay-opacity: {{ mobile_overlay_opacity }};
     --cinematic-sauna-showcase-desktop-content-width: {{ section.settings.desktop_content_width }}px;
-    --cinematic-sauna-showcase-desktop-aspect-ratio: {{ desktop_aspect_ratio }};
-    --cinematic-sauna-showcase-mobile-aspect-ratio: {{ mobile_aspect_ratio }};
+    --cinematic-sauna-showcase-desktop-height: {{ desktop_section_height }}px;
+    --cinematic-sauna-showcase-mobile-height: {{ mobile_section_height }}px;
     --cinematic-sauna-showcase-desktop-object-position: {{ desktop_media_position }};
     --cinematic-sauna-showcase-mobile-object-position: {{ mobile_media_position }};
   "
@@ -301,6 +287,26 @@
       "step": 20,
       "unit": "px",
       "default": 420
+    },
+    {
+      "type": "range",
+      "id": "desktop_section_height",
+      "label": "Desktop section height",
+      "min": 360,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_height",
+      "label": "Mobile section height",
+      "min": 360,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 620
     },
     {
       "type": "range",
