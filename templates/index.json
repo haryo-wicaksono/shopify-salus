@@ -272,6 +272,7 @@
         "video_testimonial_card_CrmEcz": {
           "type": "video-testimonial-card",
           "settings": {
+            "custom_thumbnail_image": "shopify://shop_images/Frankie_Edgar_-_Icons_Page_1.png",
             "video_file": "shopify://files/videos/Gordon Ryan Testimonials.mp4",
             "card_variant": "media",
             "media_height": "tall",
@@ -305,6 +306,7 @@
         "video_testimonial_card_A34QPb": {
           "type": "video-testimonial-card",
           "settings": {
+            "custom_thumbnail_image": "shopify://shop_images/Sauna_PNGs_3_f472bd87-59a1-4c5a-922e-e2e52a4769e5.png",
             "video_file": "shopify://files/videos/Teixeira Family Sauna Build.mp4",
             "card_variant": "media",
             "media_height": "tall",
