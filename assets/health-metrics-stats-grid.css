@@ -59,7 +59,7 @@
 }
 
 .health-metrics-stats-grid__inner {
-  min-height: 675px;
+  min-height: var(--health-metrics-stats-grid-desktop-min-height, 760px);
   display: flex;
   align-items: center;
 }
@@ -189,7 +189,7 @@
   }
 
   .health-metrics-stats-grid__inner {
-    min-height: 810px;
+    min-height: var(--health-metrics-stats-grid-mobile-min-height, 900px);
     align-items: flex-end;
   }
 
