@@ -23,6 +23,11 @@
     overflow: hidden;
 }
 
+.homepage-reviews-slider__inner {
+    max-width: 1310px;
+    margin: 0 auto;
+}
+
 .homepage-reviews-slider__slide {
     height: auto;
     display: flex;
