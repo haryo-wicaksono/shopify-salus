@@ -187,8 +187,10 @@
             "review_detail3": "",
             "review_title4": "",
             "review_detail4": "",
-            "pd_title": "",
-            "products": []
+            "pd_title": "Joe's Sauna",
+            "products": [
+              "horizon-6-person-barrel-sauna"
+            ]
           }
         },
         "column_RezAXx": {
