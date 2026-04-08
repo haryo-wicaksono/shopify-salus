@@ -531,8 +531,6 @@
             "card_variant": "media",
             "media_height": "tall",
             "quote": "",
-            "caption_line_1": "",
-            "caption_line_2": "",
             "name": "Wes Kitts",
             "description": "US Olympian, Weightlifting Champion"
           }
@@ -554,8 +552,6 @@
             "card_variant": "media",
             "media_height": "tall",
             "quote": "",
-            "caption_line_1": "",
-            "caption_line_2": "",
             "name": "Joe Rogan",
             "description": "Host of the JRE Podcast, Comedian"
           }
@@ -567,8 +563,6 @@
             "card_variant": "media",
             "media_height": "tall",
             "quote": "",
-            "caption_line_1": "",
-            "caption_line_2": "",
             "name": "Joe Rogan",
             "description": "Host of the JRE Podcast, Comedian"
           }
@@ -591,8 +585,6 @@
             "card_variant": "media",
             "media_height": "tall",
             "quote": "",
-            "caption_line_1": "I forgot to",
-            "caption_line_2": "introduced",
             "name": "Gordon Ryan",
             "description": "Greatest no-gi grappler of all time"
           }
@@ -842,31 +834,10 @@
       "name": "Indoor/Outdoor Sauna Grid",
       "settings": {
         "title": "Best-Selling Indoor & Outdoor Saunas",
+        "mobile_title": "Best Selling Saunas",
         "collection": "best-selling-indoor-and-outdoor-saunas",
         "affirm_product": "element-2-person-full-spectrum-infrared-sauna",
         "fallback_badge_text": ""
-      }
-    },
-    "product_carousel_fKidLh": {
-      "type": "product-carousel",
-      "name": "Product Carousel",
-      "settings": {
-        "title": "Discover our time-tested traditional saunas",
-        "button-label": "Shop Traditional",
-        "button_collection": "traditional-sauna-v2",
-        "affirm_product": "governor-mini-traditional-outdoor-sauna",
-        "products_to_display_collection": "traditional-saunas-highlight"
-      }
-    },
-    "product_carousel_MGky87": {
-      "type": "product-carousel",
-      "name": "Product Carousel",
-      "settings": {
-        "title": "Explore our best-in-class infrared saunas",
-        "button-label": "Shop Infrared",
-        "button_collection": "all-infrared-saunas",
-        "affirm_product": "superb-2-person-infrared-sauna",
-        "products_to_display_collection": "infrared-saunas-highlight"
       }
     },
     "product_categories_promo_PdtNEC": {
@@ -916,46 +887,6 @@
         "title": "Explore by Product Categories",
         "mobile_title": "Explore Product Categories",
         "affirm_product": ""
-      }
-    },
-    "homepage_sauna_value_proposition_hFfREm": {
-      "type": "homepage-sauna-value-proposition",
-      "blocks": {
-        "sauna_feature_item_JaGAY4": {
-          "type": "sauna-feature-item",
-          "settings": {
-            "featured_product": "glamour-1-2-person-infrared-sauna"
-          }
-        },
-        "sauna_feature_item_gxPnVT": {
-          "type": "sauna-feature-item",
-          "settings": {
-            "featured_product": "uplift-full-spectrum-infrared-indoor-sauna"
-          }
-        },
-        "sauna_feature_item_fNnUjY": {
-          "type": "sauna-feature-item",
-          "settings": {
-            "featured_product": "governor-mini-traditional-outdoor-sauna"
-          }
-        }
-      },
-      "block_order": [
-        "sauna_feature_item_JaGAY4",
-        "sauna_feature_item_gxPnVT",
-        "sauna_feature_item_fNnUjY"
-      ],
-      "name": "Sauna Value Proposition",
-      "settings": {
-        "main_heading_text": "<h2>Get started with your sauna journey for less than $4/day*</h2>",
-        "disclaimer_text": "",
-        "button_text": "Shop Best Value Saunas",
-        "button_link": "shopify://collections/all-saunas",
-        "sort_order": "price-ascending",
-        "top_badge_text": "Best Value Picks – Includes FREE shipping + Warranty | $1000s in Value!",
-        "composite_sauna_image": "shopify://shop_images/Frame_15799.png",
-        "bottom_badge_text": "*Our saunas start at $104/mo or 0% APR with Affirm financing.",
-        "desktop_column_ratio": 50
       }
     },
     "video": {
@@ -1294,14 +1225,10 @@
     "logo_list_DaqLFK",
     "meet_our_icons_slider_kUAKwp",
     "cinematic_sauna_showcase_MEede4",
-    "celebrity_testimonials_PmJ8Jr",
     "products_card_section_PzCHqp",
     "products_card_section_YF9fnK",
     "indoor_outdoor_sauna_grid_8JFwLb",
-    "product_carousel_fKidLh",
-    "product_carousel_MGky87",
     "product_categories_promo_PdtNEC",
-    "homepage_sauna_value_proposition_hFfREm",
     "video",
     "promo_strip_yHMmpR",
     "promo_strip_MEtcbi",
