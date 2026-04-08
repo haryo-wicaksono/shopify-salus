@@ -1,5 +1,5 @@
 .featured-in-section {
-  padding: 80px 15px;
+  padding: 80px 15px 40px;
   text-align: center;
   overflow: hidden;
 }
@@ -156,8 +156,8 @@
 
 @media (max-width: 768px) {
   .featured-in-section {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 40px;
+    padding-bottom: 0px;
   }
 
   .featured-in-title {

@@ -1,9 +1,11 @@
 .meet-our-icons-slider-container {
   max-width: 1400px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .meet-our-icons-slider {
-  padding: 80px 100px;
+  padding: 40px 100px;
   text-align: center;
   --meet-our-icons-slider-gap: 20px;
   --meet-our-icons-slider-visible-columns: var(--meet-our-icons-slider-mobile-columns);
@@ -211,7 +213,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .meet-our-icons-slider__content--review {
