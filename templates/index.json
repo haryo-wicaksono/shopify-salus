@@ -537,16 +537,15 @@
           "settings": {
             "video_file": "shopify://files/videos/Joe Rogan Testimonials.mp4",
             "name": "Joe Rogan",
-            "description": "Host of the JRE Podcast, UFC commentator, Comedian"
+            "description": "Host of the JRE Podcast, UFC Commentator, Comedian"
           }
         },
-        "static_testimonial_card_9rtKQM": {
-          "type": "static-testimonial-card",
+        "video_testimonial_card_DhTGRx": {
+          "type": "video-testimonial-card",
           "settings": {
-            "image": "shopify://shop_images/Frankie_Edgar_Testimonials.jpg",
-            "quote": "A game changer!",
-            "name": "Frankie Edgar",
-            "description": "Former UFC Lightweight Champion"
+            "video_file": "shopify://files/videos/Kagan Dunlap - Testimonial - Mobile.mp4",
+            "name": "Kagan Dunlap",
+            "description": "Military Veteran, YouTube Host"
           }
         },
         "video_testimonial_card_rBehdg": {
@@ -563,7 +562,7 @@
             "custom_thumbnail_image": "shopify://shop_images/Frame_17241.jpg",
             "video_file": "shopify://files/videos/Gordon Ryan Testimonials.mp4",
             "name": "Gordon Ryan",
-            "description": "Greatest no-gi grappler of all time"
+            "description": "Greatest No-Gi Grappler of All Time"
           }
         },
         "video_testimonial_card_DBgwXe": {
@@ -630,7 +629,7 @@
       "block_order": [
         "video_testimonial_card_mzgML6",
         "video_testimonial_card_ejLPGK",
-        "static_testimonial_card_9rtKQM",
+        "video_testimonial_card_DhTGRx",
         "video_testimonial_card_rBehdg",
         "video_testimonial_card_fizjEq",
         "video_testimonial_card_DBgwXe",
