@@ -842,8 +842,8 @@
       "name": "Indoor/Outdoor Sauna Grid",
       "settings": {
         "title": "Best-Selling Indoor & Outdoor Saunas",
-        "collection": "",
-        "affirm_product": "",
+        "collection": "best-selling-indoor-and-outdoor-saunas",
+        "affirm_product": "element-2-person-full-spectrum-infrared-sauna",
         "fallback_badge_text": ""
       }
     },
