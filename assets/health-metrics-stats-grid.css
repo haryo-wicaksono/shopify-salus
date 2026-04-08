@@ -1,0 +1,254 @@
+.health-metrics-stats-grid-section {
+  padding: 0;
+  background: #0c0b0a;
+}
+
+.health-metrics-stats-grid {
+  position: relative;
+  overflow: hidden;
+  background: #0c0b0a;
+  color: #f8f5f1;
+}
+
+.health-metrics-stats-grid__media {
+  position: absolute;
+  inset: 0;
+}
+
+.health-metrics-stats-grid__image,
+.health-metrics-stats-grid__placeholder {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.health-metrics-stats-grid__image--desktop {
+  object-position: center right;
+}
+
+.health-metrics-stats-grid__image--mobile {
+  display: none;
+}
+
+.health-metrics-stats-grid__placeholder {
+  color: rgba(255, 255, 255, 0.14);
+  background: #15110f;
+}
+
+.health-metrics-stats-grid__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.health-metrics-stats-grid__overlay--desktop {
+  background:
+    linear-gradient(90deg, rgba(9, 8, 7, 0.92) 0%, rgba(9, 8, 7, 0.88) 18%, rgba(9, 8, 7, 0.72) 36%, rgba(9, 8, 7, 0.34) 58%, rgba(9, 8, 7, 0) 78%),
+    linear-gradient(180deg, rgba(9, 8, 7, 0.2) 0%, rgba(9, 8, 7, 0.46) 100%);
+}
+
+.health-metrics-stats-grid__overlay--mobile {
+  display: none;
+}
+
+.health-metrics-stats-grid .container {
+  position: relative;
+  z-index: 2;
+}
+
+.health-metrics-stats-grid__inner {
+  min-height: 675px;
+  display: flex;
+  align-items: center;
+}
+
+.health-metrics-stats-grid__content {
+  width: 100%;
+  max-width: 690px;
+  padding: 88px 0 82px;
+}
+
+.health-metrics-stats-grid__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  color: #f5f1eb;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.health-metrics-stats-grid__eyebrow-icon {
+  display: inline-flex;
+  color: #2dd4d0;
+}
+
+.health-metrics-stats-grid__eyebrow-icon .icon {
+  display: block;
+}
+
+.health-metrics-stats-grid__heading {
+  margin: 0 0 40px;
+  color: #f6f1ea;
+  font-size: 32px;
+  line-height: 1.18;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.health-metrics-stats-grid__heading-desktop,
+.health-metrics-stats-grid__heading-mobile {
+  display: block;
+}
+
+.health-metrics-stats-grid__heading-mobile {
+  display: none;
+}
+
+.health-metrics-stats-grid__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 36px 28px;
+  align-items: start;
+}
+
+.health-metrics-stats-grid__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.health-metrics-stats-grid__metric-circle {
+  width: 126px;
+  height: 126px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: #f7f3ee;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.health-metrics-stats-grid__metric-label {
+  max-width: 150px;
+  margin: 0;
+  color: #f0ebe4;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+@media (max-width: 1023.98px) {
+  .health-metrics-stats-grid__content {
+    max-width: 640px;
+  }
+
+  .health-metrics-stats-grid__metrics {
+    gap: 28px 18px;
+  }
+
+  .health-metrics-stats-grid__metric-circle {
+    width: 112px;
+    height: 112px;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .health-metrics-stats-grid__image--desktop {
+    display: none;
+  }
+
+  .health-metrics-stats-grid__image--mobile {
+    display: block;
+    object-position: center top;
+  }
+
+  .health-metrics-stats-grid__overlay--desktop {
+    display: none;
+  }
+
+  .health-metrics-stats-grid__overlay--mobile {
+    display: block;
+    background:
+      linear-gradient(180deg, rgba(10, 9, 8, 0) 0%, rgba(10, 9, 8, 0.08) 34%, rgba(10, 9, 8, 0.55) 52%, rgba(10, 9, 8, 0.9) 70%, #0c0b0a 100%),
+      linear-gradient(90deg, rgba(10, 9, 8, 0.38) 0%, rgba(10, 9, 8, 0.08) 48%, rgba(10, 9, 8, 0) 100%);
+  }
+
+  .health-metrics-stats-grid__inner {
+    min-height: 810px;
+    align-items: flex-end;
+  }
+
+  .health-metrics-stats-grid__content {
+    max-width: 100%;
+    padding: 0 0 40px;
+  }
+
+  .health-metrics-stats-grid__eyebrow {
+    margin-bottom: 14px;
+    font-size: 13px;
+  }
+
+  .health-metrics-stats-grid__heading {
+    margin-bottom: 32px;
+    font-size: 27px;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+  }
+
+  .health-metrics-stats-grid__heading-desktop {
+    display: none;
+  }
+
+  .health-metrics-stats-grid__heading-mobile {
+    display: block;
+  }
+
+  .health-metrics-stats-grid__metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px 12px;
+  }
+
+  .health-metrics-stats-grid__metric--desktop-only {
+    display: none;
+  }
+
+  .health-metrics-stats-grid__metric-circle {
+    width: 84px;
+    height: 84px;
+    margin-bottom: 12px;
+    font-size: 19px;
+  }
+
+  .health-metrics-stats-grid__metric-label {
+    max-width: 108px;
+    font-size: 11px;
+    line-height: 1.32;
+  }
+}
+
+@media (max-width: 389.98px) {
+  .health-metrics-stats-grid__heading {
+    font-size: 25px;
+  }
+
+  .health-metrics-stats-grid__metric-circle {
+    width: 76px;
+    height: 76px;
+    font-size: 17px;
+  }
+
+  .health-metrics-stats-grid__metric-label {
+    max-width: 98px;
+    font-size: 10px;
+  }
+}
