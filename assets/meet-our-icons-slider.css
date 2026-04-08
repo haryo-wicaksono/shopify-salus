@@ -327,18 +327,24 @@
   }
 }
 
+@media screen and (min-width: 1600px) {
+  .meet-our-icons-slider__content:not(.meet-our-icons-slider__content--review) .meet-our-icons-slider__name {
+    font-size: 16px;
+  }
+
+  .meet-our-icons-slider__content:not(.meet-our-icons-slider__content--review) .meet-our-icons-slider__description {
+    font-size: 14px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .meet-our-icons-slider {
-    padding: 40px 0;
+    padding: 40px 0 30px;
   }
 
   .meet-our-icons-slider__viewport {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .meet-our-icons-slider__viewport::-webkit-scrollbar {
-    display: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 33, 32, 0.32) transparent;
   }
 
   .meet-our-icons-slider__header {
@@ -359,11 +365,16 @@
 
   .meet-our-icons-slider__heading {
     margin-bottom: 0;
+    font-size: 24px;
     text-align: center;
   }
 
   .meet-our-icons-slider__content {
     padding-top: 14px;
+  }
+
+  .meet-our-icons-slider__card {
+    padding-right: 5px;
   }
 
   .meet-our-icons-slider__button-wrapper--desktop {
