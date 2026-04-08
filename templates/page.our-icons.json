@@ -268,6 +268,32 @@
             "products": []
           }
         },
+        "column_xVtpey": {
+          "type": "column",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify://shop_images/IMG_4067.jpg",
+            "media_scale": 100,
+            "heading": "Shelby Robins",
+            "subtext": "Influencer",
+            "text": "<p>Fitness Influencer</p>",
+            "button_label": "",
+            "button_link": "",
+            "enable_popup": true,
+            "video_shopify": "shopify://files/videos/30-60 second UGC-type videoSalus.MOV",
+            "no_reviews": 3,
+            "review_title1": "",
+            "review_detail1": "",
+            "review_title2": "",
+            "review_detail2": "",
+            "review_title3": "",
+            "review_detail3": "",
+            "review_title4": "",
+            "review_detail4": "",
+            "pd_title": "",
+            "products": []
+          }
+        },
         "column_iRTQyU": {
           "type": "column",
           "disabled": true,
@@ -650,6 +676,7 @@
         "column_n9RDpj",
         "column_pwdfjC",
         "column_8NNyCQ",
+        "column_xVtpey",
         "column_iRTQyU",
         "column_GU4ccK",
         "column_RjyMLA",
