@@ -17,7 +17,10 @@
       <div class="product-categories-promo__header">
         {%- if affirm_product != blank -%}
           <div class="product-categories-promo__affirm">
-            {% render 'affirm-messaging', product: affirm_product %}
+            <p class="product-categories-promo__affirm-text custom-affirm">
+              Flexible financing with
+              <span class="__affirm-logo __affirm-logo-blue __ligature__affirm_full_logo__">Affirm</span>
+            </p>
           </div>
         {%- endif -%}
 
