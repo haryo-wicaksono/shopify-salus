@@ -838,6 +838,16 @@
         "open_email": true
       }
     },
+    "indoor_outdoor_sauna_grid_8JFwLb": {
+      "type": "indoor-outdoor-sauna-grid",
+      "name": "Indoor/Outdoor Sauna Grid",
+      "settings": {
+        "title": "Best-Selling Indoor & Outdoor Saunas",
+        "collection": "",
+        "affirm_product": "",
+        "fallback_badge_text": ""
+      }
+    },
     "product_carousel_fKidLh": {
       "type": "product-carousel",
       "name": "Product Carousel",
@@ -1161,6 +1171,7 @@
     "celebrity_testimonials_PmJ8Jr",
     "products_card_section_PzCHqp",
     "products_card_section_YF9fnK",
+    "indoor_outdoor_sauna_grid_8JFwLb",
     "product_carousel_fKidLh",
     "product_carousel_MGky87",
     "homepage_sauna_value_proposition_hFfREm",
