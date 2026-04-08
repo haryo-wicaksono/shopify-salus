@@ -15,14 +15,15 @@
   <div class="container">
     <div class="product-categories-promo">
       <div class="product-categories-promo__header">
-        {%- if affirm_product != blank -%}
-          <div class="product-categories-promo__affirm">
-            <p class="product-categories-promo__affirm-text custom-affirm">
-              Flexible financing with
-              <span class="__affirm-logo __affirm-logo-blue __ligature__affirm_full_logo__">Affirm</span>
+        <div class="product-categories-promo__affirm">
+          {%- if affirm_product != blank -%}
+            {% render 'affirm-messaging', product: affirm_product %}
+          {%- else -%}
+            <p class="product-categories-promo__affirm-fallback custom-affirm">
+              Flexible financing with <span class="__affirm-logo __affirm-logo-blue __ligature__affirm_full_logo__ __processed">Affirm</span>
             </p>
-          </div>
-        {%- endif -%}
+          {%- endif -%}
+        </div>
 
         <h2 class="product-categories-promo__title">
           <span class="product-categories-promo__title-desktop">

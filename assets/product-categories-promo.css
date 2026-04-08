@@ -15,7 +15,7 @@
   text-align: center;
 }
 
-.product-categories-promo__affirm-text.custom-affirm {
+.product-categories-promo__affirm .custom-affirm {
   margin: 0 auto 10px;
   text-align: center;
   font-size: 14px;
@@ -24,7 +24,12 @@
   color: #111;
 }
 
-.product-categories-promo__affirm-text .__affirm-logo {
+.product-categories-promo__affirm .custom-affirm a {
+  color: inherit !important;
+  text-decoration: underline !important;
+}
+
+.product-categories-promo__affirm .__affirm-logo {
   display: inline-flex;
   align-items: center;
   margin-left: 4px;
@@ -165,7 +170,7 @@
     margin-bottom: 28px;
   }
 
-  .product-categories-promo__affirm-text.custom-affirm {
+  .product-categories-promo__affirm .custom-affirm {
     margin-bottom: 8px;
   }
 
