@@ -82,11 +82,15 @@
 
 .health-metrics-stats-grid__eyebrow-icon {
   display: inline-flex;
-  color: #2dd4d0;
+  width: 22px;
+  height: 18px;
+  flex: 0 0 auto;
 }
 
-.health-metrics-stats-grid__eyebrow-icon .icon {
+.health-metrics-stats-grid__eyebrow-icon svg {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .health-metrics-stats-grid__heading {
