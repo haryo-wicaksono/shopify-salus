@@ -107,6 +107,64 @@
     "our_icons_kdBKr7": {
       "type": "our-icons",
       "blocks": {
+        "column_FVpdbA": {
+          "type": "column",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify://shop_images/Joe_Rogan_-_Icons_Page.png",
+            "media_scale": 100,
+            "heading": "Joe Rogan",
+            "subtext": "Podcast Host",
+            "text": "<p>Podcaster, Comedian</p>",
+            "button_label": "",
+            "button_link": "",
+            "enable_popup": true,
+            "video_shopify": "shopify://files/videos/tolstoy_a2781b71-8a76-43c6-80bb-b865c2015e5b.webm",
+            "poster_image": "shopify://shop_images/Frame_17144.png",
+            "no_reviews": 2,
+            "review_title1": "Joe’s Testimonial",
+            "review_detail1": "<p>“If you’re thinking about getting a sauna or cold plunge, I suggest that you do to Salus Saunas, I can’t recommend them enough.”</p>",
+            "review_title2": "Joe’s Testimonial",
+            "review_detail2": "<p>“You gotta’ get a Salus Saunas, they’re the guys that did ours and they have serious heaters. Mine gets to 200°F!”</p>",
+            "review_title3": "",
+            "review_detail3": "",
+            "review_title4": "",
+            "review_detail4": "",
+            "pd_title": "Joe's Sauna",
+            "products": [
+              "horizon-6-person-barrel-sauna"
+            ]
+          }
+        },
+        "column_RezAXx": {
+          "type": "column",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify://shop_images/Ian_Somerhalder_-_Icons_Page_2.png",
+            "media_scale": 100,
+            "heading": "Ian Somerhalder",
+            "subtext": "Celebrity",
+            "text": "<p>Actor, Entrepreneur</p>",
+            "button_label": "",
+            "button_link": "",
+            "enable_popup": true,
+            "video_shopify": "shopify://files/videos/Q&A answering YOUR questions from my @salussaunas.  Longer version where I answered even more of your questions on my Tik Tok, @IanSomerhalder!.mp4",
+            "poster_image": "shopify://shop_images/Ian_Somerhaldr-poster.png",
+            "no_reviews": 1,
+            "review_title1": "Ian’s Testimonial",
+            "review_detail1": "<p>“Salus Saunas, they crushed this. Because it gives you this unbelievable ability… The benefits are endless.”</p>",
+            "review_title2": "",
+            "review_detail2": "",
+            "review_title3": "",
+            "review_detail3": "",
+            "review_title4": "",
+            "review_detail4": "",
+            "pd_title": "Ian's Sauna",
+            "products": [
+              "renew-king"
+            ]
+          }
+        },
         "column_4mtpGX": {
           "type": "column",
           "settings": {
@@ -187,64 +245,6 @@
             "pd_title": "Kagan's Sauna",
             "products": [
               "horizon-6-person-barrel-sauna"
-            ]
-          }
-        },
-        "column_FVpdbA": {
-          "type": "column",
-          "settings": {
-            "enable_media": true,
-            "image": "shopify://shop_images/Joe_Rogan_-_Icons_Page.png",
-            "media_scale": 100,
-            "heading": "Joe Rogan",
-            "subtext": "Podcast Host",
-            "text": "<p>Podcaster, Comedian</p>",
-            "button_label": "",
-            "button_link": "",
-            "enable_popup": true,
-            "video_shopify": "shopify://files/videos/tolstoy_a2781b71-8a76-43c6-80bb-b865c2015e5b.webm",
-            "poster_image": "shopify://shop_images/Frame_17144.png",
-            "no_reviews": 2,
-            "review_title1": "Joe’s Testimonial",
-            "review_detail1": "<p>“If you’re thinking about getting a sauna or cold plunge, I suggest that you do to Salus Saunas, I can’t recommend them enough.”</p>",
-            "review_title2": "Joe’s Testimonial",
-            "review_detail2": "<p>“You gotta’ get a Salus Saunas, they’re the guys that did ours and they have serious heaters. Mine gets to 200°F!”</p>",
-            "review_title3": "",
-            "review_detail3": "",
-            "review_title4": "",
-            "review_detail4": "",
-            "pd_title": "Joe's Sauna",
-            "products": [
-              "horizon-6-person-barrel-sauna"
-            ]
-          }
-        },
-        "column_RezAXx": {
-          "type": "column",
-          "settings": {
-            "enable_media": true,
-            "image": "shopify://shop_images/Ian_Somerhalder_-_Icons_Page_2.png",
-            "media_scale": 100,
-            "heading": "Ian Somerhalder",
-            "subtext": "Celebrity",
-            "text": "<p>Actor, Entrepreneur</p>",
-            "button_label": "",
-            "button_link": "",
-            "enable_popup": true,
-            "video_shopify": "shopify://files/videos/Q&A answering YOUR questions from my @salussaunas.  Longer version where I answered even more of your questions on my Tik Tok, @IanSomerhalder!.mp4",
-            "poster_image": "shopify://shop_images/Ian_Somerhaldr-poster.png",
-            "no_reviews": 1,
-            "review_title1": "Ian’s Testimonial",
-            "review_detail1": "<p>“Salus Saunas, they crushed this. Because it gives you this unbelievable ability… The benefits are endless.”</p>",
-            "review_title2": "",
-            "review_detail2": "",
-            "review_title3": "",
-            "review_detail3": "",
-            "review_title4": "",
-            "review_detail4": "",
-            "pd_title": "Ian's Sauna",
-            "products": [
-              "renew-king"
             ]
           }
         },
@@ -650,8 +650,10 @@
             "review_detail3": "",
             "review_title4": "",
             "review_detail4": "",
-            "pd_title": "",
-            "products": []
+            "pd_title": "Justin's Sauna",
+            "products": [
+              "horizon-6-person-barrel-sauna"
+            ]
           }
         },
         "column_tJjMhD": {
@@ -734,11 +736,11 @@
         }
       },
       "block_order": [
+        "column_FVpdbA",
+        "column_RezAXx",
         "column_4mtpGX",
         "column_qwzEwm",
         "column_AgbpHC",
-        "column_FVpdbA",
-        "column_RezAXx",
         "column_n9RDpj",
         "column_pwdfjC",
         "column_8NNyCQ",
