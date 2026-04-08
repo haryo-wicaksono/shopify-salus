@@ -9,68 +9,6 @@
  */
 {
   "sections": {
-    "slideshow": {
-      "type": "slideshow",
-      "blocks": {
-        "slide-1": {
-          "type": "slide",
-          "settings": {
-            "image_desktop": "shopify://shop_images/main-banner-bg.png",
-            "url": "",
-            "overlay_position": "justify-center items-start",
-            "overlay_text_align": "text-center",
-            "mob_center_text": false,
-            "subheading": "USA’S ONE STOP SAUNA SHOP",
-            "heading": "The best in home saunas you’ll ever find",
-            "heading_size": "h0",
-            "heading_h1": false,
-            "text": "<p>Share announcements and information with your customers and welcome them to your store.</p>",
-            "enlarge_text": true,
-            "button_1_label": "Browse all saunas",
-            "button_1_link": "/",
-            "button_1_style": "btn btn--primary",
-            "button_2_label": "Browse cold plunges",
-            "button_2_link": "/",
-            "button_2_style": "btn btn--secondary",
-            "secondary_text": "Join the happy customers we’ve served for 14 years",
-            "transparent_content_color": "#222120",
-            "countdown_show": false,
-            "countdown_end_date": "",
-            "countdown_end_time": "",
-            "countdown_end_text": "",
-            "enlarge_end_text": false,
-            "countdown_hide_on_end": false,
-            "use_custom_colors": false,
-            "count_color": "#ffffff",
-            "bg_color": "#070707",
-            "bg_grad": ""
-          }
-        }
-      },
-      "block_order": [
-        "slide-1"
-      ],
-      "disabled": true,
-      "settings": {
-        "height_mode": "auto",
-        "fixed_height_desktop": 920,
-        "fixed_height_mobile": 410,
-        "mobile_stacked": false,
-        "nav_style": "slideshow_nav_lines",
-        "pagination_color": "#ffffff",
-        "nav_position": "justify-center",
-        "transition": "slide-fade",
-        "autoplay": true,
-        "slider_pause": true,
-        "autoplay_speed": 9,
-        "color_scheme": "white",
-        "full_width": true,
-        "tint_color": "#000000",
-        "tint_opacity": 0,
-        "accessibility_info": "",
-        "prevent_animation": true
-      }
-    },
     "homepage_hero_carousel_iKVfwn": {
       "type": "homepage-hero-carousel",
       "blocks": {
@@ -284,105 +222,6 @@
         "title": ""
       }
     },
-    "logo_list_DaqLFK": {
-      "type": "logo-list",
-      "blocks": {
-        "logo_qRt8Qx": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/Sauna_PNGs_2_44056b19-c9ce-407f-a806-af3ff20c9e0c.png",
-            "url": "",
-            "logo_width": 120,
-            "text": ""
-          }
-        },
-        "logo_GVEFLn": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/Sauna_PNGs_3_427d7389-fac5-4fa6-91a5-3142b9a846e1.png",
-            "url": "",
-            "logo_width": 100,
-            "text": ""
-          }
-        },
-        "logo_axmc8a": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/Sauna_PNGs_4_740545ca-bff6-4fe0-bd6d-a3688c5f94a4.png",
-            "url": "",
-            "logo_width": 110,
-            "text": ""
-          }
-        },
-        "logo_hCAGdf": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/Sauna_PNGs_7_8a02dcf9-e188-44fd-adbc-9201d3b172df-rs.png",
-            "url": "",
-            "logo_width": 90,
-            "text": ""
-          }
-        },
-        "logo_q7Y7Ph": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/Sauna_PNGs_6_298de8eb-20dc-4759-8b8f-8d51d9728fdd-cr.png",
-            "url": "",
-            "logo_width": 140,
-            "text": ""
-          }
-        },
-        "logo_WPWBKR": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/Sauna_PNGs_8_2059dec1-e31e-4d85-b1b3-9c326ca34cbf-cr_1.png",
-            "url": "",
-            "logo_width": 140,
-            "text": ""
-          }
-        },
-        "logo_iYyVXy": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/Sauna_PNGs_9_1d7753d1-5b89-4d4a-aee9-7279ec3d6c53-cr_1.png",
-            "url": "",
-            "logo_width": 130,
-            "text": ""
-          }
-        },
-        "logo_UGHdJ9": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/image_586-cr-1.png",
-            "url": "",
-            "logo_width": 190,
-            "text": ""
-          }
-        }
-      },
-      "block_order": [
-        "logo_qRt8Qx",
-        "logo_GVEFLn",
-        "logo_axmc8a",
-        "logo_hCAGdf",
-        "logo_q7Y7Ph",
-        "logo_WPWBKR",
-        "logo_iYyVXy",
-        "logo_UGHdJ9"
-      ],
-      "disabled": true,
-      "settings": {
-        "title": "As featured in",
-        "heading_align": "text-center",
-        "button_label": "",
-        "button_link": "",
-        "layout": "carousel",
-        "spacing": 52,
-        "logo_grid_align": "justify-center",
-        "color_scheme": "none",
-        "full_width": true
-      }
-    },
     "meet_our_icons_slider_kUAKwp": {
       "type": "meet-our-icons-slider",
       "blocks": {
@@ -465,7 +304,7 @@
         "subheading": "<p>100s of verified 5-star reviews</p>",
         "heading": "Trusted by leading athletes & figures",
         "button_text": "See More",
-        "button_link": "",
+        "button_link": "shopify://pages/our-icons",
         "desktop_cards_per_row": 5,
         "tablet_cards_per_row": 2,
         "mobile_cards_per_row": 2
@@ -749,110 +588,6 @@
         "title": "Explore by Product Categories",
         "mobile_title": "Explore Product Categories",
         "affirm_product": ""
-      }
-    },
-    "video": {
-      "type": "video",
-      "blocks": {
-        "video-heading-1": {
-          "type": "heading",
-          "settings": {
-            "heading": "Video",
-            "heading_size": "h1",
-            "heading_h1": false
-          }
-        },
-        "button_4tjwkk": {
-          "type": "button",
-          "settings": {
-            "button_label": "Button",
-            "button_link": "",
-            "button_style": "btn btn--secondary"
-          }
-        }
-      },
-      "block_order": [
-        "video-heading-1",
-        "button_4tjwkk"
-      ],
-      "disabled": true,
-      "settings": {
-        "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "video_description": "",
-        "video_size": "md",
-        "video_autoplay": true,
-        "text_align": "text-center",
-        "color_scheme": "1"
-      }
-    },
-    "promo_strip_yHMmpR": {
-      "type": "promo-strip",
-      "blocks": {
-        "text_36hyim": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Use our financing options and get your home sauna for the price of 10 Starbucks coffees per month*</p>",
-            "enlarge_text": false,
-            "show_on_mobile": true,
-            "show_on_desktop": true
-          }
-        },
-        "button_83eWBL": {
-          "type": "button",
-          "settings": {
-            "button_label": "See our financing options",
-            "button_link": "shopify://pages/sauna-financing",
-            "button_style": "btn btn--secondary"
-          }
-        }
-      },
-      "block_order": [
-        "text_36hyim",
-        "button_83eWBL"
-      ],
-      "disabled": true,
-      "settings": {
-        "section_layout": "1",
-        "section_height": "default",
-        "color_scheme": "5",
-        "full_width": true,
-        "dividers": "border-top",
-        "prevent_animation": false
-      }
-    },
-    "promo_strip_MEtcbi": {
-      "type": "promo-strip",
-      "blocks": {
-        "text_RA3hNj": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Are you a medical professional or a first responder?</p>",
-            "enlarge_text": false,
-            "show_on_mobile": true,
-            "show_on_desktop": true
-          }
-        },
-        "button_Pxfn7r": {
-          "type": "button",
-          "settings": {
-            "button_label": "Get a special discount",
-            "button_link": "#",
-            "button_style": "btn btn--secondary"
-          }
-        }
-      },
-      "block_order": [
-        "text_RA3hNj",
-        "button_Pxfn7r"
-      ],
-      "disabled": true,
-      "settings": {
-        "section_layout": "1",
-        "section_height": "default",
-        "color_scheme": "1",
-        "full_width": true,
-        "dividers": "border-top",
-        "prevent_animation": false
       }
     },
     "health_metrics_stats_grid_xXtcW9": {
@@ -1214,6 +949,341 @@
         "contact-detail04": "<p><strong>For Mail Only:<br/></strong>7345 164th Ave NE Ste 145-395 Redmond, WA 98052</p>",
         "note": "Please give our team 24-48 hours to reach back out to you.",
         "submit_btn_label": ""
+      }
+    },
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/main-banner-bg.png",
+            "url": "",
+            "overlay_position": "justify-center items-start",
+            "overlay_text_align": "text-center",
+            "mob_center_text": false,
+            "subheading": "USA’S ONE STOP SAUNA SHOP",
+            "heading": "The best in home saunas you’ll ever find",
+            "heading_size": "h0",
+            "heading_h1": false,
+            "text": "<p>Share announcements and information with your customers and welcome them to your store.</p>",
+            "enlarge_text": true,
+            "button_1_label": "Browse all saunas",
+            "button_1_link": "/",
+            "button_1_style": "btn btn--primary",
+            "button_2_label": "Browse cold plunges",
+            "button_2_link": "/",
+            "button_2_style": "btn btn--secondary",
+            "secondary_text": "Join the happy customers we’ve served for 14 years",
+            "transparent_content_color": "#222120",
+            "countdown_show": false,
+            "countdown_end_date": "",
+            "countdown_end_time": "",
+            "countdown_end_text": "",
+            "enlarge_end_text": false,
+            "countdown_hide_on_end": false,
+            "use_custom_colors": false,
+            "count_color": "#ffffff",
+            "bg_color": "#070707",
+            "bg_grad": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "height_mode": "auto",
+        "fixed_height_desktop": 920,
+        "fixed_height_mobile": 410,
+        "mobile_stacked": false,
+        "nav_style": "slideshow_nav_lines",
+        "pagination_color": "#ffffff",
+        "nav_position": "justify-center",
+        "transition": "slide-fade",
+        "autoplay": true,
+        "slider_pause": true,
+        "autoplay_speed": 9,
+        "color_scheme": "white",
+        "full_width": true,
+        "tint_color": "#000000",
+        "tint_opacity": 0,
+        "accessibility_info": "",
+        "prevent_animation": true
+      }
+    },
+    "video": {
+      "type": "video",
+      "blocks": {
+        "video-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Video",
+            "heading_size": "h1",
+            "heading_h1": false
+          }
+        },
+        "button_4tjwkk": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button",
+            "button_link": "",
+            "button_style": "btn btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "video-heading-1",
+        "button_4tjwkk"
+      ],
+      "disabled": true,
+      "settings": {
+        "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_description": "",
+        "video_size": "md",
+        "video_autoplay": true,
+        "text_align": "text-center",
+        "color_scheme": "1"
+      }
+    },
+    "promo_strip_yHMmpR": {
+      "type": "promo-strip",
+      "blocks": {
+        "text_36hyim": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use our financing options and get your home sauna for the price of 10 Starbucks coffees per month*</p>",
+            "enlarge_text": false,
+            "show_on_mobile": true,
+            "show_on_desktop": true
+          }
+        },
+        "button_83eWBL": {
+          "type": "button",
+          "settings": {
+            "button_label": "See our financing options",
+            "button_link": "shopify://pages/sauna-financing",
+            "button_style": "btn btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "text_36hyim",
+        "button_83eWBL"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_layout": "1",
+        "section_height": "default",
+        "color_scheme": "5",
+        "full_width": true,
+        "dividers": "border-top",
+        "prevent_animation": false
+      }
+    },
+    "logo_list_DaqLFK": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_qRt8Qx": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sauna_PNGs_2_44056b19-c9ce-407f-a806-af3ff20c9e0c.png",
+            "url": "",
+            "logo_width": 120,
+            "text": ""
+          }
+        },
+        "logo_GVEFLn": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sauna_PNGs_3_427d7389-fac5-4fa6-91a5-3142b9a846e1.png",
+            "url": "",
+            "logo_width": 100,
+            "text": ""
+          }
+        },
+        "logo_axmc8a": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sauna_PNGs_4_740545ca-bff6-4fe0-bd6d-a3688c5f94a4.png",
+            "url": "",
+            "logo_width": 110,
+            "text": ""
+          }
+        },
+        "logo_hCAGdf": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sauna_PNGs_7_8a02dcf9-e188-44fd-adbc-9201d3b172df-rs.png",
+            "url": "",
+            "logo_width": 90,
+            "text": ""
+          }
+        },
+        "logo_q7Y7Ph": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sauna_PNGs_6_298de8eb-20dc-4759-8b8f-8d51d9728fdd-cr.png",
+            "url": "",
+            "logo_width": 140,
+            "text": ""
+          }
+        },
+        "logo_WPWBKR": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sauna_PNGs_8_2059dec1-e31e-4d85-b1b3-9c326ca34cbf-cr_1.png",
+            "url": "",
+            "logo_width": 140,
+            "text": ""
+          }
+        },
+        "logo_iYyVXy": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Sauna_PNGs_9_1d7753d1-5b89-4d4a-aee9-7279ec3d6c53-cr_1.png",
+            "url": "",
+            "logo_width": 130,
+            "text": ""
+          }
+        },
+        "logo_UGHdJ9": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/image_586-cr-1.png",
+            "url": "",
+            "logo_width": 190,
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_qRt8Qx",
+        "logo_GVEFLn",
+        "logo_axmc8a",
+        "logo_hCAGdf",
+        "logo_q7Y7Ph",
+        "logo_WPWBKR",
+        "logo_iYyVXy",
+        "logo_UGHdJ9"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "As featured in",
+        "heading_align": "text-center",
+        "button_label": "",
+        "button_link": "",
+        "layout": "carousel",
+        "spacing": 52,
+        "logo_grid_align": "justify-center",
+        "color_scheme": "none",
+        "full_width": true
+      }
+    },
+    "promo_strip_MEtcbi": {
+      "type": "promo-strip",
+      "blocks": {
+        "text_RA3hNj": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Are you a medical professional or a first responder?</p>",
+            "enlarge_text": false,
+            "show_on_mobile": true,
+            "show_on_desktop": true
+          }
+        },
+        "button_Pxfn7r": {
+          "type": "button",
+          "settings": {
+            "button_label": "Get a special discount",
+            "button_link": "#",
+            "button_style": "btn btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "text_RA3hNj",
+        "button_Pxfn7r"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_layout": "1",
+        "section_height": "default",
+        "color_scheme": "1",
+        "full_width": true,
+        "dividers": "border-top",
+        "prevent_animation": false
+      }
+    },
+    "products_card_section_YF9fnK": {
+      "type": "products-card-section",
+      "disabled": true,
+      "settings": {
+        "heading": "Explore our best-in-class infrared saunas",
+        "products": [
+          "glory-2-person-infrared-sauna",
+          "majestic-8-person-hot-yoga-infrared-sauna",
+          "superb-2-person-infrared-sauna"
+        ],
+        "product1": "superb-2-person-infrared-sauna",
+        "product_tag1": "People’s Choice",
+        "product2": "majestic-8-person-hot-yoga-infrared-sauna",
+        "product_tag2": "Spacious",
+        "product3": "glory-2-person-infrared-sauna",
+        "product_tag3": "Best Value",
+        "image_ratio": "natural",
+        "color_scheme": "1",
+        "image_as_link": false,
+        "title_as_link": false,
+        "enable_vendor": false,
+        "enable_tag": true,
+        "enable_show_modal_btn": true,
+        "btn_label": "Show me this model",
+        "show_card": true,
+        "sugg_image": "shopify://shop_images/quiz-bg.png",
+        "sugg_heading": "Not sure which sauna model’s the best fit for you?",
+        "sugg_content": "<p>We know choosing the right sauna might seem daunting, not to worry! Talk to our sauna experts and we guarantee you’ll find your perfect sauna</p>",
+        "sugg_btn_label": "Find my perfect sauna",
+        "sugg_btn_label1": "Give us a call",
+        "sugg_btn_link": "mailto:sales@salussaunas.com",
+        "phone_number": "0812345679",
+        "open_email": true
+      }
+    },
+    "products_card_section_PzCHqp": {
+      "type": "products-card-section",
+      "disabled": true,
+      "settings": {
+        "heading": "Rooted in tradition, built for pure heat",
+        "products": [
+          "ally-2-person-traditional-indoor-sauna",
+          "horizon-6-person-barrel-sauna",
+          "marion-2-person-barrel-sauna"
+        ],
+        "product1": "monarch-ii",
+        "product_tag1": "People’s Choice",
+        "product2": "horizon-6-person-barrel-sauna",
+        "product_tag2": "Spacious",
+        "product3": "odin-compact",
+        "product_tag3": "Best Value",
+        "image_ratio": "0.75",
+        "color_scheme": "3",
+        "image_as_link": false,
+        "title_as_link": false,
+        "enable_vendor": false,
+        "enable_tag": true,
+        "enable_show_modal_btn": true,
+        "btn_label": "Show me this model",
+        "show_card": true,
+        "sugg_image": "shopify://shop_images/quiz-bg.png",
+        "sugg_heading": "Not sure which sauna model’s the best fit for you?",
+        "sugg_content": "<p>We know choosing the right sauna might seem daunting, not to worry! Talk to our sauna experts and we guarantee you’ll find your perfect sauna</p>",
+        "sugg_btn_label": "Find my perfect sauna",
+        "sugg_btn_label1": "Give us a call",
+        "sugg_btn_link": "mailto:sales@salussaunas.com",
+        "phone_number": "(888)287-0111",
+        "open_email": true
       }
     }
   },
