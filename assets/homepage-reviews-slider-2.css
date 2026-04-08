@@ -18,7 +18,7 @@
     /* width: 33%; */
     max-width: calc(var(--page-width, 1320px) + var(--gutter) * 2);
     margin: 0 auto;
-    padding: 0 var(--gutter);
+    padding: 40px var(--gutter);
     position: relative;
     overflow: hidden;
 }
@@ -150,9 +150,9 @@
 }
 
 @media screen and (max-width: 768px) {
-    .homepage-reviews-slider__action-area {
+    /* .homepage-reviews-slider__action-area {
         margin-bottom: 30px;
-    }
+    } */
 }
 
 .homepage-reviews-slider__button {
