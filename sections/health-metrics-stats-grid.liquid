@@ -1,0 +1,184 @@
+{%- if section.index > 2 -%}
+  <link rel="stylesheet" href="{{ 'health-metrics-stats-grid.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- else -%}
+  {{ 'health-metrics-stats-grid.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+<div class="section health-metrics-stats-grid-section">
+  <section class="health-metrics-stats-grid" id="health-metrics-stats-grid-{{ section.id }}">
+    <div class="health-metrics-stats-grid__media">
+      {%- if section.settings.background_image != blank -%}
+        {% render 'image',
+          image: section.settings.background_image,
+          widths: '720, 960, 1200, 1440, 1800, 2200',
+          src_width: 2200,
+          src_placeholder: true,
+          sizes: '100vw',
+          class: 'health-metrics-stats-grid__image health-metrics-stats-grid__image--desktop img-fit img-fit--cover',
+          disable_focal_point: true
+        %}
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'health-metrics-stats-grid__placeholder health-metrics-stats-grid__image--desktop' }}
+      {%- endif -%}
+
+      {%- if section.settings.mobile_background_image != blank -%}
+        {% render 'image',
+          image: section.settings.mobile_background_image,
+          widths: '480, 640, 800, 960',
+          src_width: 960,
+          src_placeholder: true,
+          sizes: '100vw',
+          class: 'health-metrics-stats-grid__image health-metrics-stats-grid__image--mobile img-fit img-fit--cover',
+          disable_focal_point: true
+        %}
+      {%- elsif section.settings.background_image != blank -%}
+        {% render 'image',
+          image: section.settings.background_image,
+          widths: '480, 640, 800, 960',
+          src_width: 960,
+          src_placeholder: true,
+          sizes: '100vw',
+          class: 'health-metrics-stats-grid__image health-metrics-stats-grid__image--mobile img-fit img-fit--cover',
+          disable_focal_point: true
+        %}
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'health-metrics-stats-grid__placeholder health-metrics-stats-grid__image--mobile' }}
+      {%- endif -%}
+
+      <div class="health-metrics-stats-grid__overlay health-metrics-stats-grid__overlay--desktop"></div>
+      <div class="health-metrics-stats-grid__overlay health-metrics-stats-grid__overlay--mobile"></div>
+    </div>
+
+    <div class="container">
+      <div class="health-metrics-stats-grid__inner">
+        <div class="health-metrics-stats-grid__content">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="health-metrics-stats-grid__eyebrow">
+              <span class="health-metrics-stats-grid__eyebrow-icon">
+                {% render 'icon', icon: 'heart', width: 18, height: 18 %}
+              </span>
+              <span>{{ section.settings.eyebrow | escape }}</span>
+            </p>
+          {%- endif -%}
+
+          <h2 class="health-metrics-stats-grid__heading">
+            <span class="health-metrics-stats-grid__heading-desktop">
+              {{ section.settings.heading | escape }}
+            </span>
+            <span class="health-metrics-stats-grid__heading-mobile">
+              {{ section.settings.mobile_heading | default: section.settings.heading | escape }}
+            </span>
+          </h2>
+
+          {%- if section.blocks.size > 0 -%}
+            <div class="health-metrics-stats-grid__metrics" role="list">
+              {%- for block in section.blocks -%}
+                <article
+                  class="health-metrics-stats-grid__metric{% unless block.settings.show_on_mobile %} health-metrics-stats-grid__metric--desktop-only{% endunless %}"
+                  role="listitem"
+                  {{ block.shopify_attributes }}
+                >
+                  <div class="health-metrics-stats-grid__metric-circle">
+                    {{ block.settings.value | escape }}
+                  </div>
+
+                  {%- if block.settings.label != blank -%}
+                    <p class="health-metrics-stats-grid__metric-label">{{ block.settings.label | escape | newline_to_br }}</p>
+                  {%- endif -%}
+                </article>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Health Metrics Stats Grid",
+  "tag": "section",
+  "class": "cc-health-metrics-stats-grid",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Science-backed benefits"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Desktop heading",
+      "default": "Old World Practice, Modern Day Proof"
+    },
+    {
+      "type": "text",
+      "id": "mobile_heading",
+      "label": "Mobile heading",
+      "info": "Optional. If blank, the desktop heading will be used."
+    },
+    {
+      "type": "header",
+      "content": "Background media"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Desktop background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_background_image",
+      "label": "Mobile background image",
+      "info": "Optional. If blank, the desktop image is used."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "metric",
+      "name": "Metric",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "~40%"
+        },
+        {
+          "type": "textarea",
+          "id": "label",
+          "label": "Label",
+          "default": "Lower All-Cause\nMortality"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_mobile",
+          "label": "Show on mobile",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Health Metrics Stats Grid",
+      "blocks": [
+        { "type": "metric" },
+        { "type": "metric" },
+        { "type": "metric" },
+        { "type": "metric" },
+        { "type": "metric" },
+        { "type": "metric" },
+        { "type": "metric" }
+      ]
+    }
+  ]
+}
+{% endschema %}
