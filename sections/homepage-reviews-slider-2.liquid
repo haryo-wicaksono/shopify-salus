@@ -14,79 +14,73 @@
   "
 >
   <div class="homepage-reviews-slider__wrapper">
-    {% if section.blocks.size > 0 %}
-      <div class="carousel-container homepage-reviews-slider__carousel">
-        <div class="carousel-track">
-          {% for block in section.blocks %}
-            <div class="review-slide" {{ block.shopify_attributes }}>
-              <div class="homepage-reviews-slider__card">
-                <div class="homepage-reviews-slider__star-rating">
-                  {% render 'icon-star' -%}
-                  {%- render 'icon-star' -%}
-                  {%- render 'icon-star' -%}
-                  {%- render 'icon-star' -%}
-                  {%- render 'icon-star' %}
-                </div>
+    <div class="homepage-reviews-slider__inner">
+      {% if section.blocks.size > 0 %}
+        <div class="carousel-container homepage-reviews-slider__carousel">
+          <div class="carousel-track">
+            {% for block in section.blocks %}
+              <div class="review-slide" {{ block.shopify_attributes }}>
+                <div class="homepage-reviews-slider__card">
+                  <div class="homepage-reviews-slider__star-rating">
+                    {% render 'icon-star' -%}
+                    {%- render 'icon-star' -%}
+                    {%- render 'icon-star' -%}
+                    {%- render 'icon-star' -%}
+                    {%- render 'icon-star' %}
+                  </div>
 
-                {% if block.settings.review_title != blank %}
-                  <h3 class="homepage-reviews-slider__title">{{ block.settings.review_title }}</h3>
-                {% endif %}
-
-                {% if block.settings.review_text != blank %}
-                  <div class="homepage-reviews-slider__text">{{ block.settings.review_text }}</div>
-                {% endif %}
-
-                <div class="homepage-reviews-slider__author-details">
-                  {% if block.settings.author_image != blank %}
-                    {% assign author_img = block.settings.author_image %}
-                    <img
-                      src="{{ author_img | image_url: width: 40 }}"
-                      alt="{{ author_img.alt | default: block.settings.author_name | escape }}"
-                      class="homepage-reviews-slider__author-image"
-                      width="40"
-                      height="40"
-                      loading="lazy"
-                    >
+                  {% if block.settings.review_title != blank %}
+                    <h3 class="homepage-reviews-slider__title">{{ block.settings.review_title }}</h3>
                   {% endif %}
-                  {% if block.settings.author_name != blank %}
-                    <p class="homepage-reviews-slider__author-name">
-                      {{ block.settings.author_name }}
-                      {% if block.settings.is_verified %}
-                        {% render 'homepage-reviews-slider-blue-checkmark' %}
-                      {% endif %}
-                    </p>
+
+                  {% if block.settings.review_text != blank %}
+                    <div class="homepage-reviews-slider__text">{{ block.settings.review_text }}</div>
                   {% endif %}
+
+                  <div class="homepage-reviews-slider__author-details">
+                    {% if block.settings.author_image != blank %}
+                      {% assign author_img = block.settings.author_image %}
+                      <img
+                        src="{{ author_img | image_url: width: 40 }}"
+                        alt="{{ author_img.alt | default: block.settings.author_name | escape }}"
+                        class="homepage-reviews-slider__author-image"
+                        width="40"
+                        height="40"
+                        loading="lazy"
+                      >
+                    {% endif %}
+                    {% if block.settings.author_name != blank %}
+                      <p class="homepage-reviews-slider__author-name">
+                        {{ block.settings.author_name }}
+                        {% if block.settings.is_verified %}
+                          {% render 'homepage-reviews-slider-blue-checkmark' %}
+                        {% endif %}
+                      </p>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-            </div>
-          {% endfor %}
+            {% endfor %}
+          </div>
         </div>
-      </div>
-      {% if section.settings.button_link != blank and section.settings.button_label != blank %}
-        <div class="homepage-reviews-slider__action-area">
-          <a
-            href="{{ section.settings.button_link }}"
-            class="homepage-reviews-slider__button"
-          >
-            {{ section.settings.button_label }}
-          </a>
+        {% if section.settings.button_link != blank and section.settings.button_label != blank %}
+          <div class="homepage-reviews-slider__action-area">
+            <a
+              href="{{ section.settings.button_link }}"
+              class="homepage-reviews-slider__button"
+            >
+              {{ section.settings.button_label }}
+            </a>
+          </div>
+        {% endif %}
+
+      {% else %}
+        <div class="placeholder-content">
+          {{ 'no_content' | t }}
         </div>
       {% endif %}
-
-    {% else %}
-      <div class="placeholder-content">
-        {{ 'no_content' | t }}
-      </div>
-    {% endif %}
+    </div>
   </div>
-  {% if section.settings.show_navigation_arrows %}
-    <button class="carousel-arrow arrow-left homepage-reviews-slider__nav-button homepage-reviews-slider__nav-button--prev">
-      {% render 'icon-arrow-left' %}
-    </button>
-    <button class="carousel-arrow arrow-right homepage-reviews-slider__nav-button homepage-reviews-slider__nav-button--next">
-      {% render 'icon-arrow-right' %}
-    </button>
-  {% endif %}
 </section>
 
 <script src="{{ 'homepage-reviews-carousel.js' | asset_url }}" defer="defer"></script>
