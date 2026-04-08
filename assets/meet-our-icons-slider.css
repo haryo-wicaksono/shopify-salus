@@ -1,11 +1,10 @@
 .meet-our-icons-slider-container {
-  max-width: 1400px;
   padding-top: 40px;
   padding-bottom: 40px;
 }
 
 .meet-our-icons-slider {
-  padding: 40px 100px;
+  padding: 40px 0;
   text-align: center;
   --meet-our-icons-slider-gap: 20px;
   --meet-our-icons-slider-visible-columns: var(--meet-our-icons-slider-mobile-columns);
@@ -16,9 +15,14 @@
 }
 
 .meet-our-icons-slider__container {
-  max-width: var(--page-width, 1400px);
+  max-width: calc(var(--page-width, 1320px) + var(--gutter) * 2);
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 var(--gutter);
+}
+
+.meet-our-icons-slider__inner {
+  max-width: 1310px;
+  margin: 0 auto;
 }
 
 .meet-our-icons-slider__header {
@@ -96,13 +100,22 @@
   overflow-x: auto;
   overflow-y: hidden;
   cursor: grab;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34, 33, 32, 0.32) transparent;
 }
 
 .meet-our-icons-slider__viewport::-webkit-scrollbar {
-  display: none;
+  height: 6px;
+}
+
+.meet-our-icons-slider__viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.meet-our-icons-slider__viewport::-webkit-scrollbar-thumb {
+  background: rgba(34, 33, 32, 0.32);
+  border-radius: 999px;
 }
 
 .meet-our-icons-slider__viewport.is-dragging {
@@ -307,7 +320,16 @@
 
 @media screen and (max-width: 768px) {
   .meet-our-icons-slider {
-    padding: 40px 8px;
+    padding: 40px 0;
+  }
+
+  .meet-our-icons-slider__viewport {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .meet-our-icons-slider__viewport::-webkit-scrollbar {
+    display: none;
   }
 
   .meet-our-icons-slider__header {

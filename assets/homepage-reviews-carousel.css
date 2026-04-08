@@ -9,16 +9,25 @@
     overflow-x: auto;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 33, 32, 0.32) transparent;
     padding-bottom: 20px;
     /* padding-left: var(--gutter);
     padding-right: var(--gutter); */
     width: 100%;
 }
 
-.carousel-track::-webkit-scrollbar {
-    display: none;
+.carousel-container.homepage-reviews-slider__carousel .carousel-track::-webkit-scrollbar {
+    height: 6px;
+}
+
+.carousel-container.homepage-reviews-slider__carousel .carousel-track::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.carousel-container.homepage-reviews-slider__carousel .carousel-track::-webkit-scrollbar-thumb {
+    background: rgba(34, 33, 32, 0.32);
+    border-radius: 999px;
 }
 
 .review-slide {
@@ -89,10 +98,16 @@
         max-width: 75%;
     }
 
-    .carousel-track {
+    .carousel-container.homepage-reviews-slider__carousel .carousel-track {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
         padding-left: 0px;
         padding-right: 0px;
         padding-bottom: 0px;
+    }
+
+    .carousel-container.homepage-reviews-slider__carousel .carousel-track::-webkit-scrollbar {
+        display: none;
     }
 
     .homepage-reviews-slider__carousel {
