@@ -146,11 +146,9 @@
             "button_label": "",
             "button_link": "",
             "enable_popup": true,
-            "video_shopify": "shopify://files/videos/Check out Gordon Ryan’s @gordonlovesjiujitsu_ sweet backyard deck and sauna setup  Featured sauna- Horizon, 6-Person Traditional Sauna. Suitable for indoor and outdoor use..mp4",
-            "poster_image": "shopify://shop_images/ryan2.png",
             "no_reviews": 1,
-            "review_title1": "Gordon’s Testimonial",
-            "review_detail1": "<p>\"One of the best companies I’ve ever worked with. This thing has been bulletproof since I got it.\"</p>",
+            "review_title1": "Kagan's Testimonial",
+            "review_detail1": "<p>\"This is probably the best thing I've ever bought hands down!\"</p>",
             "review_title2": "",
             "review_detail2": "",
             "review_title3": "",
@@ -158,7 +156,9 @@
             "review_title4": "",
             "review_detail4": "",
             "pd_title": "",
-            "products": []
+            "products": [
+              "horizon-6-person-barrel-sauna"
+            ]
           }
         },
         "column_FVpdbA": {
