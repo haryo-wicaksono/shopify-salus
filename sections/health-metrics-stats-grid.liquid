@@ -5,7 +5,14 @@
 {%- endif -%}
 
 <div class="section health-metrics-stats-grid-section">
-  <section class="health-metrics-stats-grid" id="health-metrics-stats-grid-{{ section.id }}">
+  <section
+    class="health-metrics-stats-grid"
+    id="health-metrics-stats-grid-{{ section.id }}"
+    style="
+      --health-metrics-stats-grid-desktop-min-height: {{ section.settings.desktop_section_height | default: 760 }}px;
+      --health-metrics-stats-grid-mobile-min-height: {{ section.settings.mobile_section_height | default: 900 }}px;
+    "
+  >
     <div class="health-metrics-stats-grid__media">
       {%- if section.settings.background_image != blank -%}
         {% render 'image',
@@ -140,6 +147,30 @@
       "id": "mobile_background_image",
       "label": "Mobile background image",
       "info": "Optional. If blank, the desktop image is used."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_section_height",
+      "label": "Desktop section min height",
+      "min": 480,
+      "max": 1100,
+      "step": 20,
+      "unit": "px",
+      "default": 760
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_height",
+      "label": "Mobile section min height",
+      "min": 560,
+      "max": 1300,
+      "step": 20,
+      "unit": "px",
+      "default": 900
     }
   ],
   "blocks": [

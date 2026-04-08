@@ -7,7 +7,7 @@
 .cinematic-sauna-showcase__frame {
   position: relative;
   width: 100%;
-  aspect-ratio: var(--cinematic-sauna-showcase-desktop-aspect-ratio, 2.5263158);
+  height: var(--cinematic-sauna-showcase-desktop-height, 560px);
   overflow: hidden;
   background: #111;
   margin-top: 40px;
@@ -171,7 +171,7 @@
 
 @media screen and (max-width: 767px) {
   .cinematic-sauna-showcase__frame {
-    aspect-ratio: var(--cinematic-sauna-showcase-mobile-aspect-ratio, var(--cinematic-sauna-showcase-desktop-aspect-ratio, 2.5263158));
+    height: var(--cinematic-sauna-showcase-mobile-height, 620px);
     margin-top: 40px;
     margin-bottom: 40px;
   }
