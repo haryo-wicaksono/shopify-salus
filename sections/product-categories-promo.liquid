@@ -1,0 +1,284 @@
+{%- if section.index > 2 -%}
+  <link rel="stylesheet" href="{{ 'product-categories-promo.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- else -%}
+  {{ 'product-categories-promo.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- liquid
+  assign affirm_product = blank
+  if section.settings.affirm_product != blank
+    assign affirm_product = all_products[section.settings.affirm_product]
+  endif
+-%}
+
+<div class="section product-categories-promo-section">
+  <div class="container">
+    <div class="product-categories-promo">
+      <div class="product-categories-promo__header">
+        {%- if affirm_product != blank -%}
+          <div class="product-categories-promo__affirm">
+            {% render 'affirm-messaging', product: affirm_product %}
+          </div>
+        {%- endif -%}
+
+        <h2 class="product-categories-promo__title">
+          <span class="product-categories-promo__title-desktop">
+            {{ section.settings.title | escape }}
+          </span>
+          <span class="product-categories-promo__title-mobile">
+            {{ section.settings.mobile_title | default: section.settings.title | escape }}
+          </span>
+        </h2>
+      </div>
+
+      <div class="product-categories-promo__desktop">
+        <div class="product-categories-promo__grid" role="list">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign card_tag = 'div'
+              if block.settings.link_url != blank
+                assign card_tag = 'a'
+              endif
+            -%}
+            <{{ card_tag }}
+              {% if card_tag == 'a' %}
+                href="{{ block.settings.link_url }}"
+              {% endif %}
+              class="product-categories-promo__card"
+            >
+              <div class="product-categories-promo__media">
+                {%- if block.settings.image != blank -%}
+                  {% render 'image',
+                    image: block.settings.image,
+                    widths: '480, 700, 900, 1200',
+                    src_width: 900,
+                    src_placeholder: true,
+                    sizes: '(min-width: 1024px) 33vw, 100vw',
+                    class: 'product-categories-promo__image product-categories-promo__image--desktop img-fit img-fit--cover',
+                    disable_focal_point: true
+                  %}
+                {%- else -%}
+                  {{ 'lifestyle-2' | placeholder_svg_tag: 'product-categories-promo__placeholder product-categories-promo__image--desktop' }}
+                {%- endif -%}
+
+                {%- if block.settings.mobile_image != blank -%}
+                  {% render 'image',
+                    image: block.settings.mobile_image,
+                    widths: '320, 480, 700',
+                    src_width: 700,
+                    src_placeholder: true,
+                    sizes: '75vw',
+                    class: 'product-categories-promo__image product-categories-promo__image--mobile img-fit img-fit--cover',
+                    disable_focal_point: true
+                  %}
+                {%- elsif block.settings.image != blank -%}
+                  {% render 'image',
+                    image: block.settings.image,
+                    widths: '320, 480, 700',
+                    src_width: 700,
+                    src_placeholder: true,
+                    sizes: '75vw',
+                    class: 'product-categories-promo__image product-categories-promo__image--mobile img-fit img-fit--cover',
+                    disable_focal_point: true
+                  %}
+                {%- else -%}
+                  {{ 'lifestyle-2' | placeholder_svg_tag: 'product-categories-promo__placeholder product-categories-promo__image--mobile' }}
+                {%- endif -%}
+
+                <div class="product-categories-promo__overlay"></div>
+              </div>
+
+              <div class="product-categories-promo__content">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="product-categories-promo__card-title">{{ block.settings.title | escape }}</h3>
+                {%- endif -%}
+
+                {%- if block.settings.description != blank -%}
+                  <p class="product-categories-promo__description">{{ block.settings.description | escape }}</p>
+                {%- endif -%}
+
+                {%- if block.settings.button_label != blank -%}
+                  <span class="product-categories-promo__button">
+                    <span>{{ block.settings.button_label | escape }}</span>
+                    {% render 'icon-arrow-right-cta' %}
+                  </span>
+                {%- endif -%}
+              </div>
+            </{{ card_tag }}>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="product-categories-promo__mobile">
+        <div class="product-categories-promo__scroll" role="list">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign card_tag = 'div'
+              if block.settings.link_url != blank
+                assign card_tag = 'a'
+              endif
+            -%}
+            <{{ card_tag }}
+              {% if card_tag == 'a' %}
+                href="{{ block.settings.link_url }}"
+              {% endif %}
+              class="product-categories-promo__card"
+              {{ block.shopify_attributes }}
+            >
+              <div class="product-categories-promo__media">
+                {%- if block.settings.mobile_image != blank -%}
+                  {% render 'image',
+                    image: block.settings.mobile_image,
+                    widths: '320, 480, 700',
+                    src_width: 700,
+                    src_placeholder: true,
+                    sizes: '75vw',
+                    class: 'product-categories-promo__image product-categories-promo__image--mobile-only img-fit img-fit--cover',
+                    disable_focal_point: true
+                  %}
+                {%- elsif block.settings.image != blank -%}
+                  {% render 'image',
+                    image: block.settings.image,
+                    widths: '320, 480, 700',
+                    src_width: 700,
+                    src_placeholder: true,
+                    sizes: '75vw',
+                    class: 'product-categories-promo__image product-categories-promo__image--mobile-only img-fit img-fit--cover',
+                    disable_focal_point: true
+                  %}
+                {%- else -%}
+                  {{ 'lifestyle-2' | placeholder_svg_tag: 'product-categories-promo__placeholder product-categories-promo__image--mobile-only' }}
+                {%- endif -%}
+
+                <div class="product-categories-promo__overlay"></div>
+              </div>
+
+              <div class="product-categories-promo__content">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="product-categories-promo__card-title">{{ block.settings.title | escape }}</h3>
+                {%- endif -%}
+
+                {%- if block.settings.description != blank -%}
+                  <p class="product-categories-promo__description">{{ block.settings.description | escape }}</p>
+                {%- endif -%}
+
+                {%- if block.settings.button_label != blank -%}
+                  <span class="product-categories-promo__button">
+                    <span>{{ block.settings.button_label | escape }}</span>
+                    {% render 'icon-arrow-right-cta' %}
+                  </span>
+                {%- endif -%}
+              </div>
+            </{{ card_tag }}>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Categories Promo",
+  "tag": "section",
+  "class": "cc-product-categories-promo",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Desktop heading",
+      "default": "Explore by Product Categories"
+    },
+    {
+      "type": "text",
+      "id": "mobile_title",
+      "label": "Mobile heading",
+      "default": "Explore Product Categories"
+    },
+    {
+      "type": "product",
+      "id": "affirm_product",
+      "label": "Affirm product",
+      "info": "Optional. Used to render the financing message above the heading."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_card",
+      "name": "Category card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Desktop image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+          "info": "Optional. Falls back to the desktop image."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Indoor & Outdoor Saunas"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Whether you're looking for traditional, infrared, or hybrid combination saunas, only bring home the best."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop Saunas"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Categories Promo",
+      "blocks": [
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Indoor & Outdoor Saunas",
+            "description": "Whether you're looking for traditional, infrared, or hybrid combination saunas, only bring home the best.",
+            "button_label": "Shop Saunas"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Cold Plunges & Tubs",
+            "description": "Whether you're looking for traditional, infrared, or hybrid combination saunas, only bring home the best.",
+            "button_label": "Shop Cold Plunges"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Sauna Accessories",
+            "description": "Whether you're looking for traditional, infrared, or hybrid combination saunas, only bring home the best.",
+            "button_label": "Shop Accessories"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
