@@ -42,6 +42,22 @@
       </div>
 
       {% if section.blocks.size > 0 %}
+        {% liquid
+          assign shared_media_wrapper_padding_value = 100.0
+
+          for block in section.blocks limit: 10
+            if block.type == 'video-testimonial-card' and block.settings.video_file != blank and block.settings.video_file.aspect_ratio
+              assign block_media_wrapper_padding_value = 1 | divided_by: block.settings.video_file.aspect_ratio | times: 100
+
+              if block_media_wrapper_padding_value > shared_media_wrapper_padding_value
+                assign shared_media_wrapper_padding_value = block_media_wrapper_padding_value
+              endif
+            endif
+          endfor
+
+          assign shared_media_wrapper_padding = shared_media_wrapper_padding_value | append: '%'
+        %}
+
         <div class="meet-our-icons-slider__viewport">
           <div class="meet-our-icons-slider__track">
             {% for block in section.blocks limit: 10 %}
@@ -49,7 +65,6 @@
               {% assign is_video_card = false %}
               {% assign card_alt_text = block.settings.name %}
               {% assign card_variant = block.settings.card_variant | default: 'media' %}
-              {% assign media_wrapper_padding = '100%' %}
 
               {% if block.type == 'static-testimonial-card' %}
                 {% assign card_image = block.settings.image %}
@@ -65,20 +80,12 @@
                     {% assign card_image = block.settings.video_file.preview_image %}
                     {% assign card_alt_text = block.settings.video_file.preview_image.alt | default: block.settings.name %}
                   {% endif %}
-
-                  {% if block.settings.video_file.aspect_ratio %}
-                    {% assign media_wrapper_padding = 1
-                      | divided_by: block.settings.video_file.aspect_ratio
-                      | times: 100
-                      | append: '%'
-                    %}
-                  {% endif %}
                 {% endif %}
               {% endif %}
 
               <div class="meet-our-icons-slider__slide">
                 <div class="meet-our-icons-slider__card" {{ block.shopify_attributes }}>
-                  <div class="meet-our-icons-slider__media-wrapper" style="padding-bottom: {{ media_wrapper_padding }};">
+                  <div class="meet-our-icons-slider__media-wrapper" style="padding-bottom: {{ shared_media_wrapper_padding }};">
                     {% if card_image != blank %}
                       <img
                         class="meet-our-icons-slider__image"

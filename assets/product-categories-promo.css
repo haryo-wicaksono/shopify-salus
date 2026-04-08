@@ -1,5 +1,5 @@
 .product-categories-promo-section {
-  padding: 40px 0px;
+  padding: 50px 0px;
   background: #fff;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -11,7 +11,7 @@
 }
 
 .product-categories-promo__header {
-  margin-bottom: 36px;
+  margin-bottom: 40px;
   text-align: center;
 }
 
@@ -39,7 +39,7 @@
 .product-categories-promo__title {
   margin: 0;
   color: #222120;
-  font-size: 32px;
+  font-size: 28px;
   line-height: 1.2;
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -112,15 +112,15 @@
 .product-categories-promo__card-title {
   margin: 0 0 12px;
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.28;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .product-categories-promo__description {
   margin: 0 0 24px;
   color: rgba(255, 255, 255, 0.88);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.55;
   font-weight: 400;
 }
@@ -135,7 +135,7 @@
   border-radius: 999px;
   color: #fff;
   background: transparent;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1;
   font-weight: 500;
   transition: background-color 0.2s ease, opacity 0.2s ease;
@@ -153,7 +153,7 @@
 
 @media (max-width: 767.98px) {
   .product-categories-promo-section {
-    padding: 42px 0 40px;
+    padding: 50px 0;
   }
 
   .product-categories-promo__desktop,
