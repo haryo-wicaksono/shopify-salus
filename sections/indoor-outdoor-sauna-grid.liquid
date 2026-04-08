@@ -1,0 +1,169 @@
+{%- if section.index > 2 -%}
+  <link rel="stylesheet" href="{{ 'indoor-outdoor-sauna-grid.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- else -%}
+  {{ 'indoor-outdoor-sauna-grid.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- liquid
+  assign source_collection = section.settings.collection
+  assign affirm_product = blank
+  if section.settings.affirm_product != blank
+    assign affirm_product = all_products[section.settings.affirm_product]
+  endif
+-%}
+
+<div class="section indoor-outdoor-sauna-grid-section">
+  <div class="container">
+    <div class="indoor-outdoor-sauna-grid">
+      <div class="indoor-outdoor-sauna-grid__header">
+        {%- if affirm_product != blank -%}
+          <div class="indoor-outdoor-sauna-grid__affirm">
+            {% render 'affirm-messaging', product: affirm_product %}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="indoor-outdoor-sauna-grid__title">
+            {{ section.settings.title | escape }}
+          </h2>
+        {%- endif -%}
+      </div>
+
+      {%- if source_collection != blank and source_collection.products_count > 0 -%}
+        <carousel-slider class="carousel block indoor-outdoor-sauna-grid__carousel" inactive disable-desktop="true">
+          <div class="indoor-outdoor-sauna-grid__viewport">
+            <div class="slider slider--contained" id="slider-{{ section.id }}">
+              <ul class="slider__grid grid indoor-outdoor-sauna-grid__products" role="list">
+                {%- for product in source_collection.products limit: 8 -%}
+                  {%- liquid
+                    assign top_badge = product.metafields.custom.product_tag.value | default: product.metafields.custom.product_tag
+                    assign fallback_badge = section.settings.fallback_badge_text | strip
+                    assign capacity_value = product.metafields.custom.capacity.value | default: product.metafields.custom.capacity
+                    assign current_variant = product.selected_or_first_available_variant
+                  -%}
+
+                  <li class="slider__item indoor-outdoor-sauna-grid__item">
+                    <article class="indoor-outdoor-sauna-card">
+                      <a href="{{ product.url }}" class="indoor-outdoor-sauna-card__image-link" aria-label="{{ product.title | escape }}">
+                        <div class="indoor-outdoor-sauna-card__media">
+                          {%- if product.featured_media -%}
+                            {% render 'image',
+                              image: product.featured_media.preview_image,
+                              widths: '320, 460, 600, 700, 800',
+                              src_width: 600,
+                              src_placeholder: true,
+                              sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 82vw',
+                              class: 'indoor-outdoor-sauna-card__image img-fit img-fit--cover',
+                              disable_focal_point: true
+                            %}
+                          {%- else -%}
+                            {{ 'image' | placeholder_svg_tag: 'indoor-outdoor-sauna-card__placeholder' }}
+                          {%- endif -%}
+
+                          {%- if top_badge != blank -%}
+                            <span class="indoor-outdoor-sauna-card__badge indoor-outdoor-sauna-card__badge--top-left">
+                              {{ top_badge | escape }}
+                            </span>
+                          {%- endif -%}
+
+                          {%- if fallback_badge != blank -%}
+                            <span class="indoor-outdoor-sauna-card__badge indoor-outdoor-sauna-card__badge--bottom-left">
+                              {{ fallback_badge | escape }}
+                            </span>
+                          {%- endif -%}
+
+                          {%- if capacity_value != blank -%}
+                            <span class="indoor-outdoor-sauna-card__badge indoor-outdoor-sauna-card__badge--bottom-right">
+                              {{ capacity_value | append: '-Person' | escape }}
+                            </span>
+                          {%- endif -%}
+                        </div>
+                      </a>
+
+                      <div class="indoor-outdoor-sauna-card__content">
+                        <a href="{{ product.url }}" class="indoor-outdoor-sauna-card__title">
+                          {{ product.title | escape }}
+                        </a>
+
+                        <div class="indoor-outdoor-sauna-card__price-row">
+                          <span class="indoor-outdoor-sauna-card__price">
+                            {{ product.price | money_without_trailing_zeros }}
+                          </span>
+
+                          {%- if product.compare_at_price > product.price -%}
+                            <span class="indoor-outdoor-sauna-card__compare">
+                              {{ product.compare_at_price | money_without_trailing_zeros }}
+                            </span>
+                          {%- endif -%}
+                        </div>
+
+                        {%- if current_variant == blank or current_variant.available == false -%}
+                          <span class="indoor-outdoor-sauna-card__status">Unavailable</span>
+                        {%- endif -%}
+                      </div>
+                    </article>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        </carousel-slider>
+      {%- else -%}
+        <div class="indoor-outdoor-sauna-grid__empty">
+          <p>Select a collection with up to 8 products to populate this section.</p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Indoor/Outdoor Sauna Grid",
+  "tag": "section",
+  "class": "cc-indoor-outdoor-sauna-grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Best-Selling Indoor & Outdoor Saunas"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Use a curated collection with 8 products for the intended 4-column by 2-row desktop layout."
+    },
+    {
+      "type": "product",
+      "id": "affirm_product",
+      "label": "Affirm product",
+      "info": "Optional. Used only to generate financing messaging above the heading."
+    },
+    {
+      "type": "header",
+      "content": "Badge Fallbacks"
+    },
+    {
+      "type": "paragraph",
+      "content": "Top-left badge uses product metafield custom.product_tag. Bottom-right badge uses custom.capacity. Bottom-left badge is optional and can use a section-level fallback."
+    },
+    {
+      "type": "text",
+      "id": "fallback_badge_text",
+      "label": "Bottom-left fallback badge",
+      "info": "Optional. Leave blank to hide the bottom-left badge when no section-wide fallback is desired."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Indoor/Outdoor Sauna Grid"
+    }
+  ]
+}
+{% endschema %}
