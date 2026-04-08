@@ -154,6 +154,14 @@
     padding-top: 20px;
 }
 
+@media screen and (min-width: 1280px) {
+    .homepage-reviews-slider__wrapper {
+        max-width: calc(var(--page-width, 1320px) + 240px);
+        padding-left: 120px;
+        padding-right: 120px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     /* .homepage-reviews-slider__action-area {
         margin-bottom: 30px;

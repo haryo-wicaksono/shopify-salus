@@ -356,7 +356,7 @@
         "heading": "Trusted by leading athletes & figures",
         "button_text": "See More",
         "button_link": "shopify://pages/our-icons",
-        "desktop_cards_per_row": 5,
+        "desktop_cards_per_row": 5.5,
         "tablet_cards_per_row": 2,
         "mobile_cards_per_row": 2
       }
@@ -383,6 +383,7 @@
     },
     "celebrity_testimonials_PmJ8Jr": {
       "type": "celebrity-testimonials",
+      "disabled": true,
       "blocks": {
         "video_testimonial_card_mzgML6": {
           "type": "video-testimonial-card",
@@ -1342,6 +1343,7 @@
     "homepage_hero_carousel_iKVfwn",
     "homepage_featured_in_logos_dxK7jf",
     "meet_our_icons_slider_kUAKwp",
+    "celebrity_testimonials_PmJ8Jr",
     "cinematic_sauna_showcase_MEede4",
     "indoor_outdoor_sauna_grid_8JFwLb",
     "product_categories_promo_PdtNEC",
