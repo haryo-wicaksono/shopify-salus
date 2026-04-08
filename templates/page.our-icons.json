@@ -134,6 +134,33 @@
             "products": []
           }
         },
+        "column_AgbpHC": {
+          "type": "column",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify://shop_images/DSC00008.jpg",
+            "media_scale": 100,
+            "heading": "Kagan Dunlap",
+            "subtext": "Podcast Host",
+            "text": "<p>Military Veteran</p>",
+            "button_label": "",
+            "button_link": "",
+            "enable_popup": true,
+            "video_shopify": "shopify://files/videos/Check out Gordon Ryan’s @gordonlovesjiujitsu_ sweet backyard deck and sauna setup  Featured sauna- Horizon, 6-Person Traditional Sauna. Suitable for indoor and outdoor use..mp4",
+            "poster_image": "shopify://shop_images/ryan2.png",
+            "no_reviews": 1,
+            "review_title1": "Gordon’s Testimonial",
+            "review_detail1": "<p>\"One of the best companies I’ve ever worked with. This thing has been bulletproof since I got it.\"</p>",
+            "review_title2": "",
+            "review_detail2": "",
+            "review_title3": "",
+            "review_detail3": "",
+            "review_title4": "",
+            "review_detail4": "",
+            "pd_title": "",
+            "products": []
+          }
+        },
         "column_FVpdbA": {
           "type": "column",
           "settings": {
@@ -141,7 +168,7 @@
             "image": "shopify://shop_images/Joe_Rogan_-_Icons_Page.png",
             "media_scale": 100,
             "heading": "Joe Rogan",
-            "subtext": "Celebrity",
+            "subtext": "Podcast Host",
             "text": "<p>Podcaster, Comedian</p>",
             "button_label": "",
             "button_link": "",
@@ -673,6 +700,7 @@
       },
       "block_order": [
         "column_4mtpGX",
+        "column_AgbpHC",
         "column_FVpdbA",
         "column_RezAXx",
         "column_n9RDpj",
