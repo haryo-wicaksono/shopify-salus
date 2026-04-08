@@ -1062,6 +1062,84 @@
         "prevent_animation": false
       }
     },
+    "health_metrics_stats_grid_xXtcW9": {
+      "type": "health-metrics-stats-grid",
+      "blocks": {
+        "metric_8TqLP8": {
+          "type": "metric",
+          "settings": {
+            "value": "~40%",
+            "label": "Lower All-Cause\nMortality",
+            "show_on_mobile": true
+          }
+        },
+        "metric_LbVYqY": {
+          "type": "metric",
+          "settings": {
+            "value": "~40%",
+            "label": "Lower All-Cause\nMortality",
+            "show_on_mobile": true
+          }
+        },
+        "metric_drJ9BQ": {
+          "type": "metric",
+          "settings": {
+            "value": "~40%",
+            "label": "Lower All-Cause\nMortality",
+            "show_on_mobile": true
+          }
+        },
+        "metric_MaGkKe": {
+          "type": "metric",
+          "settings": {
+            "value": "~40%",
+            "label": "Lower All-Cause\nMortality",
+            "show_on_mobile": true
+          }
+        },
+        "metric_mQjTem": {
+          "type": "metric",
+          "settings": {
+            "value": "~40%",
+            "label": "Lower All-Cause\nMortality",
+            "show_on_mobile": true
+          }
+        },
+        "metric_k4QrRL": {
+          "type": "metric",
+          "settings": {
+            "value": "~40%",
+            "label": "Lower All-Cause\nMortality",
+            "show_on_mobile": true
+          }
+        },
+        "metric_wHBhmr": {
+          "type": "metric",
+          "settings": {
+            "value": "~40%",
+            "label": "Lower All-Cause\nMortality",
+            "show_on_mobile": true
+          }
+        }
+      },
+      "block_order": [
+        "metric_8TqLP8",
+        "metric_LbVYqY",
+        "metric_drJ9BQ",
+        "metric_MaGkKe",
+        "metric_mQjTem",
+        "metric_k4QrRL",
+        "metric_wHBhmr"
+      ],
+      "name": "Health Metrics Stats Grid",
+      "settings": {
+        "eyebrow": "Science-backed benefits",
+        "heading": "Old World Practice, Modern Day Proof",
+        "mobile_heading": "",
+        "background_image": "shopify://shop_images/Frame_17348_1.png",
+        "mobile_background_image": "shopify://shop_images/Frame_17319_1.png"
+      }
+    },
     "faq_T9BgCP": {
       "type": "faq",
       "blocks": {
@@ -1227,6 +1305,7 @@
     "video",
     "promo_strip_yHMmpR",
     "promo_strip_MEtcbi",
+    "health_metrics_stats_grid_xXtcW9",
     "faq_T9BgCP",
     "content_with_form_Q3amKV"
   ]
