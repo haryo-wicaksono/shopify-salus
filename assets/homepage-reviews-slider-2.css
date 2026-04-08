@@ -200,6 +200,11 @@
 }
 
 @media screen and (max-width: 767px) {
+    .homepage-reviews-slider__wrapper {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
     .homepage-reviews-slider {
         padding-top: var(--homepage-reviews-slider-padding-top-mobile);
         padding-bottom: var(--homepage-reviews-slider-padding-bottom-mobile);

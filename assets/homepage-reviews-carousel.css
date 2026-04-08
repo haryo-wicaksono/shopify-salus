@@ -99,15 +99,24 @@
     }
 
     .carousel-container.homepage-reviews-slider__carousel .carousel-track {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(34, 33, 32, 0.32) transparent;
         padding-left: 0px;
         padding-right: 0px;
         padding-bottom: 0px;
     }
 
     .carousel-container.homepage-reviews-slider__carousel .carousel-track::-webkit-scrollbar {
-        display: none;
+        height: 6px;
+    }
+
+    .carousel-container.homepage-reviews-slider__carousel .carousel-track::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .carousel-container.homepage-reviews-slider__carousel .carousel-track::-webkit-scrollbar-thumb {
+        background: rgba(34, 33, 32, 0.32);
+        border-radius: 999px;
     }
 
     .homepage-reviews-slider__carousel {

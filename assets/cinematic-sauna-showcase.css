@@ -172,8 +172,8 @@
 @media screen and (max-width: 767px) {
   .cinematic-sauna-showcase__frame {
     height: var(--cinematic-sauna-showcase-mobile-height, 620px);
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 
   .cinematic-sauna-showcase__image--desktop,
@@ -218,7 +218,7 @@
 
   .cinematic-sauna-showcase__heading {
     margin-bottom: 26px;
-    font-size: 22px;
+    font-size: 24px;
     line-height: 1.2;
   }
 

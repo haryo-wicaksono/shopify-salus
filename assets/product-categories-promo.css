@@ -138,11 +138,13 @@
   font-size: 18px;
   line-height: 1;
   font-weight: 500;
-  transition: background-color 0.2s ease, opacity 0.2s ease;
+  transition: all 0.2s ease-in-out;
 }
 
 .product-categories-promo__card:hover .product-categories-promo__button {
-  background: rgba(255, 255, 255, 0.08);
+  background-color: #1F8A81;
+  color: #FBFBFB;
+  border-color: #1F8A81;
 }
 
 .product-categories-promo__button svg {
@@ -153,7 +155,7 @@
 
 @media (max-width: 767.98px) {
   .product-categories-promo-section {
-    padding: 50px 0;
+    padding: 30px 0;
   }
 
   .product-categories-promo__desktop,
@@ -175,7 +177,7 @@
   }
 
   .product-categories-promo__title {
-    font-size: 26px;
+    font-size: 24px;
     letter-spacing: -0.02em;
   }
 
@@ -187,11 +189,21 @@
     padding: 0 var(--gutter) 10px;
     margin: 0 calc(-1 * var(--gutter)) -10px;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 33, 32, 0.32) transparent;
   }
 
   .product-categories-promo__scroll::-webkit-scrollbar {
-    display: none;
+    height: 6px;
+  }
+
+  .product-categories-promo__scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .product-categories-promo__scroll::-webkit-scrollbar-thumb {
+    background: rgba(34, 33, 32, 0.32);
+    border-radius: 999px;
   }
 
   .product-categories-promo__scroll .product-categories-promo__card {
@@ -214,12 +226,16 @@
 
   .product-categories-promo__card-title {
     margin-bottom: 24px;
-    font-size: 24px;
+    font-size: 21px;
     line-height: 1.15;
   }
 
   .product-categories-promo__description {
     display: none;
+  }
+
+  .product-categories-promo__button {
+    font-size: 16px;
   }
 }
 
@@ -228,5 +244,11 @@
     max-width: calc(var(--page-width, 1320px) + 240px);
     padding-left: 120px;
     padding-right: 120px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .product-categories-promo__card-title {
+    font-size: 18px;
   }
 }
