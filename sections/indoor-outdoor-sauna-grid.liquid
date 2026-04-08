@@ -24,16 +24,95 @@
 
         {%- if section.settings.title != blank -%}
           <h2 class="indoor-outdoor-sauna-grid__title">
-            {{ section.settings.title | escape }}
+            <span class="indoor-outdoor-sauna-grid__title-desktop">
+              {{ section.settings.title | escape }}
+            </span>
+            <span class="indoor-outdoor-sauna-grid__title-mobile">
+              {{ section.settings.mobile_title | default: section.settings.title | escape }}
+            </span>
           </h2>
         {%- endif -%}
       </div>
 
       {%- if source_collection != blank and source_collection.products_count > 0 -%}
-        <carousel-slider class="carousel block indoor-outdoor-sauna-grid__carousel" inactive disable-desktop="true">
+        <div class="indoor-outdoor-sauna-grid__desktop">
+          <ul class="indoor-outdoor-sauna-grid__products indoor-outdoor-sauna-grid__products--desktop" role="list">
+            {%- for product in source_collection.products limit: 8 -%}
+              {%- liquid
+                assign top_badge = product.metafields.custom.product_tag.value | default: product.metafields.custom.product_tag
+                assign fallback_badge = section.settings.fallback_badge_text | strip
+                assign capacity_value = product.metafields.custom.capacity.value | default: product.metafields.custom.capacity
+                assign current_variant = product.selected_or_first_available_variant
+              -%}
+              <li class="indoor-outdoor-sauna-grid__item">
+                <article class="indoor-outdoor-sauna-card">
+                  <a href="{{ product.url }}" class="indoor-outdoor-sauna-card__image-link" aria-label="{{ product.title | escape }}">
+                    <div class="indoor-outdoor-sauna-card__media">
+                      {%- if product.featured_media -%}
+                        {% render 'image',
+                          image: product.featured_media.preview_image,
+                          widths: '320, 460, 600, 700, 800',
+                          src_width: 600,
+                          src_placeholder: true,
+                          sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 82vw',
+                          class: 'indoor-outdoor-sauna-card__image img-fit img-fit--cover',
+                          disable_focal_point: true
+                        %}
+                      {%- else -%}
+                        {{ 'image' | placeholder_svg_tag: 'indoor-outdoor-sauna-card__placeholder' }}
+                      {%- endif -%}
+
+                      {%- if top_badge != blank -%}
+                        <span class="indoor-outdoor-sauna-card__badge indoor-outdoor-sauna-card__badge--top-left">
+                          {{ top_badge | escape }}
+                        </span>
+                      {%- endif -%}
+
+                      {%- if fallback_badge != blank -%}
+                        <span class="indoor-outdoor-sauna-card__badge indoor-outdoor-sauna-card__badge--bottom-left">
+                          {{ fallback_badge | escape }}
+                        </span>
+                      {%- endif -%}
+
+                      {%- if capacity_value != blank -%}
+                        <span class="indoor-outdoor-sauna-card__badge indoor-outdoor-sauna-card__badge--bottom-right">
+                          {{ capacity_value | append: '-Person' | escape }}
+                        </span>
+                      {%- endif -%}
+                    </div>
+                  </a>
+
+                  <div class="indoor-outdoor-sauna-card__content">
+                    <a href="{{ product.url }}" class="indoor-outdoor-sauna-card__title">
+                      {{ product.title | escape }}
+                    </a>
+
+                    <div class="indoor-outdoor-sauna-card__price-row">
+                      <span class="indoor-outdoor-sauna-card__price">
+                        {{ product.price | money_without_trailing_zeros }}
+                      </span>
+
+                      {%- if product.compare_at_price > product.price -%}
+                        <span class="indoor-outdoor-sauna-card__compare">
+                          {{ product.compare_at_price | money_without_trailing_zeros }}
+                        </span>
+                      {%- endif -%}
+                    </div>
+
+                    {%- if current_variant == blank or current_variant.available == false -%}
+                      <span class="indoor-outdoor-sauna-card__status">Unavailable</span>
+                    {%- endif -%}
+                  </div>
+                </article>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        <carousel-slider class="carousel block indoor-outdoor-sauna-grid__carousel" inactive>
           <div class="indoor-outdoor-sauna-grid__viewport">
-            <div class="slider slider--contained" id="slider-{{ section.id }}">
-              <ul class="slider__grid grid indoor-outdoor-sauna-grid__products" role="list">
+            <div class="slider slider--contained slider--no-scrollbar" id="slider-{{ section.id }}">
+              <ul class="slider__grid grid indoor-outdoor-sauna-grid__products indoor-outdoor-sauna-grid__products--mobile" role="list">
                 {%- for product in source_collection.products limit: 8 -%}
                   {%- liquid
                     assign top_badge = product.metafields.custom.product_tag.value | default: product.metafields.custom.product_tag
@@ -130,8 +209,14 @@
     {
       "type": "text",
       "id": "title",
-      "label": "Heading",
+      "label": "Desktop heading",
       "default": "Best-Selling Indoor & Outdoor Saunas"
+    },
+    {
+      "type": "text",
+      "id": "mobile_title",
+      "label": "Mobile heading",
+      "default": "Best Selling Saunas"
     },
     {
       "type": "collection",

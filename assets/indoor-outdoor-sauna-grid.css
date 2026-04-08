@@ -1,3 +1,7 @@
+.indoor-outdoor-sauna-grid__carousel .slider__item {
+  border: 0 !important;
+}
+
 .indoor-outdoor-sauna-grid-section {
   padding: 32px 0 44px;
   background: #fff;
@@ -34,14 +38,34 @@
   letter-spacing: -0.02em;
 }
 
+.indoor-outdoor-sauna-grid__title-desktop,
+.indoor-outdoor-sauna-grid__title-mobile {
+  display: block;
+}
+
+.indoor-outdoor-sauna-grid__title-mobile {
+  display: none;
+}
+
 .indoor-outdoor-sauna-grid__viewport {
   position: relative;
+  overflow: visible;
 }
 
 .indoor-outdoor-sauna-grid__products {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.indoor-outdoor-sauna-grid__products--mobile {
   gap: 24px;
   grid-auto-flow: column;
   grid-auto-columns: minmax(280px, 82vw);
+}
+
+.indoor-outdoor-sauna-grid__desktop {
+  display: none;
 }
 
 .indoor-outdoor-sauna-grid__item {
@@ -180,17 +204,47 @@
     padding: 48px 0 56px;
   }
 
+  .indoor-outdoor-sauna-grid__desktop {
+    display: block;
+  }
+
+  .indoor-outdoor-sauna-grid__carousel {
+    display: none;
+  }
+
   .indoor-outdoor-sauna-grid__title {
     font-size: 34px;
   }
 
-  .indoor-outdoor-sauna-grid__products {
+  .indoor-outdoor-sauna-grid__title-desktop {
+    display: block;
+  }
+
+  .indoor-outdoor-sauna-grid__title-mobile {
+    display: none;
+  }
+
+  .indoor-outdoor-sauna-grid__products--desktop {
+    display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 28px 24px;
+    align-items: start;
   }
 }
 
 @media (max-width: 599.98px) {
+  .indoor-outdoor-sauna-grid__desktop {
+    display: none;
+  }
+
+  .indoor-outdoor-sauna-grid__title-desktop {
+    display: none;
+  }
+
+  .indoor-outdoor-sauna-grid__title-mobile {
+    display: block;
+  }
+
   .indoor-outdoor-sauna-grid__carousel > .indoor-outdoor-sauna-grid__viewport {
     margin-inline: calc(-1 * var(--gutter));
   }
@@ -198,12 +252,32 @@
   .indoor-outdoor-sauna-grid__carousel .slider {
     width: 100%;
     scroll-padding-left: var(--gutter);
+    padding-bottom: 10px;
+    margin-bottom: -10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .indoor-outdoor-sauna-grid__products {
+  .indoor-outdoor-sauna-grid__products--mobile {
+    display: grid;
     padding: 0 var(--gutter);
     gap: 16px;
     grid-auto-columns: minmax(280px, 82vw);
+  }
+
+  .indoor-outdoor-sauna-grid__carousel .slider {
+    scrollbar-width: none;
+  }
+
+  .indoor-outdoor-sauna-grid__carousel .slider__item {
+    scroll-snap-align: none;
+  }
+
+  .indoor-outdoor-sauna-grid__carousel .slider::-webkit-scrollbar {
+    display: none;
   }
 
   .indoor-outdoor-sauna-card__title {
