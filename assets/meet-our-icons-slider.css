@@ -81,14 +81,14 @@
   text-decoration: none;
   font-size: 18px;
   font-weight: 500;
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition: all 0.2s ease-in-out;
   flex-shrink: 0;
 }
 
 .meet-our-icons-slider__button:hover {
-  background-color: #fafafa;
-  color: #1a1a1a;
-  border-color: #1a1a1a;
+  background-color: #1F8A81;
+  color: #FBFBFB;
+  border-color: #1F8A81;
 }
 
 .meet-our-icons-slider__button-wrapper--mobile {
@@ -138,7 +138,7 @@
 
 .meet-our-icons-slider__card {
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 3px;
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
@@ -153,7 +153,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 3px;
   background: #ebe6de;
 }
 
