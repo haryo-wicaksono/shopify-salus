@@ -1,0 +1,214 @@
+.product-categories-promo-section {
+  padding: 58px 0 60px;
+  background: #fff;
+}
+
+.product-categories-promo {
+  max-width: 1310px;
+  margin: 0 auto;
+}
+
+.product-categories-promo__header {
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.product-categories-promo__affirm .affirm-as-low-as.custom-affirm {
+  margin: 0 auto 10px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 500;
+  color: #111;
+}
+
+.product-categories-promo__affirm .affirm-modal-trigger {
+  display: none !important;
+}
+
+.product-categories-promo__title {
+  margin: 0;
+  color: #222120;
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.product-categories-promo__title-desktop,
+.product-categories-promo__title-mobile {
+  display: block;
+}
+
+.product-categories-promo__title-mobile,
+.product-categories-promo__mobile {
+  display: none;
+}
+
+.product-categories-promo__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.product-categories-promo__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 4 / 5;
+  border-radius: 4px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background: #e9e5de;
+}
+
+.product-categories-promo__media {
+  position: absolute;
+  inset: 0;
+}
+
+.product-categories-promo__image,
+.product-categories-promo__placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.product-categories-promo__image--mobile,
+.product-categories-promo__image--mobile-only {
+  display: none;
+}
+
+.product-categories-promo__placeholder {
+  color: rgba(34, 33, 32, 0.2);
+  background: #e9e5de;
+}
+
+.product-categories-promo__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #111111 0%, #111111 30%, rgba(17, 17, 17, 0) 74%);
+}
+
+.product-categories-promo__content {
+  position: relative;
+  z-index: 2;
+  padding: 30px 28px 26px;
+  color: #fff;
+}
+
+.product-categories-promo__card-title {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.28;
+  font-weight: 600;
+}
+
+.product-categories-promo__description {
+  margin: 0 0 24px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.product-categories-promo__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  color: #fff;
+  background: transparent;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 500;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.product-categories-promo__card:hover .product-categories-promo__button {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.product-categories-promo__button svg {
+  width: 16px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 767.98px) {
+  .product-categories-promo-section {
+    padding: 42px 0 40px;
+  }
+
+  .product-categories-promo__desktop,
+  .product-categories-promo__title-desktop {
+    display: none;
+  }
+
+  .product-categories-promo__mobile,
+  .product-categories-promo__title-mobile {
+    display: block;
+  }
+
+  .product-categories-promo__header {
+    margin-bottom: 28px;
+  }
+
+  .product-categories-promo__affirm .affirm-as-low-as.custom-affirm {
+    margin-bottom: 8px;
+  }
+
+  .product-categories-promo__title {
+    font-size: 26px;
+    letter-spacing: -0.02em;
+  }
+
+  .product-categories-promo__scroll {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 var(--gutter) 10px;
+    margin: 0 calc(-1 * var(--gutter)) -10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .product-categories-promo__scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-categories-promo__scroll .product-categories-promo__card {
+    flex: 0 0 75vw;
+    aspect-ratio: 3 / 4;
+  }
+
+  .product-categories-promo__image--desktop,
+  .product-categories-promo__image--mobile {
+    display: none;
+  }
+
+  .product-categories-promo__image--mobile-only {
+    display: block;
+  }
+
+  .product-categories-promo__content {
+    padding: 26px 20px 22px;
+  }
+
+  .product-categories-promo__card-title {
+    margin-bottom: 24px;
+    font-size: 24px;
+    line-height: 1.15;
+  }
+
+  .product-categories-promo__description {
+    display: none;
+  }
+}
