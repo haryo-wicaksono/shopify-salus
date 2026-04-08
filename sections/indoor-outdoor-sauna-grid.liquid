@@ -43,6 +43,7 @@
                 assign fallback_badge = section.settings.fallback_badge_text | strip
                 assign capacity_value = product.metafields.custom.capacity.value | default: product.metafields.custom.capacity
                 assign current_variant = product.selected_or_first_available_variant
+                assign secondary_image = product.images[1]
               -%}
               <li class="indoor-outdoor-sauna-grid__item">
                 <article class="indoor-outdoor-sauna-card">
@@ -55,9 +56,20 @@
                           src_width: 600,
                           src_placeholder: true,
                           sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 82vw',
-                          class: 'indoor-outdoor-sauna-card__image img-fit img-fit--cover',
+                          class: 'indoor-outdoor-sauna-card__image indoor-outdoor-sauna-card__image--primary img-fit img-fit--cover',
                           disable_focal_point: true
                         %}
+                        {%- if secondary_image != blank -%}
+                          {% render 'image',
+                            image: secondary_image,
+                            widths: '320, 460, 600, 700, 800',
+                            src_width: 600,
+                            src_placeholder: true,
+                            sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 82vw',
+                            class: 'indoor-outdoor-sauna-card__image indoor-outdoor-sauna-card__image--secondary img-fit img-fit--cover',
+                            disable_focal_point: true
+                          %}
+                        {%- endif -%}
                       {%- else -%}
                         {{ 'image' | placeholder_svg_tag: 'indoor-outdoor-sauna-card__placeholder' }}
                       {%- endif -%}
@@ -119,6 +131,7 @@
                     assign fallback_badge = section.settings.fallback_badge_text | strip
                     assign capacity_value = product.metafields.custom.capacity.value | default: product.metafields.custom.capacity
                     assign current_variant = product.selected_or_first_available_variant
+                    assign secondary_image = product.images[1]
                   -%}
 
                   <li class="slider__item indoor-outdoor-sauna-grid__item">
@@ -132,9 +145,20 @@
                               src_width: 600,
                               src_placeholder: true,
                               sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 82vw',
-                              class: 'indoor-outdoor-sauna-card__image img-fit img-fit--cover',
+                              class: 'indoor-outdoor-sauna-card__image indoor-outdoor-sauna-card__image--primary img-fit img-fit--cover',
                               disable_focal_point: true
                             %}
+                            {%- if secondary_image != blank -%}
+                              {% render 'image',
+                                image: secondary_image,
+                                widths: '320, 460, 600, 700, 800',
+                                src_width: 600,
+                                src_placeholder: true,
+                                sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 82vw',
+                                class: 'indoor-outdoor-sauna-card__image indoor-outdoor-sauna-card__image--secondary img-fit img-fit--cover',
+                                disable_focal_point: true
+                              %}
+                            {%- endif -%}
                           {%- else -%}
                             {{ 'image' | placeholder_svg_tag: 'indoor-outdoor-sauna-card__placeholder' }}
                           {%- endif -%}

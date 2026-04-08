@@ -102,6 +102,24 @@
   display: block;
 }
 
+.indoor-outdoor-sauna-card__image {
+  transition: opacity 0.25s ease;
+}
+
+.indoor-outdoor-sauna-card__image--secondary {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .indoor-outdoor-sauna-card__image-link:hover .indoor-outdoor-sauna-card__image--primary {
+    opacity: 0;
+  }
+
+  .indoor-outdoor-sauna-card__image-link:hover .indoor-outdoor-sauna-card__image--secondary {
+    opacity: 1;
+  }
+}
+
 .indoor-outdoor-sauna-card__placeholder {
   background: #f2ede6;
   color: rgba(34, 33, 32, 0.28);
@@ -164,6 +182,10 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   text-overflow: ellipsis;
+}
+
+.indoor-outdoor-sauna-card__title:hover {
+  text-decoration: underline;
 }
 
 .indoor-outdoor-sauna-card__price-row {
@@ -234,6 +256,15 @@
 }
 
 @media (max-width: 599.98px) {
+  .indoor-outdoor-sauna-grid-section {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .indoor-outdoor-sauna-grid__header {
+    margin-bottom: 28px;
+  }
+
   .indoor-outdoor-sauna-grid__desktop {
     display: none;
   }
@@ -244,6 +275,7 @@
 
   .indoor-outdoor-sauna-grid__title-mobile {
     display: block;
+    font-size: 24px;
   }
 
   .indoor-outdoor-sauna-grid__carousel > .indoor-outdoor-sauna-grid__viewport {
@@ -260,6 +292,8 @@
     scroll-snap-type: none;
     scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 33, 32, 0.32) transparent;
   }
 
   .indoor-outdoor-sauna-grid__products--mobile {
@@ -269,16 +303,21 @@
     grid-auto-columns: minmax(280px, 82vw);
   }
 
-  .indoor-outdoor-sauna-grid__carousel .slider {
-    scrollbar-width: none;
-  }
-
   .indoor-outdoor-sauna-grid__carousel .slider__item {
     scroll-snap-align: none;
   }
 
   .indoor-outdoor-sauna-grid__carousel .slider::-webkit-scrollbar {
-    display: none;
+    height: 6px;
+  }
+
+  .indoor-outdoor-sauna-grid__carousel .slider::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .indoor-outdoor-sauna-grid__carousel .slider::-webkit-scrollbar-thumb {
+    background: rgba(34, 33, 32, 0.32);
+    border-radius: 999px;
   }
 
   .indoor-outdoor-sauna-card__title {

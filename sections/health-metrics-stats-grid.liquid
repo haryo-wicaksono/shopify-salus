@@ -10,7 +10,7 @@
     id="health-metrics-stats-grid-{{ section.id }}"
     style="
       --health-metrics-stats-grid-desktop-min-height: {{ section.settings.desktop_section_height | default: 760 }}px;
-      --health-metrics-stats-grid-mobile-min-height: {{ section.settings.mobile_section_height | default: 900 }}px;
+      --health-metrics-stats-grid-mobile-min-height: {{ section.settings.mobile_section_height | default: 610 }}px;
     "
   >
     <div class="health-metrics-stats-grid__media">
@@ -168,9 +168,9 @@
       "label": "Mobile section min height",
       "min": 560,
       "max": 1300,
-      "step": 20,
+      "step": 10,
       "unit": "px",
-      "default": 900
+      "default": 610
     }
   ],
   "blocks": [
