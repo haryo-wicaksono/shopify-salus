@@ -136,6 +136,32 @@
             ]
           }
         },
+        "column_qwzEwm": {
+          "type": "column",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify://shop_images/Screenshot_2025-10-15_at_03.14.56_1.png",
+            "media_scale": 100,
+            "heading": "Wesley Kitts",
+            "subtext": "Athlete",
+            "text": "<p>U.S. Weightlifting Olympian</p>",
+            "button_label": "",
+            "button_link": "",
+            "enable_popup": true,
+            "video_shopify": "shopify://files/videos/Wes Kitts Testimonials.mp4",
+            "no_reviews": 1,
+            "review_title1": "Wesley's Testimonial",
+            "review_detail1": "<p>\"This sauna by Salus is awesome, it's got plenty of room for me and the weightlifters to get in there.\"</p>",
+            "review_title2": "",
+            "review_detail2": "",
+            "review_title3": "",
+            "review_detail3": "",
+            "review_title4": "",
+            "review_detail4": "",
+            "pd_title": "",
+            "products": []
+          }
+        },
         "column_AgbpHC": {
           "type": "column",
           "settings": {
@@ -709,6 +735,7 @@
       },
       "block_order": [
         "column_4mtpGX",
+        "column_qwzEwm",
         "column_AgbpHC",
         "column_FVpdbA",
         "column_RezAXx",
