@@ -225,17 +225,6 @@
     "meet_our_icons_slider_kUAKwp": {
       "type": "meet-our-icons-slider",
       "blocks": {
-        "video_testimonial_card_LwzfAM": {
-          "type": "video-testimonial-card",
-          "settings": {
-            "video_file": "shopify://files/videos/Wes Kitts Testimonials.mp4",
-            "card_variant": "media",
-            "media_height": "tall",
-            "quote": "",
-            "name": "Wes Kitts",
-            "description": "US Olympian, Weightlifting Champion"
-          }
-        },
         "video_testimonial_card_iW7TJn": {
           "type": "video-testimonial-card",
           "settings": {
@@ -245,17 +234,6 @@
             "quote": "",
             "name": "Joe Rogan",
             "description": "Host of the JRE Podcast, Comedian"
-          }
-        },
-        "video_testimonial_card_B8Hx7K": {
-          "type": "video-testimonial-card",
-          "settings": {
-            "video_file": "shopify://files/videos/Kagan Dunlap - Testimonial - Mobile.mp4",
-            "card_variant": "media",
-            "media_height": "tall",
-            "quote": "",
-            "name": "Kagan Dunlap",
-            "description": "Military Veteran, YouTube Host"
           }
         },
         "video_testimonial_card_WVrm6Q": {
@@ -269,6 +247,28 @@
             "description": "Wellness & Lifestyle Creator"
           }
         },
+        "video_testimonial_card_B8Hx7K": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Kagan Dunlap - Testimonial - Mobile.mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "name": "Kagan Dunlap",
+            "description": "Military Veteran, YouTube Host"
+          }
+        },
+        "video_testimonial_card_t8xLcB": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Ian Somerhalder Clip (1).mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "name": "Ian Somerhalder",
+            "description": "Actor, Entrepreneur"
+          }
+        },
         "video_testimonial_card_CrmEcz": {
           "type": "video-testimonial-card",
           "settings": {
@@ -279,6 +279,17 @@
             "quote": "",
             "name": "Gordon Ryan",
             "description": "Greatest no-gi grappler of all time"
+          }
+        },
+        "video_testimonial_card_LwzfAM": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Wes Kitts Testimonials.mp4",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "name": "Wes Kitts",
+            "description": "US Olympian, Weightlifting Champion"
           }
         },
         "video_testimonial_card_jJmDQq": {
@@ -325,30 +336,19 @@
             "name": "Claire P. Thomas",
             "description": "Fitness Creator"
           }
-        },
-        "video_testimonial_card_t8xLcB": {
-          "type": "video-testimonial-card",
-          "settings": {
-            "video_file": "shopify://files/videos/Ian Somerhalder Clip (1).mp4",
-            "card_variant": "media",
-            "media_height": "tall",
-            "quote": "",
-            "name": "Ian Somerhalder",
-            "description": "Actor, Entrepreneur"
-          }
         }
       },
       "block_order": [
-        "video_testimonial_card_LwzfAM",
         "video_testimonial_card_iW7TJn",
-        "video_testimonial_card_B8Hx7K",
         "video_testimonial_card_WVrm6Q",
+        "video_testimonial_card_B8Hx7K",
+        "video_testimonial_card_t8xLcB",
         "video_testimonial_card_CrmEcz",
+        "video_testimonial_card_LwzfAM",
         "video_testimonial_card_jJmDQq",
         "video_testimonial_card_KdNDfF",
         "video_testimonial_card_A34QPb",
-        "video_testimonial_card_KwJyJ8",
-        "video_testimonial_card_t8xLcB"
+        "video_testimonial_card_KwJyJ8"
       ],
       "name": "Meet Our Icons Slider",
       "settings": {
