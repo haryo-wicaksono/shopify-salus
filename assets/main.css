@@ -8082,6 +8082,19 @@ article.card {
   margin-top: 0px;
 }
 
+@media (min-width: 1025px) {
+  .blog-sidebar {
+    align-self: start;
+    position: -webkit-sticky;
+    position: sticky;
+    top: var(--header-end-padded, 48px);
+  }
+
+  .blog-sidebar-filter .facets__filters-wrapper {
+    position: static;
+  }
+}
+
 .resource_count p {
   font-size: 18px;
   font-weight: 400;

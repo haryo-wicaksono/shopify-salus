@@ -85,62 +85,6 @@
     </div>
   {%- endif -%}
 
-  {%- if section.settings.show_tag_filter and blog.all_tags.size > 0 -%}
-    <script src="{{ 'blog-filter.js' | asset_url }}" defer="defer"></script>
-    <blog-filter>
-      {%- liquid
-        assign filter_label = 'blogs.filtering.filter_by' | t
-        assign filter_all = 'blogs.filtering.all' | t | append: ','
-        assign tag_values = blog.all_tags | join: ',' | prepend: '-,' | split: ','
-        assign tag_names = blog.all_tags | join: ',' | prepend: filter_all | split: ','
-
-        if current_tags
-          assign selected_Value = current_tags | join
-        endif
-      -%}
-      <div class="md:hidden">
-        <div id="blog-filter-dropdown">
-          {% render 'custom-select',
-            id: 'blog_tags',
-            label: filter_label,
-            default_option: filter_label,
-            hide_label: true,
-            option_values: tag_values,
-            option_names: tag_names,
-            selected_value: selected_Value
-          %}
-          <script src="{{ 'custom-select.js' | asset_url }}" defer="defer"></script>
-        </div>
-        <hr class="md-down:-mx-gutter w-auto">
-      </div>
-
-      <div class="border-top border-bottom hidden md:block no-js-visible">
-        <ul class="list-none flex flex-wrap pt-3 pb-3 -blog-mx-2 lg:blog-text-lg" id="blog-filter-links">
-          <li>
-            <a
-              href="{{ blog.url }}"
-              class="pt-2 pb-2 pl-4 pr-4 text-theme-text block{% unless current_tags %} font-bold underline{% endunless %}"
-              data-tag="-"
-            >
-              {{- 'blogs.filtering.all' | t -}}
-            </a>
-          </li>
-          {% for tag in blog.all_tags %}
-            <li>
-              <a
-                href="{{ tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first }}"
-                data-tag="{{ tag | escape }}"
-                class="pt-2 pb-2 pl-4 pr-4 text-theme-text block{% if current_tags contains tag %} font-bold underline{% endif %}"
-              >
-                {{- tag -}}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </blog-filter>
-  {%- endif -%}
-
   {%- if section.settings.show_featured_post and current_tags == blank -%}
     {%- for article in blog.articles -%}
       <div class="mt-6 mb-6 lg:blog-mb-16 lg:blog-mt-16 md-down:-mx-gutter featured-card">
@@ -170,7 +114,7 @@
   <div class="blog-row">
     <div class="blog-sidebar">
       <div class="blog-sidebar-filter">
-        {% render 'article-list', title: section.settings.filter_title, tags: section.settings.topics %}
+        {% render 'article-list', title: section.settings.filter_title, tags: section.settings.topics, auto_tags: blog.all_tags %}
       </div>
     </div>
     {%- paginate blog.articles by section.settings.posts_per_page -%}
