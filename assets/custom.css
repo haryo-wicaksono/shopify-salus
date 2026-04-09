@@ -3635,6 +3635,34 @@ body:is(.template--for-first-responders, .template--electrical-information) .cc-
   margin-bottom: calc(var(--section-gap) * var(--fluid-1-5));
 }
 
+.collection-secondary-nav .blog-nav-inner {
+  align-items: flex-start;
+  gap: 2.4rem;
+}
+
+.collection-secondary-nav .col-nav {
+  flex: 1;
+}
+
+.collection-secondary-nav .col-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: space-between;
+  overflow: visible;
+  white-space: normal;
+}
+
+.collection-secondary-nav .col-nav ul li {
+  display: flex;
+  flex: 1 1 22rem;
+}
+
+.collection-secondary-nav .col-nav ul li a {
+  width: 100%;
+  text-align: center;
+}
+
 /* .template--product .product .gpo-app input:checked + .gpo-swatches::before {
   content: "";
   position: absolute;
