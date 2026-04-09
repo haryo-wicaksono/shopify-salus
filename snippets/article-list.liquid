@@ -1,4 +1,15 @@
 <div class="facets__filters-wrapper">
+  {% liquid
+    assign manual_links = blank
+    if tags != blank
+      assign manual_links = tags | split: ','
+    endif
+
+    assign available_tags = manual_links
+    if available_tags == blank and auto_tags != blank
+      assign available_tags = auto_tags
+    endif
+  %}
   <div class="flex justify-between items-center">
     {% unless sidebar_content %}
       <span class="flex-auto font-bold filter-title">
@@ -55,10 +66,8 @@
                   </li>
                 {%- endfor -%}
               </ul>
-            {% elsif tags != blank %}
+            {% elsif available_tags != blank %}
               <ul role="list">
-                {% assign links = tags | split: ',' %}
-                {% assign request_path = request.path | split: '/' | last %}
                 <li
                   class="filter-list-item"
                   data-url="/blogs/{{ blog.handle }}"
@@ -67,34 +76,33 @@
                     type="checkbox"
                     class="checkbox visually-hidden focus-label-before"
 
-                    {% if request_path contains blog.handle %}
+                    {% unless current_tags %}
                       checked
-                    {% endif %}
+                    {% endunless %}
                   >
                   <label class="filter__label flex items-start w-full m-0">
                     <span class="flex-auto">All Articles</span>
                   </label>
                 </li>
-                {%- for link in links limit: 10 -%}
-                  {% assign tag = link | handleize %}
+                {%- for link in available_tags limit: 10 -%}
+                  {% assign tag_label = link | strip %}
+                  {% assign tag = tag_label | handleize %}
                   {% assign link_url = '/tagged/' | append: tag %}
-                  {% assign current_link = request.path | split: '/' | last %}
 
                   <li
                     class="filter-list-item"
                     data-url="/blogs/{{ blog.handle }}{{ link_url }}"
-                    current-link="{{ current_link }}"
                   >
                     <input
                       type="checkbox"
                       class="checkbox visually-hidden focus-label-before {{ link_url }}"
 
-                      {% if link_url contains current_link %}
+                      {% if current_tags contains tag_label %}
                         checked
                       {% endif %}
                     >
                     <label class="filter__label flex items-start w-full m-0">
-                      <span class="flex-auto">{{ link | escape }}</span>
+                      <span class="flex-auto">{{ tag_label | escape }}</span>
                     </label>
                   </li>
                 {%- endfor -%}

@@ -30,7 +30,7 @@
         "filter_title": "Topics",
         "posts_per_page": 12,
         "three_columns": true,
-        "show_tag_filter": false,
+        "show_tag_filter": true,
         "show_featured_image": true,
         "image_ratio": "1.937",
         "show_tags": true,
