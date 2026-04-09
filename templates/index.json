@@ -353,7 +353,7 @@
       "name": "Meet Our Icons Slider",
       "settings": {
         "subheading": "<p>100s of verified 5-star reviews</p>",
-        "heading": "Trusted by leading athletes & figures",
+        "heading": "Trusted by leading athletes & renowned figures",
         "button_text": "See More",
         "button_link": "shopify://pages/our-icons",
         "desktop_cards_per_row": 5.5,
@@ -361,29 +361,8 @@
         "mobile_cards_per_row": 2
       }
     },
-    "cinematic_sauna_showcase_MEede4": {
-      "type": "cinematic-sauna-showcase",
-      "name": "Cinematic Sauna Showcase",
-      "settings": {
-        "heading": "Premium saunas for every home and need",
-        "bullet_1": "Indoor & outdoor models",
-        "bullet_2": "Traditional, infrared, and hybrid models",
-        "bullet_3": "Compact & spacious 1-8 person models",
-        "bullet_4": "Barrel, cabin, and luxury style models",
-        "button_text": "Shop All Saunas",
-        "button_link": "",
-        "desktop_video": "shopify://files/videos/SECTION VIDEO - Desktop (1).mp4",
-        "desktop_object_position": "72% center",
-        "mobile_video": "shopify://files/videos/SECTION VIDEO - Mobile (online-video-cutter.com) (1).mp4",
-        "mobile_object_position": "center center",
-        "desktop_content_width": 420,
-        "desktop_overlay_opacity": 80,
-        "mobile_overlay_opacity": 90
-      }
-    },
     "celebrity_testimonials_PmJ8Jr": {
       "type": "celebrity-testimonials",
-      "disabled": true,
       "blocks": {
         "video_testimonial_card_mzgML6": {
           "type": "video-testimonial-card",
@@ -501,6 +480,7 @@
         "video_testimonial_card_VmpRnL",
         "video_testimonial_card_JUfpKD"
       ],
+      "disabled": true,
       "name": "Celebrity Testimonials",
       "settings": {
         "subheading": "<p>100s of verified 5-star reviews</p>",
@@ -512,74 +492,26 @@
         "mobile_cards_per_row": 2
       }
     },
-    "products_card_section_PzCHqp": {
-      "type": "products-card-section",
-      "disabled": true,
+    "cinematic_sauna_showcase_MEede4": {
+      "type": "cinematic-sauna-showcase",
+      "name": "Cinematic Sauna Showcase",
       "settings": {
-        "heading": "Rooted in tradition, built for pure heat",
-        "products": [
-          "ally-2-person-traditional-indoor-sauna",
-          "horizon-6-person-barrel-sauna",
-          "marion-2-person-barrel-sauna"
-        ],
-        "product1": "monarch-ii",
-        "product_tag1": "People’s Choice",
-        "product2": "horizon-6-person-barrel-sauna",
-        "product_tag2": "Spacious",
-        "product3": "odin-compact",
-        "product_tag3": "Best Value",
-        "image_ratio": "0.75",
-        "color_scheme": "3",
-        "image_as_link": false,
-        "title_as_link": false,
-        "enable_vendor": false,
-        "enable_tag": true,
-        "enable_show_modal_btn": true,
-        "btn_label": "Show me this model",
-        "show_card": true,
-        "sugg_image": "shopify://shop_images/quiz-bg.png",
-        "sugg_heading": "Not sure which sauna model’s the best fit for you?",
-        "sugg_content": "<p>We know choosing the right sauna might seem daunting, not to worry! Talk to our sauna experts and we guarantee you’ll find your perfect sauna</p>",
-        "sugg_btn_label": "Find my perfect sauna",
-        "sugg_btn_label1": "Give us a call",
-        "sugg_btn_link": "mailto:sales@salussaunas.com",
-        "phone_number": "(888)287-0111",
-        "open_email": true
-      }
-    },
-    "products_card_section_YF9fnK": {
-      "type": "products-card-section",
-      "disabled": true,
-      "settings": {
-        "heading": "Explore our best-in-class infrared saunas",
-        "products": [
-          "glory-2-person-infrared-sauna",
-          "majestic-8-person-hot-yoga-infrared-sauna",
-          "superb-2-person-infrared-sauna"
-        ],
-        "product1": "superb-2-person-infrared-sauna",
-        "product_tag1": "People’s Choice",
-        "product2": "majestic-8-person-hot-yoga-infrared-sauna",
-        "product_tag2": "Spacious",
-        "product3": "glory-2-person-infrared-sauna",
-        "product_tag3": "Best Value",
-        "image_ratio": "natural",
-        "color_scheme": "1",
-        "image_as_link": false,
-        "title_as_link": false,
-        "enable_vendor": false,
-        "enable_tag": true,
-        "enable_show_modal_btn": true,
-        "btn_label": "Show me this model",
-        "show_card": true,
-        "sugg_image": "shopify://shop_images/quiz-bg.png",
-        "sugg_heading": "Not sure which sauna model’s the best fit for you?",
-        "sugg_content": "<p>We know choosing the right sauna might seem daunting, not to worry! Talk to our sauna experts and we guarantee you’ll find your perfect sauna</p>",
-        "sugg_btn_label": "Find my perfect sauna",
-        "sugg_btn_label1": "Give us a call",
-        "sugg_btn_link": "mailto:sales@salussaunas.com",
-        "phone_number": "0812345679",
-        "open_email": true
+        "heading": "Premium saunas for every home and need",
+        "bullet_1": "Indoor & outdoor models",
+        "bullet_2": "Traditional, infrared, and hybrid models",
+        "bullet_3": "Compact & spacious 1-8 person models",
+        "bullet_4": "Barrel, cabin, and luxury style models",
+        "button_text": "Shop All Saunas",
+        "button_link": "",
+        "desktop_video": "shopify://files/videos/SECTION VIDEO - Desktop (1).mp4",
+        "desktop_object_position": "72% center",
+        "mobile_video": "shopify://files/videos/SECTION VIDEO - Mobile (online-video-cutter.com) (1).mp4",
+        "mobile_object_position": "center center",
+        "desktop_content_width": 420,
+        "desktop_section_height": 560,
+        "mobile_section_height": 620,
+        "desktop_overlay_opacity": 80,
+        "mobile_overlay_opacity": 90
       }
     },
     "indoor_outdoor_sauna_grid_8JFwLb": {
@@ -717,7 +649,9 @@
         "heading": "Old World Practice, Modern Day Proof",
         "mobile_heading": "Old world practice\nModern day proof",
         "background_image": "shopify://shop_images/Frame_17348_1.png",
-        "mobile_background_image": "shopify://shop_images/Frame_17319_1.png"
+        "mobile_background_image": "shopify://shop_images/Frame_17319_1.png",
+        "desktop_section_height": 760,
+        "mobile_section_height": 610
       }
     },
     "homepage_reviews_slider_2_gCdyWL": {
