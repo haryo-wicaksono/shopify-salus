@@ -13,8 +13,9 @@
 -%}
 
 <div class="section instagram-posts-slider-section">
-  <div class="container">
-    <div class="instagram-posts-slider">
+  <div class="instagram-posts-slider__container">
+    <div class="instagram-posts-slider__inner">
+      <div class="instagram-posts-slider">
       <div class="instagram-posts-slider__header">
         <{{ eyebrow_tag }}
           {% if eyebrow_tag == 'a' %}
@@ -110,6 +111,7 @@
       {% else %}
         <p class="instagram-posts-slider__empty">Add Instagram post cards to populate this section.</p>
       {% endif %}
+      </div>
     </div>
   </div>
 </div>
