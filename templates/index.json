@@ -269,6 +269,17 @@
             "description": "Actor, Entrepreneur"
           }
         },
+        "video_testimonial_card_jJmDQq": {
+          "type": "video-testimonial-card",
+          "settings": {
+            "video_file": "shopify://files/videos/Salus.MOV",
+            "card_variant": "media",
+            "media_height": "tall",
+            "quote": "",
+            "name": "Shelby Robins",
+            "description": "Fitness Creator"
+          }
+        },
         "video_testimonial_card_CrmEcz": {
           "type": "video-testimonial-card",
           "settings": {
@@ -290,17 +301,6 @@
             "quote": "",
             "name": "Wes Kitts",
             "description": "US Olympian, Weightlifting Champion"
-          }
-        },
-        "video_testimonial_card_jJmDQq": {
-          "type": "video-testimonial-card",
-          "settings": {
-            "video_file": "shopify://files/videos/Salus.MOV",
-            "card_variant": "media",
-            "media_height": "tall",
-            "quote": "",
-            "name": "Shelby Robins",
-            "description": "Fitness Creator"
           }
         },
         "video_testimonial_card_KdNDfF": {
@@ -343,9 +343,9 @@
         "video_testimonial_card_WVrm6Q",
         "video_testimonial_card_B8Hx7K",
         "video_testimonial_card_t8xLcB",
+        "video_testimonial_card_jJmDQq",
         "video_testimonial_card_CrmEcz",
         "video_testimonial_card_LwzfAM",
-        "video_testimonial_card_jJmDQq",
         "video_testimonial_card_KdNDfF",
         "video_testimonial_card_A34QPb",
         "video_testimonial_card_KwJyJ8"
