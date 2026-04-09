@@ -28,7 +28,13 @@
     {% if section.settings.logo != blank %}
       <div class="footer_logo">
         <a href="{{ shop.url }}">
-          <img src="{{ section.settings.logo | img_url:'master' }}" alt="{{ section.settings.logo.alt }}">
+          <img
+            src="{{ section.settings.logo | image_url }}"
+            alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+            width="{{ section.settings.logo.width }}"
+            height="{{ section.settings.logo.height }}"
+            loading="lazy"
+          >
         </a>
       </div>
     {% endif %}

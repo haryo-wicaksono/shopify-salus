@@ -1393,7 +1393,13 @@ body .footer .footer_logo {
 }
 
 body .footer .footer_logo a {
-  max-width: 233.59px;
+  max-width: 234px;
+}
+
+body .footer .footer_logo img {
+  width: 234px;
+  height: 41px;
+  object-fit: contain;
 }
 
 body .footer .footer__main {
