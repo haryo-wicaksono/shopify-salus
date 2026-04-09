@@ -792,6 +792,66 @@
         "section_padding_bottom_mobile": 0
       }
     },
+    "instagram_posts_slider_kTnUrz": {
+      "type": "instagram-posts-slider",
+      "blocks": {
+        "instagram_post_CYkwGh": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "shopify://shop_images/If_you_ve_ever_felt_like_your_metabolism_slowed_down_or_your_stress_levels_won_t_let_you_rest_1.png",
+            "mobile_image": "shopify://shop_images/If_you_ve_ever_felt_like_your_metabolism_slowed_down_or_your_stress_levels_won_t_let_you_rest_1_ef4ce149-2501-4e9c-a48c-bf72c8a4eaeb.png",
+            "instagram_post_url": ""
+          }
+        },
+        "instagram_post_bbaPtz": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "shopify://shop_images/Luxury_travel_has_long_influenced_how_we_want_to_live._Now_it_s_reshaping_where_and_how_we_buy_1.png",
+            "mobile_image": "shopify://shop_images/Luxury_travel_has_long_influenced_how_we_want_to_live._Now_it_s_reshaping_where_and_how_we_buy_1_e78d038d-36b1-4f8c-96ea-983ba0913d38.png",
+            "instagram_post_url": ""
+          }
+        },
+        "instagram_post_7cYMzz": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "shopify://shop_images/Would_you_quit_your_job_in_the_name_of_wellness_According_to_a_multinational_study_involving_tho_1.png",
+            "mobile_image": "shopify://shop_images/Would_you_quit_your_job_in_the_name_of_wellness_According_to_a_multinational_study_involving_tho_1_682b76a2-2004-410c-bcc4-ef3e4fa0b4e6.png",
+            "instagram_post_url": ""
+          }
+        },
+        "instagram_post_rNteEK": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "shopify://shop_images/Firefighters_face_repeated_exposure_to_polycyclic_aromatic_hydrocarbons_or_PAHs_during_and_eve_1.png",
+            "mobile_image": "shopify://shop_images/Firefighters_face_repeated_exposure_to_polycyclic_aromatic_hydrocarbons_or_PAHs_during_and_eve_1_f5ebee32-1d29-4a5e-aa47-182f0990e224.png",
+            "instagram_post_url": ""
+          }
+        },
+        "instagram_post_iiVPdr": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "shopify://shop_images/How_often_you_sauna_might_matter_more_than_you_think._A_long-running_Finnish_study_of_2_300_a_1.png",
+            "mobile_image": "shopify://shop_images/How_often_you_sauna_might_matter_more_than_you_think._A_long-running_Finnish_study_of_2_300_a_1_299751b8-4f68-475d-9a64-aee8770ede5b.png",
+            "instagram_post_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "instagram_post_CYkwGh",
+        "instagram_post_bbaPtz",
+        "instagram_post_7cYMzz",
+        "instagram_post_rNteEK",
+        "instagram_post_iiVPdr"
+      ],
+      "name": "Instagram Posts Slider",
+      "settings": {
+        "eyebrow": "Follow us on Instagram",
+        "heading": "Get the Latest Scoop on Saunas",
+        "mobile_heading": "Get the Latest Scoop on Saunas",
+        "account_url": "",
+        "link_eyebrow_to_account": true
+      }
+    },
     "faq_T9BgCP": {
       "type": "faq",
       "blocks": {
@@ -1283,6 +1343,7 @@
     "product_categories_promo_PdtNEC",
     "health_metrics_stats_grid_xXtcW9",
     "homepage_reviews_slider_2_gCdyWL",
+    "instagram_posts_slider_kTnUrz",
     "faq_T9BgCP",
     "content_with_form_Q3amKV",
     "slideshow",
