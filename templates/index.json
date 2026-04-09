@@ -846,9 +846,9 @@
       "name": "Instagram Posts Slider",
       "settings": {
         "eyebrow": "Follow us on Instagram",
-        "heading": "Get the Latest Scoop on Saunas",
-        "mobile_heading": "Get the Latest Scoop on Saunas",
-        "account_url": "",
+        "heading": "Get the Latest Scoop on Saunas & Wellness",
+        "mobile_heading": "Get the Latest Scoop on Saunas & Wellness",
+        "account_url": "https://www.instagram.com/salussaunas",
         "link_eyebrow_to_account": true
       }
     },
