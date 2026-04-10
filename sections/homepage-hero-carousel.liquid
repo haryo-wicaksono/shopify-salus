@@ -226,63 +226,53 @@
                   class="homepage-hero-carousel__slide-inner homepage-hero-carousel__slide-inner--full-bg-centered"
                   style="--full-bg-desktop-aspect-ratio: {{ desktop_aspect_ratio }}; --full-bg-mobile-aspect-ratio: {{ mobile_aspect_ratio }};"
                 >
-                  <div class="homepage-hero-carousel__bg-media{% if has_full_bg_fallback and has_full_bg_video %} homepage-hero-carousel__media-wrapper--with-fallback{% endif %}">
+                  <div class="homepage-hero-carousel__bg-media{% if has_full_bg_fallback and has_full_bg_video %} homepage-hero-carousel__media-wrapper--with-fallback{% endif %}"{% if has_full_bg_video %} data-responsive-video-loader data-responsive-video-breakpoint="770"{% endif %}>
+                    {% if bg_image_desktop != blank or bg_image_mobile != blank %}
+                      {% if bg_image_mobile != blank %}
+                        <div
+                          class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--mobile"
+                          style="background-image: url({{ bg_image_mobile | image_url: width: 768 }});"
+                        ></div>
+                      {% endif %}
+                      {% if bg_image_desktop != blank %}
+                        <div
+                          class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--desktop"
+                          style="background-image: url({{ bg_image_desktop | image_url: width: 1400 }});"
+                        ></div>
+                      {% endif %}
+                    {% elsif has_full_bg_video == false %}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
 
-                    {%- if bg_video_desktop != blank or bg_video_mobile != blank -%}
+                    {% if has_full_bg_video %}
+                      <div data-responsive-video-mount></div>
                       {% if bg_video_desktop != blank %}
-                        {{ bg_video_desktop | video_tag:
-                          class: "homepage-hero-carousel__bg-video homepage-hero-carousel__bg-video--desktop",
-                          autoplay: true,
-                          loop: true,
-                          muted: true,
-                          playsinline: true,
-                          preload: "auto",
-                          controls: false
-                        }}
+                        <template data-video-breakpoint="desktop">
+                          {{ bg_video_desktop | video_tag:
+                            class: "homepage-hero-carousel__bg-video homepage-hero-carousel__bg-video--desktop",
+                            autoplay: true,
+                            loop: true,
+                            muted: true,
+                            playsinline: true,
+                            preload: "auto",
+                            controls: false
+                          }}
+                        </template>
                       {% endif %}
                       {% if bg_video_mobile != blank %}
-                        {{ bg_video_mobile | video_tag:
-                          class: "homepage-hero-carousel__bg-video homepage-hero-carousel__bg-video--mobile",
-                          autoplay: true,
-                          loop: true,
-                          muted: true,
-                          playsinline: true,
-                          preload: "auto",
-                          controls: false
-                        }}
+                        <template data-video-breakpoint="mobile">
+                          {{ bg_video_mobile | video_tag:
+                            class: "homepage-hero-carousel__bg-video homepage-hero-carousel__bg-video--mobile",
+                            autoplay: true,
+                            loop: true,
+                            muted: true,
+                            playsinline: true,
+                            preload: "auto",
+                            controls: false
+                          }}
+                        </template>
                       {% endif %}
-                      {% if bg_image_desktop != blank or bg_image_mobile != blank %}
-                        {% if bg_image_mobile != blank %}
-                          <div
-                            class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--mobile"
-                            style="background-image: url({{ bg_image_mobile | image_url: width: 768 }});"
-                          ></div>
-                        {% endif %}
-                        {% if bg_image_desktop != blank %}
-                          <div
-                            class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--desktop"
-                            style="background-image: url({{ bg_image_desktop | image_url: width: 1400 }});"
-                          ></div>
-                        {% endif %}
-                      {% endif %}
-                    {%- else -%}
-                      {% if bg_image_desktop != blank or bg_image_mobile != blank %}
-                        {% if bg_image_mobile != blank %}
-                          <div
-                            class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--mobile"
-                            style="background-image: url({{ bg_image_mobile | image_url: width: 768 }});"
-                          ></div>
-                        {% endif %}
-                        {% if bg_image_desktop != blank %}
-                          <div
-                            class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--desktop"
-                            style="background-image: url({{ bg_image_desktop | image_url: width: 1400 }});"
-                          ></div>
-                        {% endif %}
-                      {% else %}
-                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                      {% endif %}
-                    {%- endif -%}
+                    {% endif %}
                   </div>
 
                   {%- comment -%}Centered overlay content layer{%- endcomment -%}
@@ -528,7 +518,7 @@
                 {%- if block.settings.split_video_desktop != blank or block.settings.split_video_mobile != blank -%}
                   {%- assign has_split_video = true -%}
                 {%- endif -%}
-                <div class="homepage-hero-carousel__image-wrapper{% if block.settings.split_media_type == 'video' and has_split_fallback and has_split_video %} homepage-hero-carousel__media-wrapper--with-fallback{% endif %}">
+                <div class="homepage-hero-carousel__image-wrapper{% if block.settings.split_media_type == 'video' and has_split_fallback and has_split_video %} homepage-hero-carousel__media-wrapper--with-fallback{% endif %}"{% if block.settings.split_media_type == 'video' and has_split_video %} data-responsive-video-loader data-responsive-video-breakpoint="770"{% endif %}>
                   {%- assign split_media_type = block.settings.split_media_type | default: 'image' -%}
                   {%- if split_media_type == 'video' -%}
                     {%- assign split_video_desktop = block.settings.split_video_desktop -%}
@@ -536,61 +526,52 @@
                     {%- assign desktop_image = block.settings.slide_image_desktop -%}
                     {%- assign mobile_image = block.settings.slide_image_mobile -%}
 
-                    {%- if split_video_desktop != blank or split_video_mobile != blank -%}
+                    {% if desktop_image != blank or mobile_image != blank %}
+                      {% if mobile_image != blank %}
+                        <div
+                          class="homepage-hero-carousel__image--mobile"
+                          style="background-image: url({{ mobile_image | image_url: width: 768 }});"
+                        ></div>
+                      {% endif %}
+                      {% if desktop_image != blank %}
+                        <div
+                          class="homepage-hero-carousel__image--desktop"
+                          style="background-image: url({{ desktop_image | image_url: width: 1400 }});"
+                        ></div>
+                      {% endif %}
+                    {% elsif has_split_video == false %}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+
+                    {% if has_split_video %}
+                      <div data-responsive-video-mount></div>
                       {% if split_video_desktop != blank %}
-                        {{ split_video_desktop | video_tag:
-                          class: "homepage-hero-carousel__split-video homepage-hero-carousel__split-video--desktop",
-                          autoplay: true,
-                          loop: true,
-                          muted: true,
-                          playsinline: true,
-                          preload: "auto",
-                          controls: false
-                        }}
+                        <template data-video-breakpoint="desktop">
+                          {{ split_video_desktop | video_tag:
+                            class: "homepage-hero-carousel__split-video homepage-hero-carousel__split-video--desktop",
+                            autoplay: true,
+                            loop: true,
+                            muted: true,
+                            playsinline: true,
+                            preload: "auto",
+                            controls: false
+                          }}
+                        </template>
                       {% endif %}
                       {% if split_video_mobile != blank %}
-                        {{ split_video_mobile | video_tag:
-                          class: "homepage-hero-carousel__split-video homepage-hero-carousel__split-video--mobile",
-                          autoplay: true,
-                          loop: true,
-                          muted: true,
-                          playsinline: true,
-                          preload: "auto",
-                          controls: false
-                        }}
+                        <template data-video-breakpoint="mobile">
+                          {{ split_video_mobile | video_tag:
+                            class: "homepage-hero-carousel__split-video homepage-hero-carousel__split-video--mobile",
+                            autoplay: true,
+                            loop: true,
+                            muted: true,
+                            playsinline: true,
+                            preload: "auto",
+                            controls: false
+                          }}
+                        </template>
                       {% endif %}
-                      {% if desktop_image != blank or mobile_image != blank %}
-                        {% if mobile_image != blank %}
-                          <div
-                            class="homepage-hero-carousel__image--mobile"
-                            style="background-image: url({{ mobile_image | image_url: width: 768 }});"
-                          ></div>
-                        {% endif %}
-                        {% if desktop_image != blank %}
-                          <div
-                            class="homepage-hero-carousel__image--desktop"
-                            style="background-image: url({{ desktop_image | image_url: width: 1400 }});"
-                          ></div>
-                        {% endif %}
-                      {% endif %}
-                    {%- else -%}
-                      {% if desktop_image != blank or mobile_image != blank %}
-                        {% if mobile_image != blank %}
-                          <div
-                            class="homepage-hero-carousel__image--mobile"
-                            style="background-image: url({{ mobile_image | image_url: width: 768 }});"
-                          ></div>
-                        {% endif %}
-                        {% if desktop_image != blank %}
-                          <div
-                            class="homepage-hero-carousel__image--desktop"
-                            style="background-image: url({{ desktop_image | image_url: width: 1400 }});"
-                          ></div>
-                        {% endif %}
-                      {% else %}
-                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                      {% endif %}
-                    {%- endif -%}
+                    {% endif %}
                   {%- else -%}
                     {%- comment -%}Image-only (existing behavior){%- endcomment -%}
                     {% assign desktop_image = block.settings.slide_image_desktop %}
@@ -633,6 +614,7 @@
 </section>
 
 <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'responsive-video-loader.js' | asset_url }}" defer="defer"></script>
 {% comment %}
   <script>
     const slideColorSchemes = [
@@ -1008,41 +990,6 @@
       swiper.wrapperEl.style.backgroundColor = slideBackgroundColors[swiper.realIndex];
     }
 
-    function initializeHeroVideoFallbacks() {
-      if (!carouselElement) return;
-
-      const videos = carouselElement.querySelectorAll('.homepage-hero-carousel__bg-video, .homepage-hero-carousel__split-video');
-
-      videos.forEach((video) => {
-        const mediaWrapper = video.closest('.homepage-hero-carousel__media-wrapper--with-fallback');
-        if (!mediaWrapper) return;
-
-        let hasStartedPlaying = false;
-        const markReady = () => {
-          mediaWrapper.classList.add('is-video-ready');
-        };
-
-        if (!video.paused && video.readyState >= 3) {
-          hasStartedPlaying = true;
-          markReady();
-          return;
-        }
-
-        video.addEventListener('playing', () => {
-          hasStartedPlaying = true;
-          markReady();
-        }, { once: true });
-
-        const fallbackReady = () => {
-          if (hasStartedPlaying) return;
-          markReady();
-        };
-
-        video.addEventListener('canplay', fallbackReady, { once: true });
-        video.addEventListener('canplaythrough', fallbackReady, { once: true });
-      });
-    }
-
     if (carouselElement) {
       const swiper = new Swiper(carouselElement, {
         loop: {{ section.settings.enable_loop }},
@@ -1078,7 +1025,6 @@
               syncDesktopSlideHeights();
               updatePaginationColor(swiper);
               updateWrapperBackground(swiper); // Added
-              initializeHeroVideoFallbacks();
             }, 0);
           },
           slideChange: function(swiper) {

@@ -44,6 +44,15 @@
   display: none;
 }
 
+.cinematic-sauna-showcase__media--with-fallback .cinematic-sauna-showcase__video {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cinematic-sauna-showcase__media--with-fallback.is-video-ready .cinematic-sauna-showcase__video {
+  opacity: 1;
+}
+
 .cinematic-sauna-showcase__placeholder {
   display: flex;
   align-items: center;
