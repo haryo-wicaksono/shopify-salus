@@ -795,14 +795,6 @@
     "instagram_posts_slider_kTnUrz": {
       "type": "instagram-posts-slider",
       "blocks": {
-        "instagram_post_CYkwGh": {
-          "type": "instagram_post",
-          "settings": {
-            "image": "shopify://shop_images/If_you_ve_ever_felt_like_your_metabolism_slowed_down_or_your_stress_levels_won_t_let_you_rest_1.png",
-            "mobile_image": "shopify://shop_images/If_you_ve_ever_felt_like_your_metabolism_slowed_down_or_your_stress_levels_won_t_let_you_rest_1_ef4ce149-2501-4e9c-a48c-bf72c8a4eaeb.png",
-            "instagram_post_url": "https://www.instagram.com/p/DV9VNyYl47J/?img_index=1"
-          }
-        },
         "instagram_post_bbaPtz": {
           "type": "instagram_post",
           "settings": {
@@ -817,6 +809,14 @@
             "image": "shopify://shop_images/Would_you_quit_your_job_in_the_name_of_wellness_According_to_a_multinational_study_involving_tho_1.png",
             "mobile_image": "shopify://shop_images/Would_you_quit_your_job_in_the_name_of_wellness_According_to_a_multinational_study_involving_tho_1_682b76a2-2004-410c-bcc4-ef3e4fa0b4e6.png",
             "instagram_post_url": "https://www.instagram.com/p/DVrfRpKEqOf/?img_index=1"
+          }
+        },
+        "instagram_post_CYkwGh": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "shopify://shop_images/If_you_ve_ever_felt_like_your_metabolism_slowed_down_or_your_stress_levels_won_t_let_you_rest_1.png",
+            "mobile_image": "shopify://shop_images/If_you_ve_ever_felt_like_your_metabolism_slowed_down_or_your_stress_levels_won_t_let_you_rest_1_ef4ce149-2501-4e9c-a48c-bf72c8a4eaeb.png",
+            "instagram_post_url": "https://www.instagram.com/p/DV9VNyYl47J/?img_index=1"
           }
         },
         "instagram_post_rNteEK": {
@@ -837,9 +837,9 @@
         }
       },
       "block_order": [
-        "instagram_post_CYkwGh",
         "instagram_post_bbaPtz",
         "instagram_post_7cYMzz",
+        "instagram_post_CYkwGh",
         "instagram_post_rNteEK",
         "instagram_post_iiVPdr"
       ],
