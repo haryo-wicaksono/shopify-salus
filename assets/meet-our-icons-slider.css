@@ -202,11 +202,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   z-index: 1;
   opacity: 0;
   transition: opacity 0.3s ease;
+  background: #000;
 }
 
 .meet-our-icons-slider__media-wrapper.is-playing .meet-our-icons-slider__image,
