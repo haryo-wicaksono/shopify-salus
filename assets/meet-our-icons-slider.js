@@ -81,7 +81,11 @@
         }
       };
 
-      videoElement.addEventListener('pause', resetState);
+      videoElement.addEventListener('play', () => {
+        mediaWrapper.classList.add('is-playing');
+        currentPlayingVideo = videoElement;
+      });
+
       videoElement.addEventListener('ended', resetState);
 
       button.addEventListener('click', () => {
