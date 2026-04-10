@@ -58,21 +58,9 @@
   "
 >
   <div class="cinematic-sauna-showcase__frame">
-    <div class="cinematic-sauna-showcase__media">
+    <div class="cinematic-sauna-showcase__media{% if desktop_video != blank or mobile_video != blank %}{% if desktop_image != blank or mobile_image != blank %} cinematic-sauna-showcase__media--with-fallback{% endif %}{% endif %}" data-responsive-video-loader data-responsive-video-breakpoint="770">
       {% if has_desktop_media %}
-        {% if desktop_video != blank %}
-          {{
-            desktop_video
-            | video_tag:
-              class: 'cinematic-sauna-showcase__video cinematic-sauna-showcase__video--desktop',
-              autoplay: true,
-              loop: true,
-              muted: true,
-              playsinline: true,
-              controls: false,
-              preload: 'metadata'
-          }}
-        {% elsif desktop_image != blank %}
+        {% if desktop_image != blank %}
           <img
             class="cinematic-sauna-showcase__image cinematic-sauna-showcase__image--desktop"
             src="{{ desktop_image | image_url: width: 2400 }}"
@@ -92,19 +80,7 @@
       {% endif %}
 
       {% if has_mobile_media %}
-        {% if mobile_video != blank %}
-          {{
-            mobile_video
-            | video_tag:
-              class: 'cinematic-sauna-showcase__video cinematic-sauna-showcase__video--mobile',
-              autoplay: true,
-              loop: true,
-              muted: true,
-              playsinline: true,
-              controls: false,
-              preload: 'metadata'
-          }}
-        {% elsif mobile_image != blank %}
+        {% if mobile_image != blank %}
           <img
             class="cinematic-sauna-showcase__image cinematic-sauna-showcase__image--mobile"
             src="{{ mobile_image | image_url: width: 1200 }}"
@@ -120,6 +96,40 @@
             width="1200"
             height="{{ 1200 | divided_by: mobile_image.aspect_ratio | round }}"
           >
+        {% endif %}
+      {% endif %}
+
+      {% if desktop_video != blank or mobile_video != blank %}
+        <div data-responsive-video-mount></div>
+        {% if desktop_video != blank %}
+          <template data-video-breakpoint="desktop">
+            {{
+              desktop_video
+              | video_tag:
+                class: 'cinematic-sauna-showcase__video cinematic-sauna-showcase__video--desktop',
+                autoplay: true,
+                loop: true,
+                muted: true,
+                playsinline: true,
+                controls: false,
+                preload: 'metadata'
+            }}
+          </template>
+        {% endif %}
+        {% if mobile_video != blank %}
+          <template data-video-breakpoint="mobile">
+            {{
+              mobile_video
+              | video_tag:
+                class: 'cinematic-sauna-showcase__video cinematic-sauna-showcase__video--mobile',
+                autoplay: true,
+                loop: true,
+                muted: true,
+                playsinline: true,
+                controls: false,
+                preload: 'metadata'
+            }}
+          </template>
         {% endif %}
       {% endif %}
 
@@ -182,6 +192,8 @@
     </div>
   </div>
 </section>
+
+<script src="{{ 'responsive-video-loader.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}
 {
