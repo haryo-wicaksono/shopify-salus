@@ -47,7 +47,7 @@
               -%}
               <li class="indoor-outdoor-sauna-grid__item">
                 <article class="indoor-outdoor-sauna-card">
-                  <a href="{{ product.url }}" class="indoor-outdoor-sauna-card__image-link" aria-label="{{ product.title | escape }}">
+                  <a href="{{ product.url }}" class="indoor-outdoor-sauna-card__link" aria-label="{{ product.title | escape }}">
                     <div class="indoor-outdoor-sauna-card__media">
                       {%- if product.featured_media -%}
                         {% render 'image',
@@ -92,29 +92,30 @@
                         </span>
                       {%- endif -%}
                     </div>
-                  </a>
 
-                  <div class="indoor-outdoor-sauna-card__content">
-                    <a href="{{ product.url }}" class="indoor-outdoor-sauna-card__title">
-                      {{ product.title | escape }}
-                    </a>
-
-                    <div class="indoor-outdoor-sauna-card__price-row">
-                      <span class="indoor-outdoor-sauna-card__price">
-                        {{ product.price | money_without_trailing_zeros }}
+                    <div class="indoor-outdoor-sauna-card__content">
+                      <span class="indoor-outdoor-sauna-card__title">
+                        {{ product.title | escape }}
                       </span>
 
-                      {%- if product.compare_at_price > product.price -%}
-                        <span class="indoor-outdoor-sauna-card__compare">
-                          {{ product.compare_at_price | money_without_trailing_zeros }}
+                      <div class="indoor-outdoor-sauna-card__price-row">
+                        <span class="indoor-outdoor-sauna-card__price">
+                          {{ product.price | money_without_trailing_zeros }}
                         </span>
+
+                        {%- if product.compare_at_price > product.price -%}
+                          <span class="indoor-outdoor-sauna-card__compare">
+                            {{ product.compare_at_price | money_without_trailing_zeros }}
+                          </span>
+                        {%- endif -%}
+                      </div>
+
+                      {%- if current_variant == blank or current_variant.available == false -%}
+                        <span class="indoor-outdoor-sauna-card__status">Unavailable</span>
                       {%- endif -%}
                     </div>
 
-                    {%- if current_variant == blank or current_variant.available == false -%}
-                      <span class="indoor-outdoor-sauna-card__status">Unavailable</span>
-                    {%- endif -%}
-                  </div>
+                  </a>
                 </article>
               </li>
             {%- endfor -%}
@@ -136,7 +137,7 @@
 
                   <li class="slider__item indoor-outdoor-sauna-grid__item">
                     <article class="indoor-outdoor-sauna-card">
-                      <a href="{{ product.url }}" class="indoor-outdoor-sauna-card__image-link" aria-label="{{ product.title | escape }}">
+                      <a href="{{ product.url }}" class="indoor-outdoor-sauna-card__link" aria-label="{{ product.title | escape }}">
                         <div class="indoor-outdoor-sauna-card__media">
                           {%- if product.featured_media -%}
                             {% render 'image',
@@ -181,29 +182,29 @@
                             </span>
                           {%- endif -%}
                         </div>
-                      </a>
 
-                      <div class="indoor-outdoor-sauna-card__content">
-                        <a href="{{ product.url }}" class="indoor-outdoor-sauna-card__title">
-                          {{ product.title | escape }}
-                        </a>
-
-                        <div class="indoor-outdoor-sauna-card__price-row">
-                          <span class="indoor-outdoor-sauna-card__price">
-                            {{ product.price | money_without_trailing_zeros }}
+                        <div class="indoor-outdoor-sauna-card__content">
+                          <span class="indoor-outdoor-sauna-card__title">
+                            {{ product.title | escape }}
                           </span>
 
-                          {%- if product.compare_at_price > product.price -%}
-                            <span class="indoor-outdoor-sauna-card__compare">
-                              {{ product.compare_at_price | money_without_trailing_zeros }}
+                          <div class="indoor-outdoor-sauna-card__price-row">
+                            <span class="indoor-outdoor-sauna-card__price">
+                              {{ product.price | money_without_trailing_zeros }}
                             </span>
+
+                            {%- if product.compare_at_price > product.price -%}
+                              <span class="indoor-outdoor-sauna-card__compare">
+                                {{ product.compare_at_price | money_without_trailing_zeros }}
+                              </span>
+                            {%- endif -%}
+                          </div>
+
+                          {%- if current_variant == blank or current_variant.available == false -%}
+                            <span class="indoor-outdoor-sauna-card__status">Unavailable</span>
                           {%- endif -%}
                         </div>
-
-                        {%- if current_variant == blank or current_variant.available == false -%}
-                          <span class="indoor-outdoor-sauna-card__status">Unavailable</span>
-                        {%- endif -%}
-                      </div>
+                      </a>
                     </article>
                   </li>
                 {%- endfor -%}
