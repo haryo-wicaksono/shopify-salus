@@ -7,7 +7,7 @@
 .cinematic-sauna-showcase__frame {
   position: relative;
   width: 100%;
-  height: var(--cinematic-sauna-showcase-desktop-height, 560px);
+  height: min(max(var(--cinematic-sauna-showcase-desktop-height, 560px), calc(100vw * 9 / 16)), 768px);
   overflow: hidden;
   background: #111;
   margin-top: 40px;
