@@ -81,6 +81,14 @@
   color: #222120;
 }
 
+.indoor-outdoor-sauna-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
 .indoor-outdoor-sauna-card__image-link {
   display: block;
   text-decoration: none;
@@ -111,11 +119,13 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .indoor-outdoor-sauna-card__image-link:hover .indoor-outdoor-sauna-card__image--primary {
+  .indoor-outdoor-sauna-card:hover .indoor-outdoor-sauna-card__image--primary,
+  .indoor-outdoor-sauna-card:focus-within .indoor-outdoor-sauna-card__image--primary {
     opacity: 0;
   }
 
-  .indoor-outdoor-sauna-card__image-link:hover .indoor-outdoor-sauna-card__image--secondary {
+  .indoor-outdoor-sauna-card:hover .indoor-outdoor-sauna-card__image--secondary,
+  .indoor-outdoor-sauna-card:focus-within .indoor-outdoor-sauna-card__image--secondary {
     opacity: 1;
   }
 }
@@ -184,6 +194,8 @@
   text-overflow: ellipsis;
 }
 
+.indoor-outdoor-sauna-card:hover .indoor-outdoor-sauna-card__title,
+.indoor-outdoor-sauna-card:focus-within .indoor-outdoor-sauna-card__title,
 .indoor-outdoor-sauna-card__title:hover {
   text-decoration: underline;
 }
