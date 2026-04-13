@@ -624,6 +624,21 @@
     }
 }
 
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .homepage-hero-carousel__headline {
+        font-size: 36px;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__headline {
+        font-size: 34px;
+        max-width: 80%;
+    }
+
+    .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__description {
+        max-width: 80%;
+    }
+}
+
 
 /* --- Mobile Styles (max-width: 767px) --- */
 @media screen and (max-width: 767px) {
