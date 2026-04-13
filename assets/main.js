@@ -1002,13 +1002,11 @@ class StoreHeader extends HTMLElement {
         window.setHeaderHeight();
       }, this.headerTransitionSpeed);
     } else {
-      this.classList.add('search-is-closing');
       this.classList.remove('search-is-visible');
 
       setTimeout(() => {
         this.classList.add('search-is-collapsed');
-        this.classList.remove('search-is-closing');
-      }, this.headerTransitionSpeed);
+      });
 
       setTimeout(window.setHeaderHeight, this.headerTransitionSpeed);
     }
@@ -1045,9 +1043,10 @@ class StoreHeader extends HTMLElement {
    * Set a css variable to the height of the menu links
    */
   setMenuHeight() {
-    const menuHeight = this.menu ? this.menu.clientHeight : 0;
-    this.style.setProperty('--menu-height', `${menuHeight > 0 ? menuHeight + 16 : 0}px`);
-    document.documentElement.style.setProperty('--header-height', `${this.clientHeight}px`);
+    if (this.menu && this.menu.clientHeight) {
+      this.style.setProperty('--menu-height', `${this.menu.clientHeight + 16}px`);
+      document.documentElement.style.setProperty('--header-height', `${this.clientHeight}px`);
+    }
   }
 
   /**
