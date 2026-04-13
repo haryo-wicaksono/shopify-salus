@@ -1,11 +1,19 @@
 {{ 'meet-our-icons-slider.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'meet-our-icons-slider.js' | asset_url }}" defer="defer"></script>
 
+{% liquid
+  assign tablet_cards_per_row = section.settings.tablet_cards_per_row | default: 2
+
+  if tablet_cards_per_row == 2
+    assign tablet_cards_per_row = 3.5
+  endif
+%}
+
 <div
   class="meet-our-icons-slider meet-our-icons-slider-container mx-auto js-meet-our-icons-slider"
   style="
     --meet-our-icons-slider-mobile-columns: {{ section.settings.mobile_cards_per_row }};
-    --meet-our-icons-slider-tablet-columns: {{ section.settings.tablet_cards_per_row }};
+    --meet-our-icons-slider-tablet-columns: {{ tablet_cards_per_row }};
     --meet-our-icons-slider-desktop-columns: {{ section.settings.desktop_cards_per_row }};
   "
 >
