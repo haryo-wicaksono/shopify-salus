@@ -550,10 +550,63 @@
     display: none;
 }
 
+.homepage-hero-carousel__wrapper {
+    position: relative;
+}
+
+.homepage-hero-carousel__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(251, 251, 251, 0.32);
+    border-radius: 999px;
+    background: rgba(34, 33, 32, 0.32);
+    color: #FBFBFB;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.homepage-hero-carousel__arrow:hover {
+    background-color: #FBFBFB;
+    border-color: #FBFBFB;
+    color: #222120;
+}
+
+.homepage-hero-carousel__arrow:focus-visible {
+    outline: 2px solid #FBFBFB;
+    outline-offset: 3px;
+}
+
+.homepage-hero-carousel__arrow--prev {
+    left: 24px;
+    display: none;
+}
+
+.homepage-hero-carousel__arrow--next {
+    right: 24px;
+}
+
 /* Styling for pagination dots */
 .homepage-hero-carousel__pagination.swiper-pagination-bullets {
-    bottom: 30px;
-    /* Adjust position */
+    left: 50%;
+    bottom: 24px;
+    z-index: 5;
+    display: flex;
+    width: max-content;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(253, 247, 241, 0.88);
+    transform: translateX(-50%);
 }
 
 /* .homepage-hero-carousel__pagination .swiper-pagination-bullet {
@@ -694,8 +747,26 @@
         font-size: 15px;
     }
 
+    .homepage-hero-carousel__arrow {
+        display: flex;
+        width: 38px;
+        height: 38px;
+        top: calc(50% - 20px);
+        font-size: 20px;
+    }
+
+    .homepage-hero-carousel__arrow--prev {
+        display: none;
+        left: 16px;
+    }
+
+    .homepage-hero-carousel__arrow--next {
+        right: 16px;
+    }
+
     .homepage-hero-carousel__pagination.swiper-pagination-bullets {
-        bottom: 15px;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+        padding: 6px 10px;
     }
 
     /* Full-background centered layout on mobile */
@@ -816,6 +887,7 @@
     }
 }
 
+
 /* Placeholder content for theme editor when no blocks are added */
 .placeholder-content {
     display: flex;
@@ -921,7 +993,7 @@
 }
 
 .swiper-pagination.homepage-hero-carousel__pagination {
-    display: None;
+    display: none;
 }
 
 @media screen and (max-width:768px) {
@@ -932,6 +1004,8 @@
 
 /* 3. Default inactive dot (dark) - This rule already exists */
 .homepage-hero-carousel__pagination .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
     background-color: rgba(0, 0, 0, 1);
     opacity: 1;
 }
