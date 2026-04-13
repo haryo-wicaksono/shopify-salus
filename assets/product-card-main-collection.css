@@ -10,3 +10,25 @@
     padding-top: 0px;
     margin-bottom: 15px;
 }
+
+@media (hover: hover) and (pointer: fine) {
+    .main-products-grid .card--product > a:hover .card__media.has-hover-image .card__hover-image,
+    .main-products-grid .card--product > a:focus-visible .card__media.has-hover-image .card__hover-image {
+        visibility: visible;
+        transition: opacity 0.5s, visibility 0s;
+        opacity: 1;
+    }
+
+    .main-products-grid .card--product > a:hover .card__media.has-hover-image .card__main-image,
+    .main-products-grid .card--product > a:focus-visible .card__media.has-hover-image .card__main-image {
+        visibility: hidden;
+        transition: opacity 0.5s, visibility 0s 0.5s;
+        opacity: 0;
+    }
+}
+
+.main-products-grid .card--product > a:hover .card-link,
+.main-products-grid .card--product > a:focus-visible .card-link {
+    text-decoration-line: underline;
+    color: #1b413e;
+}
