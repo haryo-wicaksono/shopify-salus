@@ -22,44 +22,46 @@
   endif
 -%}
 
-{% if section.settings.topics != blank %}
-  <div class="collection-secondary-nav">
-    <div class="container">
-      <div class="blog-nav-inner">
-        <h4>Topic Categories:</h4>
-        <div class="col-nav">
-          <ul>
-            {% assign links = section.settings.topics | split: ',' %}
-            <li>
-              {% assign request_path = request.path | split: '/' | last %}
-              <a
-                href="/blogs/{{ blog.handle }}"
-                {% if request_path == blog.handle %}
-                  class="active"
-                {% endif %}
-              >
-                All Articles
-              </a>
-            </li>
-            {% for link in links %}
-              {% assign tag = link | handleize %}
+{% comment %}
+  {% if section.settings.topics != blank %}
+    <div class="collection-secondary-nav">
+      <div class="container">
+        <div class="blog-nav-inner">
+          <h4>Topic Categories:</h4>
+          <div class="col-nav">
+            <ul>
+              {% assign links = section.settings.topics | split: ',' %}
               <li>
+                {% assign request_path = request.path | split: '/' | last %}
                 <a
-                  href="/blogs/{{ blog.handle }}/tagged/{{ tag }}"
-                  {% if request.path contains tag %}
+                  href="/blogs/{{ blog.handle }}"
+                  {% if request_path == blog.handle %}
                     class="active"
                   {% endif %}
                 >
-                  {{- link -}}
+                  All Articles
                 </a>
               </li>
-            {% endfor %}
-          </ul>
+              {% for link in links %}
+                {% assign tag = link | handleize %}
+                <li>
+                  <a
+                    href="/blogs/{{ blog.handle }}/tagged/{{ tag }}"
+                    {% if request.path contains tag %}
+                      class="active"
+                    {% endif %}
+                  >
+                    {{- link -}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-{% endif %}
+  {% endif %}
+{% endcomment %}
 <div class="container">
   {% if section.settings.show_blog_title
     or section.settings.description != blank
