@@ -598,8 +598,20 @@
         </div>
 
         {% if section.settings.show_navigation_arrows %}
-          <button class="carousel-arrow arrow-left margin-left-50">❮</button>
-          <button class="carousel-arrow arrow-right margin-right-50">❯</button>
+          <button
+            type="button"
+            class="homepage-hero-carousel__arrow homepage-hero-carousel__arrow--prev"
+            aria-label="Previous slide"
+          >
+            ❮
+          </button>
+          <button
+            type="button"
+            class="homepage-hero-carousel__arrow homepage-hero-carousel__arrow--next"
+            aria-label="Next slide"
+          >
+            ❯
+          </button>
         {% endif %}
       </div>
     {% else %}
@@ -607,9 +619,14 @@
         {{ 'no_content' | t }}
       </div>
     {% endif %}
+    {% comment %}
+      Pagination disabled while using arrow-only navigation across breakpoints.
+    {% endcomment %}
+    {% comment %}
     {% if section.settings.show_pagination_dots %}
       <div class="swiper-pagination homepage-hero-carousel__pagination"></div>
     {% endif %}
+    {% endcomment %}
   </div>
 </section>
 
@@ -658,8 +675,8 @@
           },
 
           navigation: {
-            nextEl: '.carousel-arrow.arrow-right',
-            prevEl: '.carousel-arrow.arrow-left',
+            nextEl: '.homepage-hero-carousel__arrow--next',
+            prevEl: '.homepage-hero-carousel__arrow--prev',
           },
           {% comment %} autoHeight: true, {% endcomment %}
           a11y: {
@@ -765,8 +782,8 @@
           },
 
           navigation: {
-            nextEl: '.carousel-arrow.arrow-right',
-            prevEl: '.carousel-arrow.arrow-left',
+            nextEl: '.homepage-hero-carousel__arrow--next',
+            prevEl: '.homepage-hero-carousel__arrow--prev',
           },
           a11y: {
             enabled: true,
@@ -867,8 +884,8 @@
           },
 
           navigation: {
-            nextEl: '.carousel-arrow.arrow-right',
-            prevEl: '.carousel-arrow.arrow-left',
+            nextEl: '.homepage-hero-carousel__arrow--next',
+            prevEl: '.homepage-hero-carousel__arrow--prev',
           },
           {% comment %} autoHeight: true, {% endcomment %}
           a11y: {
@@ -1006,8 +1023,8 @@
         },
 
         navigation: {
-          nextEl: '.carousel-arrow.arrow-right',
-          prevEl: '.carousel-arrow.arrow-left',
+          nextEl: '.homepage-hero-carousel__arrow--next',
+          prevEl: '.homepage-hero-carousel__arrow--prev',
         },
         a11y: {
           enabled: true,
