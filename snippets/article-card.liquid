@@ -103,7 +103,7 @@
     <div class="flex-auto card__info-inner">
       <h2 class="card__title {% if featured %}h4{% else %}h6{% endif %}">
         {%- if article != blank -%}
-          <a href="{{ article.url }}" class="card-link text-current">{{ article.title | truncate: 60 | escape }}</a>
+          <a href="{{ article.url }}" class="card-link text-current">{{ article.title | escape }}</a>
         {%- else -%}
           {{ 'onboarding.article.title' | t }}
         {%- endif -%}

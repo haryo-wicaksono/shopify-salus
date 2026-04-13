@@ -41,66 +41,68 @@
     </div>
   </div>
 </div>
-{% if section.settings.blog_menu != blank %}
-  <div class="collection-secondary-nav">
-    <div class="container">
-      <div class="blog-nav-inner">
-        <h4>Topic Categories:</h4>
-        <div class="col-nav">
-          <ul>
-            {% for link in section.settings.blog_menu.links %}
-              <li>
-                <a
-                  href="{{ link.url }}"
-                  {% if link.active %}
-                    class="active"
-                  {% endif %}
-                >
-                  {{- link.title -}}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
+{% comment %}
+  {% if section.settings.blog_menu != blank %}
+    <div class="collection-secondary-nav">
+      <div class="container">
+        <div class="blog-nav-inner">
+          <h4>Topic Categories:</h4>
+          <div class="col-nav">
+            <ul>
+              {% for link in section.settings.blog_menu.links %}
+                <li>
+                  <a
+                    href="{{ link.url }}"
+                    {% if link.active %}
+                      class="active"
+                    {% endif %}
+                  >
+                    {{- link.title -}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-{% elsif blog.all_tags.size > 0 %}
-  <div class="collection-secondary-nav">
-    <div class="container">
-      <div class="blog-nav-inner">
-        <h4>Topic Categories:</h4>
-        <div class="col-nav">
-          <ul>
-            <li>
-              <a
-                href="{{ blog.url }}"
-                {% unless current_tags %}
-                  class="active"
-                {% endunless %}
-              >
-                All Articles
-              </a>
-            </li>
-            {% for tag in blog.all_tags %}
-              {% assign tag_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first %}
+  {% elsif blog.all_tags.size > 0 %}
+    <div class="collection-secondary-nav">
+      <div class="container">
+        <div class="blog-nav-inner">
+          <h4>Topic Categories:</h4>
+          <div class="col-nav">
+            <ul>
               <li>
                 <a
-                  href="{{ tag_url }}"
-                  {% if current_tags contains tag %}
+                  href="{{ blog.url }}"
+                  {% unless current_tags %}
                     class="active"
-                  {% endif %}
+                  {% endunless %}
                 >
-                  {{- tag -}}
+                  All Articles
                 </a>
               </li>
-            {% endfor %}
-          </ul>
+              {% for tag in blog.all_tags %}
+                {% assign tag_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first %}
+                <li>
+                  <a
+                    href="{{ tag_url }}"
+                    {% if current_tags contains tag %}
+                      class="active"
+                    {% endif %}
+                  >
+                    {{- tag -}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-{% endif %}
+  {% endif %}
+{% endcomment %}
 
 {% schema %}
 {
