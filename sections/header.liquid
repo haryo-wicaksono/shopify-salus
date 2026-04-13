@@ -22,11 +22,22 @@
     assign search_is_minimised = true
   endif
 
+  assign desktop_nav_search_swap = false
+  if section.settings.enable_search and section.settings.menu != blank
+    assign desktop_nav_search_swap = true
+    assign search_is_minimised = true
+  endif
+
   assign show_search_types = false
   if settings.show_search_types and shop.types
     assign show_search_types = true
   endif
 -%}
+
+{%- assign featured_links = '' -%}
+{%- if section.settings.menu != blank -%}
+  {%- assign featured_links = section.settings.menu_featured_link | downcase | replace: ', ', ',' | replace: ' ,', ',' | split: ',' -%}
+{%- endif -%}
 
 {%- style -%}
   .header {
@@ -45,16 +56,6 @@
     {% if settings.cart_shaking and cart != empty %}
       --shake-delay: 4s;
     {% endif %}
-  }
-
-  @media screen and (max-width: 768px) {
-    .header__icon.icon-customer.text-current {
-      display: None;
-    }
-
-    #cart-icon {
-      display: None;
-    }
   }
 
 {%- endstyle -%}
@@ -121,12 +122,12 @@
       {%- endif -%}
 
       <div
-        class="header__search{% if section.settings.minimise_search_mobile %} header__search--collapsible-mob{% endif %}{% if section.settings.minimise_search_desktop %} header__search--collapsible-desktop{% endif %}{% if search_is_minimised %} js-search-bar{% endif %} relative js-closes-menu"
+        class="header__search{% if section.settings.minimise_search_mobile %} header__search--collapsible-mob{% endif %}{% if section.settings.minimise_search_desktop or desktop_nav_search_swap %} header__search--collapsible-desktop{% endif %}{% if desktop_nav_search_swap %} header__search--nav-swap-desktop{% endif %}{% if search_is_minimised %} js-search-bar{% endif %} relative js-closes-menu"
         {% if search_is_minimised %}
           id="search-bar"
         {% endif %}
       >
-        {%- if section.settings.logo_center and section.settings.minimise_search_desktop -%}
+        {%- if section.settings.logo_center and section.settings.minimise_search_desktop and desktop_nav_search_swap == false -%}
           <a
             class="header__icon header__icon--search-left absolute hidden md:block js-show-search-left"
             href="{{ routes.search_url }}"
@@ -140,6 +141,36 @@
             </span>
             <span class="visually-hidden">{{ 'general.icon_labels.search' | t }}</span>
           </a>
+        {%- endif -%}
+
+        {%- if desktop_nav_search_swap -%}
+          <nav
+            class="header__desktop-nav-strip"
+            aria-label="{{ 'accessibility.main_navigation' | t }}"
+          >
+            <ul class="header__desktop-nav-list" role="list">
+              {%- for link in section.settings.menu.links -%}
+                {%- assign link_title_downcase = link.title | downcase -%}
+                <li>
+                  <a
+                    class="header__desktop-nav-link{% if link.current %} is-active{% endif %}{% if featured_links contains link_title_downcase %} header__desktop-nav-link--featured{% endif %}"
+                    href="{{ link.url }}"
+                    {% if link.current %}
+                      aria-current="page"
+                    {% endif %}
+                    {% if link.title == 'Salus Specials' %}
+                      style="color: #f03636; font-weight: 600;"
+                    {% endif %}
+                  >
+                    <span>{{- link.title | escape -}}</span>
+                    {%- if link.title == 'Salus Specials' -%}
+                      {% render 'icon-percentage' %}
+                    {%- endif -%}
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </nav>
         {%- endif -%}
 
         {% render 'predictive-search', id: 'header-search', show_search_types: false %}
@@ -210,7 +241,14 @@
             and section.settings.minimise_search_desktop
           -%}
             {%- liquid
-              if section.settings.logo_center and section.settings.minimise_search_mobile
+              assign search_button_class = ''
+              if desktop_nav_search_swap
+                if section.settings.minimise_search_mobile
+                  assign search_button_class = ''
+                else
+                  assign search_button_class = 'hidden md:block'
+                endif
+              elsif section.settings.logo_center and section.settings.minimise_search_mobile
                 assign search_button_class = 'md:hidden'
               elsif section.settings.minimise_search_mobile and section.settings.minimise_search_desktop == false
                 assign search_button_class = 'md:hidden'
@@ -280,14 +318,8 @@
 
     {%- if section.settings.menu != blank -%}
       {%- assign total_promo_count = 0 -%}
-      {%- assign featured_links = section.settings.menu_featured_link
-        | downcase
-        | replace: ', ', ','
-        | replace: ' ,', ','
-        | split: ','
-      -%}
       <main-menu
-        class="main-menu{% if section.settings.mobile_menu_position == "burger-left" %} main-menu--left-mob{% endif %}"
+        class="main-menu{% if section.settings.mobile_menu_position == "burger-left" %} main-menu--left-mob{% endif %}{% if desktop_nav_search_swap %} main-menu--desktop-hidden{% endif %}"
         data-menu-sensitivity="200"
       >
         <details class="main-menu__disclosure{% if section.settings.enable_sticky %} has-motion{% endif %}" open>
