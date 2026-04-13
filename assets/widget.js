@@ -42,9 +42,9 @@
       height: 64px;
       border: 0;
       border-radius: 999px;
-      background: linear-gradient(135deg, #1a4731 0%, #264e3a 100%);
+      background: rgb(31, 138, 129);
       color: #ffffff;
-      box-shadow: 0 18px 40px rgba(26, 71, 49, 0.28);
+      box-shadow: 0 18px 40px rgba(31, 138, 129, 0.28);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -55,8 +55,8 @@
     .salus-widget__bubble:hover,
     .salus-widget__bubble:focus-visible {
       transform: translateY(-6px);
-      background: #348E85;
-      box-shadow: 0 24px 48px rgba(52, 142, 133, 0.35);
+      background: #1f8a81;
+      box-shadow: 0 24px 48px rgba(31, 138, 129, 0.35);
       outline: none;
     }
 
