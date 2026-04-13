@@ -45,6 +45,39 @@
             "color_scheme": "light"
           }
         },
+        "hero_slide_rAiWtc": {
+          "type": "hero-slide",
+          "settings": {
+            "slide_layout": "full-background-centered",
+            "custom_content_bg": "",
+            "slide_image_desktop": "shopify://shop_images/Hero_-_section.png",
+            "desktop_image_alt": "",
+            "slide_image_mobile": "shopify://shop_images/Frame_17322.png",
+            "mobile_image_alt": "",
+            "bg_video_desktop": "shopify://files/videos/HERO VIDEO - Desktop (online-video-cutter.com).mp4",
+            "bg_video_mobile": "shopify://files/videos/HERO VIDEO - Mobile (1) (online-video-cutter.com) (1).mp4",
+            "split_media_type": "image",
+            "show_stars": true,
+            "show_house_icon": false,
+            "reviews_text": "100s of verified 5-star reviews",
+            "headline": "One ritual, many forms. Designed for how you live and unwind.",
+            "mobile_headline": "One ritual, many forms. Made for how you live and unwind.",
+            "description": "<p>Premium saunas for every space — indoor, outdoor, traditional, infrared, and hybrid. Find your perfect ritual.</p>",
+            "mobile_description": "<p>Premium saunas for every space — indoor, outdoor, traditional, infrared, and hybrid.</p>",
+            "button1_text": "Shop All Saunas",
+            "mobile_button1_text": "",
+            "button1_link": "shopify://collections/all-saunas",
+            "show_button1_arrow": true,
+            "button2_text": "Talk to Us",
+            "mobile_button2_text": "",
+            "button2_link": "shopify://pages/contact",
+            "feature_item_1": "",
+            "feature_item_2": "",
+            "feature_item_3": "",
+            "feature_item_4": "",
+            "color_scheme": "light"
+          }
+        },
         "hero_slide_J4eVMm": {
           "type": "hero-slide",
           "disabled": true,
@@ -144,6 +177,7 @@
       },
       "block_order": [
         "hero_slide_GT4wWK",
+        "hero_slide_rAiWtc",
         "hero_slide_J4eVMm",
         "hero_slide_PxmF3b",
         "hero_slide_gQxa68"
