@@ -116,7 +116,7 @@
     "header": {
       "type": "header",
       "blocks": {
-        "columns_wNqK9K": {
+        "sidebar_wNqK9K": {
           "type": "sidebar",
           "settings": {
             "title": "Saunas",
@@ -147,7 +147,7 @@
             "badge3_text": ""
           }
         },
-        "columns_3fnJRk": {
+        "sidebar_3fnJRk": {
           "type": "sidebar",
           "settings": {
             "title": "Cold Plunges",
@@ -414,8 +414,8 @@
         }
       },
       "block_order": [
-        "columns_wNqK9K",
-        "columns_3fnJRk",
+        "sidebar_wNqK9K",
+        "sidebar_3fnJRk",
         "columns_BjLAQB",
         "columns_LcMrCU",
         "columns_4gALyE",
