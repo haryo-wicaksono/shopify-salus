@@ -1343,6 +1343,11 @@ class MainMenu extends HTMLElement {
    * @param {Element} menuElem - The menu element to open.
    */
   openMenuFromMouseEnter(menuElem) {
+    if (theme.mediaMatches.md && menuElem.closest('.main-nav__item--desktop-direct')) {
+      this.handleClose();
+      return;
+    }
+
     trapFocus(menuElem);
 
     const disclosure = menuElem.closest('details');
@@ -1367,6 +1372,10 @@ class MainMenu extends HTMLElement {
   static handleNavClick(evt) {
     const mainMenuContent = evt.target.closest('.main-menu__content');
     let el = evt.target;
+
+    if (theme.mediaMatches.md && evt.target.closest('.main-nav__item--desktop-direct')) {
+      return;
+    }
 
     // Handle sidebar link clicks
     if (theme.mediaMatches.md && el.matches('.js-sidebar-hover') && el.closest('summary')) {
@@ -1612,6 +1621,38 @@ class MainMenu extends HTMLElement {
 }
 
 customElements.define('main-menu', MainMenu);
+
+document.addEventListener('click', (evt) => {
+  if (window.innerWidth <= 1024) return;
+
+  const trigger = evt.target.closest('[data-desktop-accordion-trigger]');
+  if (!trigger) return;
+
+  evt.preventDefault();
+
+  const currentItem = trigger.closest('[data-desktop-accordion-item]');
+  const accordion = trigger.closest('[data-desktop-accordion]');
+  if (!currentItem || !accordion) return;
+
+  const megaMenu = trigger.closest('.desktop-gemini-mega-menu');
+  const targetPanel = trigger.dataset.desktopGroupTarget;
+
+  accordion.querySelectorAll('[data-desktop-accordion-item]').forEach((item) => {
+    const isCurrent = item === currentItem;
+    item.classList.toggle('is-active', isCurrent);
+
+    const itemTrigger = item.querySelector('[data-desktop-accordion-trigger]');
+    if (itemTrigger) {
+      itemTrigger.setAttribute('aria-expanded', isCurrent ? 'true' : 'false');
+    }
+  });
+
+  if (megaMenu && targetPanel) {
+    megaMenu.querySelectorAll('[data-desktop-product-panel]').forEach((panel) => {
+      panel.classList.toggle('is-active', panel.dataset.desktopProductPanel === targetPanel);
+    });
+  }
+});
 
 class CarouselSlider extends HTMLElement {
   constructor() {
