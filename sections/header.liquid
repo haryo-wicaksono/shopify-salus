@@ -17,12 +17,8 @@
     endfor
   endif
 
-  assign search_is_minimised = false
-  if section.settings.enable_search and section.settings.menu != blank
-    assign search_is_minimised = true
-  elsif section.settings.minimise_search_mobile or section.settings.minimise_search_desktop
-    assign search_is_minimised = true
-  endif
+  assign search_is_minimised_mobile = section.settings.minimise_search_mobile
+  assign search_is_minimised = search_is_minimised_mobile
 
   assign show_search_types = false
   if settings.show_search_types and shop.types
@@ -43,8 +39,8 @@
 {%- liquid
   assign header_phone_label = '(888) 287-0111'
   assign header_phone_href = '+18882870111'
-  assign header_email_label = 'sales@salussaunas.com'
-  assign header_email_href = 'mailto:sales@salussaunas.com'
+  assign header_email_label = 'Contact Us'
+  assign header_email_href = '/pages/contact-us'
 -%}
 
 {%- style -%}
@@ -79,9 +75,13 @@
   style="--header-transition-speed: 300ms"
 >
   <header class="header__grid{% if section.settings.logo_center %} header__grid--centered-logo{% else %} header__grid--left-logo{% endif %} container flex flex-wrap items-center">
-    <div class="header__utility hidden md:flex items-center js-closes-menu">
-      <a class="header__utility-link" href="tel:{{ header_phone_href }}">{{ header_phone_label }}</a>
-      <a class="header__utility-link" href="{{ header_email_href }}">{{ header_email_label }}</a>
+    <div class="header__desktop-left hidden md:flex">
+      <div class="header__utility items-center js-closes-menu">
+        <a class="header__utility-link" href="tel:{{ header_phone_href }}">{{ header_phone_label }}</a>
+        <a class="header__utility-link" href="{{ header_email_href }}">{{ header_email_label }}</a>
+      </div>
+
+      {% render 'desktop-gemini-nav', section: section %}
     </div>
 
     <div class="header__logo logo{% if section.settings.logo_center %} text-center{% endif %} flex js-closes-menu">
@@ -119,73 +119,51 @@
       {%- if request.page_type == 'index' and section.settings.logo_h1 -%}
         </h1>
       {%- endif -%}
-
-      {% render 'desktop-gemini-nav', section: section %}
     </div>
 
-    {%- if section.settings.enable_search -%}
-      {%- if settings.enable_predictive_search -%}
-        <link
-          rel="stylesheet"
-          href="{{ 'predictive-search.css' | asset_url }}"
-          {% unless show_search_types %}
-            media="print" onload="this.media='all'"
-          {% endunless %}
-        >
-        <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
-        <script src="{{ 'tabs.js' | asset_url }}" defer="defer"></script>
-      {%- endif -%}
+    <div class="header__desktop-right">
+      <div class="header__utility header__utility--ghost items-center" aria-hidden="true">
+        <span class="header__utility-link">{{ header_phone_label }}</span>
+        <span class="header__utility-link">{{ header_email_label }}</span>
+      </div>
 
-      <div
-        class="header__search{% if section.settings.minimise_search_mobile %} header__search--collapsible-mob{% endif %}{% if section.settings.minimise_search_desktop or search_is_minimised %} header__search--collapsible-desktop{% endif %}{% if search_is_minimised %} js-search-bar{% endif %} relative js-closes-menu"
-        {% if search_is_minimised %}
-          id="search-bar"
-        {% endif %}
-      >
-        {%- if section.settings.logo_center and section.settings.minimise_search_desktop -%}
-          <a
-            class="header__icon header__icon--search-left absolute hidden md:block js-show-search-left"
-            href="{{ routes.search_url }}"
-            aria-controls="search-bar"
+      <div class="header__desktop-right-main">
+        {%- if section.settings.enable_search -%}
+          {%- if settings.enable_predictive_search -%}
+            <link
+              rel="stylesheet"
+              href="{{ 'predictive-search.css' | asset_url }}"
+              {% unless show_search_types %}
+                media="print" onload="this.media='all'"
+              {% endunless %}
+            >
+            <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+            <script src="{{ 'tabs.js' | asset_url }}" defer="defer"></script>
+          {%- endif -%}
+
+          <div
+            class="header__search{% if section.settings.minimise_search_mobile %} header__search--collapsible-mob{% endif %} header__search--desktop-inline{% if search_is_minimised %} js-search-bar{% endif %} relative js-closes-menu"
+            {% if search_is_minimised %}
+              id="search-bar"
+            {% endif %}
           >
-            <span class="header__icon--search-left-search">
-              {% render 'icon-search' %}
-            </span>
-            <span class="header__icon--search-left-close">
-              {% render 'icon-close' %}
-            </span>
-            <span class="visually-hidden">{{ 'general.icon_labels.search' | t }}</span>
-          </a>
+            {% render 'predictive-search', id: 'header-search', show_search_types: false %}
+          </div>
+        {%- elsif section.settings.logo_center -%}
+          <div class="header__search"></div>
         {%- endif -%}
 
-        {% render 'predictive-search', id: 'header-search', show_search_types: false %}
-      </div>
-    {%- elsif section.settings.logo_center -%}
-      <div class="header__search"></div>
-    {%- endif -%}
-
-    <div class="header__icons flex justify-end mis-auto js-closes-menu">
-      <div class="header__icons-wrapper">
-        {%- if section.settings.enable_search and search_is_minimised -%}
-          {%- unless section.settings.logo_center
-            and section.settings.minimise_search_mobile == false
-            and section.settings.minimise_search_desktop
-          -%}
-            {%- liquid
-              assign search_button_class = ''
-              if section.settings.minimise_search_mobile == false and section.settings.minimise_search_desktop
-                assign search_button_class = 'hidden md:block'
-              endif
-            -%}
+        <div class="header__icons flex justify-end mis-auto js-closes-menu">
+          <div class="header__icons-wrapper">
+        {%- if section.settings.enable_search and search_is_minimised_mobile -%}
             <a
-              class="header__icon {{ search_button_class }} js-show-search"
+              class="header__icon md:hidden js-show-search"
               href="{{ routes.search_url }}"
               aria-controls="search-bar"
             >
               {% render 'icon-search' %}
               <span class="visually-hidden">{{ 'general.icon_labels.search' | t }}</span>
             </a>
-          {%- endunless -%}
         {%- endif -%}
         {%- if shop.customer_accounts_enabled -%}
           {%- if customer -%}
@@ -234,6 +212,8 @@
             {%- endif -%}
           </div>
         </a>
+          </div>
+        </div>
       </div>
     </div>
 

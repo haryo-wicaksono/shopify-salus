@@ -4848,8 +4848,10 @@
   .header__icons {
     margin-inline-end: 0px;
     margin-inline-start: 0px;
-    width: 30px;
-    height: 30px;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
   }
 
   store-header .main-menu__toggle {
@@ -4859,7 +4861,7 @@
   }
 
   store-header .icon-customer {
-    max-width: 19px;
+    max-width: none;
     padding: 0px;
   }
 

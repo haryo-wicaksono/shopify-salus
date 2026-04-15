@@ -126,7 +126,7 @@ main-menu.main-menu nav.secondary-nav-container {
 }
 
 .header__icons {
-  gap: 40px;
+  gap: 0;
 }
 
 .secondary-nav__cta {
