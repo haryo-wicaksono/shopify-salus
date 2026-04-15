@@ -505,7 +505,7 @@
           "type": "desktop_nav_panel",
           "settings": {
             "parent_nav_key": "cold-plunges",
-            "parent_group_key": "model",
+            "parent_group_key": "loki",
             "nested_item_slot": "none",
             "feature_image": "shopify://shop_images/Frame_17386.png",
             "feature_heading": "The Loki series has arrived. Cold immersion, reimagined.",
