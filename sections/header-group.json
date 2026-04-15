@@ -386,6 +386,76 @@
             "entry_10_url": ""
           }
         },
+        "desktop_nav_item_PYhMyp": {
+          "type": "desktop_nav_item",
+          "settings": {
+            "nav_key": "cold-plunges",
+            "label": "Cold Plunges",
+            "url": "",
+            "explore_label": "Explore All Cold Plunges",
+            "explore_url": "shopify://collections/cold-plunges"
+          }
+        },
+        "desktop_nav_group_qbrVfg": {
+          "type": "desktop_nav_group",
+          "settings": {
+            "parent_nav_key": "cold-plunges",
+            "group_key": "model",
+            "label": "Explore by Model",
+            "group_type": "cards",
+            "default_nested_item": "item_1",
+            "entry_1_label": "Snowpiercer",
+            "entry_1_url": "https://www.salussaunas.com/products/snowpiercer",
+            "entry_2_label": "Dynamic",
+            "entry_2_url": "https://www.salussaunas.com/products/dynamic",
+            "entry_3_label": "Salus Saunas Ice Bath",
+            "entry_3_url": "https://www.salussaunas.com/products/salus-ice-bath",
+            "entry_4_label": "",
+            "entry_4_url": "",
+            "entry_5_label": "",
+            "entry_5_url": "",
+            "entry_6_label": "",
+            "entry_6_url": "",
+            "entry_7_label": "",
+            "entry_7_url": "",
+            "entry_8_label": "",
+            "entry_8_url": "",
+            "entry_9_label": "",
+            "entry_9_url": "",
+            "entry_10_label": "",
+            "entry_10_url": ""
+          }
+        },
+        "desktop_nav_group_qRaWfm": {
+          "type": "desktop_nav_group",
+          "settings": {
+            "parent_nav_key": "cold-plunges",
+            "group_key": "loki",
+            "label": "Loki Luxury Series",
+            "group_type": "feature_image",
+            "default_nested_item": "item_1",
+            "entry_1_label": "Loki Thermo-Ash Ardesia Nero",
+            "entry_1_url": "https://www.salussaunas.com/products/thermo-ash-ardesia-nero",
+            "entry_2_label": "Loki Ardesia Nero",
+            "entry_2_url": "https://www.salussaunas.com/products/ardesia-nero",
+            "entry_3_label": "Loki Thermo Ash-Desir Noir",
+            "entry_3_url": "https://www.salussaunas.com/products/salus-ice-bath",
+            "entry_4_label": "Loki Thermo Ash-Invisible White",
+            "entry_4_url": "https://www.salussaunas.com/products/thermo-ash-invisible-white",
+            "entry_5_label": "Loki Diamond Cream",
+            "entry_5_url": "https://www.salussaunas.com/products/diamond-cream",
+            "entry_6_label": "Loki Ardesia Bianco",
+            "entry_6_url": "https://www.salussaunas.com/products/ardesia-bianco",
+            "entry_7_label": "Loki Porfido Marrone",
+            "entry_7_url": "https://www.salussaunas.com/products/porfido-marrone",
+            "entry_8_label": "Loki Grigio Blend",
+            "entry_8_url": "https://www.salussaunas.com/products/grigio-blend",
+            "entry_9_label": "Loki Calacatta Black",
+            "entry_9_url": "https://www.salussaunas.com/products/calacatta-black",
+            "entry_10_label": "",
+            "entry_10_url": ""
+          }
+        },
         "columns_wNqK9K": {
           "type": "sidebar",
           "disabled": true,
@@ -713,6 +783,9 @@
         "desktop_nav_panel_UiUarA",
         "desktop_nav_group_JHXfEx",
         "desktop_nav_group_rdhM9e",
+        "desktop_nav_item_PYhMyp",
+        "desktop_nav_group_qbrVfg",
+        "desktop_nav_group_qRaWfm",
         "columns_wNqK9K",
         "columns_3fnJRk",
         "columns_BjLAQB",
