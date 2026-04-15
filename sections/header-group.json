@@ -858,6 +858,36 @@
             "card_6_url": ""
           }
         },
+        "desktop_nav_group_gV9tEc": {
+          "type": "desktop_nav_group",
+          "settings": {
+            "parent_nav_key": "more",
+            "group_key": "resources",
+            "label": "Resources",
+            "group_type": "feature_image",
+            "default_nested_item": "item_1",
+            "entry_1_label": "Electrical Information",
+            "entry_1_url": "https://www.salussaunas.com/pages/electrical-information",
+            "entry_2_label": "Sauna Owner's Manuals",
+            "entry_2_url": "https://www.salussaunas.com/collections/owner-manuals",
+            "entry_3_label": "Heater Owner's Manuals",
+            "entry_3_url": "https://www.salussaunas.com/pages/heater-manuals",
+            "entry_4_label": "Warranty",
+            "entry_4_url": "https://www.salussaunas.com/pages/sauna-warranty",
+            "entry_5_label": "",
+            "entry_5_url": "",
+            "entry_6_label": "",
+            "entry_6_url": "",
+            "entry_7_label": "",
+            "entry_7_url": "",
+            "entry_8_label": "",
+            "entry_8_url": "",
+            "entry_9_label": "",
+            "entry_9_url": "",
+            "entry_10_label": "",
+            "entry_10_url": ""
+          }
+        },
         "columns_wNqK9K": {
           "type": "sidebar",
           "disabled": true,
@@ -1200,6 +1230,7 @@
         "desktop_nav_panel_Drgrnn",
         "desktop_nav_group_qbHc3D",
         "desktop_nav_panel_Qg9eKx",
+        "desktop_nav_group_gV9tEc",
         "columns_wNqK9K",
         "columns_3fnJRk",
         "columns_BjLAQB",
