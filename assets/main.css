@@ -5800,7 +5800,7 @@ body>.os-scrollbar {
     gap: 2.4rem;
     font-size: 1.3rem;
     font-weight: 400;
-    color: #888;
+    color: #90908F;
   }
 
   .header__utility-link {
@@ -5808,7 +5808,7 @@ body>.os-scrollbar {
     align-items: center;
     font-size: 1.3rem;
     font-weight: 400;
-    color: #888;
+    color: #90908F;
     transition: color 0.2s ease;
   }
 
@@ -6101,7 +6101,7 @@ body>.os-scrollbar {
   .main-nav__item-header {
     padding-top: 1.8rem;
     padding-bottom: 1.8rem;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 600;
     letter-spacing: 0.04em;
   }
@@ -6550,7 +6550,7 @@ body>.os-scrollbar {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 3.2rem;
+    gap: 2.4rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -6566,10 +6566,10 @@ body>.os-scrollbar {
     align-items: center;
     padding-bottom: 0.8rem;
     font-size: 1.3rem;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: #555;
+    color: #222120;
     transition: color 0.2s ease;
   }
 
@@ -6624,7 +6624,7 @@ body>.os-scrollbar {
   .desktop-gemini-mega-inner {
     display: flex;
     width: 100%;
-    max-width: 160rem;
+    max-width: none;
     min-height: 52rem;
     margin: 0 auto;
     background: #fff;
@@ -6879,7 +6879,7 @@ body>.os-scrollbar {
   }
 
   .desktop-gemini-feature-panel:not(.desktop-gemini-feature-panel--dark) .desktop-gemini-feature-panel__overlay {
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.28) 45%, rgba(255, 255, 255, 0) 100%);
+    background: none;
   }
 
   .desktop-gemini-feature-panel__content {
@@ -10866,7 +10866,7 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
     gap: 2.4rem;
     font-size: 1.3rem;
     font-weight: 400;
-    color: #888;
+    color: #90908F;
     order: initial;
     flex: 0 0 auto;
   }
@@ -10876,7 +10876,7 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
     align-items: center;
     font-size: 1.3rem;
     font-weight: 400;
-    color: #888;
+    color: #90908F;
     letter-spacing: 0;
     transition: color 0.2s ease;
   }

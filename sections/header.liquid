@@ -168,12 +168,12 @@
         {%- if shop.customer_accounts_enabled -%}
           {%- if customer -%}
             <a class="header__icon header__icon--account text-current" href="{{ routes.account_url }}">
-              {% render 'icon-customer' %}
+              {% render 'profile-icon' %}
               <span class="visually-hidden">{{ 'sections.header.account' | t }}</span>
             </a>
           {%- else -%}
             <a class="header__icon header__icon--account icon-customer text-current" href="{{ routes.account_login_url }}">
-              {% render 'icon-customer' %}
+              {% render 'profile-icon' %}
               <span class="visually-hidden">{{ 'sections.header.log_in' | t }}</span>
             </a>
           {%- endif -%}
@@ -190,16 +190,8 @@
             data-no-instant
           {% endif %}
         >
-          {%- if settings.cart_icon == 'bag' -%}
-            {%- render 'icon-bag' -%}
-            <span class="visually-hidden">{{ 'sections.header.bag' | t }}</span>
-          {%- elsif settings.cart_icon == 'basket' -%}
-            {%- render 'icon-basket' -%}
-            <span class="visually-hidden">{{ 'sections.header.basket' | t }}</span>
-          {%- else -%}
-            {%- render 'icon-cart' -%}
-            <span class="visually-hidden">{{ 'sections.header.cart' | t }}</span>
-          {%- endif -%}
+          {%- render 'cart-icon' -%}
+          <span class="visually-hidden">{{ 'sections.header.cart' | t }}</span>
 
           <div id="cart-icon-bubble">
             {%- if cart != empty -%}
