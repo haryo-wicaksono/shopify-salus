@@ -1,0 +1,46 @@
+{%- liquid
+  assign feature_heading = panel_block.settings.feature_heading
+  assign feature_cta_label = panel_block.settings.feature_cta_label
+  assign feature_cta_url = panel_block.settings.feature_cta_url
+  assign feature_image = panel_block.settings.feature_image
+  assign feature_dark_mode = panel_block.settings.feature_dark_mode
+-%}
+
+{%- if feature_heading != blank or feature_image != blank or feature_cta_label != blank -%}
+  {%- if feature_cta_url != blank -%}
+    <a
+      href="{{ feature_cta_url }}"
+      class="desktop-gemini-feature-panel{% if feature_dark_mode %} desktop-gemini-feature-panel--dark{% endif %}"
+    >
+  {%- else -%}
+    <div class="desktop-gemini-feature-panel{% if feature_dark_mode %} desktop-gemini-feature-panel--dark{% endif %}">
+  {%- endif -%}
+      <div class="desktop-gemini-feature-panel__media">
+        {%- if feature_image != blank -%}
+          {% render 'image',
+            image: feature_image,
+            src_width: 1200,
+            srcset_2x: true,
+            alt_text: feature_heading,
+            class: 'img-fit'
+          %}
+        {%- endif -%}
+      </div>
+      <div class="desktop-gemini-feature-panel__overlay"></div>
+      <div class="desktop-gemini-feature-panel__content">
+        {%- if feature_heading != blank -%}
+          <h2>{{- feature_heading -}}</h2>
+        {%- endif -%}
+        {%- if feature_cta_label != blank -%}
+          <span class="desktop-gemini-feature-panel__cta">
+            <span>{{- feature_cta_label -}}</span>
+            {% render 'icon-arrow-right' %}
+          </span>
+        {%- endif -%}
+      </div>
+  {%- if feature_cta_url != blank -%}
+    </a>
+  {%- else -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}

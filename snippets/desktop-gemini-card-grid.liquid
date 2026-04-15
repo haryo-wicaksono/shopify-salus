@@ -1,0 +1,68 @@
+{%- liquid
+  assign slot_range = '1|2|3|4|5|6' | split: '|'
+-%}
+
+<div class="desktop-gemini-card-grid">
+  {%- for slot in slot_range -%}
+    {%- liquid
+      assign resource_type_key = 'card_' | append: slot | append: '_resource_type'
+      assign product_key = 'card_' | append: slot | append: '_product'
+      assign collection_key = 'card_' | append: slot | append: '_collection'
+      assign title_key = 'card_' | append: slot | append: '_title'
+      assign url_key = 'card_' | append: slot | append: '_url'
+      assign image_key = 'card_' | append: slot | append: '_image'
+
+      assign resource_type = panel_block.settings[resource_type_key]
+      assign linked_product = panel_block.settings[product_key]
+      assign linked_collection = panel_block.settings[collection_key]
+      assign custom_title = panel_block.settings[title_key]
+      assign custom_url = panel_block.settings[url_key]
+      assign custom_image = panel_block.settings[image_key]
+
+      assign fallback_title = ''
+      assign fallback_url = ''
+      assign fallback_image = blank
+
+      if resource_type == 'product' and linked_product != blank
+        assign fallback_title = linked_product.title
+        assign fallback_url = linked_product.url
+        assign fallback_image = linked_product.featured_image
+      elsif resource_type == 'collection' and linked_collection != blank
+        assign fallback_title = linked_collection.title
+        assign fallback_url = linked_collection.url
+        assign fallback_image = linked_collection.featured_image
+      endif
+
+      assign card_title = custom_title | default: fallback_title
+      assign card_url = custom_url | default: fallback_url
+      assign card_image = custom_image | default: fallback_image
+    -%}
+
+    {%- if card_title != blank or card_url != blank or card_image != blank -%}
+      {%- if card_url != blank -%}
+        <a href="{{ card_url }}" class="desktop-gemini-card">
+      {%- else -%}
+        <div class="desktop-gemini-card">
+      {%- endif -%}
+        <div class="desktop-gemini-card__image">
+          {%- if card_image != blank -%}
+            {% render 'image',
+              image: card_image,
+              src_width: 480,
+              srcset_2x: true,
+              alt_text: card_title,
+              class: 'img-fit'
+            %}
+          {%- else -%}
+            <span>{{ card_title | default: 'Image' }}</span>
+          {%- endif -%}
+        </div>
+        <div class="desktop-gemini-card__title">{{- card_title -}}</div>
+      {%- if card_url != blank -%}
+        </a>
+      {%- else -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+</div>

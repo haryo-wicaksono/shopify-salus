@@ -120,274 +120,7 @@
         </h1>
       {%- endif -%}
 
-      <nav class="desktop-gemini-nav hidden md:block" aria-label="{{ 'accessibility.main_navigation' | t }}">
-        <ul class="desktop-gemini-menu" role="list">
-          {%- for link in section.settings.menu.links -%}
-            {%- liquid
-              assign link_title_downcase = link.title | strip | downcase
-              assign desktop_link_group = ''
-              assign desktop_display_title = link.title
-              assign is_desktop_primary_link = false
-              assign is_desktop_direct_link = false
-              assign desktop_mega_nav = false
-
-              if link_title_downcase contains 'accessor'
-                assign desktop_link_group = 'accessories'
-                assign desktop_display_title = 'Accessories'
-              elsif link_title_downcase contains 'cold plunge'
-                assign desktop_link_group = 'cold plunges'
-                assign desktop_display_title = 'Cold Plunges'
-              elsif link_title_downcase contains 'sauna'
-                assign desktop_link_group = 'saunas'
-                assign desktop_display_title = 'Saunas'
-              else
-                assign desktop_link_group = link_title_downcase
-              endif
-
-              if desktop_primary_titles contains desktop_link_group
-                assign is_desktop_primary_link = true
-              endif
-
-              if desktop_direct_titles contains desktop_link_group or link.links == blank
-                assign is_desktop_direct_link = true
-              endif
-
-              if is_desktop_primary_link and is_desktop_direct_link == false
-                for block in section.blocks
-                  assign mega_name_titles = block.settings.title | downcase | replace: ', ', ',' | replace: ' ,', ',' | split: ','
-                  if mega_name_titles contains link_title_downcase
-                    assign desktop_mega_nav = block
-                    break
-                  endif
-                endfor
-              endif
-            -%}
-
-            {%- if is_desktop_primary_link -%}
-              <li class="desktop-gemini-menu__item{% if is_desktop_direct_link %} desktop-gemini-menu__item--direct{% endif %}">
-                <a
-                  class="desktop-gemini-menu__link{% if link.current %} is-active{% endif %}"
-                  href="{{ link.url }}"
-                  {% if link.current %}
-                    aria-current="page"
-                  {% endif %}
-                >
-                  {{- desktop_display_title | escape -}}
-                </a>
-
-                {%- if desktop_mega_nav and link.links != blank and is_desktop_direct_link == false -%}
-                  {%- liquid
-                    assign desktop_group_count = 0
-                    for i in (1..4)
-                      assign label_key = 'desktop_group_' | append: i | append: '_label'
-                      assign menu_key = 'desktop_group_' | append: i | append: '_menu'
-                      assign group_label = desktop_mega_nav.settings[label_key]
-                      assign group_menu = desktop_mega_nav.settings[menu_key]
-
-                      if group_menu != blank
-                        assign desktop_group_count = desktop_group_count | plus: 1
-                      endif
-                    endfor
-                  -%}
-                  <div class="desktop-gemini-mega-menu">
-                    <div class="desktop-gemini-mega-inner">
-                      <div class="desktop-gemini-mega-sidebar">
-                        <div class="desktop-gemini-accordion" data-desktop-accordion>
-                          {%- if desktop_group_count > 0 -%}
-                            {%- for i in (1..4) -%}
-                              {%- liquid
-                                assign label_key = 'desktop_group_' | append: i | append: '_label'
-                                assign menu_key = 'desktop_group_' | append: i | append: '_menu'
-                                assign group_label = desktop_mega_nav.settings[label_key]
-                                assign group_menu = desktop_mega_nav.settings[menu_key]
-                                assign has_group_content = false
-
-                                if group_menu != blank
-                                  assign has_group_content = true
-                                endif
-                              -%}
-
-                              {%- if has_group_content -%}
-                                <div class="desktop-gemini-accordion__item{% if forloop.first %} is-active{% endif %}" data-desktop-accordion-item>
-                                  <button
-                                    type="button"
-                                    class="desktop-gemini-accordion__header"
-                                    data-desktop-accordion-trigger
-                                    data-desktop-group-target="group-{{ i }}"
-                                    aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
-                                  >
-                                    <span>{{- group_label | default: group_menu.title | escape -}}</span>
-                                    {% render 'icon-nav-arrow' %}
-                                  </button>
-
-                                  <div class="desktop-gemini-accordion__content">
-                                    {%- if group_menu != blank and group_menu.links != blank -%}
-                                      {%- for group_link in group_menu.links -%}
-                                        <a
-                                          class="desktop-gemini-sub-link"
-                                          href="{{ group_link.url }}"
-                                          {% if group_link.current %}
-                                            aria-current="page"
-                                          {% endif %}
-                                        >
-                                          <span>{{- group_link.title | escape -}}</span>
-                                          {% render 'icon-chevron-right' %}
-                                        </a>
-                                      {%- endfor -%}
-                                    {%- endif -%}
-                                  </div>
-                                </div>
-                              {%- endif -%}
-                            {%- endfor -%}
-                          {%- else -%}
-                            {%- for child_link in link.links -%}
-                              <div class="desktop-gemini-accordion__item{% if forloop.first %} is-active{% endif %}" data-desktop-accordion-item>
-                                <button
-                                  type="button"
-                                  class="desktop-gemini-accordion__header"
-                                  data-desktop-accordion-trigger
-                                  data-desktop-group-target="fallback-{{ forloop.index }}"
-                                  aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
-                                >
-                                  <span>{{- child_link.title | escape -}}</span>
-                                  {% render 'icon-nav-arrow' %}
-                                </button>
-
-                                <div class="desktop-gemini-accordion__content">
-                                  {%- if child_link.links != blank -%}
-                                    {%- for grandchild_link in child_link.links -%}
-                                      <a
-                                        class="desktop-gemini-sub-link"
-                                        href="{{ grandchild_link.url }}"
-                                        {% if grandchild_link.current %}
-                                          aria-current="page"
-                                        {% endif %}
-                                      >
-                                        <span>{{- grandchild_link.title | escape -}}</span>
-                                        {% render 'icon-chevron-right' %}
-                                      </a>
-                                    {%- endfor -%}
-                                  {%- else -%}
-                                    <a
-                                      class="desktop-gemini-sub-link"
-                                      href="{{ child_link.url }}"
-                                      {% if child_link.current %}
-                                        aria-current="page"
-                                      {% endif %}
-                                    >
-                                      <span>{{- child_link.title | escape -}}</span>
-                                      {% render 'icon-chevron-right' %}
-                                    </a>
-                                  {%- endif -%}
-                                </div>
-                              </div>
-                            {%- endfor -%}
-                          {%- endif -%}
-                        </div>
-
-                        <a href="{{ link.url }}" class="desktop-gemini-explore-btn">
-                          <span>{{- 'Explore All ' | append: desktop_display_title | escape -}}</span>
-                          {% render 'icon-arrow-right' %}
-                        </a>
-                      </div>
-
-                      <div class="desktop-gemini-mega-content">
-                        {%- if desktop_group_count > 0 -%}
-                          {%- for i in (1..4) -%}
-                            {%- liquid
-                              assign label_key = 'desktop_group_' | append: i | append: '_label'
-                              assign menu_key = 'desktop_group_' | append: i | append: '_menu'
-                              assign products_key = 'desktop_group_' | append: i | append: '_products'
-                              assign group_label = desktop_mega_nav.settings[label_key]
-                              assign group_menu = desktop_mega_nav.settings[menu_key]
-                              assign group_products = desktop_mega_nav.settings[products_key]
-                              assign has_group_content = false
-
-                              if group_menu != blank
-                                assign has_group_content = true
-                              endif
-                            -%}
-                            {%- if has_group_content -%}
-                              <div class="desktop-gemini-product-panel{% if forloop.first %} is-active{% endif %}" data-desktop-product-panel="group-{{ i }}">
-                                <div class="desktop-gemini-product-grid">
-                                  {%- if group_products != blank -%}
-                                    {%- for product in group_products limit: 3 -%}
-                                      <a href="{{ product.url }}" class="desktop-gemini-product-card">
-                                        <div class="desktop-gemini-product-image">
-                                          {%- if product.featured_image != blank -%}
-                                            {% render 'image',
-                                              image: product.featured_image,
-                                              src_width: 480,
-                                              srcset_2x: true,
-                                              alt_text: product.title,
-                                              class: 'img-fit'
-                                            %}
-                                          {%- else -%}
-                                            <span>{{ product.title }}</span>
-                                          {%- endif -%}
-                                        </div>
-                                        <div class="desktop-gemini-product-title">{{- product.title -}}</div>
-                                      </a>
-                                    {%- endfor -%}
-                                  {%- else -%}
-                                    {%- for product in desktop_mega_nav.settings.menu_products limit: 3 -%}
-                                      <a href="{{ product.url }}" class="desktop-gemini-product-card">
-                                        <div class="desktop-gemini-product-image">
-                                          {%- if product.featured_image != blank -%}
-                                            {% render 'image',
-                                              image: product.featured_image,
-                                              src_width: 480,
-                                              srcset_2x: true,
-                                              alt_text: product.title,
-                                              class: 'img-fit'
-                                            %}
-                                          {%- else -%}
-                                            <span>{{ product.title }}</span>
-                                          {%- endif -%}
-                                        </div>
-                                        <div class="desktop-gemini-product-title">{{- product.title -}}</div>
-                                      </a>
-                                    {%- endfor -%}
-                                  {%- endif -%}
-                                </div>
-                              </div>
-                            {%- endif -%}
-                          {%- endfor -%}
-                        {%- else -%}
-                          {%- for child_link in link.links -%}
-                            <div class="desktop-gemini-product-panel{% if forloop.first %} is-active{% endif %}" data-desktop-product-panel="fallback-{{ forloop.index }}">
-                              <div class="desktop-gemini-product-grid">
-                                {%- for product in desktop_mega_nav.settings.menu_products limit: 3 -%}
-                                  <a href="{{ product.url }}" class="desktop-gemini-product-card">
-                                    <div class="desktop-gemini-product-image">
-                                      {%- if product.featured_image != blank -%}
-                                        {% render 'image',
-                                          image: product.featured_image,
-                                          src_width: 480,
-                                          srcset_2x: true,
-                                          alt_text: product.title,
-                                          class: 'img-fit'
-                                        %}
-                                      {%- else -%}
-                                        <span>{{ product.title }}</span>
-                                      {%- endif -%}
-                                    </div>
-                                    <div class="desktop-gemini-product-title">{{- product.title -}}</div>
-                                  </a>
-                                {%- endfor -%}
-                              </div>
-                            </div>
-                          {%- endfor -%}
-                        {%- endif -%}
-                      </div>
-                    </div>
-                  </div>
-                {%- endif -%}
-              </li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-      </nav>
+      {% render 'desktop-gemini-nav', section: section %}
     </div>
 
     {%- if section.settings.enable_search -%}
@@ -1793,7 +1526,7 @@
           "type":"product_list",
           "id":"menu_products",
           "label":"Products",
-          "limit":4,
+          "limit":4
         },
         {
           "type":"text",
@@ -2802,6 +2535,392 @@
           "id": "badge3_text",
           "label": "Badge text"
         }
+      ]
+    },
+    {
+      "type": "desktop_nav_item",
+      "name": "Desktop Nav Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "nav_key",
+          "label": "Nav key",
+          "info": "Unique key used to connect this top-level item with its desktop groups. Use lowercase letters, numbers, and hyphens."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "explore_label",
+          "label": "Explore CTA label"
+        },
+        {
+          "type": "url",
+          "id": "explore_url",
+          "label": "Explore CTA link"
+        }
+      ]
+    },
+    {
+      "type": "desktop_nav_group",
+      "name": "Desktop Nav Group",
+      "settings": [
+        {
+          "type": "text",
+          "id": "parent_nav_key",
+          "label": "Parent nav key",
+          "info": "Match this to a Desktop Nav Item nav key."
+        },
+        {
+          "type": "text",
+          "id": "group_key",
+          "label": "Group key",
+          "info": "Unique key used to connect this group with its desktop panels."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Group label"
+        },
+        {
+          "type": "select",
+          "id": "group_type",
+          "label": "Group type",
+          "default": "cards",
+          "options": [
+            {
+              "value": "cards",
+              "label": "Cards"
+            },
+            {
+              "value": "feature_image",
+              "label": "Feature image"
+            },
+            {
+              "value": "nested_cards",
+              "label": "Nested cards"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "default_nested_item",
+          "label": "Default nested item",
+          "default": "item_1",
+          "options": [
+            { "value": "item_1", "label": "Item 1" },
+            { "value": "item_2", "label": "Item 2" },
+            { "value": "item_3", "label": "Item 3" },
+            { "value": "item_4", "label": "Item 4" },
+            { "value": "item_5", "label": "Item 5" },
+            { "value": "item_6", "label": "Item 6" },
+            { "value": "item_7", "label": "Item 7" },
+            { "value": "item_8", "label": "Item 8" },
+            { "value": "item_9", "label": "Item 9" },
+            { "value": "item_10", "label": "Item 10" }
+          ],
+          "info": "Used only for Nested cards groups."
+        },
+        {
+          "type": "header",
+          "content": "Entries"
+        },
+        {
+          "type": "text",
+          "id": "entry_1_label",
+          "label": "Item 1 label"
+        },
+        {
+          "type": "url",
+          "id": "entry_1_url",
+          "label": "Item 1 link"
+        },
+        {
+          "type": "text",
+          "id": "entry_2_label",
+          "label": "Item 2 label"
+        },
+        {
+          "type": "url",
+          "id": "entry_2_url",
+          "label": "Item 2 link"
+        },
+        {
+          "type": "text",
+          "id": "entry_3_label",
+          "label": "Item 3 label"
+        },
+        {
+          "type": "url",
+          "id": "entry_3_url",
+          "label": "Item 3 link"
+        },
+        {
+          "type": "text",
+          "id": "entry_4_label",
+          "label": "Item 4 label"
+        },
+        {
+          "type": "url",
+          "id": "entry_4_url",
+          "label": "Item 4 link"
+        },
+        {
+          "type": "text",
+          "id": "entry_5_label",
+          "label": "Item 5 label"
+        },
+        {
+          "type": "url",
+          "id": "entry_5_url",
+          "label": "Item 5 link"
+        },
+        {
+          "type": "text",
+          "id": "entry_6_label",
+          "label": "Item 6 label"
+        },
+        {
+          "type": "url",
+          "id": "entry_6_url",
+          "label": "Item 6 link"
+        },
+        {
+          "type": "text",
+          "id": "entry_7_label",
+          "label": "Item 7 label"
+        },
+        {
+          "type": "url",
+          "id": "entry_7_url",
+          "label": "Item 7 link"
+        },
+        {
+          "type": "text",
+          "id": "entry_8_label",
+          "label": "Item 8 label"
+        },
+        {
+          "type": "url",
+          "id": "entry_8_url",
+          "label": "Item 8 link"
+        },
+        {
+          "type": "text",
+          "id": "entry_9_label",
+          "label": "Item 9 label"
+        },
+        {
+          "type": "url",
+          "id": "entry_9_url",
+          "label": "Item 9 link"
+        },
+        {
+          "type": "text",
+          "id": "entry_10_label",
+          "label": "Item 10 label"
+        },
+        {
+          "type": "url",
+          "id": "entry_10_url",
+          "label": "Item 10 link"
+        }
+      ]
+    },
+    {
+      "type": "desktop_nav_panel",
+      "name": "Desktop Nav Panel",
+      "settings": [
+        {
+          "type": "text",
+          "id": "parent_nav_key",
+          "label": "Parent nav key",
+          "info": "Match this to a Desktop Nav Item nav key."
+        },
+        {
+          "type": "text",
+          "id": "parent_group_key",
+          "label": "Parent group key",
+          "info": "Match this to a Desktop Nav Group group key."
+        },
+        {
+          "type": "select",
+          "id": "nested_item_slot",
+          "label": "Nested item slot",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "Group-level panel" },
+            { "value": "item_1", "label": "Item 1" },
+            { "value": "item_2", "label": "Item 2" },
+            { "value": "item_3", "label": "Item 3" },
+            { "value": "item_4", "label": "Item 4" },
+            { "value": "item_5", "label": "Item 5" },
+            { "value": "item_6", "label": "Item 6" },
+            { "value": "item_7", "label": "Item 7" },
+            { "value": "item_8", "label": "Item 8" },
+            { "value": "item_9", "label": "Item 9" },
+            { "value": "item_10", "label": "Item 10" }
+          ],
+          "info": "Choose a nested item for Nested cards groups, or Group-level panel for Cards and Feature image groups."
+        },
+        {
+          "type": "header",
+          "content": "Feature image panel"
+        },
+        {
+          "type": "image_picker",
+          "id": "feature_image",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_heading",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "feature_cta_label",
+          "label": "CTA label"
+        },
+        {
+          "type": "url",
+          "id": "feature_cta_url",
+          "label": "CTA link"
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_dark_mode",
+          "label": "Use light text on dark overlay",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Card 1"
+        },
+        {
+          "type": "select",
+          "id": "card_1_resource_type",
+          "label": "Resource type",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "product", "label": "Product" },
+            { "value": "collection", "label": "Collection" }
+          ]
+        },
+        { "type": "product", "id": "card_1_product", "label": "Product" },
+        { "type": "collection", "id": "card_1_collection", "label": "Collection" },
+        { "type": "text", "id": "card_1_title", "label": "Custom title" },
+        { "type": "url", "id": "card_1_url", "label": "Custom link" },
+        { "type": "image_picker", "id": "card_1_image", "label": "Custom image" },
+        {
+          "type": "header",
+          "content": "Card 2"
+        },
+        {
+          "type": "select",
+          "id": "card_2_resource_type",
+          "label": "Resource type",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "product", "label": "Product" },
+            { "value": "collection", "label": "Collection" }
+          ]
+        },
+        { "type": "product", "id": "card_2_product", "label": "Product" },
+        { "type": "collection", "id": "card_2_collection", "label": "Collection" },
+        { "type": "text", "id": "card_2_title", "label": "Custom title" },
+        { "type": "url", "id": "card_2_url", "label": "Custom link" },
+        { "type": "image_picker", "id": "card_2_image", "label": "Custom image" },
+        {
+          "type": "header",
+          "content": "Card 3"
+        },
+        {
+          "type": "select",
+          "id": "card_3_resource_type",
+          "label": "Resource type",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "product", "label": "Product" },
+            { "value": "collection", "label": "Collection" }
+          ]
+        },
+        { "type": "product", "id": "card_3_product", "label": "Product" },
+        { "type": "collection", "id": "card_3_collection", "label": "Collection" },
+        { "type": "text", "id": "card_3_title", "label": "Custom title" },
+        { "type": "url", "id": "card_3_url", "label": "Custom link" },
+        { "type": "image_picker", "id": "card_3_image", "label": "Custom image" },
+        {
+          "type": "header",
+          "content": "Card 4"
+        },
+        {
+          "type": "select",
+          "id": "card_4_resource_type",
+          "label": "Resource type",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "product", "label": "Product" },
+            { "value": "collection", "label": "Collection" }
+          ]
+        },
+        { "type": "product", "id": "card_4_product", "label": "Product" },
+        { "type": "collection", "id": "card_4_collection", "label": "Collection" },
+        { "type": "text", "id": "card_4_title", "label": "Custom title" },
+        { "type": "url", "id": "card_4_url", "label": "Custom link" },
+        { "type": "image_picker", "id": "card_4_image", "label": "Custom image" },
+        {
+          "type": "header",
+          "content": "Card 5"
+        },
+        {
+          "type": "select",
+          "id": "card_5_resource_type",
+          "label": "Resource type",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "product", "label": "Product" },
+            { "value": "collection", "label": "Collection" }
+          ]
+        },
+        { "type": "product", "id": "card_5_product", "label": "Product" },
+        { "type": "collection", "id": "card_5_collection", "label": "Collection" },
+        { "type": "text", "id": "card_5_title", "label": "Custom title" },
+        { "type": "url", "id": "card_5_url", "label": "Custom link" },
+        { "type": "image_picker", "id": "card_5_image", "label": "Custom image" },
+        {
+          "type": "header",
+          "content": "Card 6"
+        },
+        {
+          "type": "select",
+          "id": "card_6_resource_type",
+          "label": "Resource type",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "product", "label": "Product" },
+            { "value": "collection", "label": "Collection" }
+          ]
+        },
+        { "type": "product", "id": "card_6_product", "label": "Product" },
+        { "type": "collection", "id": "card_6_collection", "label": "Collection" },
+        { "type": "text", "id": "card_6_title", "label": "Custom title" },
+        { "type": "url", "id": "card_6_url", "label": "Custom link" },
+        { "type": "image_picker", "id": "card_6_image", "label": "Custom image" }
       ]
     }
   ]

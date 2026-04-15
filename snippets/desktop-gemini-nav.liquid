@@ -1,0 +1,279 @@
+{%- liquid
+  assign desktop_nav_item_count = 0
+  assign group_slot_range = '1|2|3|4|5|6|7|8|9|10' | split: '|'
+
+  for block in section.blocks
+    if block.type == 'desktop_nav_item'
+      assign desktop_nav_item_count = desktop_nav_item_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if desktop_nav_item_count > 0 -%}
+  <nav class="desktop-gemini-nav hidden md:block" aria-label="{{ 'accessibility.main_navigation' | t }}">
+    <ul class="desktop-gemini-menu" role="list">
+      {%- for nav_block in section.blocks -%}
+        {%- if nav_block.type == 'desktop_nav_item' -%}
+          {%- liquid
+            assign nav_key = nav_block.settings.nav_key | strip | downcase
+            if nav_key == blank
+              assign nav_key = nav_block.id
+            endif
+
+            assign nav_label = nav_block.settings.label | default: 'Navigation'
+            assign nav_url = nav_block.settings.url | default: '#'
+            assign explore_label = nav_block.settings.explore_label
+            assign explore_url = nav_block.settings.explore_url | default: nav_url
+            assign has_groups = false
+            assign first_group = true
+
+            for block in section.blocks
+              if block.type == 'desktop_nav_group'
+                assign parent_nav_key = block.settings.parent_nav_key | strip | downcase
+                assign group_label = block.settings.label | strip
+
+                if parent_nav_key == nav_key and group_label != blank
+                  assign has_groups = true
+                  break
+                endif
+              endif
+            endfor
+          -%}
+
+          <li class="desktop-gemini-menu__item" {{ nav_block.shopify_attributes }}>
+            <a class="desktop-gemini-menu__link" href="{{ nav_url }}">{{- nav_label -}}</a>
+
+            {%- if has_groups -%}
+              <div class="desktop-gemini-mega-menu">
+                <div class="desktop-gemini-mega-inner">
+                  <div class="desktop-gemini-mega-sidebar">
+                    <div class="desktop-gemini-accordion" data-desktop-accordion>
+                      {%- for group_block in section.blocks -%}
+                        {%- if group_block.type == 'desktop_nav_group' -%}
+                          {%- liquid
+                            assign parent_nav_key = group_block.settings.parent_nav_key | strip | downcase
+                            assign group_label = group_block.settings.label | strip
+
+                            if parent_nav_key != nav_key or group_label == blank
+                              continue
+                            endif
+
+                            assign group_key = group_block.settings.group_key | strip | downcase
+                            if group_key == blank
+                              assign group_key = group_block.id
+                            endif
+
+                            assign group_type = group_block.settings.group_type
+                            assign first_populated_slot = ''
+                            assign default_nested_slot = group_block.settings.default_nested_item
+                            assign default_panel_target = group_key
+                          -%}
+
+                          {%- if group_type == 'nested_cards' -%}
+                            {%- for slot in group_slot_range -%}
+                              {%- liquid
+                                assign entry_label_key = 'entry_' | append: slot | append: '_label'
+                                assign entry_label = group_block.settings[entry_label_key] | strip
+
+                                if entry_label != blank and first_populated_slot == ''
+                                  assign first_populated_slot = slot
+                                endif
+                              -%}
+                            {%- endfor -%}
+
+                            {%- if default_nested_slot != blank -%}
+                              {%- assign default_nested_slot_number = default_nested_slot | remove: 'item_' -%}
+                              {%- assign default_label_key = 'entry_' | append: default_nested_slot_number | append: '_label' -%}
+                              {%- if group_block.settings[default_label_key] != blank -%}
+                                {%- assign default_panel_target = group_key | append: '::item_' | append: default_nested_slot_number -%}
+                              {%- elsif first_populated_slot != '' -%}
+                                {%- assign default_panel_target = group_key | append: '::item_' | append: first_populated_slot -%}
+                              {%- endif -%}
+                            {%- elsif first_populated_slot != '' -%}
+                              {%- assign default_panel_target = group_key | append: '::item_' | append: first_populated_slot -%}
+                            {%- endif -%}
+                          {%- endif -%}
+
+                          <div
+                            class="desktop-gemini-accordion__item{% if first_group %} is-active{% endif %}"
+                            data-desktop-accordion-item
+                            data-default-panel-target="{{ default_panel_target }}"
+                          >
+                            <button
+                              type="button"
+                              class="desktop-gemini-accordion__header"
+                              data-desktop-accordion-trigger
+                              data-desktop-group-target="{{ default_panel_target }}"
+                              aria-expanded="{% if first_group %}true{% else %}false{% endif %}"
+                            >
+                              <span>{{- group_label -}}</span>
+                              {% render 'icon-nav-arrow' %}
+                            </button>
+
+                            <div class="desktop-gemini-accordion__content">
+                              {%- for slot in group_slot_range -%}
+                                {%- liquid
+                                  assign entry_label_key = 'entry_' | append: slot | append: '_label'
+                                  assign entry_url_key = 'entry_' | append: slot | append: '_url'
+                                  assign entry_label = group_block.settings[entry_label_key] | strip
+                                  assign entry_url = group_block.settings[entry_url_key]
+                                  assign nested_target = group_key | append: '::item_' | append: slot
+                                -%}
+
+                                {%- if entry_label != blank -%}
+                                  {%- if group_type == 'nested_cards' -%}
+                                    <button
+                                      type="button"
+                                      class="desktop-gemini-sub-link desktop-gemini-sub-link--button{% if default_panel_target == nested_target and first_group %} is-active{% endif %}"
+                                      data-desktop-nested-trigger
+                                      data-desktop-nested-target="{{ nested_target }}"
+                                    >
+                                      <span>{{- entry_label -}}</span>
+                                      {% render 'icon-chevron-right' %}
+                                    </button>
+                                  {%- else -%}
+                                    <a class="desktop-gemini-sub-link" href="{{ entry_url | default: '#' }}">
+                                      <span>{{- entry_label -}}</span>
+                                      {% render 'icon-chevron-right' %}
+                                    </a>
+                                  {%- endif -%}
+                                {%- endif -%}
+                              {%- endfor -%}
+                            </div>
+                          </div>
+
+                          {%- assign first_group = false -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+
+                    {%- if explore_label != blank or explore_url != blank -%}
+                      <a href="{{ explore_url }}" class="desktop-gemini-explore-btn">
+                        <span>{{- explore_label | default: nav_label -}}</span>
+                        {% render 'icon-arrow-right' %}
+                      </a>
+                    {%- endif -%}
+                  </div>
+
+                  <div class="desktop-gemini-mega-content">
+                    {%- assign first_group = true -%}
+                    {%- for group_block in section.blocks -%}
+                      {%- if group_block.type == 'desktop_nav_group' -%}
+                        {%- liquid
+                          assign parent_nav_key = group_block.settings.parent_nav_key | strip | downcase
+                          assign group_label = group_block.settings.label | strip
+
+                          if parent_nav_key != nav_key or group_label == blank
+                            continue
+                          endif
+
+                          assign group_key = group_block.settings.group_key | strip | downcase
+                          if group_key == blank
+                            assign group_key = group_block.id
+                          endif
+
+                          assign group_type = group_block.settings.group_type
+                          assign first_populated_slot = ''
+                          assign default_nested_slot = group_block.settings.default_nested_item
+                          assign default_panel_target = group_key
+                        -%}
+
+                        {%- if group_type == 'nested_cards' -%}
+                          {%- for slot in group_slot_range -%}
+                            {%- liquid
+                              assign entry_label_key = 'entry_' | append: slot | append: '_label'
+                              assign entry_label = group_block.settings[entry_label_key] | strip
+
+                              if entry_label != blank and first_populated_slot == ''
+                                assign first_populated_slot = slot
+                              endif
+                            -%}
+                          {%- endfor -%}
+
+                          {%- if default_nested_slot != blank -%}
+                            {%- assign default_nested_slot_number = default_nested_slot | remove: 'item_' -%}
+                            {%- assign default_label_key = 'entry_' | append: default_nested_slot_number | append: '_label' -%}
+                            {%- if group_block.settings[default_label_key] != blank -%}
+                              {%- assign default_panel_target = group_key | append: '::item_' | append: default_nested_slot_number -%}
+                            {%- elsif first_populated_slot != '' -%}
+                              {%- assign default_panel_target = group_key | append: '::item_' | append: first_populated_slot -%}
+                            {%- endif -%}
+                          {%- elsif first_populated_slot != '' -%}
+                            {%- assign default_panel_target = group_key | append: '::item_' | append: first_populated_slot -%}
+                          {%- endif -%}
+                        {%- endif -%}
+
+                        {%- if group_type == 'cards' or group_type == 'feature_image' -%}
+                          {%- assign panel_block = blank -%}
+                          {%- for content_block in section.blocks -%}
+                            {%- if content_block.type == 'desktop_nav_panel' -%}
+                              {%- liquid
+                                assign content_nav_key = content_block.settings.parent_nav_key | strip | downcase
+                                assign content_group_key = content_block.settings.parent_group_key | strip | downcase
+                                assign nested_item_slot = content_block.settings.nested_item_slot
+                              -%}
+
+                              {%- if content_nav_key == nav_key and content_group_key == group_key and nested_item_slot == 'none' -%}
+                                {%- assign panel_block = content_block -%}
+                                {%- break -%}
+                              {%- endif -%}
+                            {%- endif -%}
+                          {%- endfor -%}
+
+                          <div class="desktop-gemini-panel{% if first_group %} is-active{% endif %}" data-desktop-panel="{{ group_key }}">
+                            {%- if panel_block != blank -%}
+                              {%- if group_type == 'feature_image' -%}
+                                {% render 'desktop-gemini-feature-panel', panel_block: panel_block %}
+                              {%- else -%}
+                                {% render 'desktop-gemini-card-grid', panel_block: panel_block %}
+                              {%- endif -%}
+                            {%- endif -%}
+                          </div>
+                        {%- elsif group_type == 'nested_cards' -%}
+                          {%- for slot in group_slot_range -%}
+                            {%- liquid
+                              assign entry_label_key = 'entry_' | append: slot | append: '_label'
+                              assign entry_label = group_block.settings[entry_label_key] | strip
+                            -%}
+
+                            {%- if entry_label != blank -%}
+                              {%- assign panel_block = blank -%}
+                              {%- assign expected_nested_item_slot = 'item_' | append: slot -%}
+                              {%- for content_block in section.blocks -%}
+                                {%- if content_block.type == 'desktop_nav_panel' -%}
+                                  {%- liquid
+                                    assign content_nav_key = content_block.settings.parent_nav_key | strip | downcase
+                                    assign content_group_key = content_block.settings.parent_group_key | strip | downcase
+                                    assign nested_item_slot = content_block.settings.nested_item_slot
+                                  -%}
+
+                                  {%- if content_nav_key == nav_key and content_group_key == group_key and nested_item_slot == expected_nested_item_slot -%}
+                                    {%- assign panel_block = content_block -%}
+                                    {%- break -%}
+                                  {%- endif -%}
+                                {%- endif -%}
+                              {%- endfor -%}
+
+                              {%- assign panel_target = group_key | append: '::item_' | append: slot -%}
+                              <div class="desktop-gemini-panel{% if first_group and default_panel_target == panel_target %} is-active{% endif %}" data-desktop-panel="{{ panel_target }}">
+                                {%- if panel_block != blank -%}
+                                  {% render 'desktop-gemini-card-grid', panel_block: panel_block %}
+                                {%- endif -%}
+                              </div>
+                            {%- endif -%}
+                          {%- endfor -%}
+                        {%- endif -%}
+
+                        {%- assign first_group = false -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </nav>
+{%- endif -%}

@@ -1626,30 +1626,58 @@ document.addEventListener('click', (evt) => {
   if (window.innerWidth <= 1024) return;
 
   const trigger = evt.target.closest('[data-desktop-accordion-trigger]');
-  if (!trigger) return;
+  const nestedTrigger = evt.target.closest('[data-desktop-nested-trigger]');
+  if (!trigger && !nestedTrigger) return;
 
   evt.preventDefault();
 
-  const currentItem = trigger.closest('[data-desktop-accordion-item]');
-  const accordion = trigger.closest('[data-desktop-accordion]');
-  if (!currentItem || !accordion) return;
+  if (trigger) {
+    const currentItem = trigger.closest('[data-desktop-accordion-item]');
+    const accordion = trigger.closest('[data-desktop-accordion]');
+    if (!currentItem || !accordion) return;
 
-  const megaMenu = trigger.closest('.desktop-gemini-mega-menu');
-  const targetPanel = trigger.dataset.desktopGroupTarget;
+    const megaMenu = trigger.closest('.desktop-gemini-mega-menu');
+    const targetPanel = trigger.dataset.desktopGroupTarget || currentItem.dataset.defaultPanelTarget;
 
-  accordion.querySelectorAll('[data-desktop-accordion-item]').forEach((item) => {
-    const isCurrent = item === currentItem;
-    item.classList.toggle('is-active', isCurrent);
+    accordion.querySelectorAll('[data-desktop-accordion-item]').forEach((item) => {
+      const isCurrent = item === currentItem;
+      item.classList.toggle('is-active', isCurrent);
 
-    const itemTrigger = item.querySelector('[data-desktop-accordion-trigger]');
-    if (itemTrigger) {
-      itemTrigger.setAttribute('aria-expanded', isCurrent ? 'true' : 'false');
+      const itemTrigger = item.querySelector('[data-desktop-accordion-trigger]');
+      if (itemTrigger) {
+        itemTrigger.setAttribute('aria-expanded', isCurrent ? 'true' : 'false');
+      }
+
+      item.querySelectorAll('[data-desktop-nested-trigger]').forEach((button) => {
+        const defaultTarget = item.dataset.defaultPanelTarget;
+        button.classList.toggle(
+          'is-active',
+          isCurrent && defaultTarget && button.dataset.desktopNestedTarget === defaultTarget,
+        );
+      });
+    });
+
+    if (megaMenu && targetPanel) {
+      megaMenu.querySelectorAll('[data-desktop-panel]').forEach((panel) => {
+        panel.classList.toggle('is-active', panel.dataset.desktopPanel === targetPanel);
+      });
     }
-  });
+  }
 
-  if (megaMenu && targetPanel) {
-    megaMenu.querySelectorAll('[data-desktop-product-panel]').forEach((panel) => {
-      panel.classList.toggle('is-active', panel.dataset.desktopProductPanel === targetPanel);
+  if (nestedTrigger) {
+    const megaMenu = nestedTrigger.closest('.desktop-gemini-mega-menu');
+    const accordionItem = nestedTrigger.closest('[data-desktop-accordion-item]');
+    const targetPanel = nestedTrigger.dataset.desktopNestedTarget;
+    if (!megaMenu || !accordionItem || !targetPanel) return;
+
+    accordionItem.dataset.defaultPanelTarget = targetPanel;
+
+    accordionItem.querySelectorAll('[data-desktop-nested-trigger]').forEach((button) => {
+      button.classList.toggle('is-active', button === nestedTrigger);
+    });
+
+    megaMenu.querySelectorAll('[data-desktop-panel]').forEach((panel) => {
+      panel.classList.toggle('is-active', panel.dataset.desktopPanel === targetPanel);
     });
   }
 });
