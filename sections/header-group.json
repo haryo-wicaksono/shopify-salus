@@ -341,6 +341,7 @@
         },
         "columns_wNqK9K": {
           "type": "sidebar",
+          "disabled": true,
           "settings": {
             "title": "Saunas",
             "collection_images": "none",
@@ -380,6 +381,7 @@
         },
         "columns_3fnJRk": {
           "type": "sidebar",
+          "disabled": true,
           "settings": {
             "title": "Cold Plunges",
             "collection_images": "none",
@@ -419,6 +421,7 @@
         },
         "columns_BjLAQB": {
           "type": "columns",
+          "disabled": true,
           "settings": {
             "title": "Sauna Accessories",
             "collection_images": "none",
@@ -467,6 +470,7 @@
         },
         "columns_LcMrCU": {
           "type": "columns",
+          "disabled": true,
           "settings": {
             "title": "Heater Accessories",
             "collection_images": "none",
@@ -512,6 +516,7 @@
         },
         "columns_4gALyE": {
           "type": "columns",
+          "disabled": true,
           "settings": {
             "title": "Learn More",
             "collection_images": "standard",
