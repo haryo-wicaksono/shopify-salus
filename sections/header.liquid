@@ -155,16 +155,6 @@
 
         <div class="header__icons flex justify-end mis-auto js-closes-menu">
           <div class="header__icons-wrapper">
-        {%- if section.settings.enable_search and search_is_minimised_mobile -%}
-            <a
-              class="header__icon md:hidden js-show-search"
-              href="{{ routes.search_url }}"
-              aria-controls="search-bar"
-            >
-              {% render 'icon-search' %}
-              <span class="visually-hidden">{{ 'general.icon_labels.search' | t }}</span>
-            </a>
-        {%- endif -%}
         {%- if shop.customer_accounts_enabled -%}
           {%- if customer -%}
             <a class="header__icon header__icon--account text-current" href="{{ routes.account_url }}">
@@ -220,12 +210,22 @@
       -%}
       {%- assign total_promo_count = 0 -%}
       <main-menu
-        class="main-menu{% if section.settings.mobile_menu_position == "burger-left" %} main-menu--left-mob{% endif %}"
+        class="main-menu main-menu--left-mob"
         data-menu-sensitivity="200"
       >
+        {%- if section.settings.enable_search and search_is_minimised_mobile -%}
+          <a
+            class="header__icon main-menu__mobile-search md:hidden js-show-search"
+            href="{{ routes.search_url }}"
+            aria-controls="search-bar"
+          >
+            {% render 'icon-search' %}
+            <span class="visually-hidden">{{ 'general.icon_labels.search' | t }}</span>
+          </a>
+        {%- endif -%}
         <details class="main-menu__disclosure{% if section.settings.enable_sticky %} has-motion{% endif %}" open>
-          <summary class="main-menu__toggle md:hidden">
-            <span class="main-menu__toggle-icon" aria-hidden="true"></span>
+          <summary class="main-menu__toggle main-menu__toggle--svg md:hidden">
+            <span class="main-menu__toggle-icon" aria-hidden="true">{% render 'mobile-header-burger-menu' %}</span>
             <span class="visually-hidden">{{ 'general.icon_labels.menu' | t }}</span>
           </summary>
           <div class="main-menu__content has-motion {% if section.settings.quicklinks_menu == blank and section.settings.cta_show == false and section.settings.menu_center %}justify-center{% else %}justify-between{% endif %}">

@@ -5752,7 +5752,7 @@ body>.os-scrollbar {
 
 @media (min-width: 1026px) {
   .header {
-    --desktop-search-dropdown-offset: 1.8rem;
+    --desktop-search-dropdown-offset: 3.2rem;
     --desktop-header-height: 13rem;
     position: relative;
     padding: 0;
