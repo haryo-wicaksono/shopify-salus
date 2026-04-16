@@ -5917,16 +5917,16 @@ body>.os-scrollbar {
   }
 
   .header__search .search__input {
-    min-height: 3rem;
-    padding-block: 3px;
-    padding-inline-start: 1.6rem;
-    padding-inline-end: 5.2rem;
-    border: 1px solid #ccc;
-    border-radius: 999px;
-    background: #fff;
-    font-size: 1.4rem;
-    color: #333;
-  }
+      min-height: 3rem;
+      padding-block: 3px;
+      padding-inline-start: 1.6rem;
+      padding-inline-end: 5.2rem;
+      border: 1px solid #000000;
+      border-radius: 999px;
+      background: #fff;
+      font-size: 1.4rem;
+      color: #333;
+    }
 
   .header__search .search__input::placeholder {
     color: #aaa;
@@ -6599,8 +6599,9 @@ body>.os-scrollbar {
   .desktop-gemini-mega-menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 50%;
     width: 100vw;
+    min-width: 100vw;
     display: flex;
     justify-content: center;
     padding: 0;
@@ -6609,7 +6610,7 @@ body>.os-scrollbar {
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(5px);
+    transform: translateX(-50%) translateY(5px);
     transition: all 0.3s ease;
     z-index: 20;
   }
@@ -6618,7 +6619,7 @@ body>.os-scrollbar {
   .desktop-gemini-menu__item:focus-within > .desktop-gemini-mega-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
 
   .desktop-gemini-mega-inner {
@@ -6807,7 +6808,7 @@ body>.os-scrollbar {
 
   .desktop-gemini-card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 4rem;
   }
 
@@ -11012,16 +11013,16 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
   }
 
   .header__search .search__input {
-    min-height: 3rem;
-    padding-block: 3px;
-    padding-inline-start: 1.6rem;
-    padding-inline-end: 5.2rem;
-    border: 1px solid #ccc;
-    border-radius: 999px;
-    background: #fff;
-    font-size: 1.4rem;
-    color: #333;
-  }
+      min-height: 3rem;
+      padding-block: 3px;
+      padding-inline-start: 1.6rem;
+      padding-inline-end: 5.2rem;
+      border: 1px solid #000000;
+      border-radius: 999px;
+      background: #fff;
+      font-size: 1.4rem;
+      color: #333;
+    }
 
   .header__search .search__input::placeholder {
     color: #aaa;

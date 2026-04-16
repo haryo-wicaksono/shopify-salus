@@ -6,11 +6,9 @@ predictive-search[open] .search__form {
 }
 predictive-search[open] .search__input {
   background-color: rgba(var(--bg-color));
-  box-shadow: inset 0 0 0 1px rgb(var(--text-color));
 }
 .header predictive-search[open] .search__input {
   background-color: rgba(var(--bg-color));
-  box-shadow: inset 0 0 0 1px rgb(var(--text-color));
 }
 
 .search__reset {
@@ -164,11 +162,11 @@ predictive-search .search__input {
     width: calc(100% + 24px);
     padding-top: 63px;
   }
-  .predictive-search .tablist__scroller {
-    margin-inline-start: var(--gutter-md);
-  }
   .header .predictive-search {
     top: -12px;
+  }
+  .predictive-search .tablist__scroller {
+    margin-inline-start: var(--gutter-md);
   }
   .predictive-result,
 .predictive-search__view-all,

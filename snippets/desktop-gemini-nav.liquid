@@ -41,7 +41,7 @@
           -%}
 
           <li class="desktop-gemini-menu__item" {{ nav_block.shopify_attributes }}>
-            <a class="desktop-gemini-menu__link" href="{{ nav_url }}">{{- nav_label -}}</a>
+            <a class="desktop-gemini-menu__link" href="{{ nav_url }}">{{- nav_label -}}<span class="desktop-gemini-menu__underline"></span></a>
 
             {%- if has_groups -%}
               <div class="desktop-gemini-mega-menu">
