@@ -5753,12 +5753,12 @@ body>.os-scrollbar {
 @media (min-width: 1026px) {
   .header {
     --desktop-search-dropdown-offset: 1.8rem;
+    --desktop-header-height: 13rem;
     position: relative;
     padding: 0;
-    min-height: 10rem;
+    min-height: var(--desktop-header-height);
     border-bottom: 1px solid #eaeaea;
     overflow: visible;
-    --desktop-header-height: 10rem;
   }
 
   .header__grid {
@@ -6412,13 +6412,13 @@ body>.os-scrollbar {
   .header {
     position: relative;
     padding: 0;
-    min-height: 9rem;
+    min-height: var(--desktop-header-height);
     border-bottom: 1px solid #eaeaea;
     overflow: visible;
   }
 
   .header__grid {
-    min-height: 9rem;
+    min-height: var(--desktop-header-height);
     align-items: center;
     row-gap: 0;
     padding-top: 0;
@@ -10813,7 +10813,7 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
   .header {
     position: relative;
     padding: 0;
-    min-height: 10rem;
+    min-height: var(--desktop-header-height);
     border-bottom: 1px solid #eaeaea;
     overflow: visible;
   }
@@ -10822,7 +10822,7 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
     position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    min-height: 10rem;
+    min-height: var(--desktop-header-height);
     align-items: center;
     row-gap: 0;
     column-gap: 2.4rem;
