@@ -6808,6 +6808,7 @@ body>.os-scrollbar {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 4rem;
+    justify-items: start;
   }
 
   .desktop-gemini-card {
@@ -6817,8 +6818,8 @@ body>.os-scrollbar {
 
   .desktop-gemini-card__image {
     position: relative;
-    width: 100%;
-    aspect-ratio: 1;
+    width: 200px;
+    height: 200px;
     margin-bottom: 1.6rem;
     border: 1px solid #eee;
     background: #f0f0f0;
