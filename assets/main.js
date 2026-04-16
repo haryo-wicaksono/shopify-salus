@@ -1668,7 +1668,7 @@ document.addEventListener('click', (evt) => {
     if (!currentItem || !accordion) return;
 
     const megaMenu = trigger.closest('.desktop-gemini-mega-menu');
-    const targetPanel = trigger.dataset.desktopGroupTarget || currentItem.dataset.defaultPanelTarget;
+    const targetPanel = currentItem.dataset.defaultPanelTarget || trigger.dataset.desktopGroupTarget;
     const isCurrentlyActive = currentItem.classList.contains('is-active');
 
     if (isCurrentlyActive) {
@@ -1707,10 +1707,14 @@ document.addEventListener('click', (evt) => {
   if (nestedTrigger) {
     const megaMenu = nestedTrigger.closest('.desktop-gemini-mega-menu');
     const accordionItem = nestedTrigger.closest('[data-desktop-accordion-item]');
+    const accordionTrigger = accordionItem?.querySelector('[data-desktop-accordion-trigger]');
     const targetPanel = nestedTrigger.dataset.desktopNestedTarget;
     if (!megaMenu || !accordionItem || !targetPanel) return;
 
     accordionItem.dataset.defaultPanelTarget = targetPanel;
+    if (accordionTrigger) {
+      accordionTrigger.dataset.desktopGroupTarget = targetPanel;
+    }
 
     accordionItem.querySelectorAll('[data-desktop-nested-trigger]').forEach((button) => {
       button.classList.toggle('is-active', button === nestedTrigger);
