@@ -4209,6 +4209,8 @@ a.secondary-nav__item.secondary-nav__cta {
 
   .desktop-gemini-accordion__header {
     padding-left: 0;
+    justify-content: flex-start;
+    gap: 10px;
   }
 
   .desktop-gemini-accordion__content {

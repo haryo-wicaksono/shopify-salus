@@ -149,7 +149,7 @@
                       {%- endfor -%}
                     </div>
 
-                    {%- if explore_label != blank or explore_url != blank -%}
+                    {%- if nav_block.settings.explore_label != blank or nav_block.settings.explore_url != blank -%}
                       <a href="{{ explore_url }}" class="desktop-gemini-explore-btn">
                         <span>{{- explore_label | default: nav_label -}}</span>
                         {% render 'icon-arrow-right' %}
