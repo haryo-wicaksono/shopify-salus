@@ -111,34 +111,36 @@
                             </button>
 
                             <div class="desktop-gemini-accordion__content">
-                              {%- for slot in group_slot_range -%}
-                                {%- liquid
-                                  assign entry_label_key = 'entry_' | append: slot | append: '_label'
-                                  assign entry_url_key = 'entry_' | append: slot | append: '_url'
-                                  assign entry_label = group_block.settings[entry_label_key] | strip
-                                  assign entry_url = group_block.settings[entry_url_key]
-                                  assign nested_target = group_key | append: '::item_' | append: slot
-                                -%}
+                              <div>
+                                {%- for slot in group_slot_range -%}
+                                  {%- liquid
+                                    assign entry_label_key = 'entry_' | append: slot | append: '_label'
+                                    assign entry_url_key = 'entry_' | append: slot | append: '_url'
+                                    assign entry_label = group_block.settings[entry_label_key] | strip
+                                    assign entry_url = group_block.settings[entry_url_key]
+                                    assign nested_target = group_key | append: '::item_' | append: slot
+                                  -%}
 
-                                {%- if entry_label != blank -%}
-                                  {%- if group_type == 'nested_cards' -%}
-                                    <button
-                                      type="button"
-                                      class="desktop-gemini-sub-link desktop-gemini-sub-link--button{% if default_panel_target == nested_target and first_group %} is-active{% endif %}"
-                                      data-desktop-nested-trigger
-                                      data-desktop-nested-target="{{ nested_target }}"
-                                    >
-                                      <span>{{- entry_label -}}</span>
-                                      {% render 'icon-chevron-right' %}
-                                    </button>
-                                  {%- else -%}
-                                    <a class="desktop-gemini-sub-link" href="{{ entry_url | default: '#' }}">
-                                      <span>{{- entry_label -}}</span>
-                                      {% render 'icon-chevron-right' %}
-                                    </a>
+                                  {%- if entry_label != blank -%}
+                                    {%- if group_type == 'nested_cards' -%}
+                                      <button
+                                        type="button"
+                                        class="desktop-gemini-sub-link desktop-gemini-sub-link--button{% if default_panel_target == nested_target and first_group %} is-active{% endif %}"
+                                        data-desktop-nested-trigger
+                                        data-desktop-nested-target="{{ nested_target }}"
+                                      >
+                                        <span>{{- entry_label -}}</span>
+                                        {% render 'icon-chevron-right' %}
+                                      </button>
+                                    {%- else -%}
+                                      <a class="desktop-gemini-sub-link" href="{{ entry_url | default: '#' }}">
+                                        <span>{{- entry_label -}}</span>
+                                        {% render 'icon-chevron-right' %}
+                                      </a>
+                                    {%- endif -%}
                                   {%- endif -%}
-                                {%- endif -%}
-                              {%- endfor -%}
+                                {%- endfor -%}
+                              </div>
                             </div>
                           </div>
 

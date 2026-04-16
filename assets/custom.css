@@ -4196,4 +4196,50 @@ a.secondary-nav__item.secondary-nav__cta {
   .desktop-gemini-menu__link.is-active {
     color: #222120;
   }
+
+  .desktop-gemini-mega-sidebar {
+    width: 50rem;
+    padding-left: var(--gutter);
+    /* padding-right: var(--gutter); */
+  }
+
+  .desktop-gemini-accordion {
+    padding-left: 0;
+  }
+
+  .desktop-gemini-accordion__header {
+    padding-left: 0;
+  }
+
+  .desktop-gemini-accordion__content {
+    padding-left: 1.2rem;
+    max-height: none;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease, padding 0.4s ease;
+  }
+
+  .desktop-gemini-accordion__content > div {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .desktop-gemini-accordion__item.is-active .desktop-gemini-accordion__content {
+    max-height: none;
+    grid-template-rows: 1fr;
+  }
 }
+
+@media (min-width: 1600px) {
+  .desktop-gemini-mega-sidebar {
+    width: 65rem;
+  }
+}
+}
+
+@media (min-width: 1600px) {
+  .desktop-gemini-mega-sidebar {
+    width: 65rem;
+  }

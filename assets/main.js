@@ -1638,29 +1638,38 @@ document.addEventListener('click', (evt) => {
 
     const megaMenu = trigger.closest('.desktop-gemini-mega-menu');
     const targetPanel = trigger.dataset.desktopGroupTarget || currentItem.dataset.defaultPanelTarget;
+    const isCurrentlyActive = currentItem.classList.contains('is-active');
 
-    accordion.querySelectorAll('[data-desktop-accordion-item]').forEach((item) => {
-      const isCurrent = item === currentItem;
-      item.classList.toggle('is-active', isCurrent);
+    if (isCurrentlyActive) {
+      currentItem.classList.remove('is-active');
+      trigger.setAttribute('aria-expanded', 'false');
+      currentItem.querySelectorAll('[data-desktop-nested-trigger]').forEach((button) => {
+        button.classList.remove('is-active');
+      });
+    } else {
+      accordion.querySelectorAll('[data-desktop-accordion-item]').forEach((item) => {
+        const isCurrent = item === currentItem;
+        item.classList.toggle('is-active', isCurrent);
 
-      const itemTrigger = item.querySelector('[data-desktop-accordion-trigger]');
-      if (itemTrigger) {
-        itemTrigger.setAttribute('aria-expanded', isCurrent ? 'true' : 'false');
+        const itemTrigger = item.querySelector('[data-desktop-accordion-trigger]');
+        if (itemTrigger) {
+          itemTrigger.setAttribute('aria-expanded', isCurrent ? 'true' : 'false');
+        }
+
+        item.querySelectorAll('[data-desktop-nested-trigger]').forEach((button) => {
+          const defaultTarget = item.dataset.defaultPanelTarget;
+          button.classList.toggle(
+            'is-active',
+            isCurrent && defaultTarget && button.dataset.desktopNestedTarget === defaultTarget,
+          );
+        });
+      });
+
+      if (megaMenu && targetPanel) {
+        megaMenu.querySelectorAll('[data-desktop-panel]').forEach((panel) => {
+          panel.classList.toggle('is-active', panel.dataset.desktopPanel === targetPanel);
+        });
       }
-
-      item.querySelectorAll('[data-desktop-nested-trigger]').forEach((button) => {
-        const defaultTarget = item.dataset.defaultPanelTarget;
-        button.classList.toggle(
-          'is-active',
-          isCurrent && defaultTarget && button.dataset.desktopNestedTarget === defaultTarget,
-        );
-      });
-    });
-
-    if (megaMenu && targetPanel) {
-      megaMenu.querySelectorAll('[data-desktop-panel]').forEach((panel) => {
-        panel.classList.toggle('is-active', panel.dataset.desktopPanel === targetPanel);
-      });
     }
   }
 
