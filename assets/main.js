@@ -1625,6 +1625,37 @@ customElements.define('main-menu', MainMenu);
 document.addEventListener('click', (evt) => {
   if (window.innerWidth <= 1024) return;
 
+  const navLink = evt.target.closest('.desktop-gemini-menu__link');
+  const navItem = navLink?.closest('.desktop-gemini-menu__item');
+  const megaMenu = navItem?.querySelector('.desktop-gemini-mega-menu');
+
+  if (navLink && megaMenu) {
+    evt.preventDefault();
+
+    const isCurrentlyOpen = navItem.classList.contains('is-open');
+
+    document.querySelectorAll('.desktop-gemini-menu__item.is-open').forEach((item) => {
+      item.classList.remove('is-open');
+    });
+
+    if (!isCurrentlyOpen) {
+      navItem.classList.add('is-open');
+    } else {
+      navLink.blur();
+    }
+
+    return;
+  }
+
+  if (!evt.target.closest('.desktop-gemini-mega-menu')) {
+    document.querySelectorAll('.desktop-gemini-menu__item.is-open').forEach((item) => {
+      item.classList.remove('is-open');
+    });
+  }
+});
+document.addEventListener('click', (evt) => {
+  if (window.innerWidth <= 1024) return;
+
   const trigger = evt.target.closest('[data-desktop-accordion-trigger]');
   const nestedTrigger = evt.target.closest('[data-desktop-nested-trigger]');
   if (!trigger && !nestedTrigger) return;

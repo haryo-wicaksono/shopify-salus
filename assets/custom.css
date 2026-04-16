@@ -4216,7 +4216,8 @@ a.secondary-nav__item.secondary-nav__cta {
     max-height: none;
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 0.4s ease, padding 0.4s ease;
+    transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: grid-template-rows, padding;
   }
 
   .desktop-gemini-accordion__content > div {
@@ -4242,13 +4243,14 @@ a.secondary-nav__item.secondary-nav__cta {
     opacity: 0;
     visibility: hidden;
     animation: none;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, visibility;
   }
 
   .desktop-gemini-panel.is-active {
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.08s, visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.08s;
   }
 }
 

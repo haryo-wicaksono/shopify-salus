@@ -6615,11 +6615,12 @@ body>.os-scrollbar {
     z-index: 20;
   }
 
-  .desktop-gemini-menu__item:hover > .desktop-gemini-mega-menu,
-  .desktop-gemini-menu__item:focus-within > .desktop-gemini-mega-menu {
+  .desktop-gemini-menu__item:focus-within > .desktop-gemini-mega-menu,
+  .desktop-gemini-menu__item.is-open > .desktop-gemini-mega-menu {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
+    z-index: 21;
   }
 
   .desktop-gemini-mega-inner {
@@ -6662,22 +6663,17 @@ body>.os-scrollbar {
     text-transform: uppercase;
     color: #222;
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: left;
   }
 
-  .desktop-gemini-accordion__header:hover {
-    color: #2b8b82;
-  }
-
-  .desktop-gemini-accordion__item.is-active .desktop-gemini-accordion__header {
-    color: #2b8b82;
-  }
+  /* Parent headers stay black on hover/active */
 
   .desktop-gemini-accordion__header .icon {
     width: 1.6rem;
     height: 1.6rem;
-    transition: transform 0.3s ease;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
   }
 
   .desktop-gemini-accordion__item.is-active .desktop-gemini-accordion__header .icon {
@@ -6691,7 +6687,8 @@ body>.os-scrollbar {
     flex-direction: column;
     gap: 1.2rem;
     padding-left: 1.2rem;
-    transition: max-height 0.4s ease, padding 0.4s ease;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: max-height, padding;
   }
 
   .desktop-gemini-accordion__item.is-active .desktop-gemini-accordion__content {
@@ -6707,7 +6704,7 @@ body>.os-scrollbar {
     width: fit-content;
     font-size: 1.3rem;
     color: #777;
-    transition: color 0.2s ease;
+    transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .desktop-gemini-sub-link--button {
@@ -6723,7 +6720,8 @@ body>.os-scrollbar {
     height: 1.2rem;
     opacity: 0;
     transform: translateX(-8px);
-    transition: all 0.2s ease;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
     color: #2b8b82;
   }
 
@@ -6918,12 +6916,14 @@ body>.os-scrollbar {
     height: 1.6rem;
   }
 
-  .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta {
+  .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta,
+  .desktop-gemini-feature-panel__cta:hover {
     background: currentColor;
     color: #fff;
   }
 
-  .desktop-gemini-feature-panel--dark:hover .desktop-gemini-feature-panel__cta {
+  .desktop-gemini-feature-panel--dark:hover .desktop-gemini-feature-panel__cta,
+  .desktop-gemini-feature-panel--dark .desktop-gemini-feature-panel__cta:hover {
     color: #111;
   }
 }
