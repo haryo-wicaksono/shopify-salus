@@ -4419,10 +4419,12 @@ a.secondary-nav__item.secondary-nav__cta {
   }
 
   .mobile-pane .m-grid .desktop-gemini-card-grid {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.6rem;
     max-width: none;
     margin: 0;
+    align-items: start;
   }
 
   .mobile-pane .m-grid .desktop-gemini-card,
@@ -4430,6 +4432,7 @@ a.secondary-nav__item.secondary-nav__cta {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    min-width: 0;
     text-align: center;
     text-decoration: none;
     color: inherit;
@@ -4437,9 +4440,22 @@ a.secondary-nav__item.secondary-nav__cta {
 
   .mobile-pane .m-grid .desktop-gemini-card__image,
   .mobile-pane .m-grid .m-card-img {
+    position: relative;
     aspect-ratio: 1 / 1;
+    width: 100%;
     background: #f7f5f1;
     border: 0;
+    overflow: hidden;
+    flex: 0 0 auto;
+  }
+
+  .mobile-pane .m-grid .desktop-gemini-card__image .img-fit,
+  .mobile-pane .m-grid .desktop-gemini-card__image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .mobile-pane .m-grid .desktop-gemini-card__title,
