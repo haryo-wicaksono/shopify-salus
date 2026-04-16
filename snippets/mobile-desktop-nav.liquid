@@ -1,0 +1,399 @@
+{%- liquid
+  assign slot_range = '1|2|3|4|5|6|7|8|9|10' | split: '|'
+-%}
+
+<div class="mobile-pane-stack md:hidden" data-mobile-pane-stack>
+  <div class="mobile-pane mobile-pane--root is-active" data-mobile-pane="m-root">
+    {%- for nav_block in section.blocks -%}
+      {%- if nav_block.type == 'desktop_nav_item' -%}
+        {%- liquid
+          assign nav_key_source = nav_block.settings.nav_key | strip
+          if nav_key_source == blank
+            assign nav_key_source = nav_block.id
+          endif
+          assign nav_key_slug = nav_key_source | downcase | replace: ' ', '-'
+          assign nav_label = nav_block.settings.label | default: 'Navigation'
+          assign nav_url = nav_block.settings.url | default: '#'
+          assign has_groups = false
+
+          for group_block in section.blocks
+            if group_block.type != 'desktop_nav_group'
+              continue
+            endif
+
+            assign parent_nav_key_source = group_block.settings.parent_nav_key | strip
+            if parent_nav_key_source == blank
+              assign parent_nav_key_source = group_block.id
+            endif
+            assign parent_nav_key_slug = parent_nav_key_source | downcase | replace: ' ', '-'
+            assign group_label = group_block.settings.label | strip
+
+            if parent_nav_key_slug == nav_key_slug and group_label != blank
+              assign has_groups = true
+              break
+            endif
+          endfor
+        -%}
+
+        {%- if has_groups -%}
+          <a
+            href="{{ nav_url }}"
+            class="m-link m-fwd"
+            data-mobile-fwd="m-nav--{{ nav_key_slug }}"
+            {{ nav_block.shopify_attributes }}
+          >
+            <span>{{- nav_label -}}</span>
+            {% render 'icon-chevron-right' %}
+          </a>
+        {%- else -%}
+          <a href="{{ nav_url }}" class="m-link" {{ nav_block.shopify_attributes }}>
+            <span>{{- nav_label -}}</span>
+          </a>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    <div class="m-divider"></div>
+
+    <a href="tel:{{ phone_href }}" class="m-contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span>{{- phone_label -}}</span>
+    </a>
+    <a href="{{ contact_href }}" class="m-contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <polyline points="22,6 12,13 2,6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+      </svg>
+      <span>{{- contact_label -}}</span>
+    </a>
+  </div>
+
+  {%- for nav_block in section.blocks -%}
+    {%- if nav_block.type == 'desktop_nav_item' -%}
+      {%- liquid
+        assign nav_key_source = nav_block.settings.nav_key | strip
+        if nav_key_source == blank
+          assign nav_key_source = nav_block.id
+        endif
+        assign nav_key_slug = nav_key_source | downcase | replace: ' ', '-'
+        assign nav_label = nav_block.settings.label | default: 'Navigation'
+        assign nav_url = nav_block.settings.url | default: '#'
+        assign explore_label = nav_block.settings.explore_label | default: nav_label
+        assign explore_url = nav_block.settings.explore_url
+        assign group_count = 0
+        assign single_group_block = blank
+
+        for group_block in section.blocks
+          if group_block.type != 'desktop_nav_group'
+            continue
+          endif
+
+          assign parent_nav_key_source = group_block.settings.parent_nav_key | strip
+          if parent_nav_key_source == blank
+            assign parent_nav_key_source = group_block.id
+          endif
+          assign parent_nav_key_slug = parent_nav_key_source | downcase | replace: ' ', '-'
+          assign group_label = group_block.settings.label | strip
+
+          if parent_nav_key_slug == nav_key_slug and group_label != blank
+            assign group_count = group_count | plus: 1
+            if group_count == 1
+              assign single_group_block = group_block
+            endif
+          endif
+        endfor
+
+        assign collapse_cards_group = false
+        assign collapsed_panel_block = blank
+        if group_count == 1 and single_group_block != blank and single_group_block.settings.group_type == 'cards'
+          assign collapse_cards_group = true
+          assign single_group_key_source = single_group_block.settings.group_key | strip
+          if single_group_key_source == blank
+            assign single_group_key_source = single_group_block.id
+          endif
+          assign single_group_key_slug = single_group_key_source | downcase | replace: ' ', '-'
+
+          for panel_block in section.blocks
+            if panel_block.type != 'desktop_nav_panel'
+              continue
+            endif
+
+            assign panel_nav_key_source = panel_block.settings.parent_nav_key | strip
+            if panel_nav_key_source == blank
+              assign panel_nav_key_source = panel_block.id
+            endif
+            assign panel_nav_key_slug = panel_nav_key_source | downcase | replace: ' ', '-'
+            assign panel_group_key_source = panel_block.settings.parent_group_key | strip
+            if panel_group_key_source == blank
+              assign panel_group_key_source = panel_block.id
+            endif
+            assign panel_group_key_slug = panel_group_key_source | downcase | replace: ' ', '-'
+
+            if panel_nav_key_slug == nav_key_slug and panel_group_key_slug == single_group_key_slug and panel_block.settings.nested_item_slot == 'none'
+              assign collapsed_panel_block = panel_block
+              break
+            endif
+          endfor
+        endif
+      -%}
+
+      {%- if group_count > 0 -%}
+        <div class="mobile-pane" data-mobile-pane="m-nav--{{ nav_key_slug }}" {{ nav_block.shopify_attributes }}>
+          <button type="button" class="m-back" data-mobile-back>
+            {% render 'icon-chevron-left' %}
+            <span>{{- nav_label -}}</span>
+          </button>
+
+          {%- if collapse_cards_group -%}
+            {%- if collapsed_panel_block != blank -%}
+              <div class="m-grid">
+                {% render 'desktop-gemini-card-grid', panel_block: collapsed_panel_block %}
+              </div>
+            {%- endif -%}
+          {%- else -%}
+            {%- for group_block in section.blocks -%}
+              {%- if group_block.type == 'desktop_nav_group' -%}
+                {%- liquid
+                  assign parent_nav_key_source = group_block.settings.parent_nav_key | strip
+                  if parent_nav_key_source == blank
+                    assign parent_nav_key_source = group_block.id
+                  endif
+                  assign parent_nav_key_slug = parent_nav_key_source | downcase | replace: ' ', '-'
+                  assign group_label = group_block.settings.label | strip
+                  if parent_nav_key_slug != nav_key_slug or group_label == blank
+                    continue
+                  endif
+
+                  assign group_key_source = group_block.settings.group_key | strip
+                  if group_key_source == blank
+                    assign group_key_source = group_block.id
+                  endif
+                  assign group_key_slug = group_key_source | downcase | replace: ' ', '-'
+                -%}
+
+                <a href="{{ nav_url }}" class="m-link m-fwd" data-mobile-fwd="m-group--{{ nav_key_slug }}--{{ group_key_slug }}" {{ group_block.shopify_attributes }}>
+                  <span>{{- group_label -}}</span>
+                  {% render 'icon-chevron-right' %}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if explore_url != blank -%}
+            <div class="m-btn-wrap">
+              <a href="{{ explore_url }}" class="m-explore-btn">
+                <span>{{- explore_label -}}</span>
+                {% render 'icon-arrow-right' %}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- unless collapse_cards_group -%}
+        {%- for group_block in section.blocks -%}
+          {%- if group_block.type == 'desktop_nav_group' -%}
+            {%- liquid
+              assign parent_nav_key_source = group_block.settings.parent_nav_key | strip
+              if parent_nav_key_source == blank
+                assign parent_nav_key_source = group_block.id
+              endif
+              assign parent_nav_key_slug = parent_nav_key_source | downcase | replace: ' ', '-'
+              assign group_label = group_block.settings.label | strip
+              if parent_nav_key_slug != nav_key_slug or group_label == blank
+                continue
+              endif
+
+              assign group_key_source = group_block.settings.group_key | strip
+              if group_key_source == blank
+                assign group_key_source = group_block.id
+              endif
+              assign group_key_slug = group_key_source | downcase | replace: ' ', '-'
+              assign group_type = group_block.settings.group_type
+              assign group_panel_block = blank
+
+              for panel_block in section.blocks
+                if panel_block.type != 'desktop_nav_panel'
+                  continue
+                endif
+
+                assign panel_nav_key_source = panel_block.settings.parent_nav_key | strip
+                if panel_nav_key_source == blank
+                  assign panel_nav_key_source = panel_block.id
+                endif
+                assign panel_nav_key_slug = panel_nav_key_source | downcase | replace: ' ', '-'
+                assign panel_group_key_source = panel_block.settings.parent_group_key | strip
+                if panel_group_key_source == blank
+                  assign panel_group_key_source = panel_block.id
+                endif
+                assign panel_group_key_slug = panel_group_key_source | downcase | replace: ' ', '-'
+
+                if panel_nav_key_slug == nav_key_slug and panel_group_key_slug == group_key_slug and panel_block.settings.nested_item_slot == 'none'
+                  assign group_panel_block = panel_block
+                  break
+                endif
+              endfor
+            -%}
+
+            <div class="mobile-pane" data-mobile-pane="m-group--{{ nav_key_slug }}--{{ group_key_slug }}" {{ group_block.shopify_attributes }}>
+              <button type="button" class="m-back" data-mobile-back>
+                {% render 'icon-chevron-left' %}
+                <span>{{- group_label -}}</span>
+              </button>
+
+              {%- if group_type == 'cards' -%}
+                {%- if group_panel_block != blank -%}
+                  <div class="m-grid">
+                    {% render 'desktop-gemini-card-grid', panel_block: group_panel_block %}
+                  </div>
+                {%- endif -%}
+              {%- elsif group_type == 'feature_image' -%}
+                {%- for slot in slot_range -%}
+                  {%- liquid
+                    assign entry_label_key = 'entry_' | append: slot | append: '_label'
+                    assign entry_url_key = 'entry_' | append: slot | append: '_url'
+                    assign entry_label = group_block.settings[entry_label_key] | strip
+                    assign entry_url = group_block.settings[entry_url_key]
+                  -%}
+
+                  {%- if entry_label != blank -%}
+                    {%- if entry_url != blank -%}
+                      <a href="{{ entry_url }}" class="m-sub-link">
+                        <span>{{- entry_label -}}</span>
+                        {% render 'icon-chevron-right' %}
+                      </a>
+                    {%- else -%}
+                      <span class="m-sub-link is-disabled" aria-disabled="true">
+                        <span>{{- entry_label -}}</span>
+                      </span>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+                {%- if group_panel_block != blank and group_panel_block.settings.feature_image != blank -%}
+                  <div class="m-banner{% if group_panel_block.settings.feature_dark_mode %} m-banner--dark{% endif %}">
+                    <div class="m-banner-media">
+                      {% render 'image', image: group_panel_block.settings.feature_image, src_width: 900, srcset_2x: true, alt_text: group_panel_block.settings.feature_heading, class: 'img-fit' %}
+                    </div>
+                    <div class="m-banner-overlay"></div>
+                    <div class="m-banner-content">
+                      {%- if group_panel_block.settings.feature_heading != blank -%}
+                        <h2>{{- group_panel_block.settings.feature_heading -}}</h2>
+                      {%- endif -%}
+                      {%- if group_panel_block.settings.feature_cta_label != blank and group_panel_block.settings.feature_cta_url != blank -%}
+                        <a href="{{ group_panel_block.settings.feature_cta_url }}" class="m-banner-btn">
+                          <span>{{- group_panel_block.settings.feature_cta_label -}}</span>
+                          {% render 'icon-arrow-right' %}
+                        </a>
+                      {%- elsif group_panel_block.settings.feature_cta_label != blank -%}
+                        <span class="m-banner-btn">
+                          <span>{{- group_panel_block.settings.feature_cta_label -}}</span>
+                          {% render 'icon-arrow-right' %}
+                        </span>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- elsif group_type == 'nested_cards' -%}
+                {%- for slot in slot_range -%}
+                  {%- liquid
+                    assign entry_label_key = 'entry_' | append: slot | append: '_label'
+                    assign entry_label = group_block.settings[entry_label_key] | strip
+                    if entry_label == blank
+                      continue
+                    endif
+
+                    assign nested_panel_block = blank
+                    assign nested_item_slot = 'item_' | append: slot
+                    for panel_block in section.blocks
+                      if panel_block.type != 'desktop_nav_panel'
+                        continue
+                      endif
+
+                      assign panel_nav_key_source = panel_block.settings.parent_nav_key | strip
+                      if panel_nav_key_source == blank
+                        assign panel_nav_key_source = panel_block.id
+                      endif
+                      assign panel_nav_key_slug = panel_nav_key_source | downcase | replace: ' ', '-'
+                      assign panel_group_key_source = panel_block.settings.parent_group_key | strip
+                      if panel_group_key_source == blank
+                        assign panel_group_key_source = panel_block.id
+                      endif
+                      assign panel_group_key_slug = panel_group_key_source | downcase | replace: ' ', '-'
+
+                      if panel_nav_key_slug == nav_key_slug and panel_group_key_slug == group_key_slug and panel_block.settings.nested_item_slot == nested_item_slot
+                        assign nested_panel_block = panel_block
+                        break
+                      endif
+                    endfor
+                  -%}
+
+                  {%- if nested_panel_block != blank -%}
+                    <a href="{{ nav_url }}" class="m-sub-link m-fwd" data-mobile-fwd="m-entry--{{ nav_key_slug }}--{{ group_key_slug }}--{{ slot }}">
+                      <span>{{- entry_label -}}</span>
+                      {% render 'icon-chevron-right' %}
+                    </a>
+                  {%- else -%}
+                    <span class="m-sub-link is-disabled" aria-disabled="true">
+                      <span>{{- entry_label -}}</span>
+                    </span>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+
+            {%- if group_type == 'nested_cards' -%}
+              {%- for slot in slot_range -%}
+                {%- liquid
+                  assign entry_label_key = 'entry_' | append: slot | append: '_label'
+                  assign entry_label = group_block.settings[entry_label_key] | strip
+                  if entry_label == blank
+                    continue
+                  endif
+
+                  assign nested_panel_block = blank
+                  assign nested_item_slot = 'item_' | append: slot
+                  for panel_block in section.blocks
+                    if panel_block.type != 'desktop_nav_panel'
+                      continue
+                    endif
+
+                    assign panel_nav_key_source = panel_block.settings.parent_nav_key | strip
+                    if panel_nav_key_source == blank
+                      assign panel_nav_key_source = panel_block.id
+                    endif
+                    assign panel_nav_key_slug = panel_nav_key_source | downcase | replace: ' ', '-'
+                    assign panel_group_key_source = panel_block.settings.parent_group_key | strip
+                    if panel_group_key_source == blank
+                      assign panel_group_key_source = panel_block.id
+                    endif
+                    assign panel_group_key_slug = panel_group_key_source | downcase | replace: ' ', '-'
+
+                    if panel_nav_key_slug == nav_key_slug and panel_group_key_slug == group_key_slug and panel_block.settings.nested_item_slot == nested_item_slot
+                      assign nested_panel_block = panel_block
+                      break
+                    endif
+                  endfor
+                -%}
+
+                {%- if nested_panel_block != blank -%}
+                  <div class="mobile-pane" data-mobile-pane="m-entry--{{ nav_key_slug }}--{{ group_key_slug }}--{{ slot }}">
+                    <button type="button" class="m-back" data-mobile-back>
+                      {% render 'icon-chevron-left' %}
+                      <span>{{- entry_label -}}</span>
+                    </button>
+                    <div class="m-grid">
+                      {% render 'desktop-gemini-card-grid', panel_block: nested_panel_block %}
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+</div>

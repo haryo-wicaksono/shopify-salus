@@ -16,8 +16,9 @@ This is a non-exhaustive map of key sections/snippets to help navigate the theme
 
 ### Search and Navigation
 - Sections: `predictive-search.liquid`.
-- Snippets: `predictive-search-tab-panel.liquid`, `predictive-search-tab-button.liquid`.
+- Snippets: `predictive-search-tab-panel.liquid`, `predictive-search-tab-button.liquid`, `mobile-desktop-nav.liquid`.
 - JS: `predictive-search.js`, `search-form.js`, `quick-nav.js`.
+- Header navigation note: `sections/header.liquid` owns both the desktop Gemini mega menu and the mobile pane-stack drawer. The mobile Gemini drawer is emitted as a sibling stack container inside `<main-menu>`, while the legacy `section.settings.menu` list remains the fallback when no `desktop_nav_item` blocks are configured.
 
 ### Cart and Checkout UX
 - Sections: `main-cart.liquid`.
@@ -31,4 +32,3 @@ This is a non-exhaustive map of key sections/snippets to help navigate the theme
 ### Stylesheets
 - Global: `assets/main.css`, `assets/responsive.css`.
 - Feature: `product.css`, `media-gallery.css`, `price-range.css`, etc.
-

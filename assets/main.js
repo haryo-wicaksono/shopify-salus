@@ -1570,6 +1570,8 @@ class MainMenu extends HTMLElement {
    * @param {boolean} [transition=false] - Close action has a CSS transition.
    */
   close(el, transition = true) {
+    const isMainDisclosure = el.classList.contains('main-menu__disclosure');
+
     el.classList.remove('is-open');
 
     if (transition) {
@@ -1589,6 +1591,10 @@ class MainMenu extends HTMLElement {
 
     if (theme.mediaMatches.md || el.classList.contains('main-menu__disclosure')) {
       document.body.classList.remove('overflow-hidden');
+    }
+
+    if (isMainDisclosure) {
+      document.dispatchEvent(new CustomEvent('mobile-drawer:close'));
     }
   }
 
@@ -1621,6 +1627,51 @@ class MainMenu extends HTMLElement {
 }
 
 customElements.define('main-menu', MainMenu);
+
+(function mobileNavPaneStack() {
+  const stacks = document.querySelectorAll('[data-mobile-pane-stack]');
+  if (!stacks.length) return;
+
+  const MOBILE_BREAKPOINT = 1026.98;
+  const isMobile = () => window.innerWidth <= MOBILE_BREAKPOINT;
+  const resetStack = (stack) => {
+    stack.querySelectorAll('[data-mobile-pane].is-active').forEach((pane) => {
+      if (pane.dataset.mobilePane !== 'm-root') {
+        pane.classList.remove('is-active');
+      }
+    });
+  };
+
+  stacks.forEach((stack) => {
+    stack.addEventListener('click', (evt) => {
+      if (!isMobile()) return;
+
+      const forwardTrigger = evt.target.closest('[data-mobile-fwd]');
+      if (forwardTrigger) {
+        const targetPaneId = forwardTrigger.getAttribute('data-mobile-fwd');
+        const targetPane = stack.querySelector(`[data-mobile-pane="${targetPaneId}"]`);
+        if (!targetPane) return;
+
+        evt.preventDefault();
+        targetPane.classList.add('is-active');
+        return;
+      }
+
+      const backTrigger = evt.target.closest('[data-mobile-back]');
+      if (!backTrigger) return;
+
+      const currentPane = backTrigger.closest('[data-mobile-pane]');
+      if (!currentPane || currentPane.dataset.mobilePane === 'm-root') return;
+
+      evt.preventDefault();
+      currentPane.classList.remove('is-active');
+    });
+
+    document.addEventListener('mobile-drawer:close', () => {
+      resetStack(stack);
+    });
+  });
+}());
 
 document.addEventListener('click', (evt) => {
   if (window.innerWidth <= 1024) return;

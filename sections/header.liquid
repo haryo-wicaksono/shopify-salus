@@ -210,6 +210,14 @@
     </div>
 
     {%- if section.settings.menu != blank -%}
+      {%- liquid
+        assign desktop_nav_item_count = 0
+        for block in section.blocks
+          if block.type == 'desktop_nav_item'
+            assign desktop_nav_item_count = desktop_nav_item_count | plus: 1
+          endif
+        endfor
+      -%}
       {%- assign total_promo_count = 0 -%}
       <main-menu
         class="main-menu{% if section.settings.mobile_menu_position == "burger-left" %} main-menu--left-mob{% endif %}"
@@ -248,7 +256,7 @@
                       assign is_desktop_direct_link = true
                     endif
                   -%}
-                  <li class="{% unless is_desktop_primary_link %}md:hidden {% endunless %}{% if is_desktop_direct_link %}main-nav__item--desktop-direct{% endif %}">
+                  <li class="{% if desktop_nav_item_count > 0 %}hidden {% endif %}{% unless is_desktop_primary_link %}md:hidden {% else %}{% if desktop_nav_item_count > 0 %}md:list-item {% endif %}{% endunless %}{% if is_desktop_direct_link %}main-nav__item--desktop-direct{% endif %}">
                     {%- if link.links == blank -%}
                       <a
                         class="main-nav__item main-nav__item--primary{% if link.current %} is-active{% endif %}{% if featured_links contains link_title_downcase %} main-nav__link--featured{% endif %}"
@@ -881,7 +889,31 @@
                   </li>
                 {%- endfor -%}
               </ul>
-              <nav aria-label="{{ 'accessibility.secondary_navigation' | t }}" class="secondary-nav-container">
+<<<<<<< HEAD
+              {%- if desktop_nav_item_count > 0 -%}
+                {% render 'mobile-desktop-nav',
+                  section: section,
+                  phone_label: header_phone_label,
+                  phone_href: header_phone_href,
+                  contact_label: header_email_label,
+                  contact_href: header_email_href
+                %}
+              {%- endif -%}
+              {%- if section.settings.quicklinks_menu != blank or section.settings.cta_show -%}
+                <nav aria-label="{{ 'accessibility.secondary_navigation' | t }}" class="secondary-nav-container">
+=======
+              {%- if desktop_nav_item_count > 0 -%}
+                {% render 'mobile-desktop-nav',
+                  section: section,
+                  phone_label: header_phone_label,
+                  phone_href: header_phone_href,
+                  contact_label: header_email_label,
+                  contact_href: header_email_href
+                %}
+              {%- endif -%}
+              {%- if section.settings.quicklinks_menu != blank or section.settings.cta_show -%}
+                <nav aria-label="{{ 'accessibility.secondary_navigation' | t }}" class="secondary-nav-container">
+>>>>>>> 308177c (feat: rebuild mobile nav pane stack)
                   <ul class="secondary-nav" role="list">
                     {% for link in section.settings.quicklinks_menu.links %}
                       <li>
@@ -972,6 +1004,7 @@
                     </li>
                   </ul>
                 </nav>
+              {%- endif -%}
             </nav>
           </div>
         </details>

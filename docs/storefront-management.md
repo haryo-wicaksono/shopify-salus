@@ -106,6 +106,19 @@ Tip: Create these metafields in Admin → Settings → Custom data. Use appropri
 - Quicklinks menu setting id: `quicklinks_menu` (no dropdowns; max ~4 links).
 - Mega menu activation: driven by link text matches in header settings (Column/Button/Sidebar Mega Menus). Ensure top-level link names match settings.
 
+### Gemini mobile navigation authoring
+- Gemini mobile navigation is rendered from `desktop_nav_item`, `desktop_nav_group`, and `desktop_nav_panel` blocks in `sections/header.liquid`, with the pane-stack markup emitted by `snippets/mobile-desktop-nav.liquid`.
+- `group_type` now controls mobile rendering directly:
+  - `cards` renders a 2-column card grid in the group pane.
+  - `feature_image` renders text links first, then the feature banner.
+  - `nested_cards` renders text links that drill into entry-specific card-grid panes.
+- If a nav item has exactly one group and that group uses `cards`, mobile skips the intermediate group list and shows the card grid directly on the nav item's pane. This is the ACCESSORIES-style collapse.
+- `explore_label` and `explore_url` on each `desktop_nav_item` control the bottom pill CTA on that nav item's mobile pane. If `explore_url` is blank, the pill is omitted.
+- For `nested_cards`, each authored `entry_N_label` stays visible even when no matching `desktop_nav_panel` exists. Unmapped entries render disabled instead of disappearing, which makes authoring gaps obvious during QA.
+- Key mapping rules:
+  - Group-level card or banner content uses the `desktop_nav_panel` whose `nested_item_slot` is `none`.
+  - Entry-specific `nested_cards` panes use `nested_item_slot = item_N`, matched against the corresponding `entry_N_*` fields on the group block.
+
 ### Popups and frequency capping
 - Component: `assets/pop-up.js` defines `pop-up` custom element.
 - Triggers via `data-trigger`:
@@ -117,4 +130,3 @@ Tip: Create these metafields in Admin → Settings → Custom data. Use appropri
 
 ### Collection filters via metafields
 - `collection.custom.sauna_type_list` (List) used to render Sauna Type filters in `snippets/facet-filters.liquid`.
-
