@@ -1704,6 +1704,75 @@ document.addEventListener('click', (evt) => {
     });
   }
 });
+
+const DESKTOP_GEMINI_PANEL_FADE_OUT_MS = 300;
+
+function setActiveDesktopGeminiPanel(megaMenu, targetPanel) {
+  if (!megaMenu || !targetPanel) return;
+  const megaContent = megaMenu.querySelector('.desktop-gemini-mega-content');
+  const panels = Array.from(megaMenu.querySelectorAll('[data-desktop-panel]'));
+  const nextPanel = panels.find((panel) => panel.dataset.desktopPanel === targetPanel);
+  const currentActivePanel = panels.find((panel) => panel.classList.contains('is-active'));
+
+  panels.forEach((panel) => {
+    if (panel._desktopGeminiFadeTimer) {
+      clearTimeout(panel._desktopGeminiFadeTimer);
+      panel._desktopGeminiFadeTimer = null;
+    }
+
+    panel.classList.remove('is-fading-out');
+  });
+
+  if (currentActivePanel && currentActivePanel !== nextPanel) {
+    const panelRect = currentActivePanel.getBoundingClientRect();
+    const megaContentRect = megaContent?.getBoundingClientRect();
+    const offsetTop = megaContentRect ? panelRect.top - megaContentRect.top : 0;
+    const offsetLeft = megaContentRect ? panelRect.left - megaContentRect.left : 0;
+
+    currentActivePanel.style.width = `${currentActivePanel.offsetWidth}px`;
+    currentActivePanel.style.height = `${currentActivePanel.offsetHeight}px`;
+    currentActivePanel.style.setProperty('--desktop-gemini-leaving-top', `${offsetTop}px`);
+    currentActivePanel.style.setProperty('--desktop-gemini-leaving-left', `${offsetLeft}px`);
+    currentActivePanel.classList.remove('is-active');
+    currentActivePanel.classList.add('is-leaving');
+
+    requestAnimationFrame(() => {
+      currentActivePanel.classList.add('is-fading-out');
+    });
+
+    currentActivePanel._desktopGeminiFadeTimer = window.setTimeout(() => {
+      currentActivePanel.classList.remove('is-leaving', 'is-fading-out');
+      currentActivePanel.style.width = '';
+      currentActivePanel.style.height = '';
+      currentActivePanel.style.removeProperty('--desktop-gemini-leaving-top');
+      currentActivePanel.style.removeProperty('--desktop-gemini-leaving-left');
+      currentActivePanel._desktopGeminiFadeTimer = null;
+    }, DESKTOP_GEMINI_PANEL_FADE_OUT_MS);
+  }
+
+  panels.forEach((panel) => {
+    if (panel === nextPanel) {
+      panel.classList.remove('is-leaving');
+      panel.classList.add('is-active');
+      panel.style.width = '';
+      panel.style.height = '';
+      panel.style.removeProperty('--desktop-gemini-leaving-top');
+      panel.style.removeProperty('--desktop-gemini-leaving-left');
+      return;
+    }
+
+    if (panel === currentActivePanel && currentActivePanel !== nextPanel) {
+      return;
+    }
+
+    panel.classList.remove('is-leaving');
+    panel.style.width = '';
+    panel.style.height = '';
+    panel.style.removeProperty('--desktop-gemini-leaving-top');
+    panel.style.removeProperty('--desktop-gemini-leaving-left');
+  });
+}
+
 document.addEventListener('click', (evt) => {
   if (window.innerWidth <= 1024) return;
 
@@ -1747,11 +1816,7 @@ document.addEventListener('click', (evt) => {
         });
       });
 
-      if (megaMenu && targetPanel) {
-        megaMenu.querySelectorAll('[data-desktop-panel]').forEach((panel) => {
-          panel.classList.toggle('is-active', panel.dataset.desktopPanel === targetPanel);
-        });
-      }
+      setActiveDesktopGeminiPanel(megaMenu, targetPanel);
     }
   }
 
@@ -1771,9 +1836,7 @@ document.addEventListener('click', (evt) => {
       button.classList.toggle('is-active', button === nestedTrigger);
     });
 
-    megaMenu.querySelectorAll('[data-desktop-panel]').forEach((panel) => {
-      panel.classList.toggle('is-active', panel.dataset.desktopPanel === targetPanel);
-    });
+    setActiveDesktopGeminiPanel(megaMenu, targetPanel);
   }
 });
 

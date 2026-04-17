@@ -4,6 +4,20 @@
 }
 
 @media (min-width: 1026px) {
+  .header__desktop-right-main {
+    margin-bottom: 1.2rem;
+  }
+
+  .header__search {
+    flex: 0 0 28rem;
+    width: 28rem;
+  }
+
+  .header__search .search__input {
+    height: 3.4rem;
+    min-height: 3.4rem;
+  }
+
   .header .header__search .predictive-search {
     width: min(720px, calc(100vw - 8rem));
     max-width: min(720px, calc(100vw - 8rem));
@@ -4181,7 +4195,7 @@ a.secondary-nav__item.secondary-nav__cta {
 
   .desktop-gemini-menu__underline {
     position: absolute;
-    bottom: calc(((var(--desktop-header-height) - 100%) / -2) + 2rem);
+    bottom: calc(((var(--desktop-header-height) - 100%) / -2) + 2.3rem);
     left: 0;
     width: 100%;
     height: 3px;
@@ -4199,23 +4213,31 @@ a.secondary-nav__item.secondary-nav__cta {
   .desktop-gemini-menu__item:hover > .desktop-gemini-menu__link,
   .desktop-gemini-menu__item:focus-within > .desktop-gemini-menu__link,
   .desktop-gemini-menu__link.is-active {
-    color: #222120;
+    color: #646463;
   }
 
   .desktop-gemini-mega-sidebar {
     width: 50rem;
-    padding-left: var(--gutter);
+    align-self: flex-start;
+    min-height: auto;
+    padding-left: calc(var(--gutter) + 13px);
     /* padding-right: var(--gutter); */
   }
 
   .desktop-gemini-accordion {
+    flex-grow: 0;
     padding-left: 0;
+  }
+
+  .desktop-gemini-mega-inner {
+    min-height: auto;
   }
 
   .desktop-gemini-accordion__header {
     padding-left: 0;
     justify-content: flex-start;
     gap: 10px;
+    letter-spacing: 0;
   }
 
   .desktop-gemini-accordion__content {
@@ -4240,30 +4262,59 @@ a.secondary-nav__item.secondary-nav__cta {
   }
 
   .desktop-gemini-mega-content {
-    display: grid;
-    grid-template-areas: "panel";
+    position: relative;
   }
 
   .desktop-gemini-panel {
+    position: absolute;
+    inset: 0;
     display: block;
-    grid-area: panel;
     opacity: 0;
     visibility: hidden;
     animation: none;
-    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: opacity, visibility;
+    pointer-events: none;
+    transition: none;
   }
 
   .desktop-gemini-panel.is-active {
+    position: relative;
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.08s, visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.08s;
+    pointer-events: auto;
+    animation: desktop-gemini-panel-fade 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .desktop-gemini-panel.is-leaving {
+    position: absolute;
+    top: var(--desktop-gemini-leaving-top, 0);
+    left: var(--desktop-gemini-leaving-left, 0);
+    right: auto;
+    bottom: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
+  }
+
+  .desktop-gemini-panel.is-leaving.is-fading-out {
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes desktop-gemini-panel-fade {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 }
 
 @media (min-width: 1600px) {
   .desktop-gemini-mega-sidebar {
-    width: 65rem;
+    /* width: 65rem; */
+    padding-left: calc(var(--gutter) + 13px);
   }
 }
 
@@ -4532,20 +4583,35 @@ a.secondary-nav__item.secondary-nav__cta {
 
 /* Header icon and search color overrides */
 .header__search .search__input {
-  border-color: #90908F;
+  border-color: rgba(144, 144, 143, 0.5);
 }
 
 .header__search .search__input:focus {
-  border-color: #90908F;
+  border-color: rgba(144, 144, 143, 0.5);
+}
+
+.header__search .search__input::placeholder {
+  font-size: 1.2rem;
 }
 
 .header__search .search__submit {
-  color: #222120;
+  color: rgba(144, 144, 143, 0.5);
+}
+
+.icon-search path {
+  stroke-width: 0.3;
 }
 
 .header__icons-wrapper > a.header__icon:not(.js-show-search):not(#cart-icon),
 .header__icons-wrapper > a.header__icon#cart-icon {
   color: #646463;
+}
+
+@media (min-width: 768px) {
+  .header__logo .logo__link > span,
+  .header__logo .logo__link > img {
+    max-width: 230px;
+  }
 }
 
 @media (min-width: 1600px) {
