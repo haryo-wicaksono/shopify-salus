@@ -5654,8 +5654,8 @@ body>.os-scrollbar {
   justify-content: center;
   width: max-content;
   height: max-content;
-  max-width: 44px;
-  max-height: 44px;
+  max-width: 16px;
+  max-height: 16px;
   padding: 10px 0px;
   color: inherit;
   text-align: center;
@@ -5699,10 +5699,6 @@ body>.os-scrollbar {
   order: 2;
 }
 
-.header__desktop-left {
-  display: none;
-}
-
 .header__desktop-right {
   display: contents;
 }
@@ -5715,7 +5711,7 @@ body>.os-scrollbar {
   .header__icons-wrapper {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 1.5rem;
   }
 
   .header__icons-wrapper .js-show-search {
@@ -5752,8 +5748,8 @@ body>.os-scrollbar {
 
 @media (min-width: 1026px) {
   .header {
-    --desktop-search-dropdown-offset: 3.2rem;
-    --desktop-header-height: 13rem;
+    --desktop-search-dropdown-offset: 1.79rem;
+    --desktop-header-height: 10rem;
     position: relative;
     padding: 0;
     min-height: var(--desktop-header-height);
@@ -5768,8 +5764,7 @@ body>.os-scrollbar {
     min-height: var(--desktop-header-height);
     align-items: center;
     row-gap: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0px 75px;
     column-gap: 2.4rem;
   }
 
@@ -5778,7 +5773,7 @@ body>.os-scrollbar {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 1.6rem;
+    gap: 1.8rem;
     min-width: 0;
     padding-inline-end: 4rem;
     grid-column: 1;
@@ -5797,7 +5792,7 @@ body>.os-scrollbar {
   .header__utility {
     display: flex;
     align-self: auto;
-    gap: 2.4rem;
+    gap: 1.8rem;
     font-size: 1.3rem;
     font-weight: 400;
     color: #90908F;
@@ -5806,10 +5801,11 @@ body>.os-scrollbar {
   .header__utility-link {
     display: inline-flex;
     align-items: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 400;
     color: #90908F;
     transition: color 0.2s ease;
+    margin-top: 0.5rem;
   }
 
   .header__utility-link:hover {
@@ -5853,7 +5849,7 @@ body>.os-scrollbar {
   .header__icons-wrapper {
     display: flex;
     align-items: center;
-    gap: 2.4rem;
+    gap: 1.5rem;
   }
 
   .header__icons-wrapper .js-show-search {
@@ -5921,15 +5917,15 @@ body>.os-scrollbar {
       padding-block: 3px;
       padding-inline-start: 1.6rem;
       padding-inline-end: 5.2rem;
-      border: 1px solid #000000;
+      border: 1px solid rgba(144, 144, 143, 0.5);
       border-radius: 999px;
       background: #fff;
       font-size: 1.4rem;
-      color: #333;
+      color: rgba(144, 144, 143, 0.5);
     }
 
   .header__search .search__input::placeholder {
-    color: #aaa;
+    color: rgba(144, 144, 143, 0.5);
   }
 
   .header__search .search__speech {
@@ -5942,13 +5938,13 @@ body>.os-scrollbar {
     right: 1.4rem;
     left: auto;
     transform: translateY(-50%);
-    width: 2.4rem;
-    min-height: 2.4rem;
-    height: 2.4rem;
+    width: 16px;
+    min-height: 16px;
+    height: 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #666;
+    color: rgba(144, 144, 143, 0.5);
     z-index: 2;
     padding: 0;
   }
@@ -6022,7 +6018,7 @@ body>.os-scrollbar {
   .header__icons-wrapper {
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: 1.5rem;
   }
 
   .header__icon {
@@ -6174,6 +6170,7 @@ body>.os-scrollbar {
     font-weight: 500;
     letter-spacing: 0;
     color: rgba(var(--text-color) / 0.62);
+    margin-top: 0.5rem;
   }
 
   .header__logo,
@@ -6209,7 +6206,7 @@ body>.os-scrollbar {
   .header__icons-wrapper {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 1.5rem;
   }
 
   .header__icon {
@@ -6427,15 +6424,16 @@ body>.os-scrollbar {
 
   .header__utility {
     align-self: center;
-    gap: 2.4rem;
+    gap: 1.8rem;
     font-size: 1.3rem;
     font-weight: 500;
     color: #666;
   }
 
   .header__utility-link {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #666;
+    margin-top: 0.5rem;
   }
 
   .header__logo {
@@ -6460,7 +6458,7 @@ body>.os-scrollbar {
   }
 
   .header__icons-wrapper {
-    gap: 2.4rem;
+    gap: 1.5rem;
   }
 
   .header__icons-wrapper .js-show-search {
@@ -6550,7 +6548,7 @@ body>.os-scrollbar {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2.4rem;
+    gap: 2.2rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -6558,6 +6556,7 @@ body>.os-scrollbar {
 
   .desktop-gemini-menu__item {
     position: static;
+    color: #646463;
   }
 
   .desktop-gemini-menu__link {
@@ -6567,9 +6566,9 @@ body>.os-scrollbar {
     padding-bottom: 0.8rem;
     font-size: 1.3rem;
     font-weight: 500;
-    letter-spacing: 0.05em;
+    letter-spacing: 0px;;
     text-transform: uppercase;
-    color: #222120;
+    color: #646463;
     transition: color 0.2s ease;
   }
 
@@ -6587,13 +6586,7 @@ body>.os-scrollbar {
   .desktop-gemini-menu__item:hover > .desktop-gemini-menu__link,
   .desktop-gemini-menu__item:focus-within > .desktop-gemini-menu__link,
   .desktop-gemini-menu__link.is-active {
-    color: #2b8b82;
-  }
-
-  .desktop-gemini-menu__item:hover > .desktop-gemini-menu__link::after,
-  .desktop-gemini-menu__item:focus-within > .desktop-gemini-menu__link::after,
-  .desktop-gemini-menu__link.is-active::after {
-    width: 100%;
+    color: #646463;
   }
 
   .desktop-gemini-mega-menu {
@@ -10836,7 +10829,7 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 1.6rem;
+    gap: 1.8rem;
     min-width: 0;
     padding-inline-end: 4rem;
     grid-column: 1;
@@ -10858,14 +10851,14 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 2.4rem;
+    gap: 1.5rem;
     width: 100%;
   }
 
   .header__utility {
     display: flex;
     align-self: auto;
-    gap: 2.4rem;
+    gap: 1.8rem;
     font-size: 1.3rem;
     font-weight: 400;
     color: #90908F;
@@ -10876,11 +10869,12 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
   .header__utility-link {
     display: inline-flex;
     align-items: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 400;
     color: #90908F;
     letter-spacing: 0;
     transition: color 0.2s ease;
+    margin-top: 0.5rem;
   }
 
   .header__utility-link:hover {
@@ -10936,7 +10930,7 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
   .header__icons-wrapper {
     display: flex;
     align-items: center;
-    gap: 2.4rem;
+    gap: 1.5rem;
   }
 
   .header__icons-wrapper .js-show-search {
@@ -11018,15 +11012,15 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
       padding-block: 3px;
       padding-inline-start: 1.6rem;
       padding-inline-end: 5.2rem;
-      border: 1px solid #000000;
+      border: 1px solid rgba(144, 144, 143, 0.5);
       border-radius: 999px;
       background: #fff;
       font-size: 1.4rem;
-      color: #333;
+      color: rgba(144, 144, 143, 0.5);
     }
 
   .header__search .search__input::placeholder {
-    color: #aaa;
+    color: #646463;
   }
 
   .header__search .search__speech {
@@ -11039,13 +11033,13 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
     right: 1.4rem;
     left: auto;
     transform: translateY(-50%);
-    width: 2.4rem;
-    min-height: 2.4rem;
-    height: 2.4rem;
+    width: 16px;
+    min-height: 16px;
+    height: 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #666;
+    color: rgba(144, 144, 143, 0.5);
     z-index: 2;
     padding: 0;
   }
