@@ -107,7 +107,7 @@
                               aria-expanded="{% if first_group %}true{% else %}false{% endif %}"
                             >
                               <span>{{- group_label -}}</span>
-                              {% render 'icon-nav-arrow' %}
+                              {% render 'icon-desktop-gemini-nav-arrow' %}
                             </button>
 
                             <div class="desktop-gemini-accordion__content">
@@ -130,12 +130,12 @@
                                         data-desktop-nested-target="{{ nested_target }}"
                                       >
                                         <span>{{- entry_label -}}</span>
-                                        {% render 'icon-chevron-right' %}
+                                        {% render 'icon-desktop-gemini-sub-link-arrow' %}
                                       </button>
                                     {%- else -%}
                                       <a class="desktop-gemini-sub-link" href="{{ entry_url | default: '#' }}">
                                         <span>{{- entry_label -}}</span>
-                                        {% render 'icon-chevron-right' %}
+                                        {% render 'icon-desktop-gemini-sub-link-arrow' %}
                                       </a>
                                     {%- endif -%}
                                   {%- endif -%}

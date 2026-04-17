@@ -4220,6 +4220,7 @@ a.secondary-nav__item.secondary-nav__cta {
     width: 50rem;
     align-self: flex-start;
     min-height: auto;
+    padding-top: 1.8rem;
     padding-left: calc(var(--gutter) + 13px);
     /* padding-right: var(--gutter); */
   }
@@ -4240,6 +4241,18 @@ a.secondary-nav__item.secondary-nav__cta {
     letter-spacing: 0;
   }
 
+  .desktop-gemini-accordion__header .icon {
+    width: 0.9rem;
+    height: 1.8rem;
+    overflow: visible;
+  }
+
+  .desktop-gemini-accordion__header .icon path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(1.35);
+  }
+
   .desktop-gemini-accordion__content {
     padding-left: 1.2rem;
     max-height: none;
@@ -4256,6 +4269,22 @@ a.secondary-nav__item.secondary-nav__cta {
     gap: 1.2rem;
   }
 
+  .desktop-gemini-sub-link .icon {
+    width: 0.5rem;
+    height: 0.7rem;
+    overflow: visible;
+  }
+
+  .desktop-gemini-sub-link .icon path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(1.25);
+  }
+
+  .desktop-gemini-explore-btn {
+    margin-top: 1.2rem;
+  }
+
   .desktop-gemini-accordion__item.is-active .desktop-gemini-accordion__content {
     max-height: none;
     grid-template-rows: 1fr;
@@ -4263,6 +4292,8 @@ a.secondary-nav__item.secondary-nav__cta {
 
   .desktop-gemini-mega-content {
     position: relative;
+    padding-top: 3rem;
+    padding-inline: 7.5rem;
   }
 
   .desktop-gemini-panel {
@@ -4298,6 +4329,47 @@ a.secondary-nav__item.secondary-nav__cta {
   .desktop-gemini-panel.is-leaving.is-fading-out {
     opacity: 0;
     transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .desktop-gemini-card__image {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 1.2rem;
+  }
+
+  .desktop-gemini-card-grid {
+    grid-template-columns: repeat(3, max-content);
+    justify-content: start;
+    gap: 3rem;
+  }
+
+  .desktop-gemini-feature-panel__content {
+    gap: 2rem;
+    max-width: 30rem;
+    padding: 2rem;
+  }
+
+  .desktop-gemini-feature-panel__content h2 {
+    font-size: 1.8rem;
+  }
+
+  .desktop-gemini-feature-panel {
+    border-radius: 0;
+    color: var(--desktop-gemini-feature-text-color, currentColor);
+  }
+
+  .desktop-gemini-feature-panel__cta {
+    color: var(--desktop-gemini-feature-text-color, currentColor);
+    background: var(--desktop-gemini-feature-cta-pill-color, transparent);
+    border-color: var(--desktop-gemini-feature-text-color, currentColor);
+    transition: none;
+  }
+
+  .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta,
+  .desktop-gemini-feature-panel__cta:hover {
+    color: var(--desktop-gemini-feature-text-color, currentColor);
+    background: var(--desktop-gemini-feature-cta-pill-color, transparent);
+    border-color: var(--desktop-gemini-feature-text-color, currentColor);
   }
 
   @keyframes desktop-gemini-panel-fade {
