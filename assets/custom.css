@@ -4345,31 +4345,34 @@ a.secondary-nav__item.secondary-nav__cta {
 
   .desktop-gemini-feature-panel__content {
     gap: 2rem;
-    max-width: 30rem;
-    padding: 2rem;
+    max-width: 36rem;
+    padding: 3rem;
   }
 
   .desktop-gemini-feature-panel__content h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .desktop-gemini-feature-panel {
     border-radius: 0;
+  }
+
+  .desktop-gemini-feature-panel__content h2 {
     color: var(--desktop-gemini-feature-text-color, currentColor);
   }
 
   .desktop-gemini-feature-panel__cta {
-    color: var(--desktop-gemini-feature-text-color, currentColor);
-    background: var(--desktop-gemini-feature-cta-pill-color, transparent);
-    border-color: var(--desktop-gemini-feature-text-color, currentColor);
+    color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
+    background: transparent;
+    border-color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
     transition: none;
   }
 
   .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta,
   .desktop-gemini-feature-panel__cta:hover {
-    color: var(--desktop-gemini-feature-text-color, currentColor);
-    background: var(--desktop-gemini-feature-cta-pill-color, transparent);
-    border-color: var(--desktop-gemini-feature-text-color, currentColor);
+    color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
+    background: transparent;
+    border-color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
   }
 
   @keyframes desktop-gemini-panel-fade {
