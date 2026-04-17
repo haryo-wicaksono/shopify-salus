@@ -367,7 +367,7 @@
   }
 
   body .header__grid .logo__link>span img {
-    max-width: 150px;
+    max-width: 125px;
   }
 
   .main-nav .main-nav__item {
@@ -8002,7 +8002,7 @@
   .header .main-menu {
     display: inline-flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: 1rem;
     grid-column: 1;
     grid-row: 1;
     justify-self: start;

@@ -6007,7 +6007,7 @@ body>.os-scrollbar {
   .header__logo .logo__link {
     display: inline-flex;
     justify-content: center;
-    max-width: min(100%, 18rem);
+    max-width: none;
   }
 
   .header__icons {
@@ -6022,12 +6022,32 @@ body>.os-scrollbar {
   }
 
   .header__icon {
+    max-width: none;
+    max-height: none;
     padding: 0.4rem;
+    line-height: 0;
   }
 
   .header__icon svg {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    display: block;
+  }
+
+  .header .main-menu__mobile-search {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header .main-menu__mobile-search .icon-search {
+    transform: scale(1.35);
+    transform-origin: center;
+  }
+
+  .header__icons-wrapper .header__icon svg {
+    width: 1.6rem;
+    height: 1.6rem;
   }
 
   .header__search {
