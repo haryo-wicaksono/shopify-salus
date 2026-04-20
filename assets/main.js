@@ -1687,8 +1687,10 @@ document.addEventListener('click', (evt) => {
 
     document.querySelectorAll('.desktop-gemini-menu__item.is-open').forEach((item) => {
       const itemMegaMenu = item.querySelector('.desktop-gemini-mega-menu');
+      const itemNavLink = item.querySelector('.desktop-gemini-menu__link');
       snapshotAndDeactivateMegaMenu(itemMegaMenu);
       item.classList.remove('is-open');
+      if (itemNavLink) itemNavLink.blur();
     });
 
     if (!isCurrentlyOpen) {
@@ -1705,8 +1707,10 @@ document.addEventListener('click', (evt) => {
   if (!evt.target.closest('.desktop-gemini-mega-menu')) {
     document.querySelectorAll('.desktop-gemini-menu__item.is-open').forEach((item) => {
       const itemMegaMenu = item.querySelector('.desktop-gemini-mega-menu');
+      const itemNavLink = item.querySelector('.desktop-gemini-menu__link');
       snapshotAndDeactivateMegaMenu(itemMegaMenu);
       item.classList.remove('is-open');
+      if (itemNavLink) itemNavLink.blur();
     });
   }
 });
