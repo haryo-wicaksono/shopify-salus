@@ -620,6 +620,8 @@
       visitorEmail: '',
       bodyScrollLocked: false,
       lockedScrollY: 0,
+      currentScreen: 'CLOSED',
+      suppressBubbleClickUntil: 0,
     };
 
     function emitWidgetStateChange() {
@@ -631,8 +633,34 @@
       }));
     }
 
+    function deriveCurrentScreen() {
+      if (!state.isOpen) {
+        return 'CLOSED';
+      }
+      const identityRequired = !hasVisitorIdentity() && state.sessionStatus !== 'closed';
+      if (identityRequired) {
+        return 'IDENTITY';
+      }
+      return 'CONVERSATION';
+    }
+
+    function updateCurrentScreen() {
+      const nextScreen = deriveCurrentScreen();
+      if (state.currentScreen !== nextScreen) {
+        state.currentScreen = nextScreen;
+      }
+    }
+
     function shouldHideBubble() {
-      return state.isProductPage && window.innerWidth <= 768;
+      if (!state.isProductPage || window.innerWidth > MOBILE_BREAKPOINT) {
+        return false;
+      }
+
+      // Mobile PDP launcher visibility derives from one screen state:
+      // - CLOSED: show bubble (reopen affordance)
+      // - IDENTITY: show bubble (identity form visible)
+      // - CONVERSATION: hide bubble (prevent overlap with composer)
+      return state.currentScreen === 'CONVERSATION';
     }
 
     function syncBubbleVisibility() {
@@ -701,6 +729,8 @@
       scrollMessagesToBottom();
       updateViewportHeight();
       if (window.innerWidth <= MOBILE_BREAKPOINT) lockBodyScroll();
+      updateCurrentScreen();
+      syncBubbleVisibility();
       emitWidgetStateChange();
     }
 
@@ -711,6 +741,8 @@
       elements.bubble.setAttribute('aria-label', 'Open chat');
       clearViewportHeight();
       unlockBodyScroll();
+      updateCurrentScreen();
+      syncBubbleVisibility();
       emitWidgetStateChange();
     }
 
@@ -720,6 +752,20 @@
       } else {
         openWidget();
       }
+    }
+
+    function handleBubbleTouchStart(event) {
+      event.preventDefault();
+      state.suppressBubbleClickUntil = Date.now() + 500;
+      toggleWidget();
+    }
+
+    function handleBubbleClick(event) {
+      if (state.suppressBubbleClickUntil > Date.now()) {
+        event.preventDefault();
+        return;
+      }
+      toggleWidget();
     }
 
     function scrollMessagesToBottom() {
@@ -894,6 +940,8 @@
       elements.textarea.disabled = inputDisabled;
       elements.send.disabled = inputDisabled;
       elements.root.classList.toggle('salus-widget--identity-required', identityRequired);
+      updateCurrentScreen();
+      syncBubbleVisibility();
 
       const showHandoff = state.sessionStatus === 'bot' && !identityRequired;
       elements.handoffToggle.style.display = showHandoff ? 'inline-flex' : 'none';
@@ -1469,7 +1517,8 @@
       },
     };
 
-    elements.bubble.addEventListener('click', toggleWidget);
+    elements.bubble.addEventListener('touchstart', handleBubbleTouchStart, { passive: false });
+    elements.bubble.addEventListener('click', handleBubbleClick);
     elements.bubble.addEventListener('keydown', function (event) {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
