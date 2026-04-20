@@ -1686,13 +1686,17 @@ document.addEventListener('click', (evt) => {
     const isCurrentlyOpen = navItem.classList.contains('is-open');
 
     document.querySelectorAll('.desktop-gemini-menu__item.is-open').forEach((item) => {
+      const itemMegaMenu = item.querySelector('.desktop-gemini-mega-menu');
+      snapshotAndDeactivateMegaMenu(itemMegaMenu);
       item.classList.remove('is-open');
     });
 
     if (!isCurrentlyOpen) {
       navItem.classList.add('is-open');
+      restoreMegaMenuActiveState(megaMenu);
     } else {
       navLink.blur();
+      snapshotAndDeactivateMegaMenu(megaMenu);
     }
 
     return;
@@ -1700,12 +1704,91 @@ document.addEventListener('click', (evt) => {
 
   if (!evt.target.closest('.desktop-gemini-mega-menu')) {
     document.querySelectorAll('.desktop-gemini-menu__item.is-open').forEach((item) => {
+      const itemMegaMenu = item.querySelector('.desktop-gemini-mega-menu');
+      snapshotAndDeactivateMegaMenu(itemMegaMenu);
       item.classList.remove('is-open');
     });
   }
 });
 
 const DESKTOP_GEMINI_PANEL_FADE_OUT_MS = 300;
+
+function snapshotAndDeactivateMegaMenu(megaMenu) {
+  if (!megaMenu) return;
+
+  const activePanel = megaMenu.querySelector('.desktop-gemini-panel.is-active');
+  if (activePanel?.dataset?.desktopPanel) {
+    megaMenu.dataset.lastActivePanel = activePanel.dataset.desktopPanel;
+  }
+
+  megaMenu.querySelectorAll('.desktop-gemini-panel').forEach((panel) => {
+    if (panel._desktopGeminiFadeTimer) {
+      clearTimeout(panel._desktopGeminiFadeTimer);
+      panel._desktopGeminiFadeTimer = null;
+    }
+    panel.classList.remove('is-active', 'is-leaving', 'is-fading-out');
+    panel.style.width = '';
+    panel.style.height = '';
+    panel.style.removeProperty('--desktop-gemini-leaving-top');
+    panel.style.removeProperty('--desktop-gemini-leaving-left');
+  });
+
+  megaMenu.querySelectorAll('[data-desktop-accordion-item]').forEach((item) => {
+    item.classList.remove('is-active');
+    const trigger = item.querySelector('[data-desktop-accordion-trigger]');
+    if (trigger) {
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  megaMenu.querySelectorAll('[data-desktop-nested-trigger]').forEach((trigger) => {
+    trigger.classList.remove('is-active');
+  });
+}
+
+function restoreMegaMenuActiveState(megaMenu) {
+  if (!megaMenu) return;
+
+  let targetPanel = megaMenu.dataset.lastActivePanel;
+
+  if (!targetPanel) {
+    const firstAccordionItem = megaMenu.querySelector('[data-desktop-accordion-item]');
+    if (firstAccordionItem) {
+      targetPanel = firstAccordionItem.dataset.defaultPanelTarget
+        || firstAccordionItem.querySelector('[data-desktop-accordion-trigger]')?.dataset?.desktopGroupTarget;
+    }
+  }
+
+  if (!targetPanel) return;
+
+  const accordionItems = megaMenu.querySelectorAll('[data-desktop-accordion-item]');
+  let matchingItem = null;
+
+  for (const item of accordionItems) {
+    const itemTarget = item.dataset.defaultPanelTarget
+      || item.querySelector('[data-desktop-accordion-trigger]')?.dataset?.desktopGroupTarget;
+    if (itemTarget === targetPanel) {
+      matchingItem = item;
+      break;
+    }
+  }
+
+  if (matchingItem) {
+    matchingItem.classList.add('is-active');
+    const trigger = matchingItem.querySelector('[data-desktop-accordion-trigger]');
+    if (trigger) {
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    matchingItem.querySelectorAll('[data-desktop-nested-trigger]').forEach((button) => {
+      if (button.dataset.desktopNestedTarget === targetPanel) {
+        button.classList.add('is-active');
+      }
+    });
+  }
+
+  setActiveDesktopGeminiPanel(megaMenu, targetPanel);
+}
 
 function setActiveDesktopGeminiPanel(megaMenu, targetPanel) {
   if (!megaMenu || !targetPanel) return;
