@@ -4310,9 +4310,14 @@ a.secondary-nav__item.secondary-nav__cta {
   .desktop-gemini-panel.is-active {
     position: relative;
     opacity: 1;
+    animation: desktop-gemini-panel-fade 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .desktop-gemini-menu__item:hover > .desktop-gemini-mega-menu .desktop-gemini-panel.is-active,
+  .desktop-gemini-menu__item:focus-within > .desktop-gemini-mega-menu .desktop-gemini-panel.is-active,
+  .desktop-gemini-menu__item.is-open > .desktop-gemini-mega-menu .desktop-gemini-panel.is-active {
     visibility: visible;
     pointer-events: auto;
-    animation: desktop-gemini-panel-fade 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .desktop-gemini-panel.is-leaving {
