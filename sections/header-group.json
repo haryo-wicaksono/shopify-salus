@@ -937,6 +937,7 @@
         },
         "desktop_nav_item_6cg7nQ": {
           "type": "desktop_nav_item",
+          "name": "Desktop Nav Item - Accessories",
           "settings": {
             "nav_key": "accessories",
             "label": "Accessories",
@@ -1025,6 +1026,7 @@
         },
         "desktop_nav_item_zwNhET": {
           "type": "desktop_nav_item",
+          "name": "Desktop Nav Item - Learn More",
           "settings": {
             "nav_key": "more",
             "label": "More",
