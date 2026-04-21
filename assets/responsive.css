@@ -8056,6 +8056,7 @@
     display: inline-flex;
     width: 21px;
     height: 21px;
+    color: #646463;
     opacity: 0;
     pointer-events: none;
     transform: translate(-50%, -50%);
@@ -8096,23 +8097,19 @@
     align-items: center;
     justify-content: center;
     line-height: 0;
+    color: rgba(34, 33, 32, 0.7);
     opacity: 0;
     pointer-events: none;
-    transform: translate(-50%, -50%) scale(1.35);
+    width: 21px;
+    height: 21px;
+    transform: translate(-50%, -50%);
     transform-origin: center;
     transition: opacity var(--header-transition-speed);
   }
 
   .header .main-menu__mobile-search-close svg {
-    width: 1.35rem;
-    height: 1.35rem;
-  }
-
-  @media only screen and (max-width: 768px) {
-    .header .main-menu__mobile-search-close svg {
-      width: 1.2rem;
-      height: 1.2rem;
-    }
+    width: 21px;
+    height: 21px;
   }
 
   .header:not(.search-is-collapsed) .main-menu__mobile-search > .icon-search {
