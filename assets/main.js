@@ -991,8 +991,10 @@ class StoreHeader extends HTMLElement {
   handleSearchToggleClick(evt) {
     evt.preventDefault();
     const searchBar = this.querySelector('.js-search-bar');
+    const searchToggles = [this.searchToggle, this.searchToggleLeft].filter(Boolean);
     if (this.classList.contains('search-is-collapsed')) {
       this.classList.remove('search-is-collapsed');
+      searchToggles.forEach((toggle) => toggle.setAttribute('aria-expanded', 'true'));
 
       // Wait for reveal animation to complete
       setTimeout(() => {
@@ -1004,6 +1006,7 @@ class StoreHeader extends HTMLElement {
     } else {
       this.classList.add('search-is-closing');
       this.classList.remove('search-is-visible');
+      searchToggles.forEach((toggle) => toggle.setAttribute('aria-expanded', 'false'));
 
       setTimeout(() => {
         this.classList.add('search-is-collapsed');
@@ -1174,6 +1177,7 @@ class MainMenu extends HTMLElement {
   init(evt) {
     if (!evt) {
       this.mainDisclosure.open = theme.mediaMatches.md;
+      this.mainToggle.setAttribute('aria-expanded', String(this.mainDisclosure.open));
     } else if (!theme.mediaMatches.md && !this.childNavOpen) {
       this.close(this.mainDisclosure);
 
@@ -1525,6 +1529,8 @@ class MainMenu extends HTMLElement {
    */
   static open(el, mainMenuOpen = true) {
     el.open = true;
+    const toggle = el.querySelector('summary');
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
 
     // Cap the max width of grandchildren on desktop their contents don't widen the dropdown
     if (theme.mediaMatches.md && !el.classList.contains('js-mega-nav')) {
@@ -1571,8 +1577,10 @@ class MainMenu extends HTMLElement {
    */
   close(el, transition = true) {
     const isMainDisclosure = el.classList.contains('main-menu__disclosure');
+    const toggle = el.querySelector('summary');
 
     el.classList.remove('is-open');
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
 
     if (transition) {
       el.classList.add('is-closing');
