@@ -20,11 +20,6 @@
   display: none;
 }
 
-@media (max-width: 768.98px) {
-  .predictive-search__scroller--suggestions {
-    margin-top: calc(4 * var(--space-unit));
-  }
-}
 @media (min-width: 1024px) {
   .header__grid--left-logo .predictive-result__list-suggestions {
     position: -webkit-sticky;

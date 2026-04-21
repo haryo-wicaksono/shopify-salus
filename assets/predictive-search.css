@@ -13,7 +13,7 @@ predictive-search[open] .search__input {
   background-color: rgba(var(--bg-color));
 }
 .header predictive-search[open] .search__input {
-  background-color: rgba(var(--bg-color));
+  background-color: #f9f9f9;
 }
 
 .search__reset {
