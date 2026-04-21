@@ -4708,6 +4708,38 @@ a.secondary-nav__item.secondary-nav__cta {
   .header .header__search .search__input {
     border-radius: 100px;
   }
+
+  .header .header__search predictive-search .tablist__tab {
+    font-size: 1.6rem;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .header .header__search predictive-search .tablist__tab[aria-selected="true"] {
+    text-decoration: none;
+    box-shadow: inset 0 -3px 0 #1F8A81;
+  }
+
+  .header .header__search predictive-search .predictive-result__info {
+    margin: auto 0;
+    font-size: 1.6rem;
+  }
+
+  .header .header__search predictive-search .predictive-result__title {
+    margin: 0;
+    color: var(--header-search-muted);
+    font-family: var(--body-font-family);
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .header .header__search predictive-search .predictive-search__suggestions .predictive-result__title {
+    padding-left: var(--gutter-md);
+    font-size: 1.6rem;
+  }
 }
 
 @media (max-width: 768.98px) {

@@ -30,7 +30,7 @@
             {%- endif -%}
   
             <div class="predictive-result__info flex-auto">
-              <h3 class="predictive-result__title h6">{{ item.title }}</h3>
+              <h3 class="predictive-result__title">{{ item.title }}</h3>
               {%- if type == 'products' -%}
                 {%- if settings.predictive_search_show_price -%}
                   {% render 'price', product: item %}
