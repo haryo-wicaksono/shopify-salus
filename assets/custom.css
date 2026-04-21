@@ -4765,7 +4765,7 @@ a.secondary-nav__item.secondary-nav__cta {
 .header .header__search predictive-search .tablist__tab[aria-selected="true"] {
   color: #242724;
   text-decoration: none;
-  box-shadow: inset 0 -2px 0 var(--header-search-accent);
+  box-shadow: inset 0 -3px 0 #1F8A81;
 }
 
 .header .header__search predictive-search .predictive-search__tabpanel {

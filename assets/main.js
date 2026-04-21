@@ -1004,6 +1004,14 @@ class StoreHeader extends HTMLElement {
         window.setHeaderHeight();
       }, this.headerTransitionSpeed);
     } else {
+      const searchInput = searchBar.querySelector('.js-search-input');
+      const predictiveSearch = searchBar.querySelector('predictive-search');
+
+      if (predictiveSearch && typeof predictiveSearch.close === 'function') {
+        predictiveSearch.close();
+      }
+      if (searchInput) searchInput.blur();
+
       this.classList.add('search-is-closing');
       this.classList.remove('search-is-visible');
       searchToggles.forEach((toggle) => toggle.setAttribute('aria-expanded', 'false'));
