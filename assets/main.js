@@ -932,6 +932,7 @@ class StoreHeader extends HTMLElement {
 
     this.mobNavToggle.addEventListener('click', window.setHeaderHeight);
     this.mobNavToggle.addEventListener('click', this.setHeaderEnd.bind(this));
+    this.mobNavToggle.addEventListener('click', this.closeSearchForMobileMenu.bind(this));
 
     if (this.dataset.isSticky) {
       this.breakpointChangeHandler = this.breakpointChangeHandler || this.init.bind(this);
@@ -1004,25 +1005,37 @@ class StoreHeader extends HTMLElement {
         window.setHeaderHeight();
       }, this.headerTransitionSpeed);
     } else {
-      const searchInput = searchBar.querySelector('.js-search-input');
-      const predictiveSearch = searchBar.querySelector('predictive-search');
-
-      if (predictiveSearch && typeof predictiveSearch.close === 'function') {
-        predictiveSearch.close();
-      }
-      if (searchInput) searchInput.blur();
-
-      this.classList.add('search-is-closing');
-      this.classList.remove('search-is-visible');
-      searchToggles.forEach((toggle) => toggle.setAttribute('aria-expanded', 'false'));
-
-      setTimeout(() => {
-        this.classList.add('search-is-collapsed');
-        this.classList.remove('search-is-closing');
-      }, this.headerTransitionSpeed);
-
-      setTimeout(window.setHeaderHeight, this.headerTransitionSpeed);
+      this.closeSearch();
     }
+  }
+
+  closeSearchForMobileMenu() {
+    if (theme.mediaMatches.md || this.classList.contains('search-is-collapsed')) return;
+
+    this.closeSearch();
+  }
+
+  closeSearch() {
+    const searchBar = this.querySelector('.js-search-bar');
+    const searchToggles = [this.searchToggle, this.searchToggleLeft].filter(Boolean);
+    const searchInput = searchBar.querySelector('.js-search-input');
+    const predictiveSearch = searchBar.querySelector('predictive-search');
+
+    if (predictiveSearch && typeof predictiveSearch.close === 'function') {
+      predictiveSearch.close();
+    }
+    if (searchInput) searchInput.blur();
+
+    this.classList.add('search-is-closing');
+    this.classList.remove('search-is-visible');
+    searchToggles.forEach((toggle) => toggle.setAttribute('aria-expanded', 'false'));
+
+    setTimeout(() => {
+      this.classList.add('search-is-collapsed');
+      this.classList.remove('search-is-closing');
+    }, this.headerTransitionSpeed);
+
+    setTimeout(window.setHeaderHeight, this.headerTransitionSpeed);
   }
 
   /**
@@ -1132,7 +1145,7 @@ class MainMenu extends HTMLElement {
     this.firstLevelSingleLinks = this.querySelectorAll('.main-nav__item--primary:not(.main-nav__item-content)');
     this.nav = this.querySelector('.main-nav');
     this.overlay = document.querySelector('.js-overlay');
-    this.searchIcon = document.querySelector('.header__icons .js-show-search');
+    this.searchIcon = this.querySelector('.js-show-search');
     this.sidebarLinks = this.querySelectorAll('.js-sidebar-hover');
     this.elementsWhichCloseMenus = document.querySelectorAll('.js-closes-menu');
 
