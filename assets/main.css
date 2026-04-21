@@ -6875,7 +6875,8 @@ body>.os-scrollbar {
     display: flex;
     align-items: flex-start;
     width: 100%;
-    min-height: 40rem;
+    aspect-ratio: var(--desktop-gemini-feature-aspect-ratio, 2.5);
+    min-height: 0;
     overflow: hidden;
     border-radius: 0.4rem;
     color: #111;

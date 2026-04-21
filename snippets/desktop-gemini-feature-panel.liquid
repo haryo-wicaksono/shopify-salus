@@ -29,7 +29,7 @@
   <{{ feature_panel_tag }}
     {% if feature_cta_url != blank %}href="{{ feature_cta_url }}"{% endif %}
     class="desktop-gemini-feature-panel{% if feature_cta_url != blank %} desktop-gemini-feature-panel--link{% endif %}{% if feature_dark_mode %} desktop-gemini-feature-panel--dark{% endif %}"
-    style="--desktop-gemini-feature-text-color: {{ feature_text_color }}; --desktop-gemini-feature-cta-pill-color: {{ feature_cta_pill_color }};"
+    style="--desktop-gemini-feature-aspect-ratio: {{ feature_image.aspect_ratio | default: 2.5 }}; --desktop-gemini-feature-text-color: {{ feature_text_color }}; --desktop-gemini-feature-cta-pill-color: {{ feature_cta_pill_color }};"
   >
     <div class="desktop-gemini-feature-panel__media">
       {%- if feature_image != blank -%}
