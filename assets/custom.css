@@ -4340,6 +4340,7 @@ a.secondary-nav__item.secondary-nav__cta {
     width: 150px;
     height: 150px;
     margin-bottom: 1.2rem;
+    border: 0;
   }
 
   .desktop-gemini-card-grid {
@@ -4368,16 +4369,16 @@ a.secondary-nav__item.secondary-nav__cta {
 
   .desktop-gemini-feature-panel__cta {
     color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
-    background: transparent;
+    background-color: transparent;
     border-color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
-    transition: none;
+    transition: all 0.2s ease-in-out;
   }
 
   .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta,
   .desktop-gemini-feature-panel__cta:hover {
-    color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
-    background: transparent;
-    border-color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
+    color: #FBFBFB;
+    background-color: #1F8A81;
+    border-color: #1F8A81;
   }
 
   @keyframes desktop-gemini-panel-fade {

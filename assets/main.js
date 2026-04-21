@@ -1673,6 +1673,15 @@ customElements.define('main-menu', MainMenu);
   });
 }());
 
+function setDesktopGeminiOverlay(show) {
+  const overlay = document.querySelector('.js-overlay');
+  if (!overlay) return;
+
+  overlay.classList.toggle('overlay--nav', show);
+  overlay.classList.toggle('overlay--desktop-gemini', show);
+  overlay.classList.toggle('is-visible', show);
+}
+
 document.addEventListener('click', (evt) => {
   if (window.innerWidth <= 1024) return;
 
@@ -1696,22 +1705,29 @@ document.addEventListener('click', (evt) => {
     if (!isCurrentlyOpen) {
       navItem.classList.add('is-open');
       restoreMegaMenuActiveState(megaMenu);
+      setDesktopGeminiOverlay(true);
     } else {
       navLink.blur();
       snapshotAndDeactivateMegaMenu(megaMenu);
+      setDesktopGeminiOverlay(false);
     }
 
     return;
   }
 
   if (!evt.target.closest('.desktop-gemini-mega-menu')) {
+    let closedMenu = false;
+
     document.querySelectorAll('.desktop-gemini-menu__item.is-open').forEach((item) => {
       const itemMegaMenu = item.querySelector('.desktop-gemini-mega-menu');
       const itemNavLink = item.querySelector('.desktop-gemini-menu__link');
       snapshotAndDeactivateMegaMenu(itemMegaMenu);
       item.classList.remove('is-open');
       if (itemNavLink) itemNavLink.blur();
+      closedMenu = true;
     });
+
+    if (closedMenu) setDesktopGeminiOverlay(false);
   }
 });
 

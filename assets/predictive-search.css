@@ -1,5 +1,10 @@
 predictive-search[open] .overlay {
+  --predictive-search-overlay-opacity: 0.5;
   z-index: 30;
+}
+.header predictive-search[open] .overlay {
+  top: var(--header-end, var(--header-height, 0px));
+  background-color: rgba(var(--modal-overlay-color) / var(--predictive-search-overlay-opacity));
 }
 predictive-search[open] .search__form {
   z-index: 32;
@@ -169,10 +174,10 @@ predictive-search .search__input {
     margin-inline-start: var(--gutter-md);
   }
   .predictive-result,
-.predictive-search__view-all,
-.predictive-search__no-results {
-    padding-right: 36px;
-    padding-left: 36px;
+  .predictive-search__view-all,
+  .predictive-search__no-results {
+    padding-right: var(--gutter-md);
+    padding-left: var(--gutter-md);
   }
   .predictive-search__view-all {
     padding-bottom: calc(8 * var(--space-unit));

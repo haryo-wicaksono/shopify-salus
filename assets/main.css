@@ -2534,6 +2534,10 @@ ul {
   z-index: 20;
 }
 
+.overlay--desktop-gemini {
+  --modal-overlay-opacity: 0.5;
+}
+
 .is-loading::after {
   content: "";
   position: absolute;
@@ -5921,7 +5925,7 @@ body>.os-scrollbar {
       border-radius: 999px;
       background: #fff;
       font-size: 1.4rem;
-      color: rgba(144, 144, 143, 0.5);
+      color: #646463;
     }
 
   .header__search .search__input::placeholder {
@@ -6881,6 +6885,11 @@ body>.os-scrollbar {
     color: #fff;
   }
 
+  .desktop-gemini-feature-panel--link {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
   .desktop-gemini-feature-panel__media,
   .desktop-gemini-feature-panel__overlay {
     position: absolute;
@@ -6920,9 +6929,10 @@ body>.os-scrollbar {
     padding: 1rem 2.4rem;
     border: 1px solid currentColor;
     border-radius: 5rem;
+    background-color: var(--desktop-gemini-feature-cta-pill-color, transparent);
     font-size: 1.3rem;
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease-in-out;
   }
 
   .desktop-gemini-feature-panel__cta .icon {
@@ -6932,13 +6942,9 @@ body>.os-scrollbar {
 
   .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta,
   .desktop-gemini-feature-panel__cta:hover {
-    background: currentColor;
-    color: #fff;
-  }
-
-  .desktop-gemini-feature-panel--dark:hover .desktop-gemini-feature-panel__cta,
-  .desktop-gemini-feature-panel--dark .desktop-gemini-feature-panel__cta:hover {
-    color: #111;
+    background-color: #1F8A81;
+    border-color: #1F8A81;
+    color: #FBFBFB;
   }
 }
 
@@ -11036,7 +11042,7 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
       border-radius: 999px;
       background: #fff;
       font-size: 1.4rem;
-      color: rgba(144, 144, 143, 0.5);
+      color: #646463;
     }
 
   .header__search .search__input::placeholder {
