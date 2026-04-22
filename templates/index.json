@@ -47,6 +47,7 @@
         },
         "hero_slide_rAiWtc": {
           "type": "hero-slide",
+          "disabled": true,
           "settings": {
             "slide_layout": "full-background-centered",
             "custom_content_bg": "",
