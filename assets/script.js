@@ -222,6 +222,10 @@ window.addEventListener("load", function () {
 // });
 
 window.addEventListener("load", function () {
+  if (typeof window.jQuery !== "function" || typeof window.jQuery.fn.slick !== "function") {
+    return;
+  }
+
   mobileOnlySlider(".productMobileSlider", true, true, 575);
 
   function mobileOnlySlider($slidername, $dots, $arrows, $breakpoint) {
