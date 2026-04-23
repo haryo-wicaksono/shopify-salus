@@ -3,6 +3,7 @@
 
   const DEFAULT_BREAKPOINT = 770;
   const loaders = new WeakMap();
+  const initialized = new WeakSet();
 
   class ResponsiveVideoLoader {
     constructor(root) {
@@ -11,13 +12,17 @@
       this.breakpoint = Number.parseInt(root.dataset.responsiveVideoBreakpoint || DEFAULT_BREAKPOINT, 10);
       this.mediaQuery = window.matchMedia(`(min-width: ${this.breakpoint}px)`);
       this.currentBreakpoint = null;
+      this.observer = null;
 
       this.handleMediaChange = this.handleMediaChange.bind(this);
 
       if (!this.mount) return;
 
       this.bindMediaQuery();
-      this.renderActiveVideo();
+      this.observeVisibility();
+      if (this.isVisible()) {
+        this.renderActiveVideo();
+      }
     }
 
     bindMediaQuery() {
@@ -39,6 +44,31 @@
 
     getTemplate(breakpoint) {
       return this.root.querySelector(`template[data-video-breakpoint="${breakpoint}"]`);
+    }
+
+    isVisible() {
+      const style = window.getComputedStyle(this.root);
+      if (style.display === 'none' || style.visibility === 'hidden') return false;
+      const rect = this.root.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    }
+
+    observeVisibility() {
+      if (!('IntersectionObserver' in window)) return;
+
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !this.root.classList.contains('is-video-ready')) {
+              this.observer.disconnect();
+              this.renderActiveVideo();
+            }
+          });
+        },
+        { threshold: 0.01, rootMargin: '100px' }
+      );
+
+      this.observer.observe(this.root);
     }
 
     markReady(video) {
@@ -70,7 +100,7 @@
       this.mount.appendChild(video);
       this.markReady(video);
 
-      if (typeof video.play === 'function') {
+      if (video.dataset.responsiveVideoAutoplay !== 'false' && typeof video.play === 'function') {
         const playAttempt = video.play();
         if (playAttempt && typeof playAttempt.catch === 'function') {
           playAttempt.catch(function () {});
@@ -83,6 +113,8 @@
     const root = scope || document;
     root.querySelectorAll('[data-responsive-video-loader]').forEach((element) => {
       if (loaders.has(element)) return;
+      if (initialized.has(element)) return;
+      initialized.add(element);
       loaders.set(element, new ResponsiveVideoLoader(element));
     });
   }
