@@ -1,8 +1,4 @@
-{%- if section.index > 2 -%}
-  <link rel="stylesheet" href="{{ 'product-categories-promo.css' | asset_url }}" media="print" onload="this.media='all'">
-{%- else -%}
-  {{ 'product-categories-promo.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
+{{ 'product-categories-promo.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign affirm_product = blank
