@@ -47,7 +47,6 @@
         },
         "hero_slide_rAiWtc": {
           "type": "hero-slide",
-          "disabled": true,
           "settings": {
             "slide_layout": "full-background-centered",
             "custom_content_bg": "",
@@ -189,7 +188,7 @@
         "enable_autoplay": true,
         "autoplay_speed": 9900,
         "enable_loop": true,
-        "show_navigation_arrows": false,
+        "show_navigation_arrows": true,
         "show_pagination_dots": false,
         "section_padding_top_desktop": 0,
         "section_padding_bottom_desktop": 0,
@@ -878,7 +877,6 @@
         "instagram_post_rNteEK",
         "instagram_post_iiVPdr"
       ],
-      "disabled": true,
       "name": "Instagram Posts Slider",
       "settings": {
         "eyebrow": "Follow us on Instagram",
