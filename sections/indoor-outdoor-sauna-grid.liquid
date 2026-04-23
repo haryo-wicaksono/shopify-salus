@@ -1,8 +1,4 @@
-{%- if section.index > 2 -%}
-  <link rel="stylesheet" href="{{ 'indoor-outdoor-sauna-grid.css' | asset_url }}" media="print" onload="this.media='all'">
-{%- else -%}
-  {{ 'indoor-outdoor-sauna-grid.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
+{{ 'indoor-outdoor-sauna-grid.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign source_collection = section.settings.collection

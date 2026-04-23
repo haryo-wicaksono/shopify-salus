@@ -1,8 +1,4 @@
-{%- if section.index > 2 -%}
-  <link rel="stylesheet" href="{{ 'instagram-posts-slider.css' | asset_url }}" media="print" onload="this.media='all'">
-{%- else -%}
-  {{ 'instagram-posts-slider.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
+{{ 'instagram-posts-slider.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign account_url = section.settings.account_url | default: settings.social_instagram_url

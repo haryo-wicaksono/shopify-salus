@@ -1,8 +1,4 @@
-{%- if section.index > 2 -%}
-  <link rel="stylesheet" href="{{ 'health-metrics-stats-grid.css' | asset_url }}" media="print" onload="this.media='all'">
-{%- else -%}
-  {{ 'health-metrics-stats-grid.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
+{{ 'health-metrics-stats-grid.css' | asset_url | stylesheet_tag }}
 
 <div class="section health-metrics-stats-grid-section">
   <section
