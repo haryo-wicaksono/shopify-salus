@@ -8,7 +8,7 @@
   content styling.
 {% endcomment %}
 
-{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{% comment %} Swiper CSS loaded globally via theme.liquid {% endcomment %}
 {{ 'homepage-hero-carousel.css' | asset_url | stylesheet_tag }}
 
 {% comment %}
@@ -254,7 +254,7 @@
                             loop: true,
                             muted: true,
                             playsinline: true,
-                            preload: "auto",
+                            preload: "metadata",
                             controls: false
                           }}
                         </template>
@@ -267,7 +267,7 @@
                             loop: true,
                             muted: true,
                             playsinline: true,
-                            preload: "auto",
+                            preload: "metadata",
                             controls: false
                           }}
                         </template>
@@ -553,7 +553,7 @@
                             loop: true,
                             muted: true,
                             playsinline: true,
-                            preload: "auto",
+                            preload: "metadata",
                             controls: false
                           }}
                         </template>
@@ -566,7 +566,7 @@
                             loop: true,
                             muted: true,
                             playsinline: true,
-                            preload: "auto",
+                            preload: "metadata",
                             controls: false
                           }}
                         </template>
@@ -630,7 +630,7 @@
   </div>
 </section>
 
-<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+{% comment %} Swiper JS loaded globally via theme.liquid {% endcomment %}
 <script src="{{ 'responsive-video-loader.js' | asset_url }}" defer="defer"></script>
 {% comment %}
   <script>
