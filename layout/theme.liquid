@@ -65,7 +65,9 @@
 
     {% comment %}<link rel="preload" href="{{ 'main.css' | asset_url }}" as="style">{% endcomment %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    {%- if template.name == 'index' -%}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    {%- endif -%}
     <link rel="stylesheet" href="{{ 'main.css' | asset_url }}">
 
     {{ 'custom.css' | asset_url | stylesheet_tag }}
@@ -570,8 +572,10 @@
       <script src="{{ 'instant-page.js' | asset_url }}" type="module" defer="defer"></script>
     {%- endif -%}
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    {%- if template.name == 'index' -%}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    {%- endif -%}
     {{ 'script.js' | asset_url | script_tag }}
 
     {% if template.name == 'login' or template.name == 'register' %}
