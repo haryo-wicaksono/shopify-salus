@@ -652,15 +652,7 @@
     }
 
     function shouldHideBubble() {
-      if (!state.isProductPage || window.innerWidth > MOBILE_BREAKPOINT) {
-        return false;
-      }
-
-      // Mobile PDP launcher visibility derives from one screen state:
-      // - CLOSED: show bubble (reopen affordance)
-      // - IDENTITY: show bubble (identity form visible)
-      // - CONVERSATION: hide bubble (prevent overlap with composer)
-      return state.currentScreen === 'CONVERSATION';
+      return state.isProductPage && window.innerWidth <= MOBILE_BREAKPOINT;
     }
 
     function syncBubbleVisibility() {
