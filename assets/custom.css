@@ -4377,9 +4377,9 @@ a.secondary-nav__item.secondary-nav__cta {
 
   .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta,
   .desktop-gemini-feature-panel__cta:hover {
-    color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
-    background-color: transparent;
-    border-color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
+    color: #FBFBFB;
+    background-color: #1F8A81;
+    border-color: #1F8A81;
   }
 
   @keyframes desktop-gemini-panel-fade {
@@ -4702,13 +4702,54 @@ a.secondary-nav__item.secondary-nav__cta {
   color: rgba(144, 144, 143, 0.5);
 }
 
+.header #cart-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.header #cart-icon #cart-icon-bubble {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.header #cart-icon #cart-icon-bubble .header__cart-count {
+  top: 0;
+  right: 0;
+  transform: translate(45%, -45%);
+  min-width: 1.6rem;
+  min-height: 1.6rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.header #cart-icon #cart-icon-bubble .header__cart-count-number {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 @media (min-width: 769px) {
   .header .header__search .search__input {
     border-radius: 100px;
   }
 
   .header .header__search predictive-search .tablist__tab {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 400;
     text-decoration: none;
   }
@@ -4727,7 +4768,7 @@ a.secondary-nav__item.secondary-nav__cta {
     margin: 0;
     color: var(--header-search-muted);
     font-family: var(--body-font-family);
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 400;
     line-height: 1.35;
     letter-spacing: 0;
@@ -4736,7 +4777,7 @@ a.secondary-nav__item.secondary-nav__cta {
 
   .header .header__search predictive-search .predictive-search__suggestions .predictive-result__title {
     padding-left: var(--gutter-md);
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 }
 
@@ -4893,8 +4934,11 @@ a.secondary-nav__item.secondary-nav__cta {
   .header .header__search predictive-search .predictive-result--suggestion {
     padding: 0.75rem 2rem;
     color: var(--header-search-muted);
-    font-size: 1.4rem;
     line-height: 1.45;
+  }
+
+  .header .header__search predictive-search .predictive-result.predictive-result--suggestion.block.focus-inset {
+    font-size: 1.4rem;
   }
 
   .header .header__search predictive-search .predictive-search__scroller--suggestions {

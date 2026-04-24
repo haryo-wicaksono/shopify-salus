@@ -6704,29 +6704,40 @@ body>.os-scrollbar {
   .desktop-gemini-explore-btn {
     display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.2rem;
+    justify-content: center;
+    gap: 0.6rem;
     align-self: flex-start;
     margin-top: 2rem;
     padding: 1.2rem 2.4rem;
-    border: 1px solid #333;
+    border: 1px solid #222120;
     border-radius: 5rem;
     font-size: 1.3rem;
     font-weight: 500;
-    color: #333;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    color: #222120;
     background: transparent;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease-in-out;
   }
 
   .desktop-gemini-explore-btn .icon {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 1.55rem;
+    height: 1.4rem;
     transition: transform 0.2s ease;
   }
 
+  .desktop-gemini-explore-btn .icon path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scaleX(1.15);
+    stroke-width: 2;
+  }
+
   .desktop-gemini-explore-btn:hover {
-    background: #333;
-    color: #fff;
+    background: #1F8A81;
+    color: #FBFBFB;
+    border-color: #1F8A81;
   }
 
   .desktop-gemini-explore-btn:hover .icon {
@@ -6868,7 +6879,7 @@ body>.os-scrollbar {
   .desktop-gemini-feature-panel__cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.6rem;
     padding: 1rem 2.4rem;
     color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
     border: 1px solid var(--desktop-gemini-feature-cta-pill-color, currentColor);
@@ -6880,15 +6891,28 @@ body>.os-scrollbar {
   }
 
   .desktop-gemini-feature-panel__cta .icon {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 1.7rem;
+    height: 1.53rem;
+    transition: transform 0.2s ease;
+  }
+
+  .desktop-gemini-feature-panel__cta .icon path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scaleX(1.15);
+    stroke-width: 2;
   }
 
   .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta,
   .desktop-gemini-feature-panel__cta:hover {
-    background-color: transparent;
-    border-color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
-    color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
+    background-color: #1F8A81;
+    border-color: #1F8A81;
+    color: #FBFBFB;
+  }
+
+  .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta .icon,
+  .desktop-gemini-feature-panel__cta:hover .icon {
+    transform: translateX(4px);
   }
 }
 
