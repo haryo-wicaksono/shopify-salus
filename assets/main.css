@@ -11086,3 +11086,89 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
   }
 
 }
+
+@media screen and (min-width: 1600px) {
+  .header {
+    --desktop-header-height: 12rem;
+  }
+
+  .desktop-gemini-menu__link {
+    font-size: 1.6rem;
+  }
+
+  .header__utility,
+  .header__utility-link,
+  .header__search .search__input,
+  .header__search .search__input::placeholder {
+    font-size: 1.4rem;
+  }
+
+  .header__logo .logo__link > span,
+  .header__logo .logo__link > img {
+    width: min(100%, 185px);
+    max-width: 185px;
+    max-height: 32px;
+  }
+
+  .header__logo .logo__link > span img {
+    width: 100%;
+    max-width: 185px;
+    max-height: 32px;
+    height: auto;
+  }
+
+  .header__search {
+    flex-basis: 34.5rem;
+    width: 34.5rem;
+  }
+
+  .header__search .search__input {
+    width: 34.5rem;
+    min-height: 4rem;
+    height: 4rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    box-sizing: border-box;
+    line-height: 1;
+  }
+
+  .header__search .search__submit .icon,
+  .header__search .search__submit svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .header__search .search__submit {
+    width: 17px;
+    min-height: 17px;
+    height: 17px;
+  }
+
+  .header__icon[href*="/account"] {
+    width: 19px;
+    height: 19px;
+    max-width: 19px;
+    max-height: 19px;
+    padding: 0;
+  }
+
+  .header__icon[href*="/account"] svg,
+  .header__icon[href*="/account"] > .icon {
+    width: 19px;
+    height: 19px;
+  }
+
+  #cart-icon {
+    width: 15px;
+    height: 18px;
+    max-width: 15px;
+    max-height: 18px;
+    padding: 0;
+  }
+
+  #cart-icon svg,
+  #cart-icon > .icon {
+    width: 15px;
+    height: 18px;
+  }
+}
