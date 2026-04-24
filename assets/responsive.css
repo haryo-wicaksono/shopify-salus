@@ -4587,7 +4587,7 @@
   }
 
   main-menu.main-menu nav.secondary-nav-container {
-    display: block;
+    display: none;
   }
 
   main-menu.main-menu nav.secondary-nav-container ul {

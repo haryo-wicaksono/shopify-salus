@@ -48,16 +48,23 @@
     row-gap: 26px;
   }
 
+  .desktop-gemini-menu {
+    gap: 2.5rem;
+  }
+
   .desktop-gemini-menu__link {
     font-size: 1.6rem;
   }
 
   .desktop-gemini-accordion__header,
-  .desktop-gemini-sub-link,
   .desktop-gemini-explore-btn,
-  .desktop-gemini-card__title,
   .desktop-gemini-feature-panel__cta {
     font-size: 1.6rem;
+  }
+
+  .desktop-gemini-sub-link,
+  .desktop-gemini-card__title {
+    font-size: 1.4rem;
   }
 
   .desktop-gemini-card__image span {
@@ -4360,6 +4367,7 @@ a.secondary-nav__item.secondary-nav__cta {
     justify-content: flex-start;
     gap: 10px;
     letter-spacing: 0;
+    color: #646463;
   }
 
   .desktop-gemini-accordion__header .icon {
@@ -4404,6 +4412,7 @@ a.secondary-nav__item.secondary-nav__cta {
 
   .desktop-gemini-explore-btn {
     margin-top: 1.2rem;
+    font-weight: 400;
   }
 
   .desktop-gemini-accordion__item.is-active .desktop-gemini-accordion__content {
@@ -5160,5 +5169,22 @@ a.secondary-nav__item.secondary-nav__cta {
 
 @media (min-width: 1600px) {
   .desktop-gemini-mega-sidebar {
-    width: 65rem;
+    width: 55rem;
   }
+
+  .desktop-gemini-mega-content {
+    position: relative;
+    padding-top: 3rem;
+    padding-left: 7.5rem;
+    padding-right: 15rem;
+  }
+
+  .desktop-gemini-menu__underline {
+    bottom: calc(((var(--desktop-header-height) - 100%) / -2) + 2.7rem);
+  }
+
+  .desktop-gemini-card__image {
+    width: 180px;
+    height: 180px;
+  }
+}

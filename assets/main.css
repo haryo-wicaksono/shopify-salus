@@ -11074,11 +11074,21 @@ button.ButtonBase__ButtonContainer-sc-p43e7i-3.euBiGU.es-load-more-button:hover 
 
   .header .predictive-search__suggestions {
     flex: 0 0 22rem;
+    padding-top: 1.8rem;
     padding-bottom: 0;
     border-top: 0;
     border-bottom: 0;
     border-left: 1px solid rgba(var(--text-color) / 0.05);
     background-color: rgba(var(--text-color) / 0.04);
+  }
+
+  .header .predictive-search__suggestions .predictive-result__title {
+    margin: 0;
+    padding: 0 2rem 1rem;
+  }
+
+  .header .predictive-search__item {
+    font-size: 1.4rem;
   }
 
   .desktop-gemini-menu {
