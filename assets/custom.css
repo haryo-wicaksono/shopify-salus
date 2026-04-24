@@ -4031,8 +4031,13 @@ a.secondary-nav__item.secondary-nav__cta {
 .card--product .product-category-badge {
   top: 15px;
   left: 15px;
-  font-size: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #FFFFFF;
   line-height: 24px;
+  color: #000000;
+  letter-spacing: 0px;
+  padding: 1px 7px;
 }
 
 @media screen and (max-width: 768px) {
@@ -4113,11 +4118,15 @@ a.secondary-nav__item.secondary-nav__cta {
   }
 
   .card--product .product-category-badge {
-    padding: 2px 8px;
+    padding: 1px 7px;
     font-size: 12px;
-    top: 8px;
-    left: 8px;
-    letter-spacing: -0.1px;
+    font-weight: 500;
+    top: 15px;
+    left: 15px;
+    background: #FFFFFF;
+    line-height: 24px;
+    color: #000000;
+    letter-spacing: 0px;
   }
 
   .product-info__block.product-info__block--sm.product-price {
