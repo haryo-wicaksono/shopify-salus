@@ -71,7 +71,7 @@
 
   .header__search .search__input {
     width: 34.5rem;
-    min-height: 10rem;
+    min-height: 4rem;
     height: 4rem;
     padding-top: 0;
     padding-bottom: 0;
@@ -106,17 +106,17 @@
   }
 
   #cart-icon {
-    width: 15px;
-    height: 18px;
-    max-width: 15px;
-    max-height: 18px;
+    width: 20px;
+    height: 22px;
+    max-width: 20px;
+    max-height: 22px;
     padding: 0;
   }
 
   #cart-icon svg,
   #cart-icon > .icon {
-    width: 18px;
-    height: 21px;
+    width: 20px;
+    height: 22px;
   }
 }
 
