@@ -6571,7 +6571,7 @@ body>.os-scrollbar {
   .desktop-gemini-menu {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 2.2rem;
     list-style: none;
     margin: 0;
@@ -6617,8 +6617,8 @@ body>.os-scrollbar {
     position: absolute;
     top: 100%;
     left: 50%;
-    width: 100vw;
-    min-width: 100vw;
+    width: var(--viewport-width);
+    min-width: var(--viewport-width);
     display: flex;
     justify-content: center;
     padding: 0;
@@ -6643,7 +6643,7 @@ body>.os-scrollbar {
   .desktop-gemini-mega-inner {
     display: flex;
     width: 100%;
-    max-width: none;
+    max-width: calc(var(--page-width, 1320px) + var(--gutter) * 2);
     min-height: 52rem;
     margin: 0 auto;
     background: #fff;

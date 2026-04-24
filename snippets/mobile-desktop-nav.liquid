@@ -274,14 +274,21 @@
                   {%- liquid
                     assign feature_text_style = ''
                     assign feature_cta_style = ''
+                    assign feature_banner_tag = 'div'
                     if group_panel_block.settings.feature_text_color != blank
                       assign feature_text_style = 'color:' | append: group_panel_block.settings.feature_text_color | append: ';'
                     endif
                     if group_panel_block.settings.feature_cta_pill_color != blank
                       assign feature_cta_style = 'color:' | append: group_panel_block.settings.feature_cta_pill_color | append: ';border-color:' | append: group_panel_block.settings.feature_cta_pill_color | append: ';'
                     endif
+                    if group_panel_block.settings.feature_cta_url != blank
+                      assign feature_banner_tag = 'a'
+                    endif
                   -%}
-                  <div class="m-banner{% if group_panel_block.settings.feature_dark_mode %} m-banner--dark{% endif %}">
+                  <{{ feature_banner_tag }}
+                    {% if group_panel_block.settings.feature_cta_url != blank %}href="{{ group_panel_block.settings.feature_cta_url }}"{% endif %}
+                    class="m-banner{% if group_panel_block.settings.feature_cta_url != blank %} m-banner--link{% endif %}{% if group_panel_block.settings.feature_dark_mode %} m-banner--dark{% endif %}"
+                  >
                     <div class="m-banner-media">
                       {% render 'image', image: group_panel_block.settings.feature_image, src_width: 900, srcset_2x: true, alt_text: group_panel_block.settings.feature_heading, class: 'img-fit', lazy_load: false %}
                     </div>
@@ -290,19 +297,14 @@
                       {%- if group_panel_block.settings.feature_heading != blank -%}
                         <h2>{{- group_panel_block.settings.feature_heading -}}</h2>
                       {%- endif -%}
-                      {%- if group_panel_block.settings.feature_cta_label != blank and group_panel_block.settings.feature_cta_url != blank -%}
-                        <a href="{{ group_panel_block.settings.feature_cta_url }}" class="m-banner-btn"{% if feature_cta_style != blank %} style="{{ feature_cta_style }}"{% endif %}>
-                          <span>{{- group_panel_block.settings.feature_cta_label -}}</span>
-                          {% render 'icon-arrow-right' %}
-                        </a>
-                      {%- elsif group_panel_block.settings.feature_cta_label != blank -%}
+                      {%- if group_panel_block.settings.feature_cta_label != blank -%}
                         <span class="m-banner-btn"{% if feature_cta_style != blank %} style="{{ feature_cta_style }}"{% endif %}>
                           <span>{{- group_panel_block.settings.feature_cta_label -}}</span>
                           {% render 'icon-arrow-right' %}
                         </span>
                       {%- endif -%}
                     </div>
-                  </div>
+                  </{{ feature_banner_tag }}>
                 {%- endif -%}
               {%- elsif group_type == 'nested_cards' -%}
                 {%- for slot in slot_range -%}

@@ -4221,7 +4221,8 @@ a.secondary-nav__item.secondary-nav__cta {
     align-self: flex-start;
     min-height: auto;
     padding-top: 1.8rem;
-    padding-left: calc(var(--gutter) + 13px);
+    /* padding-left: calc(var(--gutter) + 13px); */
+    padding-left: 75px;
     /* padding-right: var(--gutter); */
   }
 
@@ -4395,7 +4396,7 @@ a.secondary-nav__item.secondary-nav__cta {
 @media (min-width: 1600px) {
   .desktop-gemini-mega-sidebar {
     /* width: 65rem; */
-    padding-left: calc(var(--gutter) + 13px);
+    padding-left: 75px;
   }
 }
 
@@ -4639,7 +4640,7 @@ a.secondary-nav__item.secondary-nav__cta {
   .mobile-pane .m-banner-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.56) 100%);
+    background: transparent;
   }
 
   .mobile-pane .m-banner-content {
@@ -4655,6 +4656,7 @@ a.secondary-nav__item.secondary-nav__cta {
   }
 
   .mobile-pane .m-banner-content h2 {
+    display: none;
     margin: 0;
     max-width: 24rem;
     font-size: 1.5rem;
