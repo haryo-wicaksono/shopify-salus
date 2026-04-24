@@ -697,6 +697,7 @@
         "desktop_nav_group_rdhM9e": {
           "type": "desktop_nav_group",
           "name": "Desktop Nav Group - By Design",
+          "disabled": true,
           "settings": {
             "parent_nav_key": "saunas",
             "group_key": "design",
@@ -727,6 +728,7 @@
         },
         "desktop_nav_panel_Lp3FXJ": {
           "type": "desktop_nav_panel",
+          "disabled": true,
           "settings": {
             "parent_nav_key": "saunas",
             "parent_group_key": "design",
