@@ -5168,6 +5168,10 @@ a.secondary-nav__item.secondary-nav__cta {
 }
 
 @media (min-width: 1600px) {
+  .header {
+    --desktop-search-dropdown-offset: 2.5rem;
+  }
+
   .desktop-gemini-mega-sidebar {
     width: 55rem;
   }
