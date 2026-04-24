@@ -541,6 +541,7 @@
         "desktop_image_fallback": "shopify://shop_images/SECTION_VIDEO_-_Desktop.png",
         "desktop_object_position": "72% center",
         "mobile_video": "shopify://files/videos/cinematic-showcase-mobile.webm",
+        "mobile_image_fallback": "shopify://shop_images/SECTION_VIDEO_-_Mobile_1.png",
         "mobile_object_position": "center center",
         "desktop_content_width": 420,
         "desktop_section_height": 560,
