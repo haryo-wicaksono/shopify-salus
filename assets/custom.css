@@ -14,8 +14,13 @@
   }
 
   .header__search .search__input {
+    font-size: 1.2rem;
     height: 3.4rem;
     min-height: 3.4rem;
+  }
+
+  .header__search .search__input::placeholder {
+    font-size: 1.2rem;
   }
 
   .header .header__search .predictive-search {
@@ -39,8 +44,28 @@
     --desktop-header-height: 12rem;
   }
 
+  .header__desktop-left {
+    row-gap: 26px;
+  }
+
   .desktop-gemini-menu__link {
     font-size: 1.6rem;
+  }
+
+  .desktop-gemini-accordion__header,
+  .desktop-gemini-sub-link,
+  .desktop-gemini-explore-btn,
+  .desktop-gemini-card__title,
+  .desktop-gemini-feature-panel__cta {
+    font-size: 1.6rem;
+  }
+
+  .desktop-gemini-card__image span {
+    font-size: 1.5rem;
+  }
+
+  .desktop-gemini-feature-panel__content h2 {
+    font-size: 3rem;
   }
 
   .header__utility,
