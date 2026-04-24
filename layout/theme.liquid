@@ -790,7 +790,7 @@
     <script>
       window.SalusWidgetConfig = {
         backendUrl: 'https://chat.salussaunastech.com',
-        isProductPage: {{ template.name == 'product' | json }}
+        isProductPage: {% if template.name == 'product' %}true{% else %}false{% endif %}
       };
     </script>
     <script src="{{ 'widget.js' | asset_url }}" defer></script>
