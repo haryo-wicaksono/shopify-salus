@@ -1711,6 +1711,16 @@ function setDesktopGeminiOverlay(show) {
   overlay.classList.toggle('is-visible', show);
 }
 
+function closeDesktopHeaderPredictiveSearch() {
+  const predictiveSearch = document.querySelector(
+    '.header .header__search--desktop-inline predictive-search[open]'
+  );
+
+  if (predictiveSearch && typeof predictiveSearch.close === 'function') {
+    predictiveSearch.close();
+  }
+}
+
 document.addEventListener('click', (evt) => {
   if (window.innerWidth <= 1024) return;
 
@@ -1722,6 +1732,10 @@ document.addEventListener('click', (evt) => {
     evt.preventDefault();
 
     const isCurrentlyOpen = navItem.classList.contains('is-open');
+
+    if (!isCurrentlyOpen) {
+      closeDesktopHeaderPredictiveSearch();
+    }
 
     document.querySelectorAll('.desktop-gemini-menu__item.is-open').forEach((item) => {
       const itemMegaMenu = item.querySelector('.desktop-gemini-mega-menu');
