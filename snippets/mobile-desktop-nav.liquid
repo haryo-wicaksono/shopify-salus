@@ -272,15 +272,22 @@
 
                 {%- if group_panel_block != blank and group_panel_block.settings.feature_image != blank -%}
                   {%- liquid
-                    assign feature_text_style = ''
-                    assign feature_cta_style = ''
                     assign feature_banner_tag = 'div'
-                    if group_panel_block.settings.feature_text_color != blank
-                      assign feature_text_style = 'color:' | append: group_panel_block.settings.feature_text_color | append: ';'
+                    assign feature_text_color = group_panel_block.settings.feature_text_color
+                    assign feature_cta_pill_color = group_panel_block.settings.feature_cta_pill_color
+
+                    if feature_text_color == blank
+                      if group_panel_block.settings.feature_dark_mode
+                        assign feature_text_color = '#FFFFFF'
+                      else
+                        assign feature_text_color = '#222120'
+                      endif
                     endif
-                    if group_panel_block.settings.feature_cta_pill_color != blank
-                      assign feature_cta_style = 'color:' | append: group_panel_block.settings.feature_cta_pill_color | append: ';border-color:' | append: group_panel_block.settings.feature_cta_pill_color | append: ';'
+
+                    if feature_cta_pill_color == blank
+                      assign feature_cta_pill_color = 'transparent'
                     endif
+
                     if group_panel_block.settings.feature_cta_url != blank
                       assign feature_banner_tag = 'a'
                     endif
@@ -288,17 +295,18 @@
                   <{{ feature_banner_tag }}
                     {% if group_panel_block.settings.feature_cta_url != blank %}href="{{ group_panel_block.settings.feature_cta_url }}"{% endif %}
                     class="m-banner{% if group_panel_block.settings.feature_cta_url != blank %} m-banner--link{% endif %}{% if group_panel_block.settings.feature_dark_mode %} m-banner--dark{% endif %}"
+                    style="--mobile-gemini-feature-text-color: {{ feature_text_color }}; --mobile-gemini-feature-cta-pill-color: {{ feature_cta_pill_color }};"
                   >
                     <div class="m-banner-media">
                       {% render 'image', image: group_panel_block.settings.feature_image, src_width: 900, srcset_2x: true, alt_text: group_panel_block.settings.feature_heading, class: 'img-fit', lazy_load: false %}
                     </div>
                     <div class="m-banner-overlay"></div>
-                    <div class="m-banner-content"{% if feature_text_style != blank %} style="{{ feature_text_style }}"{% endif %}>
+                    <div class="m-banner-content">
                       {%- if group_panel_block.settings.feature_heading != blank -%}
                         <h2>{{- group_panel_block.settings.feature_heading -}}</h2>
                       {%- endif -%}
                       {%- if group_panel_block.settings.feature_cta_label != blank -%}
-                        <span class="m-banner-btn"{% if feature_cta_style != blank %} style="{{ feature_cta_style }}"{% endif %}>
+                        <span class="m-banner-btn">
                           <span>{{- group_panel_block.settings.feature_cta_label -}}</span>
                           {% render 'icon-arrow-right' %}
                         </span>

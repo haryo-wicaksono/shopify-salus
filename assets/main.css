@@ -3559,67 +3559,8 @@ details-disclosure+details-disclosure .disclosure--row {
     margin-top: 2rem;
   }
 
-  .main-menu .secondary-nav__cta .icon,
-  .main-menu .secondary-nav__cta .header-cta-icon {
-    width: 20px;
-    height: 20px;
-    flex: 0 0 20px;
-  }
-
-  .main-menu .secondary-nav__drawer-action-item {
-    margin-top: 1rem;
-  }
-
-  .main-menu .secondary-nav__drawer-action-item:first-of-type {
-    margin-top: 1.2rem;
-  }
-
   .secondary-nav__item.secondary-nav__cta--button {
     padding: 0.5em 1.1em;
-  }
-
-  .secondary-nav__drawer-action {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    box-shadow: none;
-    color: inherit;
-    font-size: 18px;
-    line-height: 27px;
-    font-weight: 500;
-  }
-
-  .secondary-nav__drawer-action:hover,
-  .secondary-nav__drawer-action:focus-visible {
-    box-shadow: none;
-  }
-
-  .secondary-nav__drawer-icon {
-    display: inline-flex;
-    flex: 0 0 20px;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    color: currentColor;
-  }
-
-  .secondary-nav__drawer-icon .icon {
-    width: 100%;
-    height: 100%;
-    color: currentColor;
-  }
-
-  .secondary-nav__drawer-icon .icon--cart {
-    width: 20px;
-    height: 20px;
-  }
-
-  .secondary-nav__drawer-label {
-    color: inherit;
   }
 
   .main-menu .localization {
@@ -6921,6 +6862,7 @@ body>.os-scrollbar {
     font-size: 2.4rem;
     font-weight: 400;
     line-height: 1.3;
+    color: var(--desktop-gemini-feature-text-color, currentColor);
   }
 
   .desktop-gemini-feature-panel__cta {
@@ -6928,9 +6870,10 @@ body>.os-scrollbar {
     align-items: center;
     gap: 0.8rem;
     padding: 1rem 2.4rem;
-    border: 1px solid currentColor;
+    color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
+    border: 1px solid var(--desktop-gemini-feature-cta-pill-color, currentColor);
     border-radius: 5rem;
-    background-color: var(--desktop-gemini-feature-cta-pill-color, transparent);
+    background-color: transparent;
     font-size: 1.3rem;
     font-weight: 500;
     transition: all 0.2s ease-in-out;
@@ -6943,9 +6886,9 @@ body>.os-scrollbar {
 
   .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta,
   .desktop-gemini-feature-panel__cta:hover {
-    background-color: #1F8A81;
-    border-color: #1F8A81;
-    color: #FBFBFB;
+    background-color: transparent;
+    border-color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
+    color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
   }
 }
 

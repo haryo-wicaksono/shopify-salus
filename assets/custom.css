@@ -4377,9 +4377,9 @@ a.secondary-nav__item.secondary-nav__cta {
 
   .desktop-gemini-feature-panel:hover .desktop-gemini-feature-panel__cta,
   .desktop-gemini-feature-panel__cta:hover {
-    color: #FBFBFB;
-    background-color: #1F8A81;
-    border-color: #1F8A81;
+    color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
+    background-color: transparent;
+    border-color: var(--desktop-gemini-feature-cta-pill-color, currentColor);
   }
 
   @keyframes desktop-gemini-panel-fade {
@@ -4652,7 +4652,7 @@ a.secondary-nav__item.secondary-nav__cta {
     justify-content: flex-start;
     gap: 1.6rem;
     padding: 2rem;
-    color: #fff;
+    color: var(--mobile-gemini-feature-text-color, #222120);
   }
 
   .mobile-pane .m-banner-content h2 {
@@ -4666,7 +4666,7 @@ a.secondary-nav__item.secondary-nav__cta {
   }
 
   .mobile-pane .m-banner--dark .m-banner-content {
-    color: #fff;
+    color: var(--mobile-gemini-feature-text-color, #fff);
   }
 
   .mobile-pane .m-banner-btn {
@@ -4675,17 +4675,13 @@ a.secondary-nav__item.secondary-nav__cta {
     gap: 0.8rem;
     width: fit-content;
     padding: 0.5rem 1rem;
-    border: 1px solid currentColor;
+    color: var(--mobile-gemini-feature-cta-pill-color, currentColor);
+    border: 1px solid var(--mobile-gemini-feature-cta-pill-color, currentColor);
     border-radius: 999px;
     background: transparent;
     font-size: 1.3rem;
     font-weight: 500;
     text-decoration: none;
-  }
-
-  .mobile-pane .m-banner:not(.m-banner--dark) .m-banner-content,
-  .mobile-pane .m-banner:not(.m-banner--dark) .m-banner-btn {
-    color: #fff;
   }
 }
 

@@ -157,12 +157,12 @@
           <div class="header__icons-wrapper">
         {%- if shop.customer_accounts_enabled -%}
           {%- if customer -%}
-            <a class="header__icon header__icon--account text-current" href="{{ routes.account_url }}">
+            <a class="header__icon text-current" href="{{ routes.account_url }}">
               {% render 'profile-icon' %}
               <span class="visually-hidden">{{ 'sections.header.account' | t }}</span>
             </a>
           {%- else -%}
-            <a class="header__icon header__icon--account icon-customer text-current" href="{{ routes.account_login_url }}">
+            <a class="header__icon icon-customer text-current" href="{{ routes.account_login_url }}">
               {% render 'profile-icon' %}
               <span class="visually-hidden">{{ 'sections.header.log_in' | t }}</span>
             </a>
@@ -892,7 +892,6 @@
                   </li>
                 {%- endfor -%}
               </ul>
-<<<<<<< HEAD
               {%- if desktop_nav_item_count > 0 -%}
                 {% render 'mobile-desktop-nav',
                   section: section,
@@ -904,19 +903,6 @@
               {%- endif -%}
               {%- if section.settings.quicklinks_menu != blank or section.settings.cta_show -%}
                 <nav aria-label="{{ 'accessibility.secondary_navigation' | t }}" class="secondary-nav-container">
-=======
-              {%- if desktop_nav_item_count > 0 -%}
-                {% render 'mobile-desktop-nav',
-                  section: section,
-                  phone_label: header_phone_label,
-                  phone_href: header_phone_href,
-                  contact_label: header_email_label,
-                  contact_href: header_email_href
-                %}
-              {%- endif -%}
-              {%- if section.settings.quicklinks_menu != blank or section.settings.cta_show -%}
-                <nav aria-label="{{ 'accessibility.secondary_navigation' | t }}" class="secondary-nav-container">
->>>>>>> 308177c (feat: rebuild mobile nav pane stack)
                   <ul class="secondary-nav" role="list">
                     {% for link in section.settings.quicklinks_menu.links %}
                       <li>
@@ -966,45 +952,6 @@
                         </a>
                       </li>
                     {%- endif -%}
-                    {%- if shop.customer_accounts_enabled -%}
-                      <li class="secondary-nav__drawer-action-item">
-                        {%- if customer -%}
-                          <a class="secondary-nav__item secondary-nav__cta secondary-nav__drawer-action flex items-center" href="{{ routes.account_url }}">
-                            <span class="secondary-nav__drawer-icon" aria-hidden="true">
-                              {% render 'icon-customer' %}
-                            </span>
-                            <span class="secondary-nav__drawer-label">Account</span>
-                          </a>
-                        {%- else -%}
-                          <a class="secondary-nav__item secondary-nav__cta secondary-nav__drawer-action flex items-center" href="{{ routes.account_login_url }}">
-                            <span class="secondary-nav__drawer-icon" aria-hidden="true">
-                              {% render 'icon-customer' %}
-                            </span>
-                            <span class="secondary-nav__drawer-label">Account</span>
-                          </a>
-                        {%- endif -%}
-                      </li>
-                    {%- endif -%}
-                    <li class="secondary-nav__drawer-action-item">
-                      <a
-                        class="secondary-nav__item secondary-nav__cta secondary-nav__drawer-action flex items-center"
-                        href="{{ routes.cart_url }}"
-                        {% if settings.preload_links %}
-                          data-no-instant
-                        {% endif %}
-                      >
-                        <span class="secondary-nav__drawer-icon" aria-hidden="true">
-                          {%- if settings.cart_icon == 'bag' -%}
-                            {%- render 'icon-bag' -%}
-                          {%- elsif settings.cart_icon == 'basket' -%}
-                            {%- render 'icon-basket' -%}
-                          {%- else -%}
-                            {%- render 'icon-cart' -%}
-                          {%- endif -%}
-                        </span>
-                        <span class="secondary-nav__drawer-label">Your Cart</span>
-                      </a>
-                    </li>
                   </ul>
                 </nav>
               {%- endif -%}
