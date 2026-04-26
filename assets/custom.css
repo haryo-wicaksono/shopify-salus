@@ -4205,10 +4205,14 @@ a.secondary-nav__item.secondary-nav__cta {
   }
 
   .main-products-grid .product-ext-tags {
-    gap: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
   }
 
   .main-products-grid .product-ext-tags span {
+    display: flex;
     font-size: clamp(10px, 2.7vw, 12px);
     padding: 5px 8px;
   }
