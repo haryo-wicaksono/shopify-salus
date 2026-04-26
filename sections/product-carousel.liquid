@@ -128,9 +128,18 @@
 
     .product-ext-tags .pd-delivery,
     .product-ext-tags .free-shipping-tag {
+      display: flex;
+      width: max-content;
       padding: 10px 8px;
       font-size: 12px;
       line-height: 10px;
+    }
+
+    .product-ext-tags {
+      display: flex !important;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
     }
 
     .learn-more-btn {

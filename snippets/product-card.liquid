@@ -182,6 +182,18 @@
     box-sizing: border-box;
   }
 
+  @media screen and (max-width: 768px) {
+    .product-ext-tags .free-shipping-tag,
+    .product-ext-tags .pd-delivery {
+      display: flex;
+      width: max-content;
+    }
+
+    .product-ext-tags .pd-delivery {
+      margin-top: 6px;
+    }
+  }
+
   .truncate-two-line {
     overflow: hidden !important;
     display: -webkit-box !important;
