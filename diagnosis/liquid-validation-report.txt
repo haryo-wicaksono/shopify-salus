@@ -1,0 +1,250 @@
+======================================================================
+LIQUID-HTML VALIDATION REPORT
+File: /home/har-wicak/salus/shopify-salus/sections/main-product.liquid
+Timestamp: 2026-04-27T22:47:15.214147
+Errors found: 73
+======================================================================
+
+❌ POTENTIAL ISSUES:
+(These are tags opened inside conditionals that may not close)
+
+[1] CONDITIONAL_UNCLOSED
+    Tag <sticky-scroll-direction> opened inside conditional (line 626) but never closed in branch 'if_true_624'
+    Context: <sticky-scroll-direction data-min-sticky-size="md">
+
+[2] CONDITIONAL_UNCLOSED
+    Tag <div> opened inside conditional (line 627) but never closed in branch 'if_true_624'
+    Context: <div class="product-info__sticky">
+
+[3] ORPHAN_CLOSE
+    Tag <span> at line 670
+
+[4] ORPHAN_CLOSE
+    Tag <span> at line 684
+
+[5] ORPHAN_CLOSE
+    Tag <span> at line 685
+
+[6] ORPHAN_CLOSE
+    Tag <div> at line 687
+
+[7] CONDITIONAL_UNCLOSED
+    Tag <span> opened inside conditional (line 682) but never closed in branch 'if_true_680'
+    Context: <span class="product-info__barcode-value">
+
+[8] ORPHAN_CLOSE
+    Tag <span> at line 741
+
+[9] ORPHAN_CLOSE
+    Tag <div> at line 744
+
+[10] CONDITIONAL_UNCLOSED
+    Tag <div> opened inside conditional (line 765) but never closed in branch 'if_true_764'
+    Context: <div class="product-info__block product-info__block--sm prod
+
+[11] CONDITIONAL_UNCLOSED
+    Tag <ul> opened inside conditional (line 766) but never closed in branch 'if_true_764'
+    Context: <ul>
+
+[12] ORPHAN_CLOSE
+    Tag <ul> at line 770
+
+[13] ORPHAN_CLOSE
+    Tag <div> at line 771
+
+[14] ORPHAN_CLOSE
+    Tag <div> at line 786
+
+[15] ORPHAN_CLOSE
+    Tag <div> at line 806
+
+[16] ORPHAN_CLOSE
+    Tag <div> at line 808
+
+[17] ORPHAN_CLOSE
+    Tag <div> at line 822
+
+[18] ORPHAN_CLOSE
+    Tag <script> at line 826
+
+[19] ORPHAN_CLOSE
+    Tag <div> at line 827
+
+[20] ORPHAN_CLOSE
+    Tag <div> at line 839
+
+[21] ORPHAN_CLOSE
+    Tag <span> at line 852
+
+[22] ORPHAN_CLOSE
+    Tag <div> at line 853
+
+[23] ORPHAN_CLOSE
+    Tag <div> at line 896
+
+[24] ORPHAN_CLOSE
+    Tag <details> at line 984
+
+[25] CONDITIONAL_UNCLOSED
+    Tag <product-form> opened inside conditional (line 930) but never closed in branch 'if_true_851'
+    Context: <product-form>
+
+[26] ORPHAN_CLOSE
+    Tag <button> at line 1045
+
+[27] ORPHAN_CLOSE
+    Tag <div> at line 1046
+
+[28] ORPHAN_CLOSE
+    Tag <div> at line 1047
+
+[29] ORPHAN_CLOSE
+    Tag <button> at line 1057
+
+[30] ORPHAN_CLOSE
+    Tag <product-form> at line 1064
+
+[31] ORPHAN_CLOSE
+    Tag <div> at line 1069
+
+[32] ORPHAN_CLOSE
+    Tag <details> at line 1119
+
+[33] ORPHAN_CLOSE
+    Tag <details> at line 1151
+
+[34] CONDITIONAL_UNCLOSED
+    Tag <details-disclosure> opened inside conditional (line 1160) but never closed in branch 'if_true_1159'
+    Context: <details-disclosure {{ block.shopify_attributes }}>
+
+[35] CONDITIONAL_UNCLOSED
+    Tag <div> opened inside conditional (line 1185) but never closed in branch 'if_true_1159'
+    Context: <div class="disclosure__panel has-motion">
+
+[36] CONDITIONAL_UNCLOSED
+    Tag <div> opened inside conditional (line 1186) but never closed in branch 'if_true_1159'
+    Context: <div class="disclosure__content rte">
+
+[37] CONDITIONAL_UNCLOSED
+    Tag <div> opened inside conditional (line 1187) but never closed in branch 'if_true_1159'
+    Context: <div class="feature__row">
+
+[38] CONDITIONAL_UNCLOSED
+    Tag <div> opened inside conditional (line 1190) but never closed in branch 'if_true_1159'
+    Context: <div class="feature__box">
+
+[39] CONDITIONAL_UNCLOSED
+    Tag <div> opened inside conditional (line 1191) but never closed in branch 'if_true_1159'
+    Context: <div class="feat__box-title">
+
+[40] CONDITIONAL_UNCLOSED
+    Tag <div> opened inside conditional (line 1005) but never closed in branch 'if_true_1005'
+    Context: <div class="product-info__add-to-cart flex{% if enable_dynam
+
+[41] CONDITIONAL_UNCLOSED
+    Tag <div> opened inside conditional (line 1012) but never closed in branch 'if_true_1005'
+    Context: <div class="product-info__add-button">
+
+[42] ORPHAN_CLOSE
+    Tag <div> at line 1202
+
+[43] CONDITIONAL_UNCLOSED
+    Tag <span> opened inside conditional (line 850) but never closed in branch 'if_true_643'
+    Context: <span class="product-info__barcode-value">
+
+[44] CONDITIONAL_UNCLOSED
+    Tag <div> opened inside conditional (line 1203) but never closed in branch 'if_true_643'
+    Context: <div class="feat__box-content">
+
+[45] ORPHAN_CLOSE
+    Tag <div> at line 1209
+
+[46] ORPHAN_CLOSE
+    Tag <div> at line 1210
+
+[47] ORPHAN_CLOSE
+    Tag <details> at line 1215
+
+[48] ORPHAN_CLOSE
+    Tag <details-disclosure> at line 1216
+
+[49] ORPHAN_CLOSE
+    Tag <div> at line 1404
+
+[50] ORPHAN_CLOSE
+    Tag <a> at line 1412
+
+[51] ORPHAN_CLOSE
+    Tag <a> at line 1423
+
+[52] CONDITIONAL_UNCLOSED
+    Tag <a> opened inside conditional (line 1438) but never closed in branch 'if_true_1437'
+    Context: <a href="{{ block.settings.url }}">
+
+[53] ORPHAN_CLOSE
+    Tag <a> at line 1447
+
+[54] ORPHAN_CLOSE
+    Tag <product-message> at line 1502
+
+[55] ORPHAN_CLOSE
+    Tag <details> at line 1536
+
+[56] ORPHAN_CLOSE
+    Tag <div> at line 1544
+
+[57] ORPHAN_CLOSE
+    Tag <variant-label> at line 1570
+
+[58] ORPHAN_CLOSE
+    Tag <div> at line 1577
+
+[59] ORPHAN_CLOSE
+    Tag <sticky-scroll-direction> at line 1578
+
+[60] ORPHAN_CLOSE
+    Tag <div> at line 1580
+
+[61] ORPHAN_CLOSE
+    Tag <svg> at line 1645
+
+[62] ORPHAN_CLOSE
+    Tag <a> at line 1646
+
+[63] ORPHAN_CLOSE
+    Tag <a> at line 1654
+
+[64] ORPHAN_CLOSE
+    Tag <button> at line 1687
+
+[65] ORPHAN_CLOSE
+    Tag <a> at line 1721
+
+[66] ORPHAN_CLOSE
+    Tag <a> at line 1737
+
+[67] ORPHAN_CLOSE
+    Tag <div> at line 1738
+
+[68] ORPHAN_CLOSE
+    Tag <div> at line 1749
+
+[69] CONDITIONAL_UNCLOSED
+    Tag <line> opened inside conditional (line 1643) but never closed in branch 'if_true_1583'
+    Context: <line x1="7" y1="9" x2="17" y2="9" stroke="currentColor" str
+
+[70] CONDITIONAL_UNCLOSED
+    Tag <line> opened inside conditional (line 1644) but never closed in branch 'if_true_1583'
+    Context: <line x1="7" y1="13" x2="13" y2="13" stroke="currentColor" s
+
+[71] ORPHAN_CLOSE
+    Tag <div> at line 1753
+
+[72] ORPHAN_CLOSE
+    Tag <div> at line 1754
+
+[73] ORPHAN_CLOSE
+    Tag <div> at line 1755
+
+
+Report saved to: /home/har-wicak/salus/shopify-salus/sections/main-product-liquid-validation.txt

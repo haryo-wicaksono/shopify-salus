@@ -1,0 +1,886 @@
+HTML Tag Balance Report
+========================
+File: /home/har-wicak/salus/shopify-salus/diagnosis/product-page-rendered.html
+Timestamp: 2026-04-27T15:45:05.949Z
+Total tags found: 3309
+Errors found: 209
+========================
+
+❌ ERRORS:
+
+[1] UNCLOSED_TAG
+    Tag <script> opened at line 441 was never closed before </script> at line 746
+    Opened at: 441:3
+    Closed by: script at 746:2
+
+[2] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 849 (no matching opener)
+    Location: 849:29
+
+[3] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 901 (no matching opener)
+    Location: 901:29
+
+[4] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 915 (no matching opener)
+    Location: 915:39
+
+[5] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 926 (no matching opener)
+    Location: 926:39
+
+[6] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 937 (no matching opener)
+    Location: 937:39
+
+[7] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 948 (no matching opener)
+    Location: 948:39
+
+[8] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 959 (no matching opener)
+    Location: 959:39
+
+[9] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 970 (no matching opener)
+    Location: 970:39
+
+[10] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 981 (no matching opener)
+    Location: 981:39
+
+[11] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 992 (no matching opener)
+    Location: 992:39
+
+[12] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 1011 (no matching opener)
+    Location: 1011:29
+
+[13] UNCLOSED_TAG
+    Tag <div> opened at line 821 was never closed before </div> at line 1037
+    Opened at: 821:5
+    Closed by: div at 1037:27
+
+[14] UNCLOSED_TAG
+    Tag <nav> opened at line 827 was never closed before </div> at line 1037
+    Opened at: 827:7
+    Closed by: div at 1037:27
+
+[15] UNCLOSED_TAG
+    Tag <ul> opened at line 828 was never closed before </div> at line 1037
+    Opened at: 828:5
+    Closed by: div at 1037:27
+
+[16] UNCLOSED_TAG
+    Tag <div> opened at line 805 was never closed before </div> at line 1604
+    Opened at: 805:7
+    Closed by: div at 1604:17
+
+[17] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 1605 (no matching opener)
+    Location: 1605:15
+
+[18] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 1605 (no matching opener)
+    Location: 1605:21
+
+[19] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 1626 (no matching opener)
+    Location: 1626:29
+
+[20] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 1666 (no matching opener)
+    Location: 1666:29
+
+[21] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 1806 (no matching opener)
+    Location: 1806:3
+
+[22] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 1808 (no matching opener)
+    Location: 1808:17
+
+[23] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 1809 (no matching opener)
+    Location: 1809:15
+
+[24] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 1830 (no matching opener)
+    Location: 1830:29
+
+[25] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 1932 (no matching opener)
+    Location: 1932:15
+
+[26] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 1953 (no matching opener)
+    Location: 1953:29
+
+[27] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 1993 (no matching opener)
+    Location: 1993:29
+
+[28] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 2045 (no matching opener)
+    Location: 2045:29
+
+[29] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 2103 (no matching opener)
+    Location: 2103:29
+
+[30] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2132 (no matching opener)
+    Location: 2132:33
+
+[31] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2132 (no matching opener)
+    Location: 2132:39
+
+[32] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2160 (no matching opener)
+    Location: 2160:3
+
+[33] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2187 (no matching opener)
+    Location: 2187:3
+
+[34] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2214 (no matching opener)
+    Location: 2214:3
+
+[35] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2241 (no matching opener)
+    Location: 2241:3
+
+[36] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2243 (no matching opener)
+    Location: 2243:17
+
+[37] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2244 (no matching opener)
+    Location: 2244:15
+
+[38] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2244 (no matching opener)
+    Location: 2244:26
+
+[39] ORPHAN_CLOSE
+    Orphan closing tag </nav> at line 2245 (no matching opener)
+    Location: 2245:3
+
+[40] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2246 (no matching opener)
+    Location: 2246:5
+
+[41] ORPHAN_CLOSE
+    Orphan closing tag </speech-search-button> at line 2320 (no matching opener)
+    Location: 2320:9
+
+[42] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2354 (no matching opener)
+    Location: 2354:9
+
+[43] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2358 (no matching opener)
+    Location: 2358:5
+
+[44] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2373 (no matching opener)
+    Location: 2373:11
+
+[45] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2397 (no matching opener)
+    Location: 2397:27
+
+[46] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2413 (no matching opener)
+    Location: 2413:38
+
+[47] UNCLOSED_TAG
+    Tag <div> opened at line 2398 was never closed before </div> at line 2431
+    Opened at: 2398:35
+    Closed by: div at 2431:41
+
+[48] UNCLOSED_TAG
+    Tag <ul> opened at line 2400 was never closed before </div> at line 2431
+    Opened at: 2400:27
+    Closed by: div at 2431:41
+
+[49] UNCLOSED_TAG
+    Tag <details> opened at line 2419 was never closed before </div> at line 2431
+    Opened at: 2419:37
+    Closed by: div at 2431:41
+
+[50] ORPHAN_CLOSE
+    Orphan closing tag </summary> at line 2432 (no matching opener)
+    Location: 2432:39
+
+[51] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2442 (no matching opener)
+    Location: 2442:70
+
+[52] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2447 (no matching opener)
+    Location: 2447:73
+
+[53] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2452 (no matching opener)
+    Location: 2452:74
+
+[54] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2457 (no matching opener)
+    Location: 2457:61
+
+[55] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2462 (no matching opener)
+    Location: 2462:73
+
+[56] UNCLOSED_TAG
+    Tag <ul> opened at line 2384 was never closed before </ul> at line 2463
+    Opened at: 2384:15
+    Closed by: ul at 2463:50
+
+[57] UNCLOSED_TAG
+    Tag <li> opened at line 2384 was never closed before </ul> at line 2463
+    Opened at: 2384:36
+    Closed by: ul at 2463:50
+
+[58] UNCLOSED_TAG
+    Tag <div> opened at line 2382 was never closed before </div> at line 2464
+    Opened at: 2382:11
+    Closed by: div at 2464:39
+
+[59] ORPHAN_CLOSE
+    Orphan closing tag </nav-menu> at line 2466 (no matching opener)
+    Location: 2466:35
+
+[60] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2466 (no matching opener)
+    Location: 2466:46
+
+[61] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2483 (no matching opener)
+    Location: 2483:41
+
+[62] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2494 (no matching opener)
+    Location: 2494:67
+
+[63] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2499 (no matching opener)
+    Location: 2499:67
+
+[64] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2504 (no matching opener)
+    Location: 2504:68
+
+[65] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2505 (no matching opener)
+    Location: 2505:50
+
+[66] ORPHAN_CLOSE
+    Orphan closing tag </nav-menu> at line 2508 (no matching opener)
+    Location: 2508:35
+
+[67] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2508 (no matching opener)
+    Location: 2508:46
+
+[68] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2525 (no matching opener)
+    Location: 2525:41
+
+[69] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2536 (no matching opener)
+    Location: 2536:65
+
+[70] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2541 (no matching opener)
+    Location: 2541:68
+
+[71] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2546 (no matching opener)
+    Location: 2546:69
+
+[72] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2547 (no matching opener)
+    Location: 2547:50
+
+[73] ORPHAN_CLOSE
+    Orphan closing tag </nav-menu> at line 2550 (no matching opener)
+    Location: 2550:35
+
+[74] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2550 (no matching opener)
+    Location: 2550:46
+
+[75] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2557 (no matching opener)
+    Location: 2557:35
+
+[76] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2557 (no matching opener)
+    Location: 2557:39
+
+[77] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2557 (no matching opener)
+    Location: 2557:44
+
+[78] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2558 (no matching opener)
+    Location: 2558:1
+
+[79] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 2559 (no matching opener)
+    Location: 2559:23
+
+[80] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2559 (no matching opener)
+    Location: 2559:33
+
+[81] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2572 (no matching opener)
+    Location: 2572:27
+
+[82] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2588 (no matching opener)
+    Location: 2588:44
+
+[83] UNCLOSED_TAG
+    Tag <div> opened at line 2573 was never closed before </div> at line 2606
+    Opened at: 2573:35
+    Closed by: div at 2606:41
+
+[84] UNCLOSED_TAG
+    Tag <ul> opened at line 2575 was never closed before </div> at line 2606
+    Opened at: 2575:27
+    Closed by: div at 2606:41
+
+[85] UNCLOSED_TAG
+    Tag <details> opened at line 2594 was never closed before </div> at line 2606
+    Opened at: 2594:37
+    Closed by: div at 2606:41
+
+[86] ORPHAN_CLOSE
+    Orphan closing tag </summary> at line 2607 (no matching opener)
+    Location: 2607:39
+
+[87] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2617 (no matching opener)
+    Location: 2617:64
+
+[88] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2622 (no matching opener)
+    Location: 2622:59
+
+[89] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2627 (no matching opener)
+    Location: 2627:55
+
+[90] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2628 (no matching opener)
+    Location: 2628:50
+
+[91] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 2630 (no matching opener)
+    Location: 2630:37
+
+[92] ORPHAN_CLOSE
+    Orphan closing tag </nav-menu> at line 2631 (no matching opener)
+    Location: 2631:35
+
+[93] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2631 (no matching opener)
+    Location: 2631:51
+
+[94] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2632 (no matching opener)
+    Location: 2632:1
+
+[95] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 2633 (no matching opener)
+    Location: 2633:23
+
+[96] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2633 (no matching opener)
+    Location: 2633:33
+
+[97] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2648 (no matching opener)
+    Location: 2648:27
+
+[98] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2664 (no matching opener)
+    Location: 2664:49
+
+[99] UNCLOSED_TAG
+    Tag <div> opened at line 2649 was never closed before </div> at line 2682
+    Opened at: 2649:35
+    Closed by: div at 2682:41
+
+[100] UNCLOSED_TAG
+    Tag <ul> opened at line 2651 was never closed before </div> at line 2682
+    Opened at: 2651:27
+    Closed by: div at 2682:41
+
+[101] UNCLOSED_TAG
+    Tag <details> opened at line 2670 was never closed before </div> at line 2682
+    Opened at: 2670:37
+    Closed by: div at 2682:41
+
+[102] ORPHAN_CLOSE
+    Orphan closing tag </summary> at line 2683 (no matching opener)
+    Location: 2683:39
+
+[103] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2693 (no matching opener)
+    Location: 2693:69
+
+[104] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2698 (no matching opener)
+    Location: 2698:71
+
+[105] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2703 (no matching opener)
+    Location: 2703:68
+
+[106] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2708 (no matching opener)
+    Location: 2708:66
+
+[107] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2713 (no matching opener)
+    Location: 2713:57
+
+[108] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2714 (no matching opener)
+    Location: 2714:50
+
+[109] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 2716 (no matching opener)
+    Location: 2716:37
+
+[110] ORPHAN_CLOSE
+    Orphan closing tag </nav-menu> at line 2717 (no matching opener)
+    Location: 2717:35
+
+[111] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2717 (no matching opener)
+    Location: 2717:51
+
+[112] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2718 (no matching opener)
+    Location: 2718:1
+
+[113] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 2719 (no matching opener)
+    Location: 2719:23
+
+[114] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2719 (no matching opener)
+    Location: 2719:33
+
+[115] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2732 (no matching opener)
+    Location: 2732:27
+
+[116] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2748 (no matching opener)
+    Location: 2748:42
+
+[117] UNCLOSED_TAG
+    Tag <div> opened at line 2733 was never closed before </div> at line 2766
+    Opened at: 2733:35
+    Closed by: div at 2766:41
+
+[118] UNCLOSED_TAG
+    Tag <ul> opened at line 2735 was never closed before </div> at line 2766
+    Opened at: 2735:27
+    Closed by: div at 2766:41
+
+[119] UNCLOSED_TAG
+    Tag <details> opened at line 2754 was never closed before </div> at line 2766
+    Opened at: 2754:37
+    Closed by: div at 2766:41
+
+[120] ORPHAN_CLOSE
+    Orphan closing tag </summary> at line 2767 (no matching opener)
+    Location: 2767:39
+
+[121] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2777 (no matching opener)
+    Location: 2777:64
+
+[122] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2782 (no matching opener)
+    Location: 2782:62
+
+[123] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2787 (no matching opener)
+    Location: 2787:56
+
+[124] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2788 (no matching opener)
+    Location: 2788:50
+
+[125] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 2790 (no matching opener)
+    Location: 2790:37
+
+[126] ORPHAN_CLOSE
+    Orphan closing tag </nav-menu> at line 2791 (no matching opener)
+    Location: 2791:35
+
+[127] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2808 (no matching opener)
+    Location: 2808:41
+
+[128] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2819 (no matching opener)
+    Location: 2819:67
+
+[129] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2824 (no matching opener)
+    Location: 2824:74
+
+[130] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2829 (no matching opener)
+    Location: 2829:77
+
+[131] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2834 (no matching opener)
+    Location: 2834:99
+
+[132] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2839 (no matching opener)
+    Location: 2839:62
+
+[133] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2840 (no matching opener)
+    Location: 2840:50
+
+[134] ORPHAN_CLOSE
+    Orphan closing tag </nav-menu> at line 2843 (no matching opener)
+    Location: 2843:35
+
+[135] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2843 (no matching opener)
+    Location: 2843:46
+
+[136] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2860 (no matching opener)
+    Location: 2860:41
+
+[137] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2871 (no matching opener)
+    Location: 2871:65
+
+[138] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2876 (no matching opener)
+    Location: 2876:67
+
+[139] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2881 (no matching opener)
+    Location: 2881:68
+
+[140] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2886 (no matching opener)
+    Location: 2886:72
+
+[141] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2891 (no matching opener)
+    Location: 2891:65
+
+[142] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2896 (no matching opener)
+    Location: 2896:66
+
+[143] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2897 (no matching opener)
+    Location: 2897:50
+
+[144] ORPHAN_CLOSE
+    Orphan closing tag </nav-menu> at line 2900 (no matching opener)
+    Location: 2900:35
+
+[145] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2900 (no matching opener)
+    Location: 2900:46
+
+[146] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2917 (no matching opener)
+    Location: 2917:41
+
+[147] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2928 (no matching opener)
+    Location: 2928:70
+
+[148] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2933 (no matching opener)
+    Location: 2933:67
+
+[149] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2938 (no matching opener)
+    Location: 2938:68
+
+[150] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2943 (no matching opener)
+    Location: 2943:56
+
+[151] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2944 (no matching opener)
+    Location: 2944:50
+
+[152] ORPHAN_CLOSE
+    Orphan closing tag </nav-menu> at line 2947 (no matching opener)
+    Location: 2947:35
+
+[153] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2947 (no matching opener)
+    Location: 2947:46
+
+[154] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2947 (no matching opener)
+    Location: 2947:51
+
+[155] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 2948 (no matching opener)
+    Location: 2948:1
+
+[156] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 2949 (no matching opener)
+    Location: 2949:23
+
+[157] ORPHAN_CLOSE
+    Orphan closing tag </li> at line 2949 (no matching opener)
+    Location: 2949:33
+
+[158] ORPHAN_CLOSE
+    Orphan closing tag </ul> at line 2949 (no matching opener)
+    Location: 2949:38
+
+[159] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2958 (no matching opener)
+    Location: 2958:11
+
+[160] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2966 (no matching opener)
+    Location: 2966:11
+
+[161] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2974 (no matching opener)
+    Location: 2974:11
+
+[162] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 2982 (no matching opener)
+    Location: 2982:11
+
+[163] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 3790 (no matching opener)
+    Location: 3790:19
+
+[164] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 3913 (no matching opener)
+    Location: 3913:19
+
+[165] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 3950 (no matching opener)
+    Location: 3950:19
+
+[166] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 3990 (no matching opener)
+    Location: 3990:19
+
+[167] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 4024 (no matching opener)
+    Location: 4024:19
+
+[168] ORPHAN_CLOSE
+    Orphan closing tag </a> at line 4040 (no matching opener)
+    Location: 4040:81
+
+[169] ORPHAN_CLOSE
+    Orphan closing tag </nav> at line 4042 (no matching opener)
+    Location: 4042:23
+
+[170] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 4043 (no matching opener)
+    Location: 4043:11
+
+[171] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 4044 (no matching opener)
+    Location: 4044:9
+
+[172] ORPHAN_CLOSE
+    Orphan closing tag </main-menu> at line 4045 (no matching opener)
+    Location: 4045:7
+
+[173] ORPHAN_CLOSE
+    Orphan closing tag </header> at line 4045 (no matching opener)
+    Location: 4045:19
+
+[174] ORPHAN_CLOSE
+    Orphan closing tag </store-header> at line 4046 (no matching opener)
+    Location: 4046:1
+
+[175] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 4096 (no matching opener)
+    Location: 4096:1
+
+[176] ORPHAN_CLOSE
+    Orphan closing tag </main> at line 4119 (no matching opener)
+    Location: 4119:5
+
+[177] UNCLOSED_TAG
+    Tag <div> opened at line 4788 was never closed before </div> at line 4840
+    Opened at: 4788:7
+    Closed by: div at 4840:22
+
+[178] ORPHAN_CLOSE
+    Orphan closing tag </svg> at line 4904 (no matching opener)
+    Location: 4904:1
+
+[179] ORPHAN_CLOSE
+    Orphan closing tag </textarea> at line 4950 (no matching opener)
+    Location: 4950:24
+
+[180] ORPHAN_CLOSE
+    Orphan closing tag </form> at line 4957 (no matching opener)
+    Location: 4957:19
+
+[181] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 4958 (no matching opener)
+    Location: 4958:7
+
+[182] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 4959 (no matching opener)
+    Location: 4959:5
+
+[183] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 4960 (no matching opener)
+    Location: 4960:3
+
+[184] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 4961 (no matching opener)
+    Location: 4961:1
+
+[185] ORPHAN_CLOSE
+    Orphan closing tag </span> at line 5131 (no matching opener)
+    Location: 5131:38
+
+[186] ORPHAN_CLOSE
+    Orphan closing tag </button> at line 5150 (no matching opener)
+    Location: 5150:36
+
+[187] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 5205 (no matching opener)
+    Location: 5205:1
+
+[188] ORPHAN_CLOSE
+    Orphan closing tag </svg> at line 5252 (no matching opener)
+    Location: 5252:1
+
+[189] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 5272 (no matching opener)
+    Location: 5272:21
+
+[190] ORPHAN_CLOSE
+    Orphan closing tag </svg> at line 5300 (no matching opener)
+    Location: 5300:1
+
+[191] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 5320 (no matching opener)
+    Location: 5320:21
+
+[192] ORPHAN_CLOSE
+    Orphan closing tag </svg> at line 5348 (no matching opener)
+    Location: 5348:1
+
+[193] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 5362 (no matching opener)
+    Location: 5362:21
+
+[194] UNCLOSED_TAG
+    Tag <div> opened at line 5207 was never closed before </div> at line 5364
+    Opened at: 5207:1
+    Closed by: div at 5364:17
+
+[195] ORPHAN_CLOSE
+    Orphan closing tag </svg> at line 5390 (no matching opener)
+    Location: 5390:1
+
+[196] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 5404 (no matching opener)
+    Location: 5404:21
+
+[197] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 5406 (no matching opener)
+    Location: 5406:17
+
+[198] ORPHAN_CLOSE
+    Orphan closing tag </svg> at line 5433 (no matching opener)
+    Location: 5433:1
+
+[199] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 5445 (no matching opener)
+    Location: 5445:15
+
+[200] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 5445 (no matching opener)
+    Location: 5445:21
+
+[201] ORPHAN_CLOSE
+    Orphan closing tag </svg> at line 5472 (no matching opener)
+    Location: 5472:1
+
+[202] ORPHAN_CLOSE
+    Orphan closing tag </details> at line 5499 (no matching opener)
+    Location: 5499:21
+
+[203] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 5500 (no matching opener)
+    Location: 5500:39
+
+[204] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 5574 (no matching opener)
+    Location: 5574:17
+
+[205] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 5608 (no matching opener)
+    Location: 5608:15
+
+[206] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 5609 (no matching opener)
+    Location: 5609:3
+
+[207] ORPHAN_CLOSE
+    Orphan closing tag </footer> at line 5610 (no matching opener)
+    Location: 5610:1
+
+[208] ORPHAN_CLOSE
+    Orphan closing tag </div> at line 5615 (no matching opener)
+    Location: 5615:1
+
+[209] ORPHAN_CLOSE
+    Orphan closing tag </body> at line 5848 (no matching opener)
+    Location: 5848:577
+
+========================
+Tag Summary (top-level only):
+  <a>  opened: 221, closed: 284, diff: -63
+  <div>  opened: 427, closed: 460, diff: -33
+  <button>  opened: 33, closed: 52, diff: -19
+  <li>  opened: 80, closed: 90, diff: -10
+  <ul>  opened: 13, closed: 22, diff: -9
+  <details>  opened: 10, closed: 19, diff: -9
+  <nav-menu>  opened: 0, closed: 9, diff: -9
+  <svg>  opened: 185, closed: 192, diff: -7
+  <n>  opened: 1, closed: 0, diff: +1
+  <span>  opened: 201, closed: 202, diff: -1
+  <speech-search-button>  opened: 0, closed: 1, diff: -1
+  <main-menu>  opened: 0, closed: 1, diff: -1
+  <store-header>  opened: 0, closed: 1, diff: -1
+  <main>  opened: 0, closed: 1, diff: -1
+  <textarea>  opened: 0, closed: 1, diff: -1
+  <body>  opened: 0, closed: 1, diff: -1
