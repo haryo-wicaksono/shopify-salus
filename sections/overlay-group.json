@@ -101,6 +101,16 @@
     "partner_form_popup_wecWJ7": {
       "type": "partner-form-popup",
       "settings": {
+        "heading": "Become an affiliate",
+        "webhook_url": "https://salussaunas.app.n8n.cloud/webhook/nuevo-afiliado",
+        "discount_code_label": "Request your discount code:",
+        "promo_link_label": "Where you'll promote us (link): *",
+        "terms_label": "I agree to the",
+        "terms_link_text": "Terms & Conditions",
+        "terms_url": "https://drive.google.com/file/d/1kX1cbMiuzS0j_S1SQ8Fum2Jo08pOk3Wo/view?usp=sharing",
+        "submit_label": "Send for review",
+        "success_heading": "Thank you for your application!",
+        "success_body": "Your application is currently under review and will send an update via email in due course.",
         "color_scheme": "none"
       }
     },
