@@ -198,13 +198,13 @@
             "card_5_product": "",
             "card_5_collection": "",
             "card_5_title": "Indoor Saunas",
-            "card_5_url": "https://www.salussaunas.com/collections/traditional-sauna-v2/indoor-sauna-v2",
+            "card_5_url": "shopify://collections/indoor-saunas",
             "card_5_image": "shopify://shop_images/Frame_17380.png",
             "card_6_resource_type": "none",
             "card_6_product": "",
             "card_6_collection": "",
             "card_6_title": "Outdoor Saunas",
-            "card_6_url": "https://www.salussaunas.com/collections/traditional-sauna-v2/outdoor-sauna-v2",
+            "card_6_url": "shopify://collections/outdoor-saunas",
             "card_6_image": "shopify://shop_images/Frame_17422.png"
           }
         },
