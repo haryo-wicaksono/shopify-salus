@@ -15,8 +15,8 @@
       "type": "homepage-announcement-banner",
       "name": "Homepage Announcement Banner",
       "settings": {
-        "show_banner": false,
-        "text": "Need assistance? Call",
+        "show_banner": true,
+        "text": "🇺🇸 4th of July Sale — Special pricing on all saunas",
         "phone_number": "(888) 287-0111",
         "background_color": "#ffffff",
         "text_color": "#208b81"
