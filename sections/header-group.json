@@ -15,11 +15,11 @@
       "type": "homepage-announcement-banner",
       "name": "Homepage Announcement Banner",
       "settings": {
-        "show_banner": true,
-        "text": "🇺🇸 4th of July Deals Are Live — Call Now for Your Best Price!",
+        "show_banner": false,
+        "text": "",
         "phone_number": "(888) 287-0111",
-        "background_color": "#FF0000",
-        "text_color": "#FFFFFF"
+        "background_color": "#ff0000",
+        "text_color": "#ffffff"
       }
     },
     "announcement": {

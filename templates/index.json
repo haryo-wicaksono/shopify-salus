@@ -12,37 +12,6 @@
     "homepage_hero_carousel_iKVfwn": {
       "type": "homepage-hero-carousel",
       "blocks": {
-        "hero_slide_j7mgmY": {
-          "type": "hero-slide",
-          "settings": {
-            "slide_layout": "full-background-centered",
-            "custom_content_bg": "",
-            "slide_image_desktop": "shopify://shop_images/4thbanner_11eadb6f-748f-4893-be9a-83399c9aa6be.png",
-            "desktop_image_alt": "",
-            "slide_image_mobile": "shopify://shop_images/Untitled_1600_x_2200_px.png",
-            "mobile_image_alt": "",
-            "split_media_type": "image",
-            "show_stars": false,
-            "show_house_icon": false,
-            "reviews_text": "",
-            "headline": "Firework Collection",
-            "mobile_headline": "Firework Collection",
-            "description": "<p>Special 4th of July pricing available on all models! Call for your best deal!</p>",
-            "mobile_description": "<p>Special 4th of July pricing available on all models!</p>",
-            "button1_text": "Check the Collection",
-            "mobile_button1_text": "Check the Collection",
-            "button1_link": "https://www.salussaunas.com/collections/firework-collection",
-            "show_button1_arrow": false,
-            "button2_text": "Talk with Us",
-            "mobile_button2_text": "",
-            "button2_link": "https://www.salussaunas.com/pages/contact",
-            "feature_item_1": "",
-            "feature_item_2": "",
-            "feature_item_3": "",
-            "feature_item_4": "",
-            "color_scheme": "light"
-          }
-        },
         "hero_slide_GT4wWK": {
           "type": "hero-slide",
           "settings": {
@@ -207,7 +176,6 @@
         }
       },
       "block_order": [
-        "hero_slide_j7mgmY",
         "hero_slide_GT4wWK",
         "hero_slide_rAiWtc",
         "hero_slide_J4eVMm",
