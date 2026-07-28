@@ -12,6 +12,39 @@
     "homepage_hero_carousel_iKVfwn": {
       "type": "homepage-hero-carousel",
       "blocks": {
+        "hero_slide_ADmDq6": {
+          "type": "hero-slide",
+          "settings": {
+            "slide_layout": "full-background-centered",
+            "custom_content_bg": "",
+            "desktop_image_alt": "",
+            "mobile_image_alt": "",
+            "bg_video_desktop": "shopify://files/videos/GLASS_CLASS_WEB_16_9.mp4",
+            "bg_video_mobile": "shopify://files/videos/GLASS_CLASS_WEB_1080_1350.mp4",
+            "split_media_type": "video",
+            "split_video_desktop": "shopify://files/videos/GLASS_CLASS_WEB_16_9.mp4",
+            "split_video_mobile": "shopify://files/videos/GLASS_CLASS_WEB_1080_1350.mp4",
+            "show_stars": false,
+            "show_house_icon": false,
+            "reviews_text": "",
+            "headline": "Refresh Your Routine This Summer",
+            "mobile_headline": "Refresh Your Routine This Summer",
+            "description": "<p>Upgrade your wellness with exclusive savings on premium saunas and cold plunges. For a limited time only.</p>",
+            "mobile_description": "",
+            "button1_text": "Check Our Mid Summer Blowout!",
+            "mobile_button1_text": "Check Our Mid Summer Blowout!",
+            "button1_link": "https://www.salussaunas.com/collections/all-saunas",
+            "show_button1_arrow": true,
+            "button2_text": "",
+            "mobile_button2_text": "",
+            "button2_link": "",
+            "feature_item_1": "",
+            "feature_item_2": "",
+            "feature_item_3": "",
+            "feature_item_4": "",
+            "color_scheme": "light"
+          }
+        },
         "hero_slide_GT4wWK": {
           "type": "hero-slide",
           "settings": {
@@ -176,6 +209,7 @@
         }
       },
       "block_order": [
+        "hero_slide_ADmDq6",
         "hero_slide_GT4wWK",
         "hero_slide_rAiWtc",
         "hero_slide_J4eVMm",
