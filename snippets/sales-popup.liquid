@@ -82,6 +82,15 @@
       color: #000000;
       margin-bottom:0;
   }
+  .salesPopup-dismiss {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 14px;
+    text-decoration: underline;
+    color: #555;
+    cursor: pointer;
+  }
   .salesPopup-info a.btn{
     display:block;
     background:#1B413E;
@@ -164,6 +173,7 @@
             {{ popup.button_label }}
           </a>
         {% endif %}
+        <span id="salesPopup-dismiss" class="salesPopup-dismiss">Continue without savings</span>
       </div>
       <div class="salesPopup-media">
         {% if popup.image != blank %}
@@ -179,6 +189,11 @@
   document.addEventListener('DOMContentLoaded', ()=>{
     let popup = document.getElementById("salesPopup");
      document.getElementById("salesPopup-close").addEventListener("click", function () {
+       setTimeout(function () {
+        popup.style.display = "none";
+       }, 300);
+    });
+    document.getElementById("salesPopup-dismiss").addEventListener("click", function () {
        setTimeout(function () {
         popup.style.display = "none";
        }, 300);
