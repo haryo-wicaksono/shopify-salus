@@ -16,9 +16,9 @@
       "name": "Homepage Announcement Banner",
       "settings": {
         "show_banner": false,
-        "text": "",
+        "text": " MIDSUMMER BLOWOUT SALE: Save Up to $2,000 | Ends August 10th",
         "phone_number": "(888) 287-0111",
-        "background_color": "#ff0000",
+        "background_color": "#2C4C4B",
         "text_color": "#ffffff"
       }
     },
