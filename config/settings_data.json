@@ -398,6 +398,7 @@
     "inventory_threshold_very_low": 8,
     "inventory_show_notice": "always",
     "inventory_show_count": "always",
+    "product_label_card_position": "none",
     "sale_label_bg_color": "#13736c",
     "sale_label_text_color": "#ffffff",
     "sale_label_icon": "none",
