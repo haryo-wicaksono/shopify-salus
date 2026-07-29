@@ -18,7 +18,7 @@
         "show_banner": true,
         "text": "☀️ MIDSUMMER BLOWOUT SALE: Save Up to $2,000 | Ends August 10th",
         "phone_number": "",
-        "background_color": "#2C4C4B",
+        "background_color": "#2c4c4b",
         "text_color": "#ffffff"
       }
     },
@@ -1730,7 +1730,11 @@
     },
     "sales_popup_kNEhy3": {
       "type": "sales-popup",
-      "custom_css": [],
+      "custom_css": [
+        "h2 {font-size: 32px;}",
+        ".salesPopup-content,.salesPopup-content-row,.salesPopup-info {overflow: visible !important; height: auto !important; max-height: none !important;}",
+        ".salesPopup-info a {margin-top: 20px;}"
+      ],
       "settings": {
         "heading": "Midsummer Blowout Sale!",
         "content": "<p>Upgrade your wellness with exclusive savings on premium saunas and cold plunges. </p><h6><em><strong>Sale ends August 10th!</strong></em></h6>",
