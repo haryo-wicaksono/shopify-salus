@@ -1730,6 +1730,7 @@
     },
     "sales_popup_kNEhy3": {
       "type": "sales-popup",
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "heading": "The Nordic Series. Now $500 off.",
