@@ -131,6 +131,12 @@
         {% if show_category_tag and product.metafields.custom.product_tag != blank %}
           <span class="product-category-badge">{{ product.metafields.custom.product_tag }}</span>
         {% endif %}
+
+        {%- comment -%}MIDSUMMER BADGE{%- endcomment -%}
+        {%- if product.compare_at_price > product.price -%}
+          <span class="midsummer-badge">☀️ MIDSUMMER SALE</span>
+        {%- endif -%}
+
         <div
           aria-label="{{ product.title | escape }}"
           class="media block relative{% if settings.blend_product_images %} image-blend{% endif %} js-prod-link"
