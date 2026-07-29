@@ -1733,7 +1733,7 @@
       "custom_css": [],
       "settings": {
         "heading": "Midsummer Blowout Sale!",
-        "content": "<p>Upgrade your wellness with exclusive savings on premium saunas and cold plunges. </p><p><em><strong>Sale ends August 10th!</strong></em></p>",
+        "content": "<p>Upgrade your wellness with exclusive savings on premium saunas and cold plunges. </p><h6><em><strong>Sale ends August 10th!</strong></em></h6>",
         "button_label": "See Our Collections!",
         "button_link": "https://www.salussaunas.com/collections/all-saunas",
         "image": "shopify://shop_images/Untitled_design_1_52e45a67-f70e-485b-8df8-4df05c0e3a1b.png",
