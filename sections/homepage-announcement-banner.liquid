@@ -94,17 +94,22 @@
         <span class="sale-countdown" id="sale-countdown" style="display:none;">
           <span class="sale-countdown__unit">
             <span class="sale-countdown__number" id="cd-days">0</span>
-            <span class="sale-countdown__label">días</span>
+            <span class="sale-countdown__label">days</span>
           </span>
           <span class="sale-countdown__sep">:</span>
           <span class="sale-countdown__unit">
             <span class="sale-countdown__number" id="cd-hours">00</span>
-            <span class="sale-countdown__label">horas</span>
+            <span class="sale-countdown__label">hours</span>
           </span>
           <span class="sale-countdown__sep">:</span>
           <span class="sale-countdown__unit">
             <span class="sale-countdown__number" id="cd-mins">00</span>
             <span class="sale-countdown__label">min</span>
+          </span>
+          <span class="sale-countdown__sep">:</span>
+          <span class="sale-countdown__unit">
+            <span class="sale-countdown__number" id="cd-secs">00</span>
+            <span class="sale-countdown__label">sec</span>
           </span>
         </span>
       </p>
@@ -114,10 +119,11 @@
   <script>
     (function () {
       var TARGET = new Date('2026-08-10T23:59:59');
-      var wrap  = document.getElementById('sale-countdown');
-      var dEl   = document.getElementById('cd-days');
-      var hEl   = document.getElementById('cd-hours');
-      var mEl   = document.getElementById('cd-mins');
+      var wrap = document.getElementById('sale-countdown');
+      var dEl  = document.getElementById('cd-days');
+      var hEl  = document.getElementById('cd-hours');
+      var mEl  = document.getElementById('cd-mins');
+      var sEl  = document.getElementById('cd-secs');
 
       function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
@@ -127,14 +133,16 @@
         var d = Math.floor(diff / 86400000);
         var h = Math.floor((diff % 86400000) / 3600000);
         var m = Math.floor((diff % 3600000) / 60000);
+        var s = Math.floor((diff % 60000) / 1000);
         dEl.textContent = d;
         hEl.textContent = pad(h);
         mEl.textContent = pad(m);
+        sEl.textContent = pad(s);
         wrap.style.display = 'inline-flex';
       }
 
       tick();
-      setInterval(tick, 60000);
+      setInterval(tick, 1000);
     })();
   </script>
 {% endif %}
