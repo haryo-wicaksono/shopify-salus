@@ -134,32 +134,7 @@
 
         {%- comment -%}MIDSUMMER BADGE{%- endcomment -%}
 {%- if product.tags contains 'midsummer-sale' -%}
-  <span class="midsummer-badge">
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <path id="ms-top-{{ product.id }}" d="M 22,82 A 44,44 0 1,1 98,82"/>
-        <path id="ms-bot-{{ product.id }}" d="M 22,82 A 44,44 0 0,0 98,82"/>
-      </defs>
-      <circle cx="60" cy="60" r="58" fill="#CC0000"/>
-      <text font-family="'Arial Black', Arial, sans-serif" font-size="12" font-weight="900" fill="white" letter-spacing="1">
-        <textPath href="#ms-top-{{ product.id }}" startOffset="50%" text-anchor="middle">✦ MIDSUMMER ✦</textPath>
-      </text>
-      <text font-family="'Arial Black', Arial, sans-serif" font-size="12" font-weight="900" fill="white" letter-spacing="3">
-        <textPath href="#ms-bot-{{ product.id }}" startOffset="50%" text-anchor="middle">✦ SALE ✦</textPath>
-      </text>
-      <g transform="translate(60,60)">
-        <rect x="-1.5" y="-19" width="3" height="6" fill="white" rx="1"/>
-        <rect x="-1.5" y="-19" width="3" height="6" fill="white" rx="1" transform="rotate(45)"/>
-        <rect x="-1.5" y="-19" width="3" height="6" fill="white" rx="1" transform="rotate(90)"/>
-        <rect x="-1.5" y="-19" width="3" height="6" fill="white" rx="1" transform="rotate(135)"/>
-        <rect x="-1.5" y="-19" width="3" height="6" fill="white" rx="1" transform="rotate(180)"/>
-        <rect x="-1.5" y="-19" width="3" height="6" fill="white" rx="1" transform="rotate(225)"/>
-        <rect x="-1.5" y="-19" width="3" height="6" fill="white" rx="1" transform="rotate(270)"/>
-        <rect x="-1.5" y="-19" width="3" height="6" fill="white" rx="1" transform="rotate(315)"/>
-        <circle cx="0" cy="0" r="11" fill="white"/>
-      </g>
-    </svg>
-  </span>
+  <span class="midsummer-badge">MIDSUMMER<br>SALE</span>
 {%- endif -%}
 
         <div
