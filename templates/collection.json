@@ -27,7 +27,7 @@
     "collection-products": {
       "type": "main-collection-products",
       "custom_css": [
-        ".midsummer-badge {position: absolute; top: 12px; right: 0; background-color: #CC0000; color: white; font-family: 'Arial Black', Arial, sans-serif; font-size: 11px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; padding: 5px 10px; border-radius: 3px 0 0 3px; z-index: 2; pointer-events: none; display: block;}",
+        ".midsummer-badge {position: absolute; top: 14px; right: 0; background-color: #FF0000; color: white; font-family: 'Arial Black', Arial, sans-serif; font-size: 12px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 1px; line-height: 1.5; padding: 8px 14px 8px 22px; clip-path: polygon(16% 0, 100% 0, 100% 100%, 16% 100%, 0 50%); min-width: 90px; z-index: 2; pointer-events: none; display: block;}",
         ".discount__price {background-color: #ff0000 !important; border-color: #ff0000 !important;}"
       ],
       "settings": {
