@@ -44,7 +44,7 @@
           "type": "announcement",
           "disabled": true,
           "settings": {
-            "text": "<p>Welcome to our store. <a href='#' title='#'>Learn more</a></p>",
+            "text": "<p>Welcome to our store. <a href=\"#\" title=\"#\">Learn more</a></p>",
             "icon_select": "none"
           }
         },
@@ -2158,15 +2158,14 @@
         "button_xi8j4c",
         "button_TFygC6"
       ],
-      "disabled": true,
       "settings": {
-        "heading": "Get your sauna before new tariff prices hit",
-        "content": "<p>Prices are rising the world over. Secure our limited inventory at today’s pricing now.</p>",
-        "image": "shopify://shop_images/homepage_popup_desktop.png",
-        "image1": "shopify://shop_images/homepage_popup_mobile.png",
+        "heading": "Midsummer Blowout Sale!",
+        "content": "<p>Upgrade your wellness with exclusive savings on premium saunas and cold plunges. For a limited time only.</p><p>Sale ends August 10th!</p><p><a href=\"https://www.salussaunas.com/collections/all-saunas\" title=\"https://www.salussaunas.com/collections/all-saunas\">SEE OUR COLLECTIONS</a></p>",
+        "image": "shopify://shop_images/hf_20260729_183745_5f90930f-d323-4264-8a34-fbb5a4c6d7e9.png",
+        "image1": "shopify://shop_images/hf_20260729_183745_5f90930f-d323-4264-8a34-fbb5a4c6d7e9.png",
         "mobile_bg": false,
         "color": "",
-        "popup_delay": 5,
+        "popup_delay": 2,
         "phone_number": "(888)287-0111"
       }
     },
