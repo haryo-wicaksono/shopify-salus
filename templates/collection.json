@@ -26,6 +26,10 @@
     },
     "collection-products": {
       "type": "main-collection-products",
+      "custom_css": [
+        ".midsummer-badge {position: absolute; top: 8px; right: 8px; width: 55px; height: 55px; z-index: 2; display: block; pointer-events: none;}",
+        ".midsummer-badge svg {width: 100%; height: 100%;}"
+      ],
       "settings": {
         "products_per_page": 50,
         "card_size_mobile": "small",
