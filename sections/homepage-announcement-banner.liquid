@@ -1,6 +1,5 @@
 {% comment %}
-  This is a non-sticky announcement banner for the top of the page.
-  It includes a telephone icon and customizable text with a phone number.
+  Announcement banner with optional countdown timer.
 {% endcomment %}
 
 <style>
@@ -41,9 +40,46 @@
     margin-bottom: 0px;
   }
 
+  .sale-countdown {
+    display: inline-flex;
+    gap: 6px;
+    margin-left: 12px;
+    font-weight: bold;
+  }
+
+  .sale-countdown__unit {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+  }
+
+  .sale-countdown__number {
+    font-size: 1.1em;
+    font-weight: 900;
+  }
+
+  .sale-countdown__label {
+    font-size: 0.55em;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .sale-countdown__sep {
+    font-weight: 900;
+    opacity: 0.6;
+    align-self: flex-start;
+    padding-top: 1px;
+  }
+
   @media screen and (max-width: 769px) {
     .announcement-banner__text {
       font-size: 14px;
+    }
+    .sale-countdown {
+      gap: 4px;
+      margin-left: 8px;
     }
   }
 </style>
@@ -55,9 +91,52 @@
       <p class="announcement-banner__text">
         {{ section.settings.text | escape }}
         <a href="tel:{{ section.settings.phone_number | escape }}">{{ section.settings.phone_number | escape }}</a>
+        <span class="sale-countdown" id="sale-countdown" style="display:none;">
+          <span class="sale-countdown__unit">
+            <span class="sale-countdown__number" id="cd-days">0</span>
+            <span class="sale-countdown__label">días</span>
+          </span>
+          <span class="sale-countdown__sep">:</span>
+          <span class="sale-countdown__unit">
+            <span class="sale-countdown__number" id="cd-hours">00</span>
+            <span class="sale-countdown__label">horas</span>
+          </span>
+          <span class="sale-countdown__sep">:</span>
+          <span class="sale-countdown__unit">
+            <span class="sale-countdown__number" id="cd-mins">00</span>
+            <span class="sale-countdown__label">min</span>
+          </span>
+        </span>
       </p>
     </div>
   </div>
+
+  <script>
+    (function () {
+      var TARGET = new Date('2026-08-10T23:59:59');
+      var wrap  = document.getElementById('sale-countdown');
+      var dEl   = document.getElementById('cd-days');
+      var hEl   = document.getElementById('cd-hours');
+      var mEl   = document.getElementById('cd-mins');
+
+      function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+      function tick() {
+        var diff = TARGET - Date.now();
+        if (diff <= 0) { wrap.style.display = 'none'; return; }
+        var d = Math.floor(diff / 86400000);
+        var h = Math.floor((diff % 86400000) / 3600000);
+        var m = Math.floor((diff % 3600000) / 60000);
+        dEl.textContent = d;
+        hEl.textContent = pad(h);
+        mEl.textContent = pad(m);
+        wrap.style.display = 'inline-flex';
+      }
+
+      tick();
+      setInterval(tick, 60000);
+    })();
+  </script>
 {% endif %}
 
 {% schema %}
