@@ -1732,8 +1732,9 @@
       "type": "sales-popup",
       "custom_css": [
         "h2 {font-size: 32px;}",
-        ".salesPopup-content,.salesPopup-content-row,.salesPopup-info {overflow: visible !important; height: auto !important; max-height: none !important;}",
-        ".salesPopup-info a {margin-top: 20px;}"
+        ".salesPopup-content-row,.salesPopup-info {overflow: visible !important; height: auto !important; max-height: none !important;}",
+        ".salesPopup-info a {margin-top: 20px;}",
+        ".salesPopup-info h5 {margin-top: 16px;}"
       ],
       "settings": {
         "heading": "Midsummer Blowout Sale!",
