@@ -401,7 +401,7 @@
     "sale_label_bg_color": "#13736c",
     "sale_label_text_color": "#ffffff",
     "sale_label_icon": "none",
-    "sale_label_type": "standard",
+    "sale_label_type": "percent",
     "sold_out_label_bg_color": "#2a2b2a",
     "sold_out_label_text_color": "#ffffff",
     "new_label_bg_color": "#7fb800",
