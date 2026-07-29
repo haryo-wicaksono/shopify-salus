@@ -1730,14 +1730,13 @@
     },
     "sales_popup_kNEhy3": {
       "type": "sales-popup",
-      "disabled": true,
       "custom_css": [],
       "settings": {
-        "heading": "The Nordic Series. Now $500 off.",
-        "content": "<p>Save $500 on our top-of-the line Nordic barrel sauna series. Limited time only.</p>",
-        "button_label": "Shop the sale",
-        "button_link": "",
-        "image": "shopify://shop_images/nordic-sales-image.png",
+        "heading": "Midsummer Blowout Sale!",
+        "content": "<p>Upgrade your wellness with exclusive savings on premium saunas and cold plunges. Sale ends August 10th!</p>",
+        "button_label": "See Our Collections!",
+        "button_link": "https://www.salussaunas.com/collections/all-saunas",
+        "image": "shopify://shop_images/hf_20260729_183745_5f90930f-d323-4264-8a34-fbb5a4c6d7e9.png",
         "mobile_bg": true,
         "color": "#fbf2e9"
       }
