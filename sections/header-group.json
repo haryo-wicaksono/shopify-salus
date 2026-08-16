@@ -15,7 +15,7 @@
       "type": "homepage-announcement-banner",
       "name": "Homepage Announcement Banner",
       "settings": {
-        "show_banner": true,
+        "show_banner": false,
         "text": "☀️ MIDSUMMER BLOWOUT SALE: Save Up to $2,000 | Ends in",
         "phone_number": "",
         "background_color": "#2c4c4b",
@@ -1730,6 +1730,7 @@
     },
     "sales_popup_kNEhy3": {
       "type": "sales-popup",
+      "disabled": true,
       "custom_css": [
         "h2 {font-size: 32px;}",
         ".salesPopup-content {max-height: 520px;}",
