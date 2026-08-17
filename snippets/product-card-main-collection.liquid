@@ -132,10 +132,6 @@
           <span class="product-category-badge">{{ product.metafields.custom.product_tag }}</span>
         {% endif %}
 
-        {%- comment -%}MIDSUMMER BADGE{%- endcomment -%}
-{%- if product.tags contains 'midsummer-sale' -%}
-  <span class="midsummer-badge">SALE ☀ </span>
-{%- endif -%}
 
         <div
           aria-label="{{ product.title | escape }}"
