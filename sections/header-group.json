@@ -1738,11 +1738,11 @@
         ".salesPopup-info h5 {margin-top: 16px;}"
       ],
       "settings": {
-        "heading": "Midsummer Blowout Sale!",
-        "content": "<p>Upgrade your wellness with exclusive savings on premium saunas and cold plunges. </p><h5><strong>Sale ends August 14th!</strong></h5>",
-        "button_label": "Shop Midsummer Deals",
-        "button_link": "https://www.salussaunas.com/collections/all-saunas",
-        "image": "shopify://shop_images/Untitled_design_1_52e45a67-f70e-485b-8df8-4df05c0e3a1b.png",
+        "heading": "Labor Day's Sale",
+        "content": "<p>Reach out to us for additional discounts or a custom quote!</p>",
+        "button_label": "Contact Sales Team",
+        "button_link": "https://www.salussaunas.com/pages/contact",
+        "image": "shopify://shop_images/1883_1339739d-e057-4bca-94ee-78a4033f351d.jpg",
         "mobile_bg": true,
         "color": "#fbf2e9"
       }
