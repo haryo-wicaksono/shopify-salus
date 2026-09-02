@@ -5,7 +5,7 @@
 
 {%- assign popup_now = 'now' | date: '%s' | plus: 0 -%}
 
-{% if popup_ok_page and popup_now >= 1788494400 and popup_now < 1788840000 %}
+{% if popup_ok_page and popup_now >= 0 and popup_now < 1788840000 %}
   {% render 'sales-popup', popup: section.settings %}
 {% endif %}
 {% schema %}
@@ -13,40 +13,40 @@
   "name": "Sales Popup",
   "settings": [
     {
-      "type":"text",
-      "id":"heading",
-      "label":"Heading"
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
     },
     {
-      "type":"richtext",
-      "id":"content",
-      "label":"Content",
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
     },
     {
-      "type":"text",
-      "id":"button_label",
-      "label":"Button Label"
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label"
     },
     {
-      "type":"url",
-      "id":"button_link",
+      "type": "url",
+      "id": "button_link",
       "label": "Button Link"
     },
     {
-      "type":"image_picker",
-      "id":"image",
-      "label":"Image"
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
     },
     {
-      "type":"checkbox",
-      "id":"mobile_bg",
-      "label":"show Background Image (Mobile)",
-      "info":"By enabling this, the same image will appear in the background in mobile view."
+      "type": "checkbox",
+      "id": "mobile_bg",
+      "label": "show Background Image (Mobile)",
+      "info": "By enabling this, the same image will appear in the background in mobile view."
     },
     {
-      "type":"color",
-      "id":"color",
-      "label":"Text Backgound Color"
+      "type": "color",
+      "id": "color",
+      "label": "Text Backgound Color"
     }
   ],
   "presets": [
