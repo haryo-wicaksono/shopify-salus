@@ -14,7 +14,6 @@
       "blocks": {
         "hero_slide_EMqaVN": {
           "type": "hero-slide",
-          "disabled": true,
           "settings": {
             "slide_layout": "full-background-centered",
             "custom_content_bg": "",
@@ -217,7 +216,7 @@
       "name": "Homepage Hero Carousel",
       "settings": {
         "content_background_color": "#ffffff",
-        "enable_autoplay": false,
+        "enable_autoplay": true,
         "autoplay_speed": 9900,
         "enable_loop": true,
         "show_navigation_arrows": true,
