@@ -1,4 +1,11 @@
-{% if template.name == 'index'%}
+{%- assign popup_ok_page = false -%}
+{%- if template.name == 'collection' or template.name == 'product' -%}
+  {%- assign popup_ok_page = true -%}
+{%- endif -%}
+
+{%- assign popup_now = 'now' | date: '%s' | plus: 0 -%}
+
+{% if popup_ok_page and popup_now >= 1788494400 and popup_now < 1788840000 %}
   {% render 'sales-popup', popup: section.settings %}
 {% endif %}
 {% schema %}
