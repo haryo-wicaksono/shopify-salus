@@ -1737,7 +1737,7 @@
         ".salesPopup-info h5 {margin-top: 16px;}"
       ],
       "settings": {
-        "heading": "Labor Day's Sale",
+        "heading": "Labor Day Sale",
         "content": "<p>Reach out to us for additional discounts or a custom quote!</p>",
         "button_label": "Contact Sales Team",
         "button_link": "mailto:sales@salussaunas.com?subject=Labor%20Day%20Sale&body=Hi%20Salus%20Saunas%20team%2C%0D%0A%0D%0AI%20saw%20the%20Labor%20Day%20sale%20and%20I%20would%20like%20more%20information.%0D%0A%0D%0AModel%20I%20am%20interested%20in%3A%20%0D%0A%0D%0AName%3A%0D%0ABest%20phone%20number%3A%0D%0A%0D%0AThank%20you!",
