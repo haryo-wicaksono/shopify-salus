@@ -1730,7 +1730,6 @@
     },
     "sales_popup_kNEhy3": {
       "type": "sales-popup",
-      "disabled": true,
       "custom_css": [
         "h2 {font-size: 32px;}",
         ".salesPopup-content {max-height: 520px;}",
@@ -1741,7 +1740,7 @@
         "heading": "Labor Day's Sale",
         "content": "<p>Reach out to us for additional discounts or a custom quote!</p>",
         "button_label": "Contact Sales Team",
-        "button_link": "https://www.salussaunas.com/pages/contact",
+        "button_link": "mailto:sales@salussaunas.com?subject=Labor%20Day%20Sale&body=Hi%20Salus%20Saunas%20team%2C%0D%0A%0D%0AI%20saw%20the%20Labor%20Day%20sale%20and%20I%20would%20like%20more%20information.%0D%0A%0D%0AModel%20I%20am%20interested%20in%3A%20%0D%0A%0D%0AName%3A%0D%0ABest%20phone%20number%3A%0D%0A%0D%0AThank%20you!",
         "image": "shopify://shop_images/1883_1339739d-e057-4bca-94ee-78a4033f351d.jpg",
         "mobile_bg": true,
         "color": "#fbf2e9"
