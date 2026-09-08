@@ -1731,6 +1731,7 @@
     },
     "sales_popup_kNEhy3": {
       "type": "sales-popup",
+      "disabled": true,
       "custom_css": [
         "h2 {font-size: 32px;}",
         ".salesPopup-content {max-height: 520px;}",
