@@ -470,8 +470,7 @@
   "platform_customizations": {
     "custom_css": [
       "/* SUPER SALE en el menu del header, verde de las etiquetas de descuento */.desktop-gemini-menu__link[href*=\"/collections/super-sale\"],.m-link[href*=\"/collections/super-sale\"],.m-link[href*=\"/collections/super-sale\"] span {color: #208b81 !important;}",
-      ".desktop-gemini-menu__link[href*=\"/collections/super-sale\"] .desktop-gemini-menu__underline {background-color: #208b81 !important;}",
-      "/* Super Sale: ocultar el filtro de tags */.super-sale-collection .filter-sauna-types {display: none !important;}"
+      ".desktop-gemini-menu__link[href*=\"/collections/super-sale\"] .desktop-gemini-menu__underline {background-color: #208b81 !important;}"
     ]
   }
 }
