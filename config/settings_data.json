@@ -466,5 +466,11 @@
         "settings": {}
       }
     }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      "/* SUPER SALE en el menu del header, verde de las etiquetas de descuento */.desktop-gemini-menu__link[href*=\"/collections/super-sale\"],.m-link[href*=\"/collections/super-sale\"],.m-link[href*=\"/collections/super-sale\"] span {color: #208B81 !important;}",
+      ".desktop-gemini-menu__link[href*=\"/collections/super-sale\"] .desktop-gemini-menu__underline {background-color: #208B81 !important;}"
+    ]
   }
 }
