@@ -1339,6 +1339,16 @@
             "card_6_url": ""
           }
         },
+        "desktop_nav_item_YXEWwx": {
+          "type": "desktop_nav_item",
+          "settings": {
+            "nav_key": "super-sale",
+            "label": "SUPER SALE",
+            "url": "https://www.salussaunas.com/collections/super-sale",
+            "explore_label": "Shop the Super Sale",
+            "explore_url": "https://www.salussaunas.com/collections/super-sale"
+          }
+        },
         "columns_wNqK9K": {
           "type": "sidebar",
           "disabled": true,
@@ -1691,6 +1701,7 @@
         "desktop_nav_panel_Qg9eKx",
         "desktop_nav_group_gV9tEc",
         "desktop_nav_panel_6aD6KV",
+        "desktop_nav_item_YXEWwx",
         "columns_wNqK9K",
         "columns_3fnJRk",
         "columns_BjLAQB",
