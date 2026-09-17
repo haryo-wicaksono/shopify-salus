@@ -103,10 +103,11 @@
   #cp-{{ sid }} .cp-error { font-size: 14px; color: #B42318; }
   #cp-{{ sid }} .cp-field__error { font-size: 13px; color: #B42318; }
   #cp-{{ sid }} .cp-field.is-invalid input, #cp-{{ sid }} .cp-field.is-invalid select { border-color: #B42318; }
-  #cp-{{ sid }} .cp-thanks { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-height: 520px; text-align: center; }
+  #cp-{{ sid }} .cp-thanks { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-height: 460px; text-align: center; }
   #cp-{{ sid }} .cp-thanks h3 { font-size: 24px; font-weight: 500; }
   #cp-{{ sid }} .cp-thanks p { font-size: 15px; line-height: 1.6; color: var(--cp-muted); max-width: 340px; }
   #cp-{{ sid }} .cp-thanks__icon { display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: #E6F3F1; }
+  #cp-{{ sid }} .cp-form__fields { display: flex; flex-direction: column; gap: 18px; }
   #cp-{{ sid }} .cp-form.is-sent .cp-form__fields { display: none; }
   #cp-{{ sid }} .cp-form.is-sent .cp-thanks { display: flex; }
   #cp-{{ sid }} .cp-form button[disabled] { opacity: .6; cursor: wait; }
@@ -150,6 +151,7 @@
     #cp-{{ sid }} .cp-inquiry__intro p { font-size: 15px; }
     #cp-{{ sid }} .cp-next, #cp-{{ sid }} .cp-phone { display: none; }
     #cp-{{ sid }} .cp-form { padding: 24px 20px; box-shadow: none; }
+    #cp-{{ sid }} .cp-form__fields { gap: 16px; }
     #cp-{{ sid }} .cp-row { grid-template-columns: 1fr; }
     #cp-{{ sid }} .cp-thanks { min-height: 420px; }
   }
@@ -324,7 +326,7 @@
       </div>
 
       <form class="cp-form" data-cp-form data-endpoint="{{ section.settings.webhook_url | escape }}" novalidate>
-        <div class="cp-form__fields" style="display: flex; flex-direction: column; gap: 18px;">
+        <div class="cp-form__fields">
           <div class="cp-row">
             <div class="cp-field"><label for="cp-first-{{ sid }}">First name</label><input id="cp-first-{{ sid }}" name="first_name" autocomplete="given-name" required maxlength="100"></div>
             <div class="cp-field"><label for="cp-last-{{ sid }}">Last name</label><input id="cp-last-{{ sid }}" name="last_name" autocomplete="family-name" maxlength="100"></div>
