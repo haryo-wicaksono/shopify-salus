@@ -101,6 +101,8 @@
   #cp-{{ sid }} .cp-upload input { position: absolute; width: 1px; height: 1px; opacity: 0; }
   #cp-{{ sid }} .cp-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   #cp-{{ sid }} .cp-error { font-size: 14px; color: #B42318; }
+  #cp-{{ sid }} .cp-field__error { font-size: 13px; color: #B42318; }
+  #cp-{{ sid }} .cp-field.is-invalid input, #cp-{{ sid }} .cp-field.is-invalid select { border-color: #B42318; }
   #cp-{{ sid }} .cp-thanks { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-height: 520px; text-align: center; }
   #cp-{{ sid }} .cp-thanks h3 { font-size: 24px; font-weight: 500; }
   #cp-{{ sid }} .cp-thanks p { font-size: 15px; line-height: 1.6; color: var(--cp-muted); max-width: 340px; }
@@ -423,10 +425,45 @@
     filesLabel.textContent = n ? n + (n === 1 ? ' photo selected' : ' photos selected') : 'Add photos of your space (optional, up to 5)';
   });
 
+  // Field-level validation in English. The browser's own bubbles are not used:
+  // they follow the visitor's browser language, which broke the English-only copy.
+  var REQUIRED = [
+    ['first_name', 'Please add your first name.'],
+    ['email', 'Please add a valid email address.'],
+    ['interest', 'Please choose what you are interested in.']
+  ];
+
+  var clearFieldErrors = function () {
+    form.querySelectorAll('.cp-field.is-invalid').forEach(function (f) { f.classList.remove('is-invalid'); });
+    form.querySelectorAll('.cp-field__error').forEach(function (m) { m.remove(); });
+  };
+
+  var markField = function (input, message) {
+    var field = input.closest('.cp-field');
+    if (!field) return;
+    field.classList.add('is-invalid');
+    var msg = document.createElement('span');
+    msg.className = 'cp-field__error';
+    msg.textContent = message;
+    field.appendChild(msg);
+  };
+
+  var validate = function () {
+    clearFieldErrors();
+    var firstBad = null;
+    REQUIRED.forEach(function (pair) {
+      var input = form.elements[pair[0]];
+      var ok = input.type === 'email' ? /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(input.value.trim()) : input.value.trim() !== '';
+      if (!ok) { markField(input, pair[1]); if (!firstBad) firstBad = input; }
+    });
+    if (firstBad) firstBad.focus();
+    return !firstBad;
+  };
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     errorEl.hidden = true;
-    if (!form.checkValidity()) { fail('Please add your first name, a valid email and what you are interested in.'); form.reportValidity(); return; }
+    if (!validate()) { fail('Please check the fields marked below.'); return; }
     if (files.files.length > MAX_FILES) { fail('Please choose up to ' + MAX_FILES + ' photos.'); return; }
     var total = 0;
     for (var i = 0; i < files.files.length; i++) {
@@ -454,6 +491,8 @@
 
   form.querySelector('[data-cp-again]').addEventListener('click', function () {
     form.reset();
+    clearFieldErrors();
+    errorEl.hidden = true;
     filesLabel.textContent = 'Add photos of your space (optional, up to 5)';
     form.classList.remove('is-sent');
   });
