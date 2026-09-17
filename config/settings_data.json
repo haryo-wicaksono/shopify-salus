@@ -470,7 +470,9 @@
   "platform_customizations": {
     "custom_css": [
       "/* SUPER SALE en el menu del header, verde de las etiquetas de descuento */.desktop-gemini-menu__link[href*=\"/collections/super-sale\"],.m-link[href*=\"/collections/super-sale\"],.m-link[href*=\"/collections/super-sale\"] span {color: #208b81 !important;}",
-      ".desktop-gemini-menu__link[href*=\"/collections/super-sale\"] .desktop-gemini-menu__underline {background-color: #208b81 !important;}"
+      ".desktop-gemini-menu__link[href*=\"/collections/super-sale\"] .desktop-gemini-menu__underline {background-color: #208b81 !important;}",
+      "/* Menú del header: 6 ítems en una sola línea (CUSTOMS) */@media (min-width: 1025px) {.desktop-gemini-menu__item, .desktop-gemini-menu__link {white-space: nowrap; } .desktop-gemini-menu {column-gap: 12px; }}",
+      "@media (min-width: 1025px) and (max-width: 1365px) {.desktop-gemini-menu {column-gap: 8px; } .desktop-gemini-menu__link {font-size: 12px; letter-spacing: -0.3px; }}"
     ]
   }
 }
