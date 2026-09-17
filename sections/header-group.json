@@ -940,6 +940,8 @@
         },
         "desktop_nav_item_b4bngd": {
           "type": "desktop_nav_item",
+          "name": "Desktop Nav Item - Customs",
+          "disabled": true,
           "settings": {
             "nav_key": "Customs",
             "label": "Customs",
