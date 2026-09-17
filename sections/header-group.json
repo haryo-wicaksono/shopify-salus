@@ -780,7 +780,7 @@
           "name": "Desktop Nav Item - Cold Plunges",
           "settings": {
             "nav_key": "cold-plunges",
-            "label": "Cold Plunges",
+            "label": "Plunges",
             "url": "",
             "explore_label": "Explore All Cold Plunges",
             "explore_url": "shopify://collections/cold-plunges"
