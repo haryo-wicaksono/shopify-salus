@@ -15,6 +15,7 @@
         "cat_indoor": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/02-card-1-indoor-sauna-kits.jpg",
             "title": "Indoor Sauna Kits",
             "text": "For a basement, spare room or home gym."
           }
@@ -22,6 +23,7 @@
         "cat_outdoor": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/02-card-2-outdoor-saunas.jpg",
             "title": "Outdoor Saunas",
             "text": "Cabin, barrel or cube, built for your yard."
           }
@@ -29,6 +31,7 @@
         "cat_plunge": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/02-card-3-cold-plunges.jpg",
             "title": "Cold Plunges",
             "text": "Plunge tubs and pools with finishes that match your sauna."
           }
@@ -36,6 +39,7 @@
         "cat_glass": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/02-card-4-glass-saunas.jpg",
             "title": "Glass Saunas",
             "text": "Panoramic walls for a view worth keeping."
           }
@@ -43,6 +47,7 @@
         "cat_commercial": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/02-card-5-commercial-builds.jpg",
             "title": "Commercial Builds",
             "text": "For gyms, hotels, spas and residential amenities."
           }
@@ -50,6 +55,7 @@
         "step_discovery": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/03-step-1-discovery.jpg",
             "title": "Discovery",
             "text": "A short call about your space, how you will use it and your budget."
           }
@@ -57,6 +63,7 @@
         "step_design": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/03-step-2-design.jpg",
             "title": "Design",
             "text": "We draw the layout with measurements, materials and heater options for you to approve."
           }
@@ -64,6 +71,7 @@
         "step_production": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/03-step-3-production.jpg",
             "title": "Production",
             "text": "Your sauna is built to the approved design, and we keep you posted until it ships."
           }
@@ -71,6 +79,7 @@
         "step_delivery": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/03-step-4-delivery.jpg",
             "title": "Delivery",
             "text": "Your sauna ships to your door, and we coordinate the delivery date with you."
           }
@@ -78,6 +87,7 @@
         "step_installation": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/03-step-5-installation.jpg",
             "title": "Installation",
             "text": "Our installers assemble it on site, level every panel and test the heater before handing it over."
           }
@@ -85,6 +95,7 @@
         "step_enjoy": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/03-step-6-enjoy.jpg",
             "title": "Enjoy",
             "text": "Your first session. We stay one call away for the life of your sauna."
           }
@@ -92,6 +103,7 @@
         "photo_1": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/04-gallery-1-W-barrel-courtyard.jpg",
             "caption": "Barrel sauna in a residential courtyard",
             "wide": true
           }
@@ -99,6 +111,7 @@
         "photo_2": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/04-gallery-2-barrel-inside.jpg",
             "caption": "Inside the barrel, facing the pool",
             "wide": false
           }
@@ -106,6 +119,7 @@
         "photo_3": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/04-gallery-3-ambient-lighting.jpg",
             "caption": "Custom interior with ambient lighting",
             "wide": false
           }
@@ -113,6 +127,7 @@
         "photo_4": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/04-gallery-4-W-mirrored-glass-cabin.jpg",
             "caption": "Mirrored glass cabin in a landscaped garden",
             "wide": true
           }
@@ -120,6 +135,7 @@
         "photo_5": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/04-gallery-5-log-end-benches.jpg",
             "caption": "Log-end accents and backlit benches",
             "wide": false
           }
@@ -127,6 +143,7 @@
         "photo_6": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/04-gallery-6-plunge-backlit-base.jpg",
             "caption": "Stone-top cold plunge with backlit base",
             "wide": false
           }
@@ -134,6 +151,7 @@
         "photo_7": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/04-gallery-7-W-plunge-pool.jpg",
             "caption": "Walk-in plunge pool with perimeter lighting",
             "wide": true
           }
@@ -141,6 +159,7 @@
         "photo_8": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/04-gallery-8-changing-room.jpg",
             "caption": "Changing room with outdoor shower",
             "wide": false
           }
@@ -148,6 +167,7 @@
         "photo_9": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/04-gallery-9-W-stone-deck.jpg",
             "caption": "Cold plunge with stone deck, up close",
             "wide": true
           }
@@ -176,6 +196,27 @@
         "photo_9"
       ],
       "settings": {
+        "accent": "#208b81",
+        "hero_eyebrow": "Salus Customs",
+        "hero_heading": "A sauna designed around your space.",
+        "hero_text": "Tell us about the room, the yard, or the commercial space you have in mind. Our team designs and builds a sauna or cold plunge to your measurements, from the first sketch to your first session.",
+        "hero_button": "Start your custom project",
+        "hero_link": "See our work",
+        "hero_image": "shopify://shop_images/01-hero.jpg",
+        "cat_eyebrow": "What we build",
+        "cat_heading": "Pick a starting point",
+        "cat_text": "Every custom project starts from one of five families. Size, wood, glass, heater and lighting are yours to decide.",
+        "process_eyebrow": "Our process",
+        "process_heading": "From idea to first session",
+        "process_text": "One team follows your project the whole way, so you never have to repeat yourself.",
+        "timeline_text": "Custom projects typically take about 3 months from approved design to delivery.",
+        "gallery_eyebrow": "Gallery",
+        "gallery_heading": "Built by Salus",
+        "gallery_speed": 100,
+        "form_heading": "Tell us about your space",
+        "form_text": "Share a few details and our custom team will reach out to schedule your discovery call.",
+        "thanks_text": "Our custom team will reach out soon to schedule your discovery call.",
+        "phone": "(888) 287-0111",
         "webhook_url": "https://salussaunas.app.n8n.cloud/webhook/customs/inquiry"
       }
     }
