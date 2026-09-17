@@ -23,7 +23,7 @@
         "cat_outdoor": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/02-card-2-outdoor-saunas.jpg",
+            "image": "shopify://shop_images/composite_7.png",
             "title": "Outdoor Saunas",
             "text": "Cabin, barrel or cube, built for your yard."
           }
