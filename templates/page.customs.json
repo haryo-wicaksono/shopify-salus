@@ -10,74 +10,177 @@
 {
   "sections": {
     "main": {
-      "type": "main-page",
-      "settings": {
-        "show_page_title": true,
-        "content": "",
-        "color_scheme": "1"
-      }
-    },
-    "content_with_form_Q3amKV": {
-      "type": "content-with-form",
+      "type": "customs-page",
       "blocks": {
-        "first_name_t789fG": {
-          "type": "first-name",
+        "cat_indoor": {
+          "type": "category",
           "settings": {
-            "required": true,
-            "half_width": false
+            "title": "Indoor Sauna Kits",
+            "text": "For a basement, spare room or home gym."
           }
         },
-        "last_name_fQMcVC": {
-          "type": "last-name",
+        "cat_outdoor": {
+          "type": "category",
           "settings": {
-            "required": true,
-            "half_width": false
+            "title": "Outdoor Saunas",
+            "text": "Cabin, barrel or cube, built for your yard."
           }
         },
-        "email_FwMYEc": {
-          "type": "email",
+        "cat_plunge": {
+          "type": "category",
           "settings": {
-            "required": true,
-            "half_width": false
+            "title": "Cold Plunges",
+            "text": "Plunge tubs and pools with finishes that match your sauna."
           }
         },
-        "phone_xFp8yF": {
-          "type": "phone",
+        "cat_glass": {
+          "type": "category",
           "settings": {
-            "required": true,
-            "half_width": false
+            "title": "Glass Saunas",
+            "text": "Panoramic walls for a view worth keeping."
           }
         },
-        "body_t4TYMD": {
-          "type": "body",
+        "cat_commercial": {
+          "type": "category",
           "settings": {
-            "required": false,
-            "half_width": false
+            "title": "Commercial Builds",
+            "text": "For gyms, hotels, spas and residential amenities."
+          }
+        },
+        "step_discovery": {
+          "type": "step",
+          "settings": {
+            "title": "Discovery",
+            "text": "A short call about your space, how you will use it and your budget."
+          }
+        },
+        "step_design": {
+          "type": "step",
+          "settings": {
+            "title": "Design",
+            "text": "We draw the layout with measurements, materials and heater options for you to approve."
+          }
+        },
+        "step_production": {
+          "type": "step",
+          "settings": {
+            "title": "Production",
+            "text": "Your sauna is built to the approved design, and we keep you posted until it ships."
+          }
+        },
+        "step_delivery": {
+          "type": "step",
+          "settings": {
+            "title": "Delivery",
+            "text": "Your sauna ships to your door, and we coordinate the delivery date with you."
+          }
+        },
+        "step_installation": {
+          "type": "step",
+          "settings": {
+            "title": "Installation",
+            "text": "Our installers assemble it on site, level every panel and test the heater before handing it over."
+          }
+        },
+        "step_enjoy": {
+          "type": "step",
+          "settings": {
+            "title": "Enjoy",
+            "text": "Your first session. We stay one call away for the life of your sauna."
+          }
+        },
+        "photo_1": {
+          "type": "photo",
+          "settings": {
+            "caption": "Barrel sauna in a residential courtyard",
+            "wide": true
+          }
+        },
+        "photo_2": {
+          "type": "photo",
+          "settings": {
+            "caption": "Inside the barrel, facing the pool",
+            "wide": false
+          }
+        },
+        "photo_3": {
+          "type": "photo",
+          "settings": {
+            "caption": "Custom interior with ambient lighting",
+            "wide": false
+          }
+        },
+        "photo_4": {
+          "type": "photo",
+          "settings": {
+            "caption": "Mirrored glass cabin in a landscaped garden",
+            "wide": true
+          }
+        },
+        "photo_5": {
+          "type": "photo",
+          "settings": {
+            "caption": "Log-end accents and backlit benches",
+            "wide": false
+          }
+        },
+        "photo_6": {
+          "type": "photo",
+          "settings": {
+            "caption": "Stone-top cold plunge with backlit base",
+            "wide": false
+          }
+        },
+        "photo_7": {
+          "type": "photo",
+          "settings": {
+            "caption": "Walk-in plunge pool with perimeter lighting",
+            "wide": true
+          }
+        },
+        "photo_8": {
+          "type": "photo",
+          "settings": {
+            "caption": "Changing room with outdoor shower",
+            "wide": false
+          }
+        },
+        "photo_9": {
+          "type": "photo",
+          "settings": {
+            "caption": "Cold plunge with stone deck, up close",
+            "wide": true
           }
         }
       },
       "block_order": [
-        "first_name_t789fG",
-        "last_name_fQMcVC",
-        "email_FwMYEc",
-        "phone_xFp8yF",
-        "body_t4TYMD"
+        "cat_indoor",
+        "cat_outdoor",
+        "cat_plunge",
+        "cat_glass",
+        "cat_commercial",
+        "step_discovery",
+        "step_design",
+        "step_production",
+        "step_delivery",
+        "step_installation",
+        "step_enjoy",
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "photo_4",
+        "photo_5",
+        "photo_6",
+        "photo_7",
+        "photo_8",
+        "photo_9"
       ],
       "settings": {
-        "contact-title": "Contact Sales",
-        "icon": "shopify://shop_images/contact-title.svg",
-        "title": "Have questions or concerns? Consult our sauna experts",
-        "contact-detail01": "<p><strong>Sales Support:<br/></strong><a href=\"tel:(888) 287-0111\" title=\"tel:(888) 287-0111\">(888) 287-0111</a><br/><a href=\"mailto:sales@salussaunas.com\" title=\"mailto:sales@salussaunas.com\">sales@salussaunas.com</a></p>",
-        "contact-detail02": "<p><strong>For Technical Support:<br/></strong><a href=\"tel:(425) 689-9000\" title=\"tel:(425) 689-9000\">(425) 689-9000</a><br/><a href=\"mailto:techsupport@salussaunas.com\" target=\"_blank\" title=\"mailto:techsupport@salussaunas.com\">techsupport@salussaunas.com</a></p>",
-        "contact-detail03": "<p><strong>Customer Support:<br/></strong><a href=\"tel:(425) 333-9003\" title=\"tel:(425) 333-9003\">(425) 333-9003</a><br/><a href=\"mailto:customerservice@salussaunas.com\" title=\"mailto:customerservice@salussaunas.com\">customerservice@salussaunas.com</a></p>",
-        "contact-detail04": "<p><strong>For Mail Only:<br/></strong>7345 164th Ave NE Ste 145-395 Redmond, WA 98052</p>",
-        "note": "Please give our team 24-48 hours to reach back out to you.",
-        "submit_btn_label": ""
+        "webhook_url": "https://salussaunas.app.n8n.cloud/webhook/customs/inquiry"
       }
     }
   },
   "order": [
-    "main",
-    "content_with_form_Q3amKV"
+    "main"
   ]
 }
