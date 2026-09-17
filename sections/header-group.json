@@ -116,6 +116,16 @@
     "header": {
       "type": "header",
       "blocks": {
+        "desktop_nav_item_b4bngd": {
+          "type": "desktop_nav_item",
+          "settings": {
+            "nav_key": "Customs",
+            "label": "Customs",
+            "url": "shopify://pages/customs",
+            "explore_label": "",
+            "explore_url": ""
+          }
+        },
         "desktop_nav_item_4RYJYe": {
           "type": "desktop_nav_item",
           "name": "Desktop Nav Item - Saunas",
@@ -1668,6 +1678,7 @@
         }
       },
       "block_order": [
+        "desktop_nav_item_b4bngd",
         "desktop_nav_item_4RYJYe",
         "desktop_nav_group_RCdR99",
         "desktop_nav_panel_UiUarA",
