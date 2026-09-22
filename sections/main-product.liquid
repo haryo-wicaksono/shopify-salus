@@ -71,7 +71,43 @@
   if product.metafields.custom.enable_preorder or product.metafields.custom.enable_waitlist or product.metafields.custom.enable_upcoming or product.metafields.custom.enable_contact_sales or product.metafields.custom.enable_request_quote
     assign custom_popup_active = true
   endif
+
+  # Request A Quote: email del bloque Questions Box, o sales@ por defecto
+  assign rq_email = 'sales@salussaunas.com'
+  for b in section.blocks
+    if b.type == 'questions_box' and b.settings.email_address != blank
+      assign rq_email = b.settings.email_address
+    endif
+  endfor
 -%}
+
+{%- if product.metafields.custom.enable_request_quote == true -%}
+  {%- capture rq_subject -%}Quote Request - {{ product.title }}{%- endcapture -%}
+  {%- capture rq_body -%}
+Hi Salus Saunas team,
+
+I'd like to request a quote for the following sauna:
+
+Model: {{ product.title }}
+Product page: {{ shop.url }}{{ product.url }}
+
+My details:
+Name:
+Phone:
+Shipping ZIP code:
+Desired delivery timeframe:
+
+Questions or custom requests:
+
+
+Thank you!
+  {%- endcapture -%}
+  {%- liquid
+    assign rq_subject_enc = rq_subject | url_encode | replace: '+', '%20'
+    assign rq_body_enc = rq_body | url_encode | replace: '+', '%20'
+    assign rq_href = 'mailto:' | append: rq_email | append: '?subject=' | append: rq_subject_enc | append: '&body=' | append: rq_body_enc
+  -%}
+{%- endif -%}
 
 {%- style -%}
   {%- if section.settings.media_layout == 'stacked' -%}
@@ -1033,7 +1069,7 @@
                     <input type="hidden" name="id" value="{{ current_variant.id }}" disabled>
 
                     <div class="product-info__add-to-cart flex{% if enable_dynamic_checkout %} qty-input--secondary-btn{% endif %}">
-                      {%- if block.settings.show_qty_selector -%}
+                      {%- if block.settings.show_qty_selector and product.metafields.custom.enable_request_quote != true -%}
                         {% render 'quantity-input', layout_style: 'combined' %}
                       {%- else -%}
                         <input type="hidden" name="quantity" value="1">
@@ -1073,6 +1109,17 @@
                             {{- 'products.product.sold_out' | t -}}
                           {%- endif -%}
                         </button>
+
+                        {%- if product.metafields.custom.enable_request_quote == true -%}
+                          <a
+                            href="{{ rq_href }}"
+                            role="button"
+                            class="btn {% if enable_dynamic_checkout %}btn--primary{% else %}btn--secondary{% endif %} w-full js-request-quote"
+                            style="display: flex; align-items: center; justify-content: center; text-decoration: none;"
+                          >
+                            Request A Quote
+                          </a>
+                        {%- endif -%}
                       </div>
                     </div>
 
@@ -1643,11 +1690,9 @@
 
               <div class="grid gap-3" style="display: grid; gap: 12px;">
                 {%- if product.metafields.custom.enable_request_quote == true -%}
-                  {%- capture rq_subject -%}Quote Request: {{ product.title }}{%- endcapture -%}
-                  {%- capture rq_body -%}Hi, I'd like to request a quote for the {{ product.title }}.{%- endcapture -%}
                   <a
-                    href="mailto:{{ block.settings.email_address | default: 'sales@salussaunas.com' }}?subject={{ rq_subject | url_encode }}&body={{ rq_body | url_encode }}"
-                    class="btn w-full send-us-email"
+                    href="{{ rq_href }}"
+                    class="btn w-full send-us-email js-request-quote"
                   >
                     Request A Quote
                   </a>
@@ -2061,6 +2106,109 @@
     }
   });
 </script>
+
+{%- if product.metafields.custom.enable_request_quote == true -%}
+  <script>
+    // Request A Quote: arma el correo al hacer click, con las opciones que el cliente eligio.
+    // Si el script falla, el boton sigue funcionando con el href de Liquid (plantilla sin opciones).
+    document.addEventListener('DOMContentLoaded', function () {
+      var buttons = document.querySelectorAll('.js-request-quote');
+      if (!buttons.length) return;
+
+      var email = {{ rq_email | json }};
+      var model = {{ product.title | json }};
+      var productUrl = {{ shop.url | append: product.url | json }};
+      var variants = {{ product.variants | json }};
+
+      function getVariantTitle() {
+        var input = document.querySelector('.js-product-form-main input[name="id"]');
+        var params = new URLSearchParams(window.location.search);
+        var id = String((input && input.value) || params.get('variant') || '');
+        for (var i = 0; i < variants.length; i++) {
+          if (String(variants[i].id) === id && variants[i].title !== 'Default Title') {
+            return variants[i].title;
+          }
+        }
+        return '';
+      }
+
+      function getSelectedOptions() {
+        var picked = {};
+        var order = [];
+        document.querySelectorAll('[name^="properties["]').forEach(function (el) {
+          var match = el.name.match(/^properties\[(.+)\]$/);
+          if (!match) return;
+          var key = match[1].trim();
+          if (!key || key.charAt(0) === '_') return;
+          if ((el.type === 'radio' || el.type === 'checkbox') && !el.checked) return;
+          if (el.type === 'hidden' || el.type === 'file') return;
+          var value = (el.value || '').trim();
+          if (!value) return;
+          if (!picked[key]) {
+            picked[key] = [];
+            order.push(key);
+          }
+          if (picked[key].indexOf(value) === -1) picked[key].push(value);
+        });
+        return order.map(function (key) {
+          return '- ' + key + ': ' + picked[key].join(', ');
+        });
+      }
+
+      function buildMailto() {
+        var lines = [
+          'Hi Salus Saunas team,',
+          '',
+          "I'd like to request a quote for the following sauna:",
+          '',
+          'Model: ' + model
+        ];
+
+        var variantTitle = getVariantTitle();
+        if (variantTitle) lines.push('Option: ' + variantTitle);
+
+        var options = getSelectedOptions();
+        if (options.length) {
+          lines.push('Selected configuration:');
+          lines = lines.concat(options);
+        }
+
+        lines = lines.concat([
+          'Product page: ' + (window.location.href || productUrl),
+          '',
+          'My details:',
+          'Name:',
+          'Phone:',
+          'Shipping ZIP code:',
+          'Desired delivery timeframe:',
+          '',
+          'Questions or custom requests:',
+          '',
+          '',
+          'Thank you!'
+        ]);
+
+        return (
+          'mailto:' + email +
+          '?subject=' + encodeURIComponent('Quote Request - ' + model) +
+          '&body=' + encodeURIComponent(lines.join('\r\n'))
+        );
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          try {
+            var href = buildMailto();
+            e.preventDefault();
+            window.location.href = href;
+          } catch (err) {
+            // Dejar que el href de Liquid haga su trabajo
+          }
+        });
+      });
+    });
+  </script>
+{%- endif -%}
 
 {% render 'modify-globo-tooltip' %}
 {% render 'popup-preorder' %}
