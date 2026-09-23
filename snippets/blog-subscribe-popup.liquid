@@ -1,12 +1,14 @@
 {%- comment -%}
   Blog subscribe popup — shows only on the blog and on articles.
 
-  On submit:
-  1. Asks n8n ([Marketing] Blog Subscribe -> Shopify Welcome Code) for a unique,
-     single-use $250 code (e.g. JOHNSMITH-X7K2) and shows it on screen. The same
-     email always gets the same code back.
-  2. Saves the email as a Shopify customer who accepts marketing, tagged
-     "blog-subscriber" (Customers > filter by tag). Best effort, in the background.
+  On submit it asks n8n ([Marketing] Blog Subscribe -> Shopify Welcome Code) for a
+  unique, single-use $250 code (e.g. JOHNSMITH-X7K2) and shows it on screen. The
+  same email always gets the same code back. Each email is recorded in the title of
+  its discount (Discounts > search "Blog Welcome").
+
+  This is a plain form on purpose, NOT Shopify's customer form tag: Shopify attaches its
+  hCaptcha to customer forms, which submits the page and reloads it before the
+  code can be shown.
   Later: Klaviyo emails the code and sends new articles.
 
   Rendered from layout/theme.liquid, right before </body>:
@@ -29,15 +31,13 @@
       <h2 id="bsp-title" class="bsp__title">Subscribe to our blog and get <span class="bsp__accent">$250&nbsp;off</span> your first sauna</h2>
       <p id="bsp-desc" class="bsp__text">New articles on sauna health, design and buying tips, straight to your inbox. Sign up and get your $250 code instantly.</p>
 
-      {%- form 'customer', id: 'bsp-form', class: 'bsp__form', novalidate: 'novalidate' -%}
-        <input type="hidden" name="contact[tags]" value="newsletter,blog-subscriber">
-        <input type="hidden" name="contact[accepts_marketing]" value="true">
+      <form id="bsp-form" class="bsp__form" novalidate>
         <label for="bsp-email" class="bsp__sr">Email address</label>
-        <input id="bsp-email" class="bsp__input" type="email" name="contact[email]" autocomplete="email" inputmode="email" placeholder="Your email address" required>
+        <input id="bsp-email" class="bsp__input" type="email" name="email" autocomplete="email" inputmode="email" placeholder="Your email address" required>
         <input class="bsp__hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="bsp__btn">Get my $250 code</button>
         <p class="bsp__error" role="alert" hidden></p>
-      {%- endform -%}
+      </form>
 
       <p class="bsp__fine">One code per customer, valid on your first sauna. Unsubscribe anytime.</p>
       <button type="button" class="bsp__skip" data-bsp-close>No thanks</button>
@@ -283,16 +283,13 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Getting your code...';
 
-      // 1. Unique code from n8n. Form-encoded on purpose: a "simple" CORS request.
+      // Unique code from n8n. Form-encoded on purpose: a "simple" CORS request.
       var body = new URLSearchParams({ email: email, company: honeypot.value || '' });
       fetch(ENDPOINT, { method: 'POST', body: body })
         .then(function (res) {
           return res.json().catch(function () { return {}; }).then(function (data) {
             if (res.ok && data.code) {
               showSuccess(data.code);
-              // 2. Shopify customer (marketing + blog-subscriber tag). Best effort.
-              fetch(form.action, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
-                .catch(function () {});
               return;
             }
             showError(res.status === 400
