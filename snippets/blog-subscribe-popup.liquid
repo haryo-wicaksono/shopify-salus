@@ -305,6 +305,8 @@
         });
     });
 
+    // Came from one of our Klaviyo emails: already a subscriber, don't ask again.
+    if (/[?&](utm_source=klaviyo|_kx=)/i.test(location.search)) { save(KEY_SUBSCRIBED, '1'); return; }
     if (load(KEY_SUBSCRIBED)) return;
     var dismissedAt = parseInt(load(KEY_DISMISSED) || '0', 10);
     if (dismissedAt && Date.now() - dismissedAt < DISMISS_DAYS * 864e5) return;
