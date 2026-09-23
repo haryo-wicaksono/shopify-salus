@@ -1,0 +1,310 @@
+{%- comment -%}
+  Blog subscribe popup — shows only on the blog and on articles.
+
+  Phase 1 (no Klaviyo yet): the email is saved as a Shopify customer who accepts
+  marketing, tagged "blog-subscriber" (Customers > filter by tag), and the $250
+  code is shown on screen right after signing up.
+  Phase 2 (later): Klaviyo emails the code and sends new articles.
+
+  Rendered from layout/theme.liquid, right before </body>:
+    {% render 'blog-subscribe-popup' %}
+{%- endcomment -%}
+
+{%- assign bsp_code = 'WELCOME2SALUS' -%}
+
+{%- if template.name == 'blog' or template.name == 'article' -%}
+{%- unless customer and customer.accepts_marketing -%}
+<div id="blog-subscribe-popup" class="bsp" hidden>
+  <div class="bsp__overlay" data-bsp-close></div>
+  <div class="bsp__dialog" role="dialog" aria-modal="true" aria-labelledby="bsp-title" aria-describedby="bsp-desc" tabindex="-1">
+    <button type="button" class="bsp__x" data-bsp-close aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+
+    <div class="bsp__view" data-bsp-view="form">
+      <p class="bsp__eyebrow">The Salus Saunas Blog</p>
+      <h2 id="bsp-title" class="bsp__title">Subscribe to our blog and get <span class="bsp__accent">$250&nbsp;off</span> your first sauna</h2>
+      <p id="bsp-desc" class="bsp__text">New articles on sauna health, design and buying tips, straight to your inbox. Sign up and get your $250 code instantly.</p>
+
+      {%- form 'customer', id: 'bsp-form', class: 'bsp__form', novalidate: 'novalidate' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,blog-subscriber">
+        <input type="hidden" name="contact[accepts_marketing]" value="true">
+        <label for="bsp-email" class="bsp__sr">Email address</label>
+        <input id="bsp-email" class="bsp__input" type="email" name="contact[email]" autocomplete="email" inputmode="email" placeholder="Your email address" required>
+        <button type="submit" class="bsp__btn">Get my $250 code</button>
+        {%- if form.errors -%}
+          <p class="bsp__error" role="alert" data-bsp-server-error>Please enter a valid email address.</p>
+        {%- else -%}
+          <p class="bsp__error" role="alert" hidden></p>
+        {%- endif -%}
+      {%- endform -%}
+
+      <p class="bsp__fine">One code per customer, valid on your first sauna. Unsubscribe anytime.</p>
+      <button type="button" class="bsp__skip" data-bsp-close>No thanks</button>
+    </div>
+
+    <div class="bsp__view" data-bsp-view="success" hidden>
+      <p class="bsp__eyebrow">You're subscribed</p>
+      <h2 class="bsp__title">Here's your $250 code</h2>
+      <div class="bsp__code">
+        <span class="bsp__code-text">{{ bsp_code }}</span>
+        <button type="button" class="bsp__copy" data-bsp-copy>Copy</button>
+      </div>
+      <p class="bsp__text">Use it at checkout on your first sauna. You'll also get our new articles as soon as they're published.</p>
+      <button type="button" class="bsp__btn" data-bsp-close>Keep reading</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .bsp[hidden] { display: none; }
+  .bsp {
+    --bsp-bg: rgb(var(--color-scheme-1-bg, 254 248 241));
+    --bsp-text: rgb(var(--color-scheme-1-text, 34 33 32));
+    --bsp-muted: rgb(var(--color-scheme-1-text, 34 33 32) / 0.68);
+    --bsp-accent: rgb(105 80 53);
+    --bsp-btn-bg: rgb(var(--btn-bg-color, 34 33 32));
+    --bsp-btn-hover: rgb(var(--btn-bg-hover-color, 75 74 73));
+    --bsp-btn-text: rgb(var(--btn-text-color, 255 255 255));
+    --bsp-radius: var(--btn-border-radius, 28px);
+    position: fixed; inset: 0; z-index: 2147483000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+    font-family: var(--body-font-family, Poppins, sans-serif);
+    color: var(--bsp-text);
+  }
+  .bsp__overlay {
+    position: absolute; inset: 0;
+    background: rgb(20 18 16 / 0.55);
+    opacity: 0; transition: opacity .25s ease;
+  }
+  .bsp__dialog {
+    position: relative; width: 100%; max-width: 460px;
+    background: var(--bsp-bg);
+    border-radius: 18px;
+    padding: 44px 36px 28px;
+    box-shadow: 0 24px 60px rgb(0 0 0 / 0.25);
+    text-align: center;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity .25s ease, transform .25s ease;
+    max-height: calc(100vh - 32px); overflow-y: auto;
+  }
+  .bsp.is-open .bsp__overlay { opacity: 1; }
+  .bsp.is-open .bsp__dialog { opacity: 1; transform: none; }
+  .bsp__dialog:focus { outline: none; }
+  .bsp__x {
+    position: absolute; top: 14px; right: 14px;
+    width: 40px; height: 40px; border: 0; border-radius: 50%;
+    background: transparent; color: var(--bsp-text); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .bsp__x:hover { background: rgb(0 0 0 / 0.06); }
+  .bsp__eyebrow {
+    margin: 0 0 10px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--bsp-accent);
+  }
+  .bsp__title {
+    margin: 0 0 12px;
+    font-family: var(--heading-font-family, Poppins, sans-serif);
+    font-size: 26px; line-height: 1.25; font-weight: 500;
+    color: var(--bsp-text); text-wrap: balance;
+  }
+  .bsp__accent { color: var(--bsp-accent); font-weight: 600; white-space: nowrap; }
+  .bsp__text { margin: 0 0 22px; font-size: 15px; line-height: 1.55; color: var(--bsp-muted); }
+  .bsp__form { display: flex; flex-direction: column; gap: 10px; margin: 0; }
+  .bsp__input {
+    width: 100%; box-sizing: border-box;
+    height: 54px; padding: 0 22px;
+    border: 1px solid rgb(34 33 32 / 0.25); border-radius: var(--bsp-radius);
+    background: #fff; color: var(--bsp-text);
+    font: inherit; font-size: 16px; /* 16px keeps iOS from zooming in */
+  }
+  .bsp__input:focus { outline: 2px solid var(--bsp-accent); outline-offset: 1px; border-color: transparent; }
+  .bsp__input[aria-invalid="true"] { border-color: #b3261e; }
+  .bsp__btn {
+    width: 100%; height: 54px; border: 0; border-radius: var(--bsp-radius);
+    background: var(--bsp-btn-bg); color: var(--bsp-btn-text);
+    font: inherit; font-size: 15px; font-weight: 500; letter-spacing: .02em;
+    cursor: pointer; transition: background .2s ease;
+  }
+  .bsp__btn:hover { background: var(--bsp-btn-hover); }
+  .bsp__btn:focus-visible { outline: 2px solid var(--bsp-accent); outline-offset: 2px; }
+  .bsp__btn[disabled] { opacity: .6; cursor: wait; }
+  .bsp__error { margin: 2px 0 0; font-size: 13px; color: #b3261e; }
+  .bsp__fine { margin: 14px 0 0; font-size: 12px; line-height: 1.5; color: var(--bsp-muted); }
+  .bsp__skip {
+    margin-top: 10px; padding: 8px; border: 0; background: none;
+    font: inherit; font-size: 13px; color: var(--bsp-muted);
+    text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+  }
+  .bsp__skip:hover { color: var(--bsp-text); }
+  .bsp__code {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin: 6px 0 16px; padding: 8px 8px 8px 22px;
+    border: 1.5px dashed var(--bsp-accent); border-radius: var(--bsp-radius);
+    background: #fff;
+  }
+  .bsp__code-text { font-size: 18px; font-weight: 600; letter-spacing: .08em; color: var(--bsp-text); }
+  .bsp__copy {
+    flex: none; height: 40px; padding: 0 20px; border: 0; border-radius: var(--bsp-radius);
+    background: var(--bsp-accent); color: #fff; font: inherit; font-size: 14px; font-weight: 500;
+    cursor: pointer;
+  }
+  .bsp__copy:focus-visible { outline: 2px solid var(--bsp-text); outline-offset: 2px; }
+  .bsp__sr {
+    position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  html.bsp-lock { overflow: hidden; }
+
+  @media (max-width: 600px) {
+    .bsp { align-items: flex-end; padding: 0; }
+    .bsp__dialog {
+      max-width: none; border-radius: 18px 18px 0 0;
+      padding: 40px 20px calc(20px + env(safe-area-inset-bottom));
+      transform: translateY(40px);
+    }
+    .bsp__title { font-size: 22px; }
+    .bsp__text { font-size: 14px; margin-bottom: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bsp__overlay, .bsp__dialog { transition: none; }
+  }
+</style>
+
+<script>
+  (function () {
+    var KEY_SUBSCRIBED = 'salusBlogPopupSubscribed';
+    var KEY_DISMISSED = 'salusBlogPopupDismissedAt';
+    var DISMISS_DAYS = 7;       // after "No thanks" / close, don't show again for this long
+    var DELAY_MS = 5000;        // open 5 s after the page loads
+
+    var root = document.getElementById('blog-subscribe-popup');
+    if (!root) return;
+
+    function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+    var dialog = root.querySelector('.bsp__dialog');
+    var form = root.querySelector('.bsp__form');
+    var input = root.querySelector('.bsp__input');
+    var submitBtn = form.querySelector('.bsp__btn');
+    var errorEl = root.querySelector('.bsp__error');
+    var formView = root.querySelector('[data-bsp-view="form"]');
+    var successView = root.querySelector('[data-bsp-view="success"]');
+    var copyBtn = root.querySelector('[data-bsp-copy]');
+    var isOpen = false, done = false, subscribed = false, lastFocus = null, timer = null;
+
+    function open() {
+      if (isOpen || done) return;
+      isOpen = done = true;
+      clearTimeout(timer);
+      lastFocus = document.activeElement;
+      root.hidden = false;
+      document.documentElement.classList.add('bsp-lock');
+      requestAnimationFrame(function () { root.classList.add('is-open'); });
+      // Don't focus the input on touch screens: it would pop the keyboard open.
+      var target = subscribed ? successView.querySelector('.bsp__copy')
+        : (window.matchMedia('(hover: hover)').matches ? input : dialog);
+      setTimeout(function () { target.focus({ preventScroll: true }); }, 60);
+    }
+
+    function close() {
+      if (!isOpen) return;
+      isOpen = false;
+      if (!subscribed) save(KEY_DISMISSED, String(Date.now()));
+      root.classList.remove('is-open');
+      document.documentElement.classList.remove('bsp-lock');
+      setTimeout(function () { root.hidden = true; }, 250);
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    }
+
+    function showSuccess() {
+      subscribed = true;
+      save(KEY_SUBSCRIBED, '1');
+      formView.hidden = true;
+      successView.hidden = false;
+    }
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+      input.setAttribute('aria-invalid', 'true');
+    }
+
+    root.addEventListener('click', function (e) {
+      if (e.target.closest('[data-bsp-close]')) close();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!isOpen) return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key !== 'Tab') return;
+      var f = Array.prototype.filter.call(
+        dialog.querySelectorAll('button, input:not([type="hidden"]), [href]'),
+        function (el) { return !el.closest('[hidden]'); }
+      );
+      if (!f.length) return;
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    });
+
+    input.addEventListener('input', function () {
+      errorEl.hidden = true;
+      input.removeAttribute('aria-invalid');
+    });
+
+    copyBtn.addEventListener('click', function () {
+      var code = root.querySelector('.bsp__code-text').textContent.trim();
+      var ok = function () { copyBtn.textContent = 'Copied!'; setTimeout(function () { copyBtn.textContent = 'Copy'; }, 2000); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(ok, function () {});
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = (input.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        showError('Please enter a valid email address.');
+        input.focus();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Signing you up...';
+
+      // Shopify's customer form. Sent in the background so the reader stays on the
+      // article; if Shopify asks for a captcha, fall back to a normal submit (the
+      // page comes back with ?customer_posted=true and the popup shows the code).
+      fetch(form.action, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
+        .then(function (res) {
+          if (res.ok && /customer_posted=true/.test(res.url)) {
+            showSuccess();
+            successView.querySelector('.bsp__copy').focus({ preventScroll: true });
+          } else {
+            HTMLFormElement.prototype.submit.call(form);
+          }
+        })
+        .catch(function () { HTMLFormElement.prototype.submit.call(form); });
+    });
+
+    // Back from a normal submit (captcha path) or a server-side validation error.
+    var postedOk = /[?&]customer_posted=true/.test(location.search) && location.hash === '#bsp-form';
+    if (postedOk) {
+      showSuccess();
+      try { history.replaceState(null, '', location.pathname); } catch (e) {}
+      open();
+      return;
+    }
+    if (root.querySelector('[data-bsp-server-error]')) { open(); return; }
+
+    if (load(KEY_SUBSCRIBED)) return;
+    var dismissedAt = parseInt(load(KEY_DISMISSED) || '0', 10);
+    if (dismissedAt && Date.now() - dismissedAt < DISMISS_DAYS * 864e5) return;
+
+    timer = setTimeout(open, DELAY_MS);
+  })();
+</script>
+{%- endunless -%}
+{%- endif -%}
