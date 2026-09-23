@@ -1,16 +1,19 @@
 {%- comment -%}
   Blog subscribe popup — shows only on the blog and on articles.
 
-  Phase 1 (no Klaviyo yet): the email is saved as a Shopify customer who accepts
-  marketing, tagged "blog-subscriber" (Customers > filter by tag), and the $250
-  code is shown on screen right after signing up.
-  Phase 2 (later): Klaviyo emails the code and sends new articles.
+  On submit:
+  1. Asks n8n ([Marketing] Blog Subscribe -> Shopify Welcome Code) for a unique,
+     single-use $250 code (e.g. JOHNSMITH-X7K2) and shows it on screen. The same
+     email always gets the same code back.
+  2. Saves the email as a Shopify customer who accepts marketing, tagged
+     "blog-subscriber" (Customers > filter by tag). Best effort, in the background.
+  Later: Klaviyo emails the code and sends new articles.
 
   Rendered from layout/theme.liquid, right before </body>:
     {% render 'blog-subscribe-popup' %}
 {%- endcomment -%}
 
-{%- assign bsp_code = 'WELCOME2SALUS' -%}
+{%- assign bsp_endpoint = 'https://salussaunas.app.n8n.cloud/webhook/blog/subscribe' -%}
 
 {%- if template.name == 'blog' or template.name == 'article' -%}
 {%- unless customer and customer.accepts_marketing -%}
@@ -31,12 +34,9 @@
         <input type="hidden" name="contact[accepts_marketing]" value="true">
         <label for="bsp-email" class="bsp__sr">Email address</label>
         <input id="bsp-email" class="bsp__input" type="email" name="contact[email]" autocomplete="email" inputmode="email" placeholder="Your email address" required>
+        <input class="bsp__hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="bsp__btn">Get my $250 code</button>
-        {%- if form.errors -%}
-          <p class="bsp__error" role="alert" data-bsp-server-error>Please enter a valid email address.</p>
-        {%- else -%}
-          <p class="bsp__error" role="alert" hidden></p>
-        {%- endif -%}
+        <p class="bsp__error" role="alert" hidden></p>
       {%- endform -%}
 
       <p class="bsp__fine">One code per customer, valid on your first sauna. Unsubscribe anytime.</p>
@@ -47,10 +47,10 @@
       <p class="bsp__eyebrow">You're subscribed</p>
       <h2 class="bsp__title">Here's your $250 code</h2>
       <div class="bsp__code">
-        <span class="bsp__code-text">{{ bsp_code }}</span>
+        <span class="bsp__code-text"></span>
         <button type="button" class="bsp__copy" data-bsp-copy>Copy</button>
       </div>
-      <p class="bsp__text">Use it at checkout on your first sauna. You'll also get our new articles as soon as they're published.</p>
+      <p class="bsp__text">Use it at checkout on your first sauna. It's yours alone and works one time. You'll also get our new articles as soon as they're published.</p>
       <button type="button" class="bsp__btn" data-bsp-close>Keep reading</button>
     </div>
   </div>
@@ -151,7 +151,7 @@
     cursor: pointer;
   }
   .bsp__copy:focus-visible { outline: 2px solid var(--bsp-text); outline-offset: 2px; }
-  .bsp__sr {
+  .bsp__sr, .bsp__hp {
     position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
   }
@@ -174,6 +174,7 @@
 
 <script>
   (function () {
+    var ENDPOINT = {{ bsp_endpoint | json }};
     var KEY_SUBSCRIBED = 'salusBlogPopupSubscribed';
     var KEY_DISMISSED = 'salusBlogPopupDismissedAt';
     var DISMISS_DAYS = 7;       // after "No thanks" / close, don't show again for this long
@@ -189,6 +190,7 @@
     var form = root.querySelector('.bsp__form');
     var input = root.querySelector('.bsp__input');
     var submitBtn = form.querySelector('.bsp__btn');
+    var honeypot = form.querySelector('.bsp__hp');
     var errorEl = root.querySelector('.bsp__error');
     var formView = root.querySelector('[data-bsp-view="form"]');
     var successView = root.querySelector('[data-bsp-view="success"]');
@@ -219,11 +221,18 @@
       if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
     }
 
-    function showSuccess() {
+    function showSuccess(code) {
       subscribed = true;
       save(KEY_SUBSCRIBED, '1');
+      root.querySelector('.bsp__code-text').textContent = code;
       formView.hidden = true;
       successView.hidden = false;
+      successView.querySelector('.bsp__copy').focus({ preventScroll: true });
+    }
+
+    function resetButton() {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Get my $250 code';
     }
 
     function showError(msg) {
@@ -272,32 +281,32 @@
       }
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Signing you up...';
+      submitBtn.textContent = 'Getting your code...';
 
-      // Shopify's customer form. Sent in the background so the reader stays on the
-      // article; if Shopify asks for a captcha, fall back to a normal submit (the
-      // page comes back with ?customer_posted=true and the popup shows the code).
-      fetch(form.action, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
+      // 1. Unique code from n8n. Form-encoded on purpose: a "simple" CORS request.
+      var body = new URLSearchParams({ email: email, company: honeypot.value || '' });
+      fetch(ENDPOINT, { method: 'POST', body: body })
         .then(function (res) {
-          if (res.ok && /customer_posted=true/.test(res.url)) {
-            showSuccess();
-            successView.querySelector('.bsp__copy').focus({ preventScroll: true });
-          } else {
-            HTMLFormElement.prototype.submit.call(form);
-          }
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            if (res.ok && data.code) {
+              showSuccess(data.code);
+              // 2. Shopify customer (marketing + blog-subscriber tag). Best effort.
+              fetch(form.action, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
+                .catch(function () {});
+              return;
+            }
+            showError(res.status === 400
+              ? 'Please enter a valid email address.'
+              : 'Something went wrong. Please try again in a moment.');
+            resetButton();
+          });
         })
-        .catch(function () { HTMLFormElement.prototype.submit.call(form); });
+        .catch(function (err) {
+          console.error('[blog-subscribe-popup]', err);
+          showError('Something went wrong. Please try again in a moment.');
+          resetButton();
+        });
     });
-
-    // Back from a normal submit (captcha path) or a server-side validation error.
-    var postedOk = /[?&]customer_posted=true/.test(location.search) && location.hash === '#bsp-form';
-    if (postedOk) {
-      showSuccess();
-      try { history.replaceState(null, '', location.pathname); } catch (e) {}
-      open();
-      return;
-    }
-    if (root.querySelector('[data-bsp-server-error]')) { open(); return; }
 
     if (load(KEY_SUBSCRIBED)) return;
     var dismissedAt = parseInt(load(KEY_DISMISSED) || '0', 10);
