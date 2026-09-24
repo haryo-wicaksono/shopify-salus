@@ -1,0 +1,452 @@
+{%- comment -%}
+  Share Your Experience — customers and installers upload photos/videos of their sauna.
+  - Files go straight to Google Drive (CUSTOMER PICS & VIDEOS > ALL PHOTOS BY MODEL 2025
+    > <model>) through n8n workflow "[Photos] Share Your Experience API".
+  - Each file becomes a record in Airtable (Customer Service + Tech > Customer Photos).
+  - The gallery only shows files the team approved ("Approved for Gallery").
+  Used by templates/page.share-your-experience.json.
+{%- endcomment -%}
+
+<div class="sye" id="sye-{{ section.id }}" data-api="{{ section.settings.api_base | escape }}">
+  <div class="sye__wrap">
+
+    <header class="sye__hero">
+      {%- if section.settings.eyebrow != blank -%}<p class="sye__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="sye__title">{{ section.settings.heading }}</h1>
+      {%- if section.settings.text != blank -%}<div class="sye__text">{{ section.settings.text }}</div>{%- endif -%}
+    </header>
+
+    <div class="sye__card" data-sye-form-view>
+      <form class="sye__form" novalidate>
+        <div class="sye__field">
+          <label class="sye__label" for="sye-model-{{ section.id }}">Which sauna do you have?</label>
+          <div class="sye__select-wrap">
+            <select id="sye-model-{{ section.id }}" class="sye__select" name="sauna" required disabled>
+              <option value="">Loading models...</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sye__field">
+          <span class="sye__label">Your photos and videos</span>
+          <label class="sye__drop" data-sye-drop>
+            <input class="sye__file" type="file" name="files" accept="image/*,video/*" multiple>
+            <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 16V4m0 0l-4.5 4.5M12 4l4.5 4.5M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="sye__drop-title">Tap to choose from your phone</span>
+            <span class="sye__drop-sub">or drag them here · up to {{ section.settings.max_files }} files · photos up to 25 MB, videos up to 500 MB</span>
+          </label>
+          <ul class="sye__list" data-sye-list hidden></ul>
+        </div>
+
+        <input class="sye__hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <label class="sye__check">
+          <input type="checkbox" name="permission" value="yes" required>
+          <span>I agree Salus Saunas may share these photos and videos on its website and social media.</span>
+        </label>
+
+        <button type="submit" class="sye__btn" data-sye-submit>Share my photos</button>
+        <p class="sye__msg" role="status" aria-live="polite" hidden></p>
+      </form>
+    </div>
+
+    <div class="sye__card sye__thanks" data-sye-thanks-view hidden>
+      <svg width="44" height="44" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <h2 class="sye__thanks-title">Thank you for sharing!</h2>
+      <p class="sye__thanks-text">{{ section.settings.thanks_text }}</p>
+      <button type="button" class="sye__btn sye__btn--ghost" data-sye-again>Share more</button>
+    </div>
+
+    <section class="sye__gallery" data-sye-gallery hidden>
+      <h2 class="sye__gallery-title">{{ section.settings.gallery_heading }}</h2>
+      {%- if section.settings.gallery_text != blank -%}<p class="sye__gallery-text">{{ section.settings.gallery_text }}</p>{%- endif -%}
+      <div class="sye__grid" data-sye-grid></div>
+      <div class="sye__more-wrap"><button type="button" class="sye__btn sye__btn--ghost" data-sye-more hidden>Show more</button></div>
+    </section>
+  </div>
+
+  <div class="sye__modal" data-sye-modal hidden>
+    <div class="sye__modal-bg" data-sye-close></div>
+    <div class="sye__modal-box" role="dialog" aria-modal="true" aria-label="Customer photo">
+      <button type="button" class="sye__modal-x" data-sye-close aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="sye__modal-body" data-sye-modal-body></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #sye-{{ section.id }} {
+    --sye-bg: rgb(var(--color-scheme-1-bg, 254 248 241));
+    --sye-text: rgb(var(--color-scheme-1-text, 34 33 32));
+    --sye-muted: rgb(var(--color-scheme-1-text, 34 33 32) / 0.68);
+    --sye-line: rgb(34 33 32 / 0.14);
+    --sye-accent: rgb(105 80 53);
+    --sye-btn-bg: rgb(var(--btn-bg-color, 34 33 32));
+    --sye-btn-hover: rgb(var(--btn-bg-hover-color, 75 74 73));
+    --sye-btn-text: rgb(var(--btn-text-color, 255 255 255));
+    --sye-radius: var(--btn-border-radius, 28px);
+    background: var(--sye-bg);
+    color: var(--sye-text);
+    font-family: var(--body-font-family, Poppins, sans-serif);
+    padding: 56px 16px 72px;
+  }
+  .sye__wrap { max-width: 1100px; margin: 0 auto; }
+  .sye__hero { text-align: center; max-width: 680px; margin: 0 auto 32px; }
+  .sye__eyebrow { margin: 0 0 10px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--sye-accent); }
+  .sye__title { margin: 0 0 14px; font-family: var(--heading-font-family, Poppins, sans-serif); font-size: clamp(28px, 4vw, 42px); line-height: 1.15; font-weight: 500; text-wrap: balance; }
+  .sye__text { font-size: 16px; line-height: 1.6; color: var(--sye-muted); }
+  .sye__text p { margin: 0; }
+
+  .sye__card { max-width: 640px; margin: 0 auto; background: #fff; border-radius: 18px; padding: 32px; box-shadow: 0 10px 40px rgb(0 0 0 / .06); }
+  .sye__form { display: flex; flex-direction: column; gap: 22px; }
+  .sye__field { display: flex; flex-direction: column; gap: 8px; }
+  .sye__label { font-size: 14px; font-weight: 500; }
+  .sye__select-wrap { position: relative; }
+  .sye__select-wrap::after { content: ''; position: absolute; right: 22px; top: 50%; width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+  .sye__select { width: 100%; height: 52px; padding: 0 48px 0 20px; border: 1px solid var(--sye-line); border-radius: var(--sye-radius); background: #fff; color: var(--sye-text); font: inherit; font-size: 16px; appearance: none; -webkit-appearance: none; }
+  .sye__select:focus, .sye__drop:focus-within { outline: 2px solid var(--sye-accent); outline-offset: 1px; }
+
+  .sye__drop { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 30px 20px; border: 1.5px dashed rgb(105 80 53 / .55); border-radius: 16px; background: var(--sye-bg); text-align: center; cursor: pointer; color: var(--sye-accent); transition: background .2s ease, border-color .2s ease; }
+  .sye__drop.is-over { background: rgb(105 80 53 / .08); border-color: var(--sye-accent); }
+  .sye__file { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .sye__drop-title { font-size: 15px; font-weight: 500; color: var(--sye-text); }
+  .sye__drop-sub { font-size: 12px; color: var(--sye-muted); }
+
+  .sye__list { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .sye__item { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; padding: 8px 10px; border: 1px solid var(--sye-line); border-radius: 12px; }
+  .sye__thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: var(--sye-bg); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--sye-muted); overflow: hidden; }
+  .sye__meta { min-width: 0; }
+  .sye__name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sye__state { font-size: 12px; color: var(--sye-muted); }
+  .sye__state.is-error { color: #b3261e; }
+  .sye__state.is-done { color: #2e7d32; }
+  .sye__bar { height: 4px; border-radius: 4px; background: var(--sye-line); margin-top: 6px; overflow: hidden; }
+  .sye__bar span { display: block; height: 100%; width: 0; background: var(--sye-accent); transition: width .2s linear; }
+  .sye__rm { border: 0; background: none; color: var(--sye-muted); cursor: pointer; padding: 6px; font-size: 18px; line-height: 1; }
+  .sye__rm[disabled] { visibility: hidden; }
+
+  .sye__check { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.5; cursor: pointer; }
+  .sye__check input { width: 20px; height: 20px; margin-top: 1px; flex: none; accent-color: var(--sye-accent); }
+
+  .sye__btn { width: 100%; height: 54px; border: 0; border-radius: var(--sye-radius); background: var(--sye-btn-bg); color: var(--sye-btn-text); font: inherit; font-size: 15px; font-weight: 500; letter-spacing: .02em; cursor: pointer; transition: background .2s ease; }
+  .sye__btn:hover { background: var(--sye-btn-hover); }
+  .sye__btn[disabled] { opacity: .6; cursor: wait; }
+  .sye__btn--ghost { background: transparent; color: var(--sye-text); border: 1.5px solid var(--sye-text); width: auto; padding: 0 36px; }
+  .sye__btn--ghost:hover { background: var(--sye-text); color: #fff; }
+  .sye__msg { margin: 0; font-size: 14px; text-align: center; }
+  .sye__msg.is-error { color: #b3261e; }
+  .sye__hp { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  .sye__thanks { text-align: center; color: var(--sye-accent); }
+  .sye__thanks-title { margin: 14px 0 8px; font-size: 24px; font-weight: 500; color: var(--sye-text); }
+  .sye__thanks-text { margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: var(--sye-muted); }
+
+  .sye__gallery { margin-top: 72px; }
+  .sye__gallery-title { margin: 0 0 8px; text-align: center; font-family: var(--heading-font-family, Poppins, sans-serif); font-size: clamp(24px, 3vw, 32px); font-weight: 500; }
+  .sye__gallery-text { margin: 0 auto 28px; max-width: 560px; text-align: center; font-size: 15px; line-height: 1.6; color: var(--sye-muted); }
+  .sye__grid { columns: 3 260px; column-gap: 16px; }
+  .sye__tile { position: relative; display: block; width: 100%; margin: 0 0 16px; padding: 0; border: 0; border-radius: 14px; overflow: hidden; background: #fff; cursor: zoom-in; break-inside: avoid; }
+  .sye__tile img { display: block; width: 100%; height: auto; transition: transform .4s ease; }
+  .sye__tile:hover img { transform: scale(1.03); }
+  .sye__tile-model { position: absolute; left: 10px; bottom: 10px; padding: 5px 12px; border-radius: 20px; background: rgb(255 255 255 / .9); font-size: 12px; color: var(--sye-text); }
+  .sye__play { position: absolute; inset: 0; margin: auto; width: 58px; height: 58px; border-radius: 50%; background: rgb(0 0 0 / .55); display: flex; align-items: center; justify-content: center; }
+  .sye__play::after { content: ''; margin-left: 5px; border-left: 16px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
+  .sye__more-wrap { text-align: center; margin-top: 12px; }
+
+  .sye__modal[hidden] { display: none; }
+  .sye__modal { position: fixed; inset: 0; z-index: 2147483000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .sye__modal-bg { position: absolute; inset: 0; background: rgb(15 14 13 / .85); }
+  .sye__modal-box { position: relative; max-width: min(1100px, 100%); max-height: 100%; }
+  .sye__modal-body img { display: block; max-width: 100%; max-height: calc(100vh - 80px); border-radius: 10px; }
+  .sye__modal-body iframe { display: block; width: min(960px, calc(100vw - 32px)); aspect-ratio: 16 / 9; border: 0; border-radius: 10px; background: #000; }
+  .sye__modal-x { position: absolute; top: -48px; right: 0; width: 40px; height: 40px; border: 0; border-radius: 50%; background: #fff; color: #222; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+  @media (max-width: 600px) {
+    #sye-{{ section.id }} { padding: 40px 16px 56px; }
+    .sye__card { padding: 22px 18px; }
+    .sye__grid { columns: 2 140px; column-gap: 10px; }
+    .sye__tile { margin-bottom: 10px; }
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.getElementById('sye-{{ section.id }}');
+    if (!root) return;
+    var API = (root.getAttribute('data-api') || '').replace(/\/+$/, '');
+    var MAX_FILES = {{ section.settings.max_files | default: 10 }};
+    var MAX_IMAGE = 25 * 1048576, MAX_VIDEO = 500 * 1048576;
+    var PAGE = 24;
+
+    var form = root.querySelector('.sye__form');
+    var select = root.querySelector('.sye__select');
+    var input = root.querySelector('.sye__file');
+    var drop = root.querySelector('[data-sye-drop]');
+    var list = root.querySelector('[data-sye-list]');
+    var submitBtn = root.querySelector('[data-sye-submit]');
+    var msg = root.querySelector('.sye__msg');
+    var formView = root.querySelector('[data-sye-form-view]');
+    var thanksView = root.querySelector('[data-sye-thanks-view]');
+    var files = []; // { file, row, id }
+    var busy = false;
+
+    var REASONS = {
+      only_photos_and_videos: 'Only photos and videos can be uploaded.',
+      photo_too_big: 'This photo is larger than 25 MB.',
+      video_too_big: 'This video is larger than 500 MB.',
+      unknown_sauna: 'Please choose your sauna model again.',
+      busy: 'We are receiving a lot of uploads right now. Please try again in a little while.'
+    };
+
+    function showMsg(text, isError) {
+      msg.textContent = text;
+      msg.hidden = !text;
+      msg.classList.toggle('is-error', !!isError);
+    }
+
+    // Phones sometimes leave the type empty (HEIC, MOV): guess it from the extension.
+    function mimeOf(f) {
+      if (f.type) return f.type;
+      var ext = (f.name.split('.').pop() || '').toLowerCase();
+      var map = { heic: 'image/heic', heif: 'image/heif', jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', mov: 'video/quicktime', mp4: 'video/mp4', m4v: 'video/x-m4v', hevc: 'video/mp4' };
+      return map[ext] || '';
+    }
+
+    function fmtSize(b) { return b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB'; }
+
+    // ---------- models ----------
+    fetch(API + '/models')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var models = (data && data.models) || [];
+        select.innerHTML = '<option value="">Choose your model</option>' + models.map(function (m) {
+          var o = document.createElement('option'); o.value = m.value; o.textContent = m.label; return o.outerHTML;
+        }).join('');
+        select.disabled = false;
+      })
+      .catch(function () {
+        select.innerHTML = '<option value="">Could not load the models. Please refresh.</option>';
+      });
+
+    // ---------- file picking ----------
+    function addFiles(fileList) {
+      Array.prototype.forEach.call(fileList, function (f) {
+        var mime = mimeOf(f);
+        var problem = '';
+        if (!/^(image|video)\//.test(mime)) problem = 'Not a photo or video';
+        else if (mime.indexOf('image/') === 0 && f.size > MAX_IMAGE) problem = 'Photo over 25 MB';
+        else if (mime.indexOf('video/') === 0 && f.size > MAX_VIDEO) problem = 'Video over 500 MB';
+        if (!problem && files.length >= MAX_FILES) problem = 'Up to ' + MAX_FILES + ' files per upload';
+        if (problem) { showMsg(f.name + ': ' + problem + '.', true); return; }
+        var entry = { file: f, mime: mime, id: null };
+        entry.row = renderRow(entry);
+        files.push(entry);
+      });
+      list.hidden = files.length === 0;
+      input.value = '';
+    }
+
+    function renderRow(entry) {
+      var li = document.createElement('li');
+      li.className = 'sye__item';
+      var thumb = document.createElement(entry.mime.indexOf('image/') === 0 && entry.mime !== 'image/heic' && entry.mime !== 'image/heif' ? 'img' : 'div');
+      thumb.className = 'sye__thumb';
+      if (thumb.tagName === 'IMG') { thumb.src = URL.createObjectURL(entry.file); thumb.alt = ''; }
+      else thumb.textContent = entry.mime.indexOf('video/') === 0 ? 'Video' : 'Photo';
+      var meta = document.createElement('div');
+      meta.className = 'sye__meta';
+      meta.innerHTML = '<div class="sye__name"></div><div class="sye__state"></div><div class="sye__bar"><span></span></div>';
+      meta.querySelector('.sye__name').textContent = entry.file.name;
+      meta.querySelector('.sye__state').textContent = fmtSize(entry.file.size);
+      var rm = document.createElement('button');
+      rm.type = 'button'; rm.className = 'sye__rm'; rm.setAttribute('aria-label', 'Remove ' + entry.file.name); rm.textContent = '×';
+      rm.addEventListener('click', function () {
+        if (busy) return;
+        files = files.filter(function (x) { return x !== entry; });
+        li.remove();
+        list.hidden = files.length === 0;
+      });
+      li.appendChild(thumb); li.appendChild(meta); li.appendChild(rm);
+      list.appendChild(li);
+      return li;
+    }
+
+    function setRow(entry, text, cls, pct) {
+      var st = entry.row.querySelector('.sye__state');
+      st.textContent = text;
+      st.className = 'sye__state' + (cls ? ' ' + cls : '');
+      if (pct !== undefined) entry.row.querySelector('.sye__bar span').style.width = pct + '%';
+    }
+
+    input.addEventListener('change', function () { addFiles(input.files); showMsg('', false); });
+    ['dragenter', 'dragover'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('is-over'); }); });
+    ['dragleave', 'drop'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('is-over'); }); });
+    drop.addEventListener('drop', function (e) { if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+
+    // ---------- upload ----------
+    function post(path, data) {
+      return fetch(API + path, { method: 'POST', body: new URLSearchParams(data) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { j._status = r.status; return j; }); });
+    }
+
+    function putFile(url, entry) {
+      return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('PUT', url);
+        xhr.setRequestHeader('Content-Type', entry.mime);
+        xhr.upload.onprogress = function (e) {
+          if (e.lengthComputable) setRow(entry, 'Uploading... ' + Math.round(e.loaded / e.total * 100) + '%', '', Math.round(e.loaded / e.total * 100));
+        };
+        xhr.onload = function () {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            try { resolve(JSON.parse(xhr.responseText).id); } catch (err) { reject(err); }
+          } else reject(new Error('Upload failed (' + xhr.status + ')'));
+        };
+        xhr.onerror = function () { reject(new Error('Network error')); };
+        xhr.send(entry.file);
+      });
+    }
+
+    function uploadOne(entry, sauna, company) {
+      if (entry.id) return Promise.resolve(); // already sent (retry after a partial failure)
+      setRow(entry, 'Preparing...', '', 0);
+      return post('/start-upload', { sauna: sauna, fileName: entry.file.name, mimeType: entry.mime, size: String(entry.file.size), company: company })
+        .then(function (res) {
+          if (!res.uploadUrl) throw new Error(REASONS[res.reason] || 'Could not start the upload.');
+          return putFile(res.uploadUrl, entry);
+        })
+        .then(function (id) { entry.id = id; setRow(entry, 'Uploaded', 'is-done', 100); })
+        .catch(function (err) { setRow(entry, err.message || 'Upload failed', 'is-error'); });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (busy) return;
+      var sauna = select.value;
+      var permission = form.querySelector('[name="permission"]');
+      var company = form.querySelector('[name="company"]').value;
+      if (!sauna) { showMsg('Please choose your sauna model.', true); select.focus(); return; }
+      if (!files.length) { showMsg('Please add at least one photo or video.', true); return; }
+      if (!permission.checked) { showMsg('Please tick the box to let us share your photos.', true); permission.focus(); return; }
+
+      busy = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Uploading...';
+      root.querySelectorAll('.sye__rm').forEach(function (b) { b.disabled = true; });
+      showMsg('Please keep this page open until everything is uploaded.', false);
+
+      var submission = 'web-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 7);
+      // One file at a time: kinder to phone connections and gives a clear progress bar.
+      files.reduce(function (chain, entry) {
+        return chain.then(function () { return uploadOne(entry, sauna, company); });
+      }, Promise.resolve())
+        .then(function () {
+          var done = files.filter(function (x) { return x.id; });
+          if (!done.length) throw new Error('None of the files could be uploaded. Please try again.');
+          return post('/complete', {
+            sauna: sauna,
+            files: JSON.stringify(done.map(function (x) { return { id: x.id }; })),
+            permission: 'yes',
+            submission: submission,
+            company: company
+          }).then(function (res) {
+            if (res.status !== 'ok') throw new Error('We could not save your upload. Please try again.');
+            if (done.length < files.length) {
+              showMsg('Some files could not be uploaded (marked in red). Tap "Share my photos" to try them again.', true);
+              return;
+            }
+            formView.hidden = true;
+            thanksView.hidden = false;
+            thanksView.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+        })
+        .catch(function (err) { showMsg(err.message || 'Something went wrong. Please try again.', true); })
+        .then(function () {
+          busy = false;
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Share my photos';
+          root.querySelectorAll('.sye__rm').forEach(function (b) { b.disabled = false; });
+        });
+    });
+
+    root.querySelector('[data-sye-again]').addEventListener('click', function () {
+      files = []; list.innerHTML = ''; list.hidden = true;
+      form.reset(); showMsg('', false);
+      thanksView.hidden = true; formView.hidden = false;
+    });
+
+    // ---------- gallery ----------
+    var gallery = root.querySelector('[data-sye-gallery]');
+    var grid = root.querySelector('[data-sye-grid]');
+    var moreBtn = root.querySelector('[data-sye-more]');
+    var modal = root.querySelector('[data-sye-modal]');
+    var modalBody = root.querySelector('[data-sye-modal-body]');
+    var items = [], shown = 0;
+
+    function openModal(item) {
+      modalBody.innerHTML = '';
+      if (item.type === 'video' && item.video) {
+        var f = document.createElement('iframe');
+        f.src = item.video; f.allow = 'autoplay; fullscreen'; f.setAttribute('allowfullscreen', '');
+        modalBody.appendChild(f);
+      } else {
+        var img = document.createElement('img');
+        img.src = item.image; img.alt = item.model ? 'Customer photo, ' + item.model : 'Customer photo';
+        modalBody.appendChild(img);
+      }
+      modal.hidden = false;
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function closeModal() { modal.hidden = true; modalBody.innerHTML = ''; document.documentElement.style.overflow = ''; }
+    modal.addEventListener('click', function (e) { if (e.target.closest('[data-sye-close]')) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+
+    function renderMore() {
+      items.slice(shown, shown + PAGE).forEach(function (item) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'sye__tile';
+        var img = document.createElement('img');
+        img.src = item.image; img.loading = 'lazy'; img.alt = item.model ? 'Customer photo, ' + item.model : 'Customer photo';
+        b.appendChild(img);
+        if (item.type === 'video') { var p = document.createElement('span'); p.className = 'sye__play'; b.appendChild(p); }
+        if (item.model) { var m = document.createElement('span'); m.className = 'sye__tile-model'; m.textContent = item.model; b.appendChild(m); }
+        b.addEventListener('click', function () { openModal(item); });
+        grid.appendChild(b);
+      });
+      shown = Math.min(items.length, shown + PAGE);
+      moreBtn.hidden = shown >= items.length;
+    }
+    moreBtn.addEventListener('click', renderMore);
+
+    fetch(API + '/gallery')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        items = (data && data.items) || [];
+        if (!items.length) return;
+        gallery.hidden = false;
+        renderMore();
+      })
+      .catch(function () {});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Share your experience",
+  "tag": "section",
+  "class": "section-share-your-experience",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Share your experience" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Show us your Salus sauna" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Loving your sauna? We'd love to see it. Choose your model and upload a few photos or videos straight from your phone.</p>" },
+    { "type": "textarea", "id": "thanks_text", "label": "Thank-you message", "default": "Your photos are with our team. We may feature some of them in the gallery below." },
+    { "type": "text", "id": "gallery_heading", "label": "Gallery heading", "default": "From our customers" },
+    { "type": "text", "id": "gallery_text", "label": "Gallery text", "default": "Real saunas, real backyards. Shared by Salus owners." },
+    { "type": "range", "id": "max_files", "label": "Max files per upload", "min": 1, "max": 10, "step": 1, "default": 10 },
+    { "type": "text", "id": "api_base", "label": "API base URL (don't change)", "default": "https://salussaunas.app.n8n.cloud/webhook/photos" }
+  ],
+  "presets": [{ "name": "Share your experience" }]
+}
+{% endschema %}
