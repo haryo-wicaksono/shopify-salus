@@ -309,12 +309,31 @@
       });
     }
 
+    function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+    // Google/n8n can refuse for a moment when busy: retry server-side failures (5xx or no answer)
+    // a few times before giving up. Real rejections (4xx, e.g. wrong type) are not retried.
+    function startUpload(data, attempt) {
+      attempt = attempt || 1;
+      return post('/start-upload', data)
+        .catch(function () { return { _status: 0 }; })
+        .then(function (res) {
+          var serverSide = !res.uploadUrl && (res._status === 0 || res._status >= 500);
+          if (serverSide && attempt < 4) return wait(2500 * attempt).then(function () { return startUpload(data, attempt + 1); });
+          return res;
+        });
+    }
+
     function uploadOne(entry, sauna, company) {
       if (entry.id) return Promise.resolve(); // already sent (retry after a partial failure)
       setRow(entry, 'Preparing...', '', 0);
-      return post('/start-upload', { sauna: sauna, fileName: entry.file.name, mimeType: entry.mime, size: String(entry.file.size), company: company })
+      return startUpload({ sauna: sauna, fileName: entry.file.name, mimeType: entry.mime, size: String(entry.file.size), company: company })
         .then(function (res) {
-          if (!res.uploadUrl) throw new Error(REASONS[res.reason] || 'Could not start the upload.');
+          if (!res.uploadUrl) {
+            throw new Error(REASONS[res.reason] || (res._status >= 500 || res._status === 0
+              ? 'Our upload service is busy. Please try again in a minute.'
+              : 'Could not start the upload.'));
+          }
           return putFile(res.uploadUrl, entry);
         })
         .then(function (id) { entry.id = id; setRow(entry, 'Uploaded', 'is-done', 100); })
