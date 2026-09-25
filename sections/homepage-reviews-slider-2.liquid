@@ -2,9 +2,18 @@
 {{ 'homepage-reviews-carousel.css' | asset_url | stylesheet_tag }}
 
 <style>
+  /* Button + Trustpilot widget side by side, centered as a group */
+  .homepage-reviews-slider__action-area.homepage-reviews-slider__action-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
   .homepage-reviews-slider__trustpilot {
-    margin: 24px auto 0;
-    max-width: 400px;
+    width: 240px;
+    flex: 0 0 240px;
   }
 
   /* Star color for the review cards */
@@ -77,33 +86,40 @@
             {% endfor %}
           </div>
         </div>
-        {% if section.settings.button_link != blank and section.settings.button_label != blank %}
-          <div class="homepage-reviews-slider__action-area">
-            <a
-              href="{{ section.settings.button_link }}"
-              class="homepage-reviews-slider__button"
-            >
-              {{ section.settings.button_label }}
-            </a>
-          </div>
-        {% endif %}
-
       {% else %}
         <div class="placeholder-content">
           {{ 'no_content' | t }}
         </div>
       {% endif %}
 
-      {% if section.settings.show_trustpilot %}
-        <div class="homepage-reviews-slider__trustpilot">
-          <!-- TrustBox script -->
-          <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-          <!-- End TrustBox script -->
-          <!-- TrustBox widget - Review Collector -->
-          <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="61ca05ef409636017d8dc02d" data-style-height="52px" data-style-width="100%" data-token="76f99f4b-0f79-48cc-859c-39acc66bbe25">
-            <a href="https://www.trustpilot.com/review/www.salussaunas.com" target="_blank" rel="noopener">Trustpilot</a>
-          </div>
-          <!-- End TrustBox widget -->
+      {%- assign show_button = false -%}
+      {%- if section.blocks.size > 0 and section.settings.button_link != blank and section.settings.button_label != blank -%}
+        {%- assign show_button = true -%}
+      {%- endif -%}
+
+      {% if show_button or section.settings.show_trustpilot %}
+        <div class="homepage-reviews-slider__action-area homepage-reviews-slider__action-row">
+          {% if show_button %}
+            <a
+              href="{{ section.settings.button_link }}"
+              class="homepage-reviews-slider__button"
+            >
+              {{ section.settings.button_label }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.show_trustpilot %}
+            <div class="homepage-reviews-slider__trustpilot">
+              <!-- TrustBox script -->
+              <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+              <!-- End TrustBox script -->
+              <!-- TrustBox widget - Review Collector -->
+              <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="61ca05ef409636017d8dc02d" data-style-height="52px" data-style-width="100%" data-token="76f99f4b-0f79-48cc-859c-39acc66bbe25">
+                <a href="https://www.trustpilot.com/review/www.salussaunas.com" target="_blank" rel="noopener">Trustpilot</a>
+              </div>
+              <!-- End TrustBox widget -->
+            </div>
+          {% endif %}
         </div>
       {% endif %}
     </div>
@@ -152,7 +168,7 @@
       "type": "checkbox",
       "id": "show_trustpilot",
       "label": "Show Trustpilot widget",
-      "info": "Trustpilot's free Review Collector widget (\"Review us on Trustpilot\"), below the button.",
+      "info": "Trustpilot's free Review Collector widget (\"Review us on Trustpilot\"), next to the button.",
       "default": true
     },
     {
