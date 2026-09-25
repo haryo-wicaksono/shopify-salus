@@ -1,11 +1,10 @@
 {%- comment -%}
   Reviews Tab Section
   - Tab 1: Google Elfsight Widget
-  - Tab 2: Trustpilot (free-plan compliant)
+  - Tab 2: Trustpilot (free-plan compliant): link to our profile + Trustpilot's own
+    free Review Collector TrustBox (built in below, unedited).
     Trustpilot's brand guidelines don't allow free-plan businesses to show their
-    TrustScore, star rating, Trustpilot logo or copied reviews. This tab only links to
-    our Trustpilot profile and can hold Trustpilot's own free TrustBox widget
-    (Review Collector), pasted as-is from the Trustpilot Business account.
+    TrustScore, star rating, Trustpilot logo or copied reviews.
   - Mobile Tabs side-by-side (768px breakpoint)
 {%- endcomment -%}
 
@@ -142,16 +141,6 @@
     color: #ffffff;
   }
 
-  .tp-panel__btn--secondary {
-    border: 1px solid #1b413e;
-    background-color: transparent;
-    color: #1b413e;
-  }
-  .tp-panel__btn--secondary:hover {
-    background-color: #1b413e;
-    color: #ffffff;
-  }
-
   .tp-panel__widget {
     margin-top: 28px;
   }
@@ -201,7 +190,7 @@
   <div class="reviews-section-wrapper">
     {%- assign google_on = section.settings.enable_google -%}
     {%- assign trust_on = section.settings.enable_trustpilot -%}
-    {%- assign tp_review_url = section.settings.tp_review_url | default: section.settings.tp_profile_url -%}
+    {%- assign tp_profile_url = section.settings.tp_profile_url | default: 'https://www.trustpilot.com/review/www.salussaunas.com' -%}
 
     {%- if google_on and trust_on -%}
       <div class="reviews-tab-header">
@@ -230,33 +219,30 @@
           {%- endif -%}
 
           <div class="tp-panel__actions">
-            {%- if section.settings.tp_profile_url != blank -%}
-              <a
-                href="{{ section.settings.tp_profile_url }}"
-                target="_blank"
-                rel="noopener"
-                class="tp-panel__btn tp-panel__btn--primary"
-              >
-                Read our reviews on Trustpilot
-              </a>
-            {%- endif -%}
-            {%- if tp_review_url != blank -%}
-              <a
-                href="{{ tp_review_url }}"
-                target="_blank"
-                rel="noopener"
-                class="tp-panel__btn tp-panel__btn--secondary"
-              >
-                Write a review
-              </a>
-            {%- endif -%}
+            <a
+              href="{{ tp_profile_url }}"
+              target="_blank"
+              rel="noopener"
+              class="tp-panel__btn tp-panel__btn--primary"
+            >
+              Read our reviews on Trustpilot
+            </a>
           </div>
 
-          {%- if section.settings.tp_trustbox != blank -%}
-            <div class="tp-panel__widget">
+          <div class="tp-panel__widget">
+            {%- if section.settings.tp_trustbox != blank -%}
               {{ section.settings.tp_trustbox }}
-            </div>
-          {%- endif -%}
+            {%- else -%}
+              <!-- TrustBox script -->
+              <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+              <!-- End TrustBox script -->
+              <!-- TrustBox widget - Review Collector -->
+              <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="61ca05ef409636017d8dc02d" data-style-height="52px" data-style-width="100%" data-token="76f99f4b-0f79-48cc-859c-39acc66bbe25">
+                <a href="https://www.trustpilot.com/review/www.salussaunas.com" target="_blank" rel="noopener">Trustpilot</a>
+              </div>
+              <!-- End TrustBox widget -->
+            {%- endif -%}
+          </div>
         </div>
       </div>
     {%- endif -%}
@@ -291,7 +277,7 @@
     { "type": "header", "content": "Trustpilot tab" },
     {
       "type": "paragraph",
-      "content": "On Trustpilot's free plan we can't show our TrustScore, stars, the Trustpilot logo or copied reviews. This tab only links to our profile."
+      "content": "On Trustpilot's free plan we can't show our TrustScore, stars, the Trustpilot logo or copied reviews. This tab links to our profile and shows Trustpilot's free Review Collector widget."
     },
     { "type": "text", "id": "tp_title", "label": "Title", "default": "See what our customers say on Trustpilot" },
     {
@@ -300,18 +286,23 @@
       "label": "Text",
       "default": "Read our customers' reviews on Trustpilot, or share your own experience with Salus Saunas."
     },
-    { "type": "url", "id": "tp_profile_url", "label": "Trustpilot profile URL" },
+    {
+      "type": "url",
+      "id": "tp_profile_url",
+      "label": "Trustpilot profile URL",
+      "info": "Empty = https://www.trustpilot.com/review/www.salussaunas.com"
+    },
     {
       "type": "url",
       "id": "tp_review_url",
-      "label": "Write-a-review URL",
-      "info": "Optional. Empty = uses the profile URL."
+      "label": "Not used",
+      "info": "The Review Collector widget below already opens the review form."
     },
     {
       "type": "html",
       "id": "tp_trustbox",
-      "label": "Official TrustBox code (optional)",
-      "info": "Paste the free Review Collector TrustBox code exactly as Trustpilot Business gives it (Integrations > TrustBox widgets). Don't edit it."
+      "label": "Replace TrustBox code (optional)",
+      "info": "Leave empty: the free Review Collector widget is already built in. Only paste a different free widget from Trustpilot Business (Share & promote > Website widgets), unedited."
     },
     { "type": "text", "id": "tp_rating_score", "label": "Not used (Trustpilot rules)" },
     { "type": "text", "id": "tp_review_count", "label": "Not used (Trustpilot rules)" },
