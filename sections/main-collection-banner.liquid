@@ -119,7 +119,7 @@
 </div>
 {% assign show_collection_nav = false %}
 {% for link in section.settings.collection_menu.links %}
-  {% if link.active or child_link.active %}
+  {% if link.active or link.child_active %}
     {% assign show_collection_nav = true %}
   {% endif %}
 {% endfor %}
