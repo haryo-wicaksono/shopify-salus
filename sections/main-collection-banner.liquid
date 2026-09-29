@@ -119,7 +119,7 @@
 </div>
 {% assign show_collection_nav = false %}
 {% for link in section.settings.collection_menu.links %}
-  {% if link.active or link.child_active %}
+  {% if link.active or child_link.active %}
     {% assign show_collection_nav = true %}
   {% endif %}
 {% endfor %}
@@ -132,7 +132,7 @@
         <div class="col-nav">
           <ul>
             {% for link in section.settings.collection_menu.links %}
-              {% if link.active %}
+              {% if link.active or link.child_active %}
                 {% assign link_request_path = request.path | split: '/' | last %}
                 {% assign link_handle = link.url | split: '/' | last %}
                 <li>
