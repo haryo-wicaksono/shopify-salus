@@ -12,37 +12,6 @@
     "homepage_hero_carousel_iKVfwn": {
       "type": "homepage-hero-carousel",
       "blocks": {
-        "hero_slide_EMqaVN": {
-          "type": "hero-slide",
-          "settings": {
-            "slide_layout": "full-background-centered",
-            "custom_content_bg": "",
-            "desktop_image_alt": "",
-            "mobile_image_alt": "",
-            "bg_video_desktop": "shopify://files/videos/Grand Monarch Banner (1).mp4",
-            "bg_video_mobile": "shopify://files/videos/Grand Monarch Banner Mobile.mp4",
-            "split_media_type": "image",
-            "show_stars": false,
-            "show_house_icon": false,
-            "reviews_text": "",
-            "headline": "Room for the Whole Family. Style for the Entire Home",
-            "mobile_headline": "Room for the Whole Family. Style for the Entire Home",
-            "description": "<p>Transform your backyard with an outdoor sauna designed for luxurious relaxation, everyday wellness, and time together.</p>",
-            "mobile_description": "<p>Transform your backyard with an outdoor sauna designed for luxurious relaxation, everyday wellness, and time together.</p>",
-            "button1_text": "Check Our Saunas",
-            "mobile_button1_text": "Check Our Saunas",
-            "button1_link": "https://www.salussaunas.com/collections/all-saunas",
-            "show_button1_arrow": true,
-            "button2_text": "",
-            "mobile_button2_text": "",
-            "button2_link": "",
-            "feature_item_1": "",
-            "feature_item_2": "",
-            "feature_item_3": "",
-            "feature_item_4": "",
-            "color_scheme": "light"
-          }
-        },
         "hero_slide_GT4wWK": {
           "type": "hero-slide",
           "settings": {
@@ -98,6 +67,37 @@
             "button2_text": "",
             "mobile_button2_text": "",
             "button2_link": "shopify://pages/contact",
+            "feature_item_1": "",
+            "feature_item_2": "",
+            "feature_item_3": "",
+            "feature_item_4": "",
+            "color_scheme": "light"
+          }
+        },
+        "hero_slide_EMqaVN": {
+          "type": "hero-slide",
+          "settings": {
+            "slide_layout": "full-background-centered",
+            "custom_content_bg": "",
+            "desktop_image_alt": "",
+            "mobile_image_alt": "",
+            "bg_video_desktop": "shopify://files/videos/Grand Monarch Banner (1).mp4",
+            "bg_video_mobile": "shopify://files/videos/Grand Monarch Banner Mobile.mp4",
+            "split_media_type": "image",
+            "show_stars": false,
+            "show_house_icon": false,
+            "reviews_text": "",
+            "headline": "Room for the Whole Family. Style for the Entire Home",
+            "mobile_headline": "Room for the Whole Family. Style for the Entire Home",
+            "description": "<p>Transform your backyard with an outdoor sauna designed for luxurious relaxation, everyday wellness, and time together.</p>",
+            "mobile_description": "<p>Transform your backyard with an outdoor sauna designed for luxurious relaxation, everyday wellness, and time together.</p>",
+            "button1_text": "Check Our Saunas",
+            "mobile_button1_text": "Check Our Saunas",
+            "button1_link": "https://www.salussaunas.com/collections/all-saunas",
+            "show_button1_arrow": true,
+            "button2_text": "",
+            "mobile_button2_text": "",
+            "button2_link": "",
             "feature_item_1": "",
             "feature_item_2": "",
             "feature_item_3": "",
@@ -203,9 +203,9 @@
         }
       },
       "block_order": [
-        "hero_slide_EMqaVN",
         "hero_slide_GT4wWK",
         "hero_slide_rAiWtc",
+        "hero_slide_EMqaVN",
         "hero_slide_J4eVMm",
         "hero_slide_PxmF3b",
         "hero_slide_gQxa68"
