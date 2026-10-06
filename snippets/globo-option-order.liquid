@@ -1,0 +1,42 @@
+{%- comment -%}
+  ORDEN DE OPCIONES DE GLOBO (6-oct-2026, pedido de Eva y Brandon)
+  1. Freebies primero.  2. Upgrades en su orden actual.  3. Add-ons al final.
+  Ordena cada bloque por su titulo visible, en todos los option sets a la vez.
+  Para mandar otro bloque al final, agregar su titulo en minusculas a LAST.
+  Para quitarlo: borrar el render en layout/theme.liquid y este snippet.
+{%- endcomment -%}
+<script>
+(function () {
+  var FIRST = ['freebies'];
+  var LAST = [
+    'add ons', 'accessories', 'waterproof boxes',
+    'safety railing', 'huum hive safety rail', 'huum steel safety rail',
+    'c2 exterior sauna guard', 'c2 exterior sauna guard tints', '1 x tints', '2 x tints',
+    'heat shield', 'heater base', 'select rain barrel jackets color',
+    'floor kit', 'floor base'
+  ];
+
+  function sortBlocks() {
+    var blocks = document.querySelectorAll('.gpo-form__group');
+    for (var i = 0; i < blocks.length; i++) {
+      var el = blocks[i];
+      if (el.querySelector('.gpo-form__group')) continue; // grupo contenedor, no un bloque
+      var labelEl = el.querySelector('.label-content');
+      if (!labelEl) continue;
+      var label = labelEl.textContent.replace(/[^a-z0-9 ]/gi, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+      var order = FIRST.indexOf(label) > -1 ? '-1' : (LAST.indexOf(label) > -1 ? '1' : '');
+      if (order && el.style.order !== order) el.style.order = order;
+    }
+  }
+
+  var pending = false;
+  function schedule() {
+    if (pending) return;
+    pending = true;
+    window.requestAnimationFrame(function () { pending = false; sortBlocks(); });
+  }
+
+  document.addEventListener('DOMContentLoaded', schedule);
+  new MutationObserver(schedule).observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>
