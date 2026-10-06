@@ -806,5 +806,6 @@
     </script>
     <script src="{{ 'widget.js' | asset_url }}" defer></script>
     {% render 'blog-subscribe-popup' %}
+    {% if template.name == 'product' %}{% render 'globo-option-order' %}{% endif %}
   </body>
 </html>
