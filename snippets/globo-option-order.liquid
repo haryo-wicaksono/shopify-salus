@@ -1,13 +1,20 @@
 {%- comment -%}
-  ORDEN DE OPCIONES DE GLOBO (6-oct-2026, pedido de Eva y Brandon)
-  1. Freebies primero.  2. Upgrades en su orden actual.  3. Add-ons al final.
-  Ordena cada bloque por su titulo visible, en todos los option sets a la vez.
-  Para mandar otro bloque al final, agregar su titulo en minusculas a LAST.
+  OPCIONES DE GLOBO: ORDEN Y NOMBRES (6-oct-2026, pedido de Eva y Brandon)
+  1. "Freebies" se muestra como "Included with your Order" y va primero.
+  2. "Heater Size" se muestra como "Heater Upgrades". Los upgrades quedan en su orden.
+  3. Los add-ons van al final.
+  Aplica a todos los option sets a la vez, buscando cada bloque por su titulo visible.
+  - Para renombrar otro bloque: agregarlo a RENAME ('titulo actual en minusculas': 'Titulo nuevo').
+  - Para mandar otro bloque al final: agregar su titulo en minusculas a LAST.
   Para quitarlo: borrar el render en layout/theme.liquid y este snippet.
 {%- endcomment -%}
 <script>
 (function () {
-  var FIRST = ['freebies'];
+  var RENAME = {
+    'freebies': 'Included with your Order',
+    'heater size': 'Heater Upgrades'
+  };
+  var FIRST = ['freebies', 'included with your order'];
   var LAST = [
     'add ons', 'accessories', 'waterproof boxes',
     'safety railing', 'huum hive safety rail', 'huum steel safety rail',
@@ -16,15 +23,24 @@
     'floor kit', 'floor base'
   ];
 
-  function sortBlocks() {
+  function norm(text) {
+    return text.replace(/[^a-z0-9 ]/gi, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+  }
+
+  function updateBlocks() {
     var blocks = document.querySelectorAll('.gpo-form__group');
     for (var i = 0; i < blocks.length; i++) {
       var el = blocks[i];
       if (el.querySelector('.gpo-form__group')) continue; // grupo contenedor, no un bloque
       var labelEl = el.querySelector('.label-content');
       if (!labelEl) continue;
-      var label = labelEl.textContent.replace(/[^a-z0-9 ]/gi, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
-      var order = FIRST.indexOf(label) > -1 ? '-1' : (LAST.indexOf(label) > -1 ? '1' : '');
+      var label = norm(labelEl.textContent);
+      if (RENAME[label]) {
+        labelEl.textContent = RENAME[label];
+        label = norm(RENAME[label]);
+      }
+      var order = (el.classList.contains('freebies') || FIRST.indexOf(label) > -1) ? '-1'
+        : (LAST.indexOf(label) > -1 ? '1' : '');
       if (order && el.style.order !== order) el.style.order = order;
     }
   }
@@ -33,7 +49,7 @@
   function schedule() {
     if (pending) return;
     pending = true;
-    window.requestAnimationFrame(function () { pending = false; sortBlocks(); });
+    window.requestAnimationFrame(function () { pending = false; updateBlocks(); });
   }
 
   document.addEventListener('DOMContentLoaded', schedule);
