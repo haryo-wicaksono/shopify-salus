@@ -3,9 +3,11 @@
   1. "Freebies" se muestra como "Included with your Order" y va primero.
   2. "Heater Size" se muestra como "Heater Upgrades". Los upgrades quedan en su orden.
   3. Los add-ons van al final.
+  4. Dentro de los add-ons, el Bluetooth Sauna Speaker va primero.
   Aplica a todos los option sets a la vez, buscando cada bloque por su titulo visible.
   - Para renombrar otro bloque: agregarlo a RENAME ('titulo actual en minusculas': 'Titulo nuevo').
   - Para mandar otro bloque al final: agregar su titulo en minusculas a LAST.
+  - Para subir otro producto al inicio de los add-ons: agregar una palabra de su nombre a PIN_FIRST.
   Para quitarlo: borrar el render en layout/theme.liquid y este snippet.
 {%- endcomment -%}
 <script>
@@ -22,9 +24,23 @@
     'heat shield', 'heater base', 'select rain barrel jackets color',
     'floor kit', 'floor base'
   ];
+  var PIN_FIRST = ['bluetooth'];
 
   function norm(text) {
     return text.replace(/[^a-z0-9 ]/gi, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+  }
+
+  function pinProducts(block) {
+    var items = block.querySelectorAll('.gpo-ov-wrapper > *');
+    for (var j = 0; j < items.length; j++) {
+      var name = norm(items[j].textContent);
+      for (var k = 0; k < PIN_FIRST.length; k++) {
+        if (name.indexOf(PIN_FIRST[k]) > -1) {
+          if (items[j].style.order !== '-1') items[j].style.order = '-1';
+          break;
+        }
+      }
+    }
   }
 
   function updateBlocks() {
@@ -39,9 +55,11 @@
         labelEl.textContent = RENAME[label];
         label = norm(RENAME[label]);
       }
+      var isAddOn = LAST.indexOf(label) > -1;
       var order = (el.classList.contains('freebies') || FIRST.indexOf(label) > -1) ? '-1'
-        : (LAST.indexOf(label) > -1 ? '1' : '');
+        : (isAddOn ? '1' : '');
       if (order && el.style.order !== order) el.style.order = order;
+      if (isAddOn) pinProducts(el);
     }
   }
 
