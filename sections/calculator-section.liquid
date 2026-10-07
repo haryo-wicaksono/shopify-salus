@@ -37,7 +37,7 @@
   {% endpaginate %}
 {% endcomment %}
 
-{% capture 'allMetaFields' %}
+{% capture allMetaFields %}
     {
       {% for collection in collections %}
         {% paginate collection.products by 250 %}
@@ -487,3 +487,13 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% capture 'allMetaFields' %}"
+  to: "{% capture allMetaFields %}"
+  position: 806..833
+{% endcomment %}
