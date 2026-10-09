@@ -279,3 +279,61 @@
     </ul>
   </nav>
 {%- endif -%}
+
+
+{%- comment -%}
+  MENU DE ESCRITORIO: ABRIR AL PASAR EL MOUSE (9-oct-2026, pedido de Brandon)
+  - Pasar el mouse por un item con mega menu (Saunas, Plunges...) lo abre; al salir se cierra.
+  - Clic en un item que tiene "Link" en el editor del tema navega a ese link (ej. Saunas -> guia).
+    Si el item no tiene Link, el clic sigue abriendo/cerrando el menu como antes.
+  - Solo en pantallas > 1024px con mouse. En tablets tactiles y celular todo sigue igual.
+  Se apoya en el JS del tema (assets/main.js): para abrir/cerrar le manda un clic al link.
+  Para quitarlo: borrar este bloque del final de snippets/desktop-gemini-nav.liquid.
+{%- endcomment -%}
+<script>
+(function () {
+  if (window.__sgNavHover) return;
+  window.__sgNavHover = true;
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  var opening = false;
+  var timer = null;
+
+  function isDesktop() { return window.innerWidth > 1024 && canHover.matches; }
+
+  function toggle(item) {
+    var link = item.querySelector('.desktop-gemini-menu__link');
+    if (!link) return;
+    opening = true;
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    opening = false;
+  }
+
+  // Clic real en un item con Link: dejar que navegue (el tema lo cancelaba para abrir el menu)
+  document.addEventListener('click', function (e) {
+    if (opening || !isDesktop()) return;
+    var link = e.target.closest('.desktop-gemini-menu__link');
+    var href = link && link.getAttribute('href');
+    if (href && href !== '#') e.stopPropagation();
+  }, true);
+
+  // Abrir al pasar el mouse
+  document.addEventListener('mouseover', function (e) {
+    if (!isDesktop()) return;
+    var item = e.target.closest('.desktop-gemini-menu__item');
+    if (!item || !item.querySelector('.desktop-gemini-mega-menu')) return;
+    clearTimeout(timer);
+    if (!item.classList.contains('is-open')) toggle(item);
+  });
+
+  // Cerrar al salir del item y de su mega menu
+  document.addEventListener('mouseout', function (e) {
+    if (!isDesktop()) return;
+    var item = e.target.closest('.desktop-gemini-menu__item.is-open');
+    if (!item || item.contains(e.relatedTarget)) return;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      if (item.classList.contains('is-open') && !item.matches(':hover')) toggle(item);
+    }, 250);
+  });
+})();
+</script>
