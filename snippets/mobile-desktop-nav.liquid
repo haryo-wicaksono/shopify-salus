@@ -144,6 +144,13 @@
             <span>{{- nav_label -}}</span>
           </button>
 
+          {%- comment -%} Link a la pagina pilar (9-oct-2026): sale si el item tiene "Link" en el editor del tema {%- endcomment -%}
+          {%- if nav_block.settings.url != blank -%}
+            <a href="{{ nav_block.settings.url }}" class="m-link">
+              <span>{{- nav_label }} Buyer's Guide</span>
+            </a>
+          {%- endif -%}
+
           {%- if collapse_cards_group -%}
             {%- if collapsed_panel_block != blank -%}
               <div class="m-grid">
