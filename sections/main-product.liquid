@@ -1021,7 +1021,7 @@ Thank you!
 
                     {% assign product_accordions = product.metafields.product_accordions %}
 
-                    {%- assign accordion_order = 'Assembly|Electrical Requirements|Shipping|Important Notes|Specifications|Customization|Warranty' | split: '|' -%}
+                    {%- assign accordion_order = 'Assembly|Electrical Requirements|Shipping|Important Notes|Specifications|Customization|Warranty|Features|High-Performance Recovery|Advanced Hygiene & Technology|Plug & Play Simplicity|Included|Technical Specifications|Support' | split: '|' -%}
 {%- assign accordion_keys = '' -%}
 {%- for k in accordion_order -%}
   {%- if product_accordions[k] != blank -%}{%- assign accordion_keys = accordion_keys | append: k | append: '|' -%}{%- endif -%}
@@ -1211,7 +1211,7 @@ Thank you!
             {% when 'product_accordions' %}
               {% assign product_accordions = product.metafields.product_accordions %}
 
-              {%- assign accordion_order = 'Assembly|Electrical Requirements|Shipping|Important Notes|Specifications|Customization|Warranty' | split: '|' -%}
+              {%- assign accordion_order = 'Assembly|Electrical Requirements|Shipping|Important Notes|Specifications|Customization|Warranty|Features|High-Performance Recovery|Advanced Hygiene & Technology|Plug & Play Simplicity|Included|Technical Specifications|Support' | split: '|' -%}
 {%- assign accordion_keys = '' -%}
 {%- for k in accordion_order -%}
   {%- if product_accordions[k] != blank -%}{%- assign accordion_keys = accordion_keys | append: k | append: '|' -%}{%- endif -%}
