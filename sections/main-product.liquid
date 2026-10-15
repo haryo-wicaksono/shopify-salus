@@ -1021,36 +1021,47 @@ Thank you!
 
                     {% assign product_accordions = product.metafields.product_accordions %}
 
-                    {% if product_accordions.size > 0 %}
-                      {% for accordion in product_accordions %}
-                        <details-disclosure {{ block.shopify_attributes }}>
-                          <details
-                            class="disclosure disclosure--row"
-                            id="product-accordion"
-                          >
-                            <summary>
-                              <div class="flex justify-between items-center">
-                                <h2 class="disclosure__title product-info__disclosure font-body font-bold text-body flex flex-auto items-center mb-0">
-                                  {{- accordion | first -}}
-                                </h2>
-                                <span class="disclosure__toggle">
-                                  {%- if settings.disclosure_toggle == 'plus' -%}
-                                    {% render 'icon-plus' %}
-                                  {%- else -%}
-                                    {% render 'icon-chevron-down' %}
-                                  {%- endif -%}
-                                </span>
-                              </div>
-                            </summary>
-                            <div class="disclosure__panel has-motion">
-                              <div class="disclosure__content rte">
-                                {{ accordion | last }}
-                              </div>
-                            </div>
-                          </details>
-                        </details-disclosure>
-                      {% endfor %}
-                    {% endif %}
+                    {%- assign accordion_order = 'Assembly|Electrical Requirements|Shipping|Important Notes|Specifications|Customization|Warranty' | split: '|' -%}
+{%- assign accordion_keys = '' -%}
+{%- for k in accordion_order -%}
+  {%- if product_accordions[k] != blank -%}{%- assign accordion_keys = accordion_keys | append: k | append: '|' -%}{%- endif -%}
+{%- endfor -%}
+{%- for a in product_accordions -%}
+  {%- assign k = a | first -%}
+  {%- unless accordion_order contains k -%}{%- assign accordion_keys = accordion_keys | append: k | append: '|' -%}{%- endunless -%}
+{%- endfor -%}
+{%- assign accordion_keys = accordion_keys | split: '|' -%}
+
+{% if accordion_keys.size > 0 %}
+  {% for accordion_key in accordion_keys %}
+    <details-disclosure {{ block.shopify_attributes }}>
+      <details
+        class="disclosure disclosure--row"
+        id="product-accordion"
+      >
+        <summary>
+          <div class="flex justify-between items-center">
+            <h2 class="disclosure__title product-info__disclosure font-body font-bold text-body flex flex-auto items-center mb-0">
+              {{- accordion_key -}}
+            </h2>
+            <span class="disclosure__toggle">
+              {%- if settings.disclosure_toggle == 'plus' -%}
+                {% render 'icon-plus' %}
+              {%- else -%}
+                {% render 'icon-chevron-down' %}
+              {%- endif -%}
+            </span>
+          </div>
+        </summary>
+        <div class="disclosure__panel has-motion">
+          <div class="disclosure__content rte">
+            {{ product_accordions[accordion_key] }}
+          </div>
+        </div>
+      </details>
+    </details-disclosure>
+  {% endfor %}
+{% endif %}
 
                     {% if block.settings.show_msg_box and template.name == 'product' %}
                       {% render 'message-box', block: block %}
@@ -1200,35 +1211,46 @@ Thank you!
             {% when 'product_accordions' %}
               {% assign product_accordions = product.metafields.product_accordions %}
 
-              {% if product_accordions.size > 0 %}
-                {% for accordion in product_accordions %}
-                  <details-disclosure {{ block.shopify_attributes }}>
-                    <details
-                      class="disclosure disclosure--row"
-                    >
-                      <summary>
-                        <div class="flex justify-between items-center">
-                          <h2 class="disclosure__title product-info__disclosure font-body font-bold text-body flex flex-auto items-center mb-0">
-                            {{- accordion | first -}}
-                          </h2>
-                          <span class="disclosure__toggle">
-                            {%- if settings.disclosure_toggle == 'plus' -%}
-                              {% render 'icon-plus' %}
-                            {%- else -%}
-                              {% render 'icon-chevron-down' %}
-                            {%- endif -%}
-                          </span>
-                        </div>
-                      </summary>
-                      <div class="disclosure__panel has-motion">
-                        <div class="disclosure__content rte">
-                          {{ accordion | last }}
-                        </div>
-                      </div>
-                    </details>
-                  </details-disclosure>
-                {% endfor %}
-              {% endif %}
+              {%- assign accordion_order = 'Assembly|Electrical Requirements|Shipping|Important Notes|Specifications|Customization|Warranty' | split: '|' -%}
+{%- assign accordion_keys = '' -%}
+{%- for k in accordion_order -%}
+  {%- if product_accordions[k] != blank -%}{%- assign accordion_keys = accordion_keys | append: k | append: '|' -%}{%- endif -%}
+{%- endfor -%}
+{%- for a in product_accordions -%}
+  {%- assign k = a | first -%}
+  {%- unless accordion_order contains k -%}{%- assign accordion_keys = accordion_keys | append: k | append: '|' -%}{%- endunless -%}
+{%- endfor -%}
+{%- assign accordion_keys = accordion_keys | split: '|' -%}
+
+{% if accordion_keys.size > 0 %}
+  {% for accordion_key in accordion_keys %}
+    <details-disclosure {{ block.shopify_attributes }}>
+      <details
+        class="disclosure disclosure--row"
+      >
+        <summary>
+          <div class="flex justify-between items-center">
+            <h2 class="disclosure__title product-info__disclosure font-body font-bold text-body flex flex-auto items-center mb-0">
+              {{- accordion_key -}}
+            </h2>
+            <span class="disclosure__toggle">
+              {%- if settings.disclosure_toggle == 'plus' -%}
+                {% render 'icon-plus' %}
+              {%- else -%}
+                {% render 'icon-chevron-down' %}
+              {%- endif -%}
+            </span>
+          </div>
+        </summary>
+        <div class="disclosure__panel has-motion">
+          <div class="disclosure__content rte">
+            {{ product_accordions[accordion_key] }}
+          </div>
+        </div>
+      </details>
+    </details-disclosure>
+  {% endfor %}
+{% endif %}
             {%- when 'features' -%}
               {% assign feature_icons = product.metafields.feature_icons %}
               {% assign feature_headings = product.metafields.feature_headings %}
