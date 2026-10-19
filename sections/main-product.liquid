@@ -1034,7 +1034,7 @@ Thank you!
 
 {% if accordion_keys.size > 0 %}
   {% for accordion_key in accordion_keys %}
-    <details-disclosure {{ block.shopify_attributes }}>
+    <details-disclosure id="accordion-{{ accordion_key | handleize }}" {{ block.shopify_attributes }}>
       <details
         class="disclosure disclosure--row"
         id="product-accordion"
@@ -1224,7 +1224,7 @@ Thank you!
 
 {% if accordion_keys.size > 0 %}
   {% for accordion_key in accordion_keys %}
-    <details-disclosure {{ block.shopify_attributes }}>
+    <details-disclosure id="accordion-{{ accordion_key | handleize }}" {{ block.shopify_attributes }}>
       <details
         class="disclosure disclosure--row"
       >
@@ -2231,6 +2231,35 @@ Thank you!
     });
   </script>
 {%- endif -%}
+
+<style>
+  /* Links a un acordeon (#accordion-important-notes, etc.): deja espacio para el header fijo */
+  [id^="accordion-"] { scroll-margin-top: 140px; }
+</style>
+<script>
+  // Link a un acordeon desde el brief (ej. "Important Notes"): lo abre y baja hasta el.
+  (function () {
+    function openAccordion(id) {
+      var el = document.getElementById(id);
+      if (!el) return false;
+      var details = el.querySelector('details');
+      if (details && !details.open) {
+        var summary = details.querySelector('summary');
+        if (summary) { summary.click(); } else { details.open = true; }
+      }
+      setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+      return true;
+    }
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href^="#accordion-"]');
+      if (!link) return;
+      if (openAccordion(link.getAttribute('href').slice(1))) e.preventDefault();
+    });
+    if (location.hash.indexOf('#accordion-') === 0) {
+      document.addEventListener('DOMContentLoaded', function () { openAccordion(location.hash.slice(1)); });
+    }
+  })();
+</script>
 
 {% render 'modify-globo-tooltip' %}
 {% render 'popup-preorder' %}
