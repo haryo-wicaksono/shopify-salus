@@ -269,7 +269,9 @@ if (!customElements.get('predictive-search')) {
     }
 
     /**
-     * Sorts predictive search product results by price (descending).
+     * Sorts predictive search product results: best title match first, then price (descending).
+     * Match ranking: title starts with the query > title contains the full query >
+     * title contains every word > fewer missing words. Price only breaks ties.
      * @param {string} resultsMarkup - Results markup.
      * @returns {string|DocumentFragment}
      */
@@ -294,13 +296,30 @@ if (!customElements.get('predictive-search')) {
       if (items.length < 2) return resultsMarkup;
       if (items.some((item) => !item.dataset.price)) return resultsMarkup;
 
+      const query = this.getQuery().toLowerCase().replace(/\s+/g, ' ').trim();
+      const words = query.split(' ').filter(Boolean);
+
+      const relevance = (item) => {
+        const titleEl = item.querySelector('.predictive-result__title');
+        const title = (titleEl ? titleEl.textContent : item.textContent)
+          .toLowerCase()
+          .replace(/\s+/g, ' ')
+          .trim();
+        if (!words.length) return 0;
+        if (title.startsWith(query)) return 0;
+        if (title.includes(query)) return 1;
+        const missing = words.filter((word) => !title.includes(word)).length;
+        return missing === 0 ? 2 : 2 + missing;
+      };
+
       const sorted = items
         .map((item, index) => ({
           item,
           index,
+          rank: relevance(item),
           price: Number(item.dataset.price) || 0
         }))
-        .sort((a, b) => (b.price - a.price) || (a.index - b.index));
+        .sort((a, b) => (a.rank - b.rank) || (b.price - a.price) || (a.index - b.index));
 
       const viewAll = list.querySelector('.js-submit');
       sorted.forEach(({ item }) => list.appendChild(item));
