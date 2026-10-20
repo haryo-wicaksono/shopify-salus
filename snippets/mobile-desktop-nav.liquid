@@ -2,6 +2,11 @@
   assign slot_range = '1|2|3|4|5|6|7|8|9|10' | split: '|'
 -%}
 
+<style>
+  .m-inline-group { padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, 0.1); margin-bottom: 4px; }
+  .m-inline-group__label { margin: 16px 0 12px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8; }
+</style>
+
 <div class="mobile-pane-stack md:hidden" data-mobile-pane-stack>
   <div class="mobile-pane mobile-pane--root is-active" data-mobile-pane="m-root">
     {%- for nav_block in section.blocks -%}
@@ -151,6 +156,7 @@
               </div>
             {%- endif -%}
           {%- else -%}
+            {%- assign first_group_rendered = false -%}
             {%- for group_block in section.blocks -%}
               {%- if group_block.type == 'desktop_nav_group' -%}
                 {%- liquid
@@ -169,12 +175,49 @@
                     assign group_key_source = group_block.id
                   endif
                   assign group_key_slug = group_key_source | downcase | replace: ' ', '-'
+
+                  # Primer grupo abierto (20-oct-2026): si el primer grupo del item es de tarjetas
+                  # (ej. Saunas > Collections), sus tarjetas se muestran directo, sin otro click.
+                  assign inline_panel_block = blank
+                  if first_group_rendered == false and group_block.settings.group_type == 'cards'
+                    for panel_block in section.blocks
+                      if panel_block.type != 'desktop_nav_panel'
+                        continue
+                      endif
+
+                      assign panel_nav_key_source = panel_block.settings.parent_nav_key | strip
+                      if panel_nav_key_source == blank
+                        assign panel_nav_key_source = panel_block.id
+                      endif
+                      assign panel_nav_key_slug = panel_nav_key_source | downcase | replace: ' ', '-'
+                      assign panel_group_key_source = panel_block.settings.parent_group_key | strip
+                      if panel_group_key_source == blank
+                        assign panel_group_key_source = panel_block.id
+                      endif
+                      assign panel_group_key_slug = panel_group_key_source | downcase | replace: ' ', '-'
+
+                      if panel_nav_key_slug == nav_key_slug and panel_group_key_slug == group_key_slug and panel_block.settings.nested_item_slot == 'none'
+                        assign inline_panel_block = panel_block
+                        break
+                      endif
+                    endfor
+                  endif
+                  assign first_group_rendered = true
                 -%}
 
-                <a href="{{ nav_url }}" class="m-link m-fwd" data-mobile-fwd="m-group--{{ nav_key_slug }}--{{ group_key_slug }}" {{ group_block.shopify_attributes }}>
-                  <span>{{- group_label -}}</span>
-                  {% render 'icon-chevron-right' %}
-                </a>
+                {%- if inline_panel_block != blank -%}
+                  <div class="m-inline-group" {{ group_block.shopify_attributes }}>
+                    <p class="m-inline-group__label">{{- group_label -}}</p>
+                    <div class="m-grid">
+                      {% render 'desktop-gemini-card-grid', panel_block: inline_panel_block %}
+                    </div>
+                  </div>
+                {%- else -%}
+                  <a href="{{ nav_url }}" class="m-link m-fwd" data-mobile-fwd="m-group--{{ nav_key_slug }}--{{ group_key_slug }}" {{ group_block.shopify_attributes }}>
+                    <span>{{- group_label -}}</span>
+                    {% render 'icon-chevron-right' %}
+                  </a>
+                {%- endif -%}
               {%- endif -%}
             {%- endfor -%}
           {%- endif -%}
