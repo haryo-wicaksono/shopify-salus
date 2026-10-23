@@ -1,8 +1,9 @@
 {%- comment -%}
   Salus Customs landing page.
-  Sections: hero, starting points, process, gallery (infinite carousel + lightbox), inquiry form.
+  Sections: hero, starting points, process, gallery (two-way carousel + lightbox), inquiry form.
   The form posts to the n8n webhook set in "Form webhook URL" ([Customs] Inquiry Intake),
   which saves the inquiry in Airtable and emails sales@ or brandon@ depending on "I'm interested in".
+  Gallery deep links: #gallery scrolls to the gallery, #gallery-3 opens the lightbox on photo 3.
 {%- endcomment -%}
 
 {%- assign sid = section.id -%}
@@ -55,27 +56,47 @@
   #cp-{{ sid }} .cp-band p { font-size: 17px; line-height: 1.5; }
   #cp-{{ sid }} .cp-band a { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; background: #fff; color: var(--cp-ink); border-radius: 28px; font-size: 14px; font-weight: 500; white-space: nowrap; text-decoration: none; }
 
-  /* Gallery carousel */
-  #cp-{{ sid }} .cp-viewport { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 56px, #000 calc(100% - 56px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 56px, #000 calc(100% - 56px), transparent 100%); }
-  #cp-{{ sid }} .cp-track { display: flex; gap: 16px; width: max-content; padding-right: 16px; animation: cp-scroll-{{ sid }} {{ section.settings.gallery_speed }}s linear infinite; }
-  #cp-{{ sid }} .cp-viewport:hover .cp-track, #cp-{{ sid }} .cp-viewport:focus-within .cp-track { animation-play-state: paused; }
-  @keyframes cp-scroll-{{ sid }} { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  /* Gallery carousel: native horizontal scroll (swipe, trackpad), mouse drag and arrows; the script auto-scrolls it */
+  #cp-{{ sid }} .cp-head > .cp-gallery-tools { flex-direction: row; align-items: center; gap: 28px; }
+  #cp-{{ sid }} .cp-arrows { display: flex; gap: 10px; flex: 0 0 auto; }
+  #cp-{{ sid }} .cp-arrow { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; border: 1px solid var(--cp-line); border-radius: 50%; background: #fff; color: var(--cp-ink); cursor: pointer; transition: border-color .2s; }
+  #cp-{{ sid }} .cp-arrow:hover { border-color: var(--cp-ink); }
+  #cp-{{ sid }} .cp-arrow:focus-visible { outline: 2px solid var(--cp-accent); outline-offset: 3px; }
+  #cp-{{ sid }} .cp-viewport { position: relative; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; scroll-padding-inline: 56px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 56px, #000 calc(100% - 56px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 56px, #000 calc(100% - 56px), transparent 100%); }
+  #cp-{{ sid }} .cp-viewport::-webkit-scrollbar { display: none; }
+  #cp-{{ sid }} .cp-viewport.is-dragging, #cp-{{ sid }} .cp-viewport.is-dragging .cp-tile { cursor: grabbing; }
+  #cp-{{ sid }} .cp-track { display: flex; gap: 16px; width: max-content; padding-right: 16px; }
   #cp-{{ sid }} .cp-tile { flex: 0 0 auto; width: 330px; height: 440px; padding: 0; border: 0; border-radius: 12px; overflow: hidden; cursor: zoom-in; background: var(--cp-sand); }
   #cp-{{ sid }} .cp-tile--wide { width: 660px; }
-  #cp-{{ sid }} .cp-tile img { transition: transform .35s ease; }
+  #cp-{{ sid }} .cp-tile:focus-visible { outline: 3px solid var(--cp-accent); outline-offset: -3px; }
+  #cp-{{ sid }} .cp-tile img { transition: transform .35s ease; -webkit-user-drag: none; user-select: none; }
   #cp-{{ sid }} .cp-tile:hover img { transform: scale(1.03); }
-  @media (prefers-reduced-motion: reduce) {
-    #cp-{{ sid }} .cp-track { animation: none; }
-    #cp-{{ sid }} .cp-viewport { overflow-x: auto; }
-  }
-  #cp-{{ sid }} .cp-lightbox { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh; }
-  #cp-{{ sid }} .cp-lightbox::backdrop { background: rgba(20,19,18,.9); }
-  #cp-{{ sid }} .cp-lightbox__inner { display: flex; align-items: center; gap: 28px; }
-  #cp-{{ sid }} .cp-lightbox figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
-  #cp-{{ sid }} .cp-lightbox figure img { width: auto; height: auto; max-width: min(1040px, 80vw); max-height: 75vh; border-radius: 8px; object-fit: contain; }
-  #cp-{{ sid }} .cp-lightbox figcaption { font-size: 13px; color: #D3D3D2; }
-  #cp-{{ sid }} .cp-round { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border: 0; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; }
-  #cp-{{ sid }} .cp-round--close { position: fixed; top: 28px; right: 36px; width: 44px; height: 44px; }
+
+  /* Lightbox: full-screen gallery with counter, arrows, swipe and thumbnails */
+  html.cp-lb-open { overflow: hidden; }
+  #cp-{{ sid }} .cp-lightbox { width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; border: 0; padding: 0; background: rgba(20,19,18,.94); color: #fff; overflow: hidden; }
+  #cp-{{ sid }} .cp-lightbox[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+  #cp-{{ sid }} .cp-lightbox::backdrop { background: rgba(20,19,18,.94); }
+  #cp-{{ sid }} .cp-lb-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px 28px; }
+  #cp-{{ sid }} .cp-lb-count { font-size: 14px; letter-spacing: .08em; color: #D3D3D2; font-variant-numeric: tabular-nums; }
+  #cp-{{ sid }} .cp-lb-stage { position: relative; display: flex; align-items: center; justify-content: center; min-height: 0; padding: 0 104px; touch-action: pan-y; user-select: none; }
+  #cp-{{ sid }} .cp-lightbox figure { display: grid; grid-template-rows: minmax(0, 1fr) auto; justify-items: center; align-items: center; gap: 14px; width: 100%; height: 100%; margin: 0; }
+  #cp-{{ sid }} .cp-lightbox figure img { width: auto; height: auto; max-width: 100%; max-height: 100%; border-radius: 8px; object-fit: contain; transition: opacity .25s; -webkit-user-drag: none; }
+  #cp-{{ sid }} .cp-lightbox figure img.is-loading { opacity: 0; }
+  #cp-{{ sid }} .cp-lightbox figcaption { font-size: 14px; line-height: 1.5; color: #D3D3D2; text-align: center; }
+  #cp-{{ sid }} .cp-round { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; transition: background .2s; }
+  #cp-{{ sid }} .cp-round:hover { background: rgba(255,255,255,.22); }
+  #cp-{{ sid }} .cp-round:focus-visible, #cp-{{ sid }} .cp-lb-thumb:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  #cp-{{ sid }} .cp-round--close { width: 44px; height: 44px; }
+  #cp-{{ sid }} .cp-lb-prev, #cp-{{ sid }} .cp-lb-next { position: absolute; top: 50%; transform: translateY(-50%); z-index: 1; }
+  #cp-{{ sid }} .cp-lb-prev { left: 28px; }
+  #cp-{{ sid }} .cp-lb-next { right: 28px; }
+  #cp-{{ sid }} .cp-lb-thumbs { position: relative; overflow-x: auto; scrollbar-width: none; padding: 18px 28px 24px; }
+  #cp-{{ sid }} .cp-lb-thumbs::-webkit-scrollbar { display: none; }
+  #cp-{{ sid }} .cp-lb-thumbs__row { display: flex; gap: 8px; width: max-content; margin: 0 auto; }
+  #cp-{{ sid }} .cp-lb-thumb { flex: 0 0 auto; width: 68px; height: 68px; padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; background: #3A3938; opacity: .5; cursor: pointer; transition: opacity .2s, border-color .2s; }
+  #cp-{{ sid }} .cp-lb-thumb:hover { opacity: .85; }
+  #cp-{{ sid }} .cp-lb-thumb[aria-current="true"] { opacity: 1; border-color: #fff; }
 
   /* Inquiry */
   #cp-{{ sid }} .cp-inquiry { background: var(--cp-cream); scroll-margin-top: 90px; }
@@ -139,13 +160,20 @@
     #cp-{{ sid }} .cp-band { flex-direction: column; align-items: stretch; padding: 22px; gap: 16px; }
     #cp-{{ sid }} .cp-band p { font-size: 15px; }
     #cp-{{ sid }} .cp-band a { justify-content: center; }
+    #cp-{{ sid }} .cp-head > .cp-gallery-tools { align-self: stretch; justify-content: space-between; gap: 16px; }
+    #cp-{{ sid }} .cp-arrow { width: 40px; height: 40px; }
     #cp-{{ sid }} .cp-tile { width: 160px; height: 213px; border-radius: 10px; }
     #cp-{{ sid }} .cp-tile--wide { width: 320px; }
     #cp-{{ sid }} .cp-track { gap: 10px; padding-right: 10px; }
-    #cp-{{ sid }} .cp-viewport { -webkit-mask-image: none; mask-image: none; }
-    #cp-{{ sid }} .cp-lightbox__inner { gap: 8px; }
-    #cp-{{ sid }} .cp-lightbox figure img { max-width: 78vw; }
-    #cp-{{ sid }} .cp-round { width: 40px; height: 40px; }
+    #cp-{{ sid }} .cp-viewport { scroll-padding-inline: 20px; -webkit-mask-image: none; mask-image: none; }
+    #cp-{{ sid }} .cp-lb-bar { padding: 14px 16px; }
+    #cp-{{ sid }} .cp-lb-stage { padding: 0 12px; }
+    #cp-{{ sid }} .cp-lb-prev { left: 16px; }
+    #cp-{{ sid }} .cp-lb-next { right: 16px; }
+    #cp-{{ sid }} .cp-lb-prev, #cp-{{ sid }} .cp-lb-next { width: 40px; height: 40px; background: rgba(20,19,18,.45); }
+    #cp-{{ sid }} .cp-lightbox figcaption { padding: 0 16px; font-size: 13px; }
+    #cp-{{ sid }} .cp-lb-thumbs { padding: 14px 16px 20px; }
+    #cp-{{ sid }} .cp-lb-thumb { width: 54px; height: 54px; }
     #cp-{{ sid }} .cp-inquiry__grid { grid-template-columns: 1fr; gap: 24px; }
     #cp-{{ sid }} .cp-inquiry__intro h2 { font-size: 30px; }
     #cp-{{ sid }} .cp-inquiry__intro p { font-size: 15px; }
@@ -257,6 +285,8 @@
 
   {%- comment -%} Gallery {%- endcomment -%}
   {%- assign photos = section.blocks | where: 'type', 'photo' -%}
+  {%- assign photo_count = 0 -%}
+  {%- for block in photos -%}{%- if block.settings.image != blank -%}{%- assign photo_count = photo_count | plus: 1 -%}{%- endif -%}{%- endfor -%}
   <div class="cp-section" id="cp-gallery-{{ sid }}">
     <div class="cp-wrap">
       <div class="cp-head">
@@ -264,43 +294,79 @@
           <span class="cp-eyebrow">{{ section.settings.gallery_eyebrow | escape }}</span>
           <h2 class="cp-h2">{{ section.settings.gallery_heading | escape }}</h2>
         </div>
-        <p>Click any photo to see it larger.</p>
+        <div class="cp-gallery-tools">
+          <p>Click any photo to see it larger.</p>
+          {%- if photo_count > 1 -%}
+            <div class="cp-arrows">
+              <button type="button" class="cp-arrow" data-cp-back aria-controls="cp-viewport-{{ sid }}" aria-label="Scroll gallery left"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+              <button type="button" class="cp-arrow" data-cp-fwd aria-controls="cp-viewport-{{ sid }}" aria-label="Scroll gallery right"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+            </div>
+          {%- endif -%}
+        </div>
       </div>
     </div>
-    {%- if photos.size > 0 -%}
-      <div class="cp-viewport">
+    {%- if photo_count > 0 -%}
+      {%- comment -%}
+        Three copies of the photos so the carousel can loop in both directions.
+        The middle copy is the real one; the other two are hidden from screen readers and the tab order.
+      {%- endcomment -%}
+      <div class="cp-viewport" id="cp-viewport-{{ sid }}" role="region" aria-roledescription="carousel" aria-label="{{ section.settings.gallery_heading | escape }} photos">
         <div class="cp-track">
-          {%- for pass in (1..2) -%}
+          {%- for pass in (1..3) -%}
+            {%- assign n = 0 -%}
             {%- for block in photos -%}
               {%- if block.settings.image != blank -%}
-                <button type="button" class="cp-tile{% if block.settings.wide %} cp-tile--wide{% endif %}" data-cp-open="{{ forloop.index0 }}"{% if pass == 2 %} aria-hidden="true" tabindex="-1"{% else %} aria-label="Open photo: {{ block.settings.caption | escape }}"{% endif %} {% if pass == 1 %}{{ block.shopify_attributes }}{% endif %}>
+                <button type="button" class="cp-tile{% if block.settings.wide %} cp-tile--wide{% endif %}" data-cp-open="{{ n }}"{% if pass != 2 %} aria-hidden="true" tabindex="-1"{% else %} aria-label="Open photo {{ n | plus: 1 }} of {{ photo_count }}: {{ block.settings.caption | escape }}" {{ block.shopify_attributes }}{% endif %}>
                   {%- if block.settings.wide -%}
-                    {{ block.settings.image | image_url: width: 1320 | image_tag: loading: 'lazy', sizes: '660px', widths: '660,1000,1320', alt: block.settings.caption }}
+                    {{ block.settings.image | image_url: width: 1320 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 660px, 320px', widths: '330,660,1000,1320', alt: block.settings.caption }}
                   {%- else -%}
-                    {{ block.settings.image | image_url: width: 660 | image_tag: loading: 'lazy', sizes: '330px', widths: '330,500,660', alt: block.settings.caption }}
+                    {{ block.settings.image | image_url: width: 660 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 330px, 160px', widths: '160,330,500,660', alt: block.settings.caption }}
                   {%- endif -%}
                 </button>
+                {%- assign n = n | plus: 1 -%}
               {%- endif -%}
             {%- endfor -%}
           {%- endfor -%}
         </div>
       </div>
-      <dialog class="cp-lightbox" aria-label="Photo gallery">
-        <div class="cp-lightbox__inner">
-          <button type="button" class="cp-round" data-cp-prev aria-label="Previous photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+      <dialog class="cp-lightbox" aria-label="{{ section.settings.gallery_heading | escape }} photo gallery">
+        <div class="cp-lb-bar">
+          <span class="cp-lb-count" data-cp-lb-count aria-live="polite"></span>
+          <button type="button" class="cp-round cp-round--close" data-cp-close aria-label="Close gallery"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg></button>
+        </div>
+        <div class="cp-lb-stage" data-cp-lb-stage>
+          {%- if photo_count > 1 -%}
+            <button type="button" class="cp-round cp-lb-prev" data-cp-prev aria-label="Previous photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+          {%- endif -%}
           <figure>
-            {%- comment -%} Empty on purpose: the script sets src/alt when a photo is opened. {%- endcomment -%}
+            {%- comment -%} Empty on purpose: the script sets src/srcset/alt when a photo is opened. {%- endcomment -%}
             {%- # theme-check-disable ImgWidthAndHeight, RemoteAsset -%}
-            <img src="" alt="" width="1600" height="1200" data-cp-lb-img>
+            <img src="" alt="" width="1600" height="1200" sizes="100vw" data-cp-lb-img>
             {%- # theme-check-enable ImgWidthAndHeight, RemoteAsset -%}
             <figcaption data-cp-lb-cap></figcaption>
           </figure>
-          <button type="button" class="cp-round" data-cp-next aria-label="Next photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+          {%- if photo_count > 1 -%}
+            <button type="button" class="cp-round cp-lb-next" data-cp-next aria-label="Next photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+          {%- endif -%}
         </div>
-        <button type="button" class="cp-round cp-round--close" data-cp-close aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg></button>
+        {%- if photo_count > 1 -%}
+          <div class="cp-lb-thumbs" data-cp-lb-thumbs>
+            <div class="cp-lb-thumbs__row">
+              {%- assign n = 0 -%}
+              {%- for block in photos -%}
+                {%- if block.settings.image != blank -%}
+                  <button type="button" class="cp-lb-thumb" data-cp-lb-go="{{ n }}" aria-label="Show photo {{ n | plus: 1 }}: {{ block.settings.caption | escape }}">
+                    {{ block.settings.image | image_url: width: 160 | image_tag: loading: 'lazy', sizes: '68px', widths: '80,160', alt: '' }}
+                  </button>
+                  {%- assign n = n | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
       </dialog>
       <script type="application/json" data-cp-photos>
-        [{%- for block in photos -%}{% unless forloop.first %},{% endunless %}{"src": {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 2000 | json }}{% else %}""{% endif %}, "cap": {{ block.settings.caption | json }}}{%- endfor -%}]
+        [{%- assign cp_first = true -%}{%- for block in photos -%}{%- if block.settings.image != blank -%}{%- assign im = block.settings.image -%}{%- unless cp_first -%},{%- endunless -%}{%- assign cp_first = false -%}{%- capture cp_srcset -%}{{ im | image_url: width: 800 }} 800w, {{ im | image_url: width: 1200 }} 1200w, {{ im | image_url: width: 1600 }} 1600w, {{ im | image_url: width: 2000 }} 2000w{%- endcapture -%}{"src": {{ im | image_url: width: 2000 | json }}, "srcset": {{ cp_srcset | json }}, "w": {{ im.width | json }}, "h": {{ im.height | json }}, "cap": {{ block.settings.caption | json }}}{%- endif -%}{%- endfor -%}]
       </script>
     {%- endif -%}
   </div>
@@ -388,32 +454,241 @@
     });
   });
 
-  // Lightbox
-  var dataEl = root.querySelector('[data-cp-photos]');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var dialog = root.querySelector('.cp-lightbox');
+
+  // Gallery carousel. It auto-scrolls; visitors can also drag (mouse), swipe or trackpad-scroll (native)
+  // or use the arrows, in both directions. The track holds three copies of the photos and the position
+  // is kept on the middle copy, so it loops either way without a visible jump.
+  // Auto-scroll pauses on hover, keyboard focus, drag or touch, and resumes after a short idle time.
+  var viewport = root.querySelector('.cp-viewport');
+  var track = viewport && viewport.querySelector('.cp-track');
+  if (viewport && track) {
+    var LOOP_SECONDS = {{ section.settings.gallery_speed | default: 80 }};
+    var RESUME_MS = 2500;
+    var setWidth = 0, speed = 0, pos = 0, last = 0, resumeAt = 0;
+    var hovering = false, holding = false, focused = false, visible = true;
+    var glide = null, drag = null, suppressClick = false, idleTimer = null;
+
+    var measure = function () {
+      var old = setWidth;
+      setWidth = track.scrollWidth / 3;
+      speed = setWidth / LOOP_SECONDS;
+      pos = old ? pos * (setWidth / old) : setWidth;
+    };
+    // Keep the position inside the middle copy; the jump is invisible because the copies are identical.
+    var wrap = function () {
+      if (!setWidth) return 0;
+      if (pos < setWidth * 0.5) { pos += setWidth; return setWidth; }
+      if (pos > setWidth * 1.5) { pos -= setWidth; return -setWidth; }
+      return 0;
+    };
+    var apply = function () { viewport.scrollLeft = pos; };
+    var pauseFor = function (ms) { resumeAt = Math.max(resumeAt, performance.now() + ms); };
+
+    var tick = function (now) {
+      var dt = last ? Math.min(now - last, 100) / 1000 : 0;
+      last = now;
+      if (glide) {
+        var t = glide.dur ? Math.min((now - glide.start) / glide.dur, 1) : 1;
+        pos = glide.from + glide.by * (1 - Math.pow(1 - t, 3));
+        if (t === 1) { glide = null; wrap(); }
+        apply();
+      } else if (!reduceMotion && !drag && !hovering && !holding && !focused && visible && !(dialog && dialog.open) && now >= resumeAt) {
+        pos += speed * dt;
+        wrap();
+        apply();
+      }
+      requestAnimationFrame(tick);
+    };
+
+    // Arrows move one photo at a time, lining it up with the left edge.
+    var step = function (dir) {
+      var target = glide ? glide.from + glide.by : pos;
+      var shift = wrap();
+      target += shift;
+      var inset = parseFloat(getComputedStyle(viewport).scrollPaddingLeft) || 0;
+      var tiles = track.children, next = null;
+      for (var i = 0; i < tiles.length; i++) {
+        var x = tiles[i].offsetLeft - inset;
+        if (dir > 0 && x > target + 4) { next = x; break; }
+        if (dir < 0 && x < target - 4) next = x;
+      }
+      if (next === null) return;
+      glide = { from: pos, by: next - pos, start: performance.now(), dur: reduceMotion ? 0 : 450 };
+      pauseFor(RESUME_MS + 450);
+    };
+    root.querySelector('[data-cp-back]') && root.querySelector('[data-cp-back]').addEventListener('click', function () { step(-1); });
+    root.querySelector('[data-cp-fwd]') && root.querySelector('[data-cp-fwd]').addEventListener('click', function () { step(1); });
+
+    // Native scrolling (touch swipe, trackpad, keyboard focus) pauses auto-scroll; re-center once it settles.
+    var settle = function () {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(function () {
+        if (holding) return;
+        pos = viewport.scrollLeft;
+        if (wrap()) apply();
+      }, 150);
+    };
+    viewport.addEventListener('scroll', function () {
+      if (Math.abs(viewport.scrollLeft - pos) < 2 || drag) return;
+      pos = viewport.scrollLeft;
+      glide = null;
+      pauseFor(RESUME_MS);
+      settle();
+    }, { passive: true });
+
+    // Mouse drag (touch uses native scrolling).
+    viewport.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      glide = null;
+      drag = { x: e.clientX, pos: pos, id: e.pointerId, moved: false };
+    });
+    viewport.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      var dx = e.clientX - drag.x;
+      if (!drag.moved) {
+        if (Math.abs(dx) < 6) return;
+        drag.moved = true;
+        viewport.setPointerCapture(drag.id);
+        viewport.classList.add('is-dragging');
+      }
+      pos = drag.pos - dx;
+      drag.pos += wrap();
+      apply();
+    });
+    var endDrag = function () {
+      if (!drag) return;
+      if (drag.moved) {
+        suppressClick = true;
+        setTimeout(function () { suppressClick = false; }, 0);
+        viewport.classList.remove('is-dragging');
+      }
+      drag = null;
+      pauseFor(RESUME_MS);
+    };
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+    viewport.addEventListener('click', function (e) {
+      if (suppressClick) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+    track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+    viewport.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hovering = true; });
+    viewport.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hovering = false; pauseFor(800); } });
+    viewport.addEventListener('touchstart', function () { holding = true; glide = null; }, { passive: true });
+    viewport.addEventListener('touchend', function () { holding = false; pauseFor(RESUME_MS); settle(); }, { passive: true });
+    viewport.addEventListener('touchcancel', function () { holding = false; pauseFor(RESUME_MS); settle(); }, { passive: true });
+    viewport.addEventListener('focusin', function (e) { focused = e.target.matches(':focus-visible'); });
+    viewport.addEventListener('focusout', function () { focused = false; pauseFor(RESUME_MS); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; }).observe(viewport);
+    }
+    window.addEventListener('resize', function () { measure(); apply(); });
+
+    measure();
+    apply();
+    requestAnimationFrame(tick);
+  }
+
+  // Lightbox: browse every photo with arrows, swipe, keyboard (arrows, Esc) or the thumbnails.
+  var dataEl = root.querySelector('[data-cp-photos]');
+  var openPhoto = null;
   if (dataEl && dialog) {
     var photos = JSON.parse(dataEl.textContent);
     var img = dialog.querySelector('[data-cp-lb-img]');
     var cap = dialog.querySelector('[data-cp-lb-cap]');
-    var current = 0;
+    var count = dialog.querySelector('[data-cp-lb-count]');
+    var stage = dialog.querySelector('[data-cp-lb-stage]');
+    var thumbsEl = dialog.querySelector('[data-cp-lb-thumbs]');
+    var thumbs = dialog.querySelectorAll('[data-cp-lb-go]');
+    var current = 0, opener = null;
+
+    img.addEventListener('load', function () { img.classList.remove('is-loading'); });
+    var preload = function (i) {
+      var p = photos[(i + photos.length) % photos.length];
+      var pre = new Image();
+      pre.sizes = '100vw';
+      pre.srcset = p.srcset;
+      pre.src = p.src;
+    };
     var show = function (i) {
       current = (i + photos.length) % photos.length;
-      img.src = photos[current].src;
-      img.alt = photos[current].cap || '';
-      cap.textContent = photos[current].cap || '';
+      var p = photos[current];
+      img.srcset = p.srcset;
+      img.src = p.src;
+      if (p.w && p.h) { img.width = p.w; img.height = p.h; }
+      img.alt = p.cap || '';
+      if (!img.complete) img.classList.add('is-loading');
+      cap.textContent = p.cap || '';
+      cap.hidden = !p.cap;
+      count.textContent = (current + 1) + ' / ' + photos.length;
+      thumbs.forEach(function (t, k) { t.setAttribute('aria-current', k === current ? 'true' : 'false'); });
+      if (thumbsEl && thumbs[current]) {
+        var t = thumbs[current];
+        thumbsEl.scrollTo({ left: t.offsetLeft - (thumbsEl.clientWidth - t.offsetWidth) / 2, behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+      if (photos.length > 1) { preload(current + 1); preload(current - 1); }
     };
+    openPhoto = function (i, from) {
+      opener = from || null;
+      show(i);
+      if (!dialog.open) dialog.showModal();
+      document.documentElement.classList.add('cp-lb-open');
+      show(current); // re-center the thumbnail strip now that it has a size
+    };
+
     root.querySelectorAll('[data-cp-open]').forEach(function (b) {
-      b.addEventListener('click', function () { show(Number(b.dataset.cpOpen)); dialog.showModal(); });
+      b.addEventListener('click', function () { openPhoto(Number(b.dataset.cpOpen), b); });
     });
-    dialog.querySelector('[data-cp-prev]').addEventListener('click', function () { show(current - 1); });
-    dialog.querySelector('[data-cp-next]').addEventListener('click', function () { show(current + 1); });
+    thumbs.forEach(function (t) {
+      t.addEventListener('click', function () { show(Number(t.dataset.cpLbGo)); });
+    });
+    var prev = dialog.querySelector('[data-cp-prev]'), next = dialog.querySelector('[data-cp-next]');
+    if (prev) prev.addEventListener('click', function () { show(current - 1); });
+    if (next) next.addEventListener('click', function () { show(current + 1); });
     dialog.querySelector('[data-cp-close]').addEventListener('click', function () { dialog.close(); });
-    dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', function () {
+      document.documentElement.classList.remove('cp-lb-open');
+      // Return focus to the photo that opened the gallery (its visible copy if a loop copy was clicked).
+      var back = opener && root.querySelector('[data-cp-open="' + opener.dataset.cpOpen + '"]:not([aria-hidden])');
+      if (back) back.focus({ preventScroll: true });
+    });
     dialog.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowLeft') show(current - 1);
-      if (e.key === 'ArrowRight') show(current + 1);
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    });
+
+    // Swipe (touch) or drag (mouse) on the photo; a click on the empty area around it closes the gallery.
+    var swipe = null, swiped = false;
+    stage.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('button')) return;
+      swipe = { x: e.clientX, y: e.clientY };
+    });
+    stage.addEventListener('pointerup', function (e) {
+      if (!swipe) return;
+      var dx = e.clientX - swipe.x, dy = e.clientY - swipe.y;
+      swipe = null;
+      swiped = Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy);
+      if (swiped && photos.length > 1) show(current + (dx < 0 ? 1 : -1));
+    });
+    stage.addEventListener('pointercancel', function () { swipe = null; });
+    dialog.addEventListener('click', function (e) {
+      if (swiped) { swiped = false; return; }
+      if (e.target === dialog || e.target === stage || e.target.tagName === 'FIGURE') dialog.close();
     });
   }
+
+  // Deep links: #gallery scrolls to the gallery; #gallery-3 opens the lightbox on photo 3.
+  var gallery = document.getElementById('cp-gallery-{{ sid }}');
+  var fromHash = function () {
+    var m = /^#gallery(?:-(\d+))?$/.exec(window.location.hash);
+    if (!m || !gallery) return;
+    gallery.scrollIntoView({ block: 'start' });
+    if (m[1] && openPhoto) openPhoto(Math.max(Number(m[1]) - 1, 0), null);
+  };
+  fromHash();
+  window.addEventListener('hashchange', fromHash);
 
   // Form
   var errorEl = form.querySelector('[data-cp-error]');
@@ -528,6 +803,7 @@
     { "type": "text", "id": "gallery_eyebrow", "label": "Eyebrow", "default": "Gallery" },
     { "type": "text", "id": "gallery_heading", "label": "Heading", "default": "Built by Salus" },
     { "type": "range", "id": "gallery_speed", "label": "Carousel loop duration (seconds)", "min": 30, "max": 150, "step": 10, "default": 80 },
+    { "type": "paragraph", "content": "Share link: add #gallery to the page URL to jump to the gallery, or #gallery-1 to open the full-screen gallery on the first photo." },
     { "type": "header", "content": "Inquiry form" },
     { "type": "text", "id": "form_heading", "label": "Heading", "default": "Tell us about your space" },
     { "type": "textarea", "id": "form_text", "label": "Text", "default": "Share a few details and our custom team will reach out to schedule your discovery call." },
@@ -559,7 +835,7 @@
     {
       "type": "photo",
       "name": "Gallery photo",
-      "limit": 20,
+      "limit": 30,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "text", "id": "caption", "label": "Caption" },
