@@ -12,6 +12,38 @@
     "homepage_hero_carousel_iKVfwn": {
       "type": "homepage-hero-carousel",
       "blocks": {
+        "hero_slide_LenG7i": {
+          "type": "hero-slide",
+          "disabled": true,
+          "settings": {
+            "slide_layout": "full-background-centered",
+            "custom_content_bg": "",
+            "slide_image_desktop": "shopify://shop_images/halloween-hero-desktop-2026.jpg",
+            "desktop_image_alt": "A Salus outdoor sauna glowing at dusk, surrounded by jack-o'-lanterns and autumn leaves",
+            "slide_image_mobile": "shopify://shop_images/halloween-hero-mobile-2026.jpg",
+            "mobile_image_alt": "A Salus outdoor sauna glowing at dusk, surrounded by jack-o'-lanterns",
+            "split_media_type": "image",
+            "show_stars": true,
+            "show_house_icon": false,
+            "reviews_text": "100s of verified 5-star reviews",
+            "headline": "The Halloween Flash Sale. 48 hours only.",
+            "mobile_headline": "",
+            "description": "<p>$200 off select infrared saunas and $400 off select traditional saunas. Ends October 31 at midnight ET.</p>",
+            "mobile_description": "",
+            "button1_text": "Shop the Flash Sale",
+            "mobile_button1_text": "",
+            "button1_link": "https://www.salussaunas.com/collections/halloween-flash-sale?utm_source=website&utm_medium=homepage-banner&utm_campaign=halloween-flash-sale-2026",
+            "show_button1_arrow": true,
+            "button2_text": "",
+            "mobile_button2_text": "",
+            "button2_link": "",
+            "feature_item_1": "",
+            "feature_item_2": "",
+            "feature_item_3": "",
+            "feature_item_4": "",
+            "color_scheme": "light"
+          }
+        },
         "hero_slide_GT4wWK": {
           "type": "hero-slide",
           "settings": {
@@ -203,6 +235,7 @@
         }
       },
       "block_order": [
+        "hero_slide_LenG7i",
         "hero_slide_GT4wWK",
         "hero_slide_rAiWtc",
         "hero_slide_EMqaVN",
