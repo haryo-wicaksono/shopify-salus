@@ -14,7 +14,6 @@
       "blocks": {
         "hero_slide_LenG7i": {
           "type": "hero-slide",
-          "disabled": true,
           "settings": {
             "slide_layout": "full-background-centered",
             "custom_content_bg": "",
