@@ -23,7 +23,7 @@
         "show_banner": true,
         "text": "🎃 HALLOWEEN FLASH SALE: Save Up to $3,500 | Ends in",
         "phone_number": "",
-        "background_color": "#FF7518",
+        "background_color": "#ff7518",
         "text_color": "#ffffff"
       }
     },
@@ -1359,7 +1359,7 @@
           "type": "desktop_nav_item",
           "settings": {
             "nav_key": "halloween-flash-sale",
-            "label": "Halloween Flash Sale",
+            "label": "Flash Sale",
             "url": "shopify://collections/halloween-flash-sale",
             "explore_label": "",
             "explore_url": ""
