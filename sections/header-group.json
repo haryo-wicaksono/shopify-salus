@@ -15,7 +15,8 @@
       "type": "homepage-announcement-banner",
       "custom_css": [
         ".announcement-banner {border-bottom: none;}",
-        ".announcement-banner__text {font-weight: 700;}"
+        ".announcement-banner__text {font-weight: 700;}",
+        "@media screen and (max-width: 769px) {.announcement-banner__text {text-align: center; } .sale-countdown {width: 100%; justify-content: center; margin: 6px 0 0; }}"
       ],
       "name": "Homepage Announcement Banner",
       "settings": {
@@ -1356,13 +1357,12 @@
         },
         "desktop_nav_item_YXEWwx": {
           "type": "desktop_nav_item",
-          "disabled": true,
           "settings": {
-            "nav_key": "super-sale",
-            "label": "SUPER SALE",
-            "url": "https://www.salussaunas.com/collections/super-sale",
-            "explore_label": "Shop the Super Sale",
-            "explore_url": "https://www.salussaunas.com/collections/super-sale"
+            "nav_key": "halloween-flash-sale",
+            "label": "Halloween Flash Sale",
+            "url": "shopify://collections/halloween-flash-sale",
+            "explore_label": "",
+            "explore_url": ""
           }
         },
         "columns_wNqK9K": {
@@ -1726,6 +1726,9 @@
         "columns_4gALyE",
         "columns_PxyWTC",
         "columns_EUE4ja"
+      ],
+      "custom_css": [
+        ".desktop-gemini-menu__link[href*=\"halloween-flash-sale\"] {color: #ff7518;}"
       ],
       "settings": {
         "enable_sticky": true,
