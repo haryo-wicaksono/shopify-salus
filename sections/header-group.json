@@ -1357,6 +1357,7 @@
         },
         "desktop_nav_item_YXEWwx": {
           "type": "desktop_nav_item",
+          "disabled": true,
           "settings": {
             "nav_key": "halloween-flash-sale",
             "label": "Flash Sale",
