@@ -10,9 +10,14 @@
   - Para mandar otro bloque al final: agregar su titulo en minusculas a LAST.
   - Para ocultar otro bloque: agregar su titulo en minusculas a HIDE. Para volver a mostrar los C2: vaciar HIDE.
   - Para subir otro producto al inicio de los add-ons: agregar una palabra de su nombre a PIN_FIRST.
+  6. Cold plunges (5-nov-2026, pedido de Brandon): en "Chiller Sizes" se muestra el chiller negro de 1 HP como
+     "Standard" (solo de adorno, no se puede elegir) y el 1 HP Premier blanco como "$1,000 FREE UPGRADE".
+     El carrito no cambia: sigue entrando el Premier a $0. Para quitarlo: poner CHILLER_UPGRADE = false.
   Para quitarlo: borrar el render en layout/theme.liquid y este snippet.
 {%- endcomment -%}
-<style>.salus-hide-option { display: none !important; }</style>
+<style>.salus-hide-option { display: none !important; }
+.salus-chiller-standard { pointer-events: none; cursor: default; }
+.salus-chiller-standard .card-free-badge { color: #6b6b6b; }</style>
 <script>
 (function () {
   var RENAME = {
@@ -29,6 +34,35 @@
   ];
   var PIN_FIRST = ['bluetooth'];
   var HIDE = ['c2 exterior sauna guard', 'c2 exterior sauna guard tints'];
+  var CHILLER_UPGRADE = true;
+  var CHILLER_STD_NAME = '1 HP Cold/Heat Chiller System with WIFI APP';
+  var CHILLER_STD_IMG = 'https://cdn.shopify.com/s/files/1/0720/7695/1854/files/2233.webp?width=120';
+  var CHILLER_WAS = '$1,000';
+
+  function upgradeChiller() {
+    if (!CHILLER_UPGRADE) return;
+    var cards = document.querySelectorAll('.custom-variant-card:not(.salus-chiller-standard)');
+    for (var i = 0; i < cards.length; i++) {
+      var c = cards[i];
+      var t = c.querySelector('.card-title');
+      if (!t || !/1 hp premier cold\/heat chiller/i.test(t.textContent)) continue;
+      if (c.classList.contains('salus-chiller-upgrade')) continue;
+      c.classList.add('salus-chiller-upgrade');
+      var b = c.querySelector('.card-free-badge');
+      if (b) b.outerHTML = '<div class="card-price-section"><span class="card-price-was">' + CHILLER_WAS +
+        '</span><span class="card-save-badge">Free upgrade</span></div>';
+      var old = c.parentNode.querySelectorAll('.salus-chiller-standard');
+      for (var k = 0; k < old.length; k++) old[k].remove();
+      var s = document.createElement('div');
+      s.className = 'custom-variant-card salus-chiller-standard';
+      s.setAttribute('aria-disabled', 'true');
+      s.innerHTML = '<div class="card-main"><div class="card-image-container"><img src="' + CHILLER_STD_IMG +
+        '" alt="' + CHILLER_STD_NAME + '" class="card-image"></div><div class="card-content"><div class="card-header-row">' +
+        '<div class="card-header-main"><h3 class="card-title">' + CHILLER_STD_NAME + '</h3>' +
+        '<div class="card-free-badge">Standard - Included with your order</div></div></div></div></div>';
+      c.parentNode.insertBefore(s, c);
+    }
+  }
 
   function norm(text) {
     return text.replace(/[^a-z0-9 ]/gi, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
@@ -66,6 +100,7 @@
       if (order && el.style.order !== order) el.style.order = order;
       if (isAddOn) pinProducts(el);
     }
+    upgradeChiller();
   }
 
   var pending = false;
