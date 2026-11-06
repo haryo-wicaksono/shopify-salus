@@ -1073,7 +1073,7 @@
         "body_t4TYMD": {
           "type": "body",
           "settings": {
-            "required": false,
+            "required": true,
             "half_width": false
           }
         }
