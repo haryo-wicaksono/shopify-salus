@@ -20,7 +20,7 @@
             "custom_content_bg": "",
             "slide_image_desktop": "shopify://shop_images/pbf-ember-hero-desktop-2560x1440.jpg",
             "desktop_image_alt": "Salus cube sauna",
-            "slide_image_mobile": "shopify://shop_images/pbf-ember-hero-mobile-1080x1440.jpg",
+            "slide_image_mobile": "shopify://shop_images/pbf-ember-hero-mobile-1080x1080.jpg",
             "mobile_image_alt": "Salus cube sauna",
             "split_media_type": "image",
             "show_stars": false,
