@@ -765,13 +765,13 @@
                       {% if bg_image_mobile != blank %}
                         <div
                           class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--mobile"
-                          style="background-image: url({{ bg_image_mobile | image_url: width: 768 }});"
+                          style="background-image: url({{ bg_image_mobile | image_url: width: 768 }}); background-image: -webkit-image-set(url({{ bg_image_mobile | image_url: width: 768 }}) 1x, url({{ bg_image_mobile | image_url: width: 1200 }}) 2x); background-image: image-set(url({{ bg_image_mobile | image_url: width: 768 }}) 1x, url({{ bg_image_mobile | image_url: width: 1200 }}) 2x);"
                         ></div>
                       {% endif %}
                       {% if bg_image_desktop != blank %}
                         <div
                           class="homepage-hero-carousel__bg-image homepage-hero-carousel__bg-image--desktop"
-                          style="background-image: url({{ bg_image_desktop | image_url: width: 1400 }});"
+                          style="background-image: url({{ bg_image_desktop | image_url: width: 1920 }}); background-image: -webkit-image-set(url({{ bg_image_desktop | image_url: width: 1920 }}) 1x, url({{ bg_image_desktop | image_url: width: 3000 }}) 2x); background-image: image-set(url({{ bg_image_desktop | image_url: width: 1920 }}) 1x, url({{ bg_image_desktop | image_url: width: 3000 }}) 2x);"
                         ></div>
                       {% endif %}
                     {% elsif has_full_bg_video == false %}
@@ -1892,7 +1892,7 @@
             { "value": "pencil", "label": "Hand correction (light image, dark text)" }
           ],
           "default": "brush",
-          "info": "Hand correction writes the word above the crossed-out date, with a caret, in red pencil. With the slide color scheme set to Dark it uses light text and orange ink."
+          "info": "Hand correction writes the word above the crossed-out date, with a caret, in red pencil. With the slide color scheme set to Dark it uses light text and red ink."
         },
         {
           "type": "richtext",
