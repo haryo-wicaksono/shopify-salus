@@ -257,6 +257,25 @@
       border-color: #F6EFE4;
     }
 
+    /* Pencil dark on phones: tighter lines so the copy fits under the sauna in a square slide (same height as the other slides) */
+    @media screen and (max-width: 767px) {
+      .homepage-hero-carousel__content-inner--pencil.homepage-hero-carousel__content-inner--pencil-dark .homepage-hero-carousel__reviews {
+        margin-bottom: 8px;
+      }
+
+      .homepage-hero-carousel__content-column--centered .homepage-hero-carousel__content-inner--pencil.homepage-hero-carousel__content-inner--pencil-dark .homepage-hero-carousel__headline {
+        font-size: 20px;
+      }
+
+      .homepage-hero-carousel__content-inner--pencil.homepage-hero-carousel__content-inner--pencil-dark .homepage-hero-carousel__strike-line {
+        margin: 0.95em 0 0.45em;
+      }
+
+      .homepage-hero-carousel__content-inner--pencil.homepage-hero-carousel__content-inner--pencil-dark .homepage-hero-carousel__description {
+        margin-bottom: 14px;
+      }
+    }
+
     @media screen and (min-width: 768px) and (max-width: 1023px) {
       .homepage-hero-carousel__content-inner--strike .homepage-hero-carousel__headline {
         font-size: 42px;
