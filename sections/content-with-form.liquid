@@ -275,6 +275,20 @@
                       {%- endif -%}
                     {%- endif -%}
 
+                  {%- when 'newsletter' -%}
+                    <label class="cwf-newsletter" for="{{ form_id }}-newsletter">
+                      <input
+                        type="checkbox"
+                        class="cwf-newsletter__input"
+                        id="{{ form_id }}-newsletter"
+                        name="contact[Newsletter]"
+                        value="Yes"
+                        data-klaviyo-list="{{ block.settings.klaviyo_list_id | strip | escape }}"
+                      >
+                      <span class="cwf-newsletter__box" aria-hidden="true"></span>
+                      <span class="cwf-newsletter__text">{{ block.settings.label | default: 'Subscribe to our newsletter for news and exclusive offers' }}</span>
+                    </label>
+
                   {%- when 'dropdown' -%}
                     {%- if block.settings.title != blank -%}
                       {%- liquid
@@ -412,6 +426,89 @@
     </div>
   </div>
 </section>
+
+{%- if section.blocks.size > 0 -%}
+  {%- assign has_newsletter = false -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'newsletter' -%}{%- assign has_newsletter = true -%}{%- endif -%}
+  {%- endfor -%}
+  {%- if has_newsletter -%}
+    <style>
+      .detail-contact-form .cwf-newsletter{position:relative;display:flex;align-items:flex-start;gap:12px;margin:0;cursor:pointer;font-family:var(--custom-body-font);font-size:15px;font-weight:400;line-height:1.5;color:#222120}
+      .detail-contact-form .cwf-newsletter__input{position:absolute;top:2px;left:0;width:20px;height:20px;margin:0;opacity:0;cursor:pointer}
+      .detail-contact-form .cwf-newsletter__box{position:relative;flex:0 0 20px;width:20px;height:20px;margin-top:1px;border:1.5px solid #b4b4b4;border-radius:5px;background:#fff;transition:background-color .15s ease,border-color .15s ease}
+      .detail-contact-form .cwf-newsletter__box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);opacity:0;transition:opacity .15s ease}
+      .detail-contact-form .cwf-newsletter:hover .cwf-newsletter__box{border-color:#1b413e}
+      .detail-contact-form .cwf-newsletter__input:checked + .cwf-newsletter__box{background:#1b413e;border-color:#1b413e}
+      .detail-contact-form .cwf-newsletter__input:checked + .cwf-newsletter__box::after{opacity:1}
+      .detail-contact-form .cwf-newsletter__input:focus-visible + .cwf-newsletter__box{outline:2px solid #1b413e;outline-offset:2px}
+    </style>
+    <script>
+      /* Newsletter checkbox on the Contact Sales form: when it is ticked, the email is added to the
+         Klaviyo list set on the block before the form is sent. The message itself still goes out
+         through Shopify's contact form as before (with an extra "Newsletter: Yes" line). */
+      (function () {
+        if (window.__salusFormNewsletter) return;
+        window.__salusFormNewsletter = true;
+        var KLAVIYO_COMPANY = 'UsSdxi';
+        var LOADED = Date.now();
+        var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        function val(f, sel) { var el = f.querySelector(sel); return el ? String(el.value || '').trim() : ''; }
+        function subscribe(f, box) {
+          var body = {
+            data: {
+              type: 'subscription',
+              attributes: {
+                custom_source: 'Contact Sales form',
+                profile: { data: { type: 'profile', attributes: {
+                  email: val(f, 'input[name="contact[email]"]'),
+                  first_name: val(f, 'input[name="contact[First name]"]') || undefined,
+                  last_name: val(f, 'input[name="contact[Last name]"]') || undefined
+                } } }
+              },
+              relationships: { list: { data: { type: 'list', id: box.getAttribute('data-klaviyo-list') } } }
+            }
+          };
+          var ctrl = window.AbortController ? new AbortController() : null;
+          var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 4000);
+          return fetch('https://a.klaviyo.com/client/subscriptions?company_id=' + KLAVIYO_COMPANY, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/vnd.api+json', 'revision': '2024-10-15' },
+            body: JSON.stringify(body),
+            keepalive: true,
+            signal: ctrl ? ctrl.signal : undefined
+          }).then(function (r) { f.dataset.newsletter = r.ok ? 'subscribed' : 'error ' + r.status; })
+            .catch(function () { f.dataset.newsletter = 'error'; })
+            .then(function () { clearTimeout(timer); });
+        }
+        // Capture phase: runs before the spam guard and Shopify's captcha, so the form can wait
+        // for Klaviyo and then go through the normal submit path again.
+        window.addEventListener('submit', function (e) {
+          var f = e.target;
+          if (!f || !f.querySelector) return;
+          var box = f.querySelector('input.cwf-newsletter__input');
+          if (!box || !box.checked || f.dataset.newsletterDone) return;
+          if (f.dataset.newsletterPending) { e.preventDefault(); e.stopImmediatePropagation(); return; }
+          var email = val(f, 'input[name="contact[email]"]');
+          var hp = f.querySelector('input[name="contact[Company website]"]');
+          var msg = f.querySelector('textarea');
+          if (!box.getAttribute('data-klaviyo-list') || !EMAIL.test(email) ||
+              (hp && hp.value.trim()) || Date.now() - LOADED < 3000 || (msg && !msg.value.trim())) return;
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          var submitter = e.submitter || null;
+          f.dataset.newsletterPending = '1';
+          subscribe(f, box).then(function () {
+            delete f.dataset.newsletterPending;
+            f.dataset.newsletterDone = '1';
+            if (f.requestSubmit) { try { f.requestSubmit(submitter && submitter.form === f ? submitter : undefined); return; } catch (err) {} }
+            f.submit();
+          });
+        }, true);
+      })();
+    </script>
+  {%- endif -%}
+{%- endif -%}
 
 {% schema %}
 {
@@ -706,6 +803,29 @@
         "id": "half_width",
         "label": "Half width on large screens",
         "default": false
+      }
+    ]
+  },
+  {
+    "type": "newsletter",
+    "name": "Newsletter checkbox",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Unchecked by default. When a visitor ticks it, their email is added to the Klaviyo list below (the list's own opt-in rules apply) and the message email shows \"Newsletter: Yes\"."
+      },
+      {
+        "type": "text",
+        "id": "label",
+        "label": "Checkbox text",
+        "default": "Subscribe to our newsletter for news and exclusive offers"
+      },
+      {
+        "type": "text",
+        "id": "klaviyo_list_id",
+        "label": "Klaviyo list ID",
+        "default": "XAyGEM"
       }
     ]
   },
