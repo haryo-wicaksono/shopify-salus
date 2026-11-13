@@ -1,5 +1,14 @@
 {%- liquid
   assign form_id = section.id | append: '-contact'
+  assign nl_block = section.blocks | where: 'type', 'newsletter' | first
+  assign nl_builtin = false
+  if section.settings.newsletter_show and nl_block == nil
+    assign nl_builtin = true
+  endif
+  assign has_newsletter = false
+  if nl_builtin or nl_block
+    assign has_newsletter = true
+  endif
 -%}
 
 <section class="detail-contact-form">
@@ -32,11 +41,6 @@
             </div>
           {% endif %}
         </div>
-        {% if section.settings.note != blank %}
-          <div class="note">
-            <span>{{ section.settings.note }}</span>
-          </div>
-        {% endif %}
       </div>
       <div class="Contact_form">
         <div class="form-title">
@@ -371,6 +375,22 @@
                 {%- endif -%}
               </div>
             {%- endfor -%}
+            {%- if nl_builtin -%}
+              <div class="col-span-2">
+                <label class="cwf-newsletter" for="{{ form_id }}-newsletter">
+                  <input
+                    type="checkbox"
+                    class="cwf-newsletter__input"
+                    id="{{ form_id }}-newsletter"
+                    name="contact[Newsletter]"
+                    value="Yes"
+                    data-klaviyo-list="{{ section.settings.newsletter_list_id | strip | escape }}"
+                  >
+                  <span class="cwf-newsletter__box" aria-hidden="true"></span>
+                  <span class="cwf-newsletter__text">{{ section.settings.newsletter_label | default: 'Subscribe to our newsletter for news and exclusive offers' }}</span>
+                </label>
+              </div>
+            {%- endif -%}
           </div>
 
           {%- if form.posted_successfully? -%}
@@ -428,10 +448,6 @@
 </section>
 
 {%- if section.blocks.size > 0 -%}
-  {%- assign has_newsletter = false -%}
-  {%- for block in section.blocks -%}
-    {%- if block.type == 'newsletter' -%}{%- assign has_newsletter = true -%}{%- endif -%}
-  {%- endfor -%}
   {%- if has_newsletter -%}
     <style>
       .detail-contact-form .cwf-newsletter{position:relative;display:flex;align-items:flex-start;gap:12px;margin:0;cursor:pointer;font-family:var(--custom-body-font);font-size:15px;font-weight:400;line-height:1.5;color:#222120}
@@ -557,11 +573,35 @@
       "type": "text",
        "id": "note",
         "label": "Note For user",
+        "info": "No longer shown on the site (removed 2026-11)."
     },
     {
       "type":"text",
       "id":"submit_btn_label",
       "label":"Submit Button Label"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter checkbox"
+    },
+    {
+      "type": "checkbox",
+      "id": "newsletter_show",
+      "label": "Show newsletter checkbox",
+      "info": "Unchecked by default for visitors. When ticked, their email is added to the Klaviyo list below and the message email shows \"Newsletter: Yes\". A \"Newsletter checkbox\" block, if added, replaces this one.",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_label",
+      "label": "Checkbox text",
+      "default": "Subscribe to our newsletter for news and exclusive offers"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_list_id",
+      "label": "Klaviyo list ID",
+      "default": "XAyGEM"
     }
   ],
    "blocks": [
