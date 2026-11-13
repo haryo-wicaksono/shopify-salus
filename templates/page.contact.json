@@ -94,6 +94,13 @@
             "required": false,
             "half_width": false
           }
+        },
+        "newsletter_jaUcAh": {
+          "type": "newsletter",
+          "settings": {
+            "label": "Subscribe to our newsletter for news and exclusive offers",
+            "klaviyo_list_id": "XAyGEM"
+          }
         }
       },
       "block_order": [
@@ -101,7 +108,8 @@
         "last_name_xMP3H4",
         "email_aUL3Q8",
         "phone_hrJxcR",
-        "body_JU6bEY"
+        "body_JU6bEY",
+        "newsletter_jaUcAh"
       ],
       "custom_css": [
         "div.container {margin-top: 100px;}"
@@ -114,7 +122,7 @@
         "contact-detail02": "<p><strong>Technical Support:<br/></strong><a href=\"tel:(425) 689-9000\" title=\"tel:(425) 689-9000\">(425) 689-9000</a><br/><a href=\"mailto:techsupport@salussaunas.com\" target=\"_blank\" title=\"mailto:techsupport@salussaunas.com\">techsupport@salussaunas.com</a></p>",
         "contact-detail03": "<p><strong>Customer Support:<br/></strong><a href=\"tel:(425) 333-9003\" title=\"tel:(425) 333-9003\">(425) 333-9003</a><br/><a href=\"mailto:customerservice@salussaunas.com \" title=\"mailto:customerservice@salussaunas.com \">customerservice@salussaunas.com</a></p>",
         "contact-detail04": "<p><strong>For Mail Only:<br/></strong>7345 164th Ave NE Ste 145-395 Redmond, WA 98052</p>",
-        "note": "Please give our team 24-48 hours to reach back out to you.",
+        "note": "",
         "submit_btn_label": ""
       }
     },
