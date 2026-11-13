@@ -1047,6 +1047,15 @@
 
 {% render 'structured-data-header' %}
 
+<style>
+  @media (min-width: 1200px) {
+    .desktop-gemini-card-grid:has(> :nth-child(7)) { grid-template-columns: repeat(4, max-content); }
+    .desktop-gemini-card-grid:has(> :nth-child(7)) > * { order: 2; }
+    .desktop-gemini-card-grid:has(> :nth-child(7)) > :nth-child(-n+3) { order: 0; }
+    .desktop-gemini-card-grid:has(> :nth-child(7)) > :nth-child(7) { order: 1; }
+  }
+</style>
+
 {% schema %}
 {
   "name": "Header",
