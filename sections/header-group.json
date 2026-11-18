@@ -2635,12 +2635,20 @@
         "dividers": "none",
         "prevent_animation": false
       }
+    },
+    "bf_countdown_bar": {
+      "type": "bf-countdown-bar",
+      "settings": {
+        "enabled": true,
+        "label": "Black Friday Unlocked ends in"
+      }
     }
   },
   "order": [
     "homepage_announcement_banner_EKeeb7",
     "announcement",
     "header",
+    "bf_countdown_bar",
     "sales_popup_kNEhy3",
     "checkout_page_exit_popup_naxcJ7",
     "checkout_page_exit_popup_Dtdibk",
