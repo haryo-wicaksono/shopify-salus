@@ -68,7 +68,7 @@
   </div>
 
   <div class="card__info">
-    {% if discount_status %}
+    {% if discount_status and product.metafields.custom.enable_request_quote != true %}
       {% assign price_discount = product.price | times: discount | divided_by: 100 %}
       <p class="upsell_save_price">Save {{ price_discount | money }}</p>
     {% endif %}
@@ -82,7 +82,7 @@
       </a>
     </p>
 
-    {% if upsell_price != blank %}
+    {% if upsell_price != blank and product.metafields.custom.enable_request_quote != true %}
       <p class="upsell__price">{{ upsell_price | money_with_currency }}</p>
     {% else %}
       {%- render 'price', product: product -%}
