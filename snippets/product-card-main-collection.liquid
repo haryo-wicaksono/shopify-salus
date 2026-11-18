@@ -468,7 +468,7 @@
           </div>
         {% endif %}
 
-        {%- if settings.enable_quick_add and disable_quickbuy != true and enable_quick_add != true -%}
+        {%- if settings.enable_quick_add and disable_quickbuy != true and enable_quick_add != true and product.metafields.custom.enable_request_quote != true -%}
           <div
             class="
               card__quick-add
