@@ -155,7 +155,7 @@
                                 </div>
                                 <div class="icon-product-content">
                                   <h4>{{ product.title }}</h4>
-                                  <p>{{ product.selected_or_first_available_variant.price | money }}</p>
+                                  <p>{% if product.metafields.custom.enable_request_quote == true %}Request a quote{% else %}{{ product.selected_or_first_available_variant.price | money }}{% endif %}</p>
                                   <a href="{{ product.url }}">Buy Now</a>
                                 </div>
                               </div>

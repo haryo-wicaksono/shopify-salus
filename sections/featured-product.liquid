@@ -212,7 +212,7 @@
             {%- when 'price' -%}
               <div class="product-info__block product-info__block--sm product-price" {{ block.shopify_attributes }}>
                 <div class="product-info__price">
-                  {% render 'price', product: product, use_variant: true %}
+                  {%- if product.metafields.custom.enable_request_quote == true -%}{% render 'price', product: product %}{%- else -%}{% render 'price', product: product, use_variant: true %}{%- endif -%}
                 </div>
                 {%- if product != blank -%}
                   {%- if block.settings.show_tax_and_shipping -%}
