@@ -8,6 +8,15 @@
   {% render 'price', product: product %}
 {%- endcomment -%}
 
+
+{%- comment -%} Quote-only products (custom.enable_request_quote) never show a price outside their own product page. {%- endcomment -%}
+{%- if product.metafields.custom.enable_request_quote == true and use_variant != true -%}
+  <div class="price price--quote{% if class %} {{ class }}{% endif %}">
+    <div class="price__default">
+      <strong class="price__current price__quote">Request a quote</strong>
+    </div>
+  </div>
+{%- else -%}
 {%- liquid
   if use_variant
     assign variant = product.selected_or_first_available_variant
@@ -79,3 +88,4 @@
     <strong class="price__current">{{ 'products.variant.non_existent' | t }}</strong>
   </div>
 </div>
+{%- endif -%}
