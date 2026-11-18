@@ -877,7 +877,7 @@
                                   </div>
                                   <div class="mega-product-content">
                                     <h4>{{ product.title }}</h4>
-                                    <p>{{ product.price | money }}</p>
+                                    <p>{% if product.metafields.custom.enable_request_quote == true %}Request a quote{% else %}{{ product.price | money }}{% endif %}</p>
                                     <span>Buy Now</span>
                                   </div>
                                 </a>
