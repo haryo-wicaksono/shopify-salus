@@ -257,6 +257,9 @@
                 <span class="pd-delivery">{{ product.metafields.custom.delivery | append: ' Delivery' }}</span>
               </div>
 
+              {%- if product.metafields.custom.enable_request_quote == true -%}
+              <div class="product-carousel-price"><span class="product-carousel-price__current product-carousel-price__quote">Request a quote</span></div>
+              {%- else -%}
               <div class="product-carousel-price">
                 <span class="product-carousel-price__current">{{ product.price | money_without_trailing_zeros }}</span>
                 {%- if product.compare_at_price > product.price -%}
@@ -267,6 +270,7 @@
                   </span>
                 {%- endif -%}
               </div>
+              {%- endif -%}
 
               {% comment %}
                 {%- if settings.card_price_bottom == false -%}

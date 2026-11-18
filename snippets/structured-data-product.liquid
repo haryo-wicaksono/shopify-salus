@@ -36,7 +36,8 @@
     "brand": {
       "@type": "Brand",
       "name": {{ product.vendor | json }}
-    },
+    }
+    {%- unless product.metafields.custom.enable_request_quote == true -%},
     "offers": [
       {%- for variant in product.variants -%}
         {
@@ -122,6 +123,6 @@
           }
         }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
-    ]
+    ]{%- endunless -%}
   }
 </script>
