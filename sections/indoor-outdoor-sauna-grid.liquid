@@ -94,6 +94,9 @@
                         {{ product.title | escape }}
                       </span>
 
+                      {%- if product.metafields.custom.enable_request_quote == true -%}
+                      <div class="indoor-outdoor-sauna-card__price-row"><span class="indoor-outdoor-sauna-card__price">Request a quote</span></div>
+                      {%- else -%}
                       <div class="indoor-outdoor-sauna-card__price-row">
                         <span class="indoor-outdoor-sauna-card__price">
                           {{ product.price | money_without_trailing_zeros }}
@@ -105,6 +108,7 @@
                           </span>
                         {%- endif -%}
                       </div>
+                      {%- endif -%}
 
                       {%- if current_variant == blank or current_variant.available == false -%}
                         <span class="indoor-outdoor-sauna-card__status">Unavailable</span>
@@ -184,6 +188,9 @@
                             {{ product.title | escape }}
                           </span>
 
+                          {%- if product.metafields.custom.enable_request_quote == true -%}
+                          <div class="indoor-outdoor-sauna-card__price-row"><span class="indoor-outdoor-sauna-card__price">Request a quote</span></div>
+                          {%- else -%}
                           <div class="indoor-outdoor-sauna-card__price-row">
                             <span class="indoor-outdoor-sauna-card__price">
                               {{ product.price | money_without_trailing_zeros }}
@@ -195,6 +202,7 @@
                               </span>
                             {%- endif -%}
                           </div>
+                          {%- endif -%}
 
                           {%- if current_variant == blank or current_variant.available == false -%}
                             <span class="indoor-outdoor-sauna-card__status">Unavailable</span>
