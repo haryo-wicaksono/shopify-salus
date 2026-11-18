@@ -327,7 +327,7 @@
           {% for product in section.settings.cold_plung_collection.products %}
           if ("{{ product.id }}" == selectedProductId) {
             document.getElementById('selected-product').textContent = "{{ product.title }}";
-            document.querySelector('.sel-product-price').textContent = "{{ product.price | money }}";
+            document.querySelector('.sel-product-price').textContent = "{% if product.metafields.custom.enable_request_quote == true %}Request a quote{% else %}{{ product.price | money }}{% endif %}";
             document.querySelector('.sel-lern-more').setAttribute('href', "{{ product.url }}");
   
             const imageUrl = "{{ product.featured_image | img_url: 'master' }}" || 
@@ -345,7 +345,7 @@
           {% for product in collection.products %}
           if ("{{ product.id }}" == selectedProductId) {
             document.getElementById('selected-product').textContent = "{{ product.title }}";
-            document.querySelector('.sel-product-price').textContent = "{{ product.price | money }}";
+            document.querySelector('.sel-product-price').textContent = "{% if product.metafields.custom.enable_request_quote == true %}Request a quote{% else %}{{ product.price | money }}{% endif %}";
             document.querySelector('.sel-lern-more').setAttribute('href', "{{ product.url }}");
   
             const imageUrl = "{{ product.featured_image | img_url: 'master' }}" || 
