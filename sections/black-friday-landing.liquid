@@ -1,0 +1,311 @@
+{%- comment -%}
+  Black Friday 2026 landing page (live Nov 18 to 30). Static content; images are Shopify Files.
+  Used by templates/page.black-friday.json.
+{%- endcomment -%}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,800&display=swap">
+<style>
+
+.bf-root{--ink:#1f3a33;--ink2:#2e5148;--body:#3f4f48;--muted:#5f6e67;--mark:#b23a2e;--sage:#eef2eb;--sage2:#e2e8de;--sage3:#d3dccd;--line:#c3cdbf;--paper:#ffffff;--tbd:rgba(242,215,91,.55);} .bf-root *{box-sizing:border-box;} .bf-root{margin:0;background:var(--paper);color:var(--body);font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:400;font-size:16px;line-height:1.6;font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased;} .bf-root a{color:inherit;} .bf-root img{max-width:100%;display:block;}
+.bf-in{max-width:1240px;margin:0 auto;padding:0 40px;} .bf-root h1,.bf-root h2,.bf-root h3{color:var(--ink);margin:0;font-weight:700;letter-spacing:-.01em;line-height:1.12;}
+.bf-hl{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:800;font-size:1.08em;letter-spacing:0;} .bf-root mark.bf-tbd{background:var(--tbd);color:inherit;padding:0 .2em;border-radius:3px;}
+.bf-btn{display:inline-flex;align-items:center;gap:.55em;border-radius:999px;padding:14px 28px;font-weight:500;font-size:16px;text-decoration:none;border:2px solid var(--ink);transition:background-color .15s,color .15s;}
+.bf-btn.bf-pri{background:var(--ink);color:#fff;} .bf-btn.bf-pri:hover{background:var(--ink2);border-color:var(--ink2);}
+.bf-btn.bf-sec{background:transparent;color:var(--ink);} .bf-btn.bf-sec:hover{background:var(--ink);color:#fff;}
+.bf-btn:focus-visible,.bf-tile:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:3px;}
+.bf-btns{display:flex;flex-wrap:wrap;gap:12px;}
+
+/* site chrome */
+.bf-top{border-bottom:1px solid #ececec;background:#fff;}
+.bf-top .bf-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:84px;font-size:13px;color:#333;letter-spacing:.02em;}
+.bf-top nav{display:flex;gap:18px;} .bf-top nav a{text-decoration:none;}
+.bf-top .bf-logo img{height:30px;}
+.bf-top .bf-tools{text-align:right;color:var(--muted);}
+.bf-bar{background:var(--ink);color:#fff;text-align:center;font-size:13.5px;padding:9px 16px;letter-spacing:.01em;}
+
+/* hero */
+.bf-hero{position:relative;background:var(--sage) url('https://cdn.shopify.com/s/files/1/0720/7695/1854/files/black-friday-2026-banner-desktop.jpg?v=1793741756&width=2400') center 62%/cover no-repeat;aspect-ratio:16/8;max-height:780px;min-height:560px;width:100%;}
+.bf-hero .bf-in{position:absolute;inset:0;max-width:none;padding:0;}
+.bf-hero .bf-copy{position:absolute;inset:0;}
+.bf-hero .bf-rev{position:absolute;top:5%;left:0;right:0;justify-content:center;margin:0;}
+.bf-hero h1{position:absolute;top:10%;left:0;right:0;text-align:center;white-space:nowrap;}
+.bf-hero .bf-line{position:absolute;left:6%;bottom:calc(8% + 8px);margin:0;font-size:26px;}
+.bf-hero p.bf-sub{display:none;}
+.bf-hero .bf-btns{position:absolute;right:6%;bottom:8%;}
+.bf-rev{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;color:var(--ink);margin:0 0 18px;}
+.bf-stars{color:#1f8a81;letter-spacing:.14em;font-size:15px;}
+.bf-hero h1{font-size:clamp(46px,6.6vw,104px);}
+.bf-line{position:relative;display:inline-block;margin:14px 0 22px;font-size:30px;font-weight:500;color:var(--ink);}
+.bf-line em{position:relative;font-style:normal;white-space:nowrap;}
+.bf-under{position:absolute;left:-2%;bottom:-.28em;width:104%;height:.42em;overflow:visible;}
+.bf-under path{fill:none;stroke:var(--mark);stroke-width:3;stroke-linecap:round;vector-effect:non-scaling-stroke;}
+.bf-hero p.bf-sub{font-size:18px;color:var(--body);margin:0 0 30px;max-width:30em;}
+
+/* countdown */
+.bf-cd{background:var(--ink);color:#fff;}
+.bf-cd .bf-in{display:flex;align-items:center;justify-content:center;gap:14px;padding:12px 24px;flex-wrap:wrap;}
+.bf-cdl{font-size:15px;font-weight:500;letter-spacing:.01em;margin-right:6px;}
+.bf-cdu{display:inline-flex;align-items:baseline;gap:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:5px 10px;}
+.bf-cdu b{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;min-width:1.3em;text-align:center;}
+.bf-cdu small{font-size:12px;color:#c9d6cf;}
+/* free accessories */
+.bf-gift{background:var(--ink);color:#fff;padding:44px 0 48px;}
+.bf-gift h2{color:#fff;font-size:30px;margin:0 0 24px;text-align:center;}
+.bf-gifts{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;max-width:860px;margin:0 auto;} .bf-gifts .bf-gc{flex:0 1 calc(50% - 10px);box-sizing:border-box;}
+.bf-gc{display:flex;align-items:center;min-height:116px;gap:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:16px 22px;}
+.bf-gc img{width:104px;height:84px;object-fit:contain;flex:0 0 auto;filter:drop-shadow(0 6px 8px rgba(0,0,0,.35));}
+.bf-gc .bf-two{display:flex;flex:0 0 auto;width:104px;} .bf-gc .bf-two img{width:68px;height:84px;} .bf-gc .bf-two img+img{margin-left:-32px;transform:translateY(6px);}
+.bf-gc p{margin:0;display:flex;flex-direction:column;} .bf-gc b{font-size:18px;font-weight:600;} .bf-gc span{color:#c9d6cf;font-size:15px;}
+.bf-perks{background:var(--sage);border-bottom:1px solid var(--line);}
+.bf-perks ul{list-style:none;margin:0;padding:22px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.bf-perks li{display:flex;flex-direction:column;line-height:1.35;padding-left:14px;border-left:2px solid var(--line);}
+.bf-perks b{color:var(--ink);font-weight:600;font-size:15px;} .bf-perks span{color:var(--muted);font-size:13.5px;}
+/* sections */
+section.bf-blk{padding:96px 0;}
+.bf-head{max-width:640px;margin:0 0 44px;}
+.bf-head h2{font-size:42px;margin-bottom:14px;}
+.bf-head p{margin:0;font-size:17px;}
+#shop{background:#fff;}
+.bf-how{list-style:none;margin:-16px 0 44px;padding:0;display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:12px;}
+.bf-how li{display:flex;align-items:center;gap:16px;background:var(--sage);border:1px solid var(--line);border-radius:16px;padding:18px 20px;height:100%;}
+.bf-how li.bf-plus{background:none;border:0;padding:0;height:auto;justify-content:center;width:34px;font-size:30px;font-weight:700;color:var(--mark);line-height:1;}
+.bf-how .bf-sym{flex:0 0 auto;width:54px;height:54px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;line-height:1;box-shadow:0 0 0 4px var(--sage),0 0 0 5px var(--line);}
+.bf-how .bf-sym svg{width:28px;height:28px;}
+.bf-how p{margin:0;display:flex;flex-direction:column;line-height:1.3;}
+.bf-how small{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.01em;}
+.bf-how b{color:var(--ink);font-weight:700;font-size:17.5px;}
+.bf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.bf-tile{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);background:var(--sage);border-radius:14px;overflow:hidden;transition:transform .2s;}
+.bf-tile:hover{transform:translateY(-3px);}
+@media (prefers-reduced-motion:reduce){.bf-tile{transition:none;} .bf-tile:hover{transform:none;}}
+.bf-pic{position:relative;height:280px;display:flex;align-items:flex-end;justify-content:center;padding:28px 28px 0;background:radial-gradient(ellipse at 50% 40%,#f6f8f3 0%,var(--sage2) 60%,var(--sage3) 100%);}
+.bf-pic img{height:232px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 12px rgba(0,0,0,.18));}
+.bf-pic.bf-wide{align-items:center;padding:28px 30px 12px;} .bf-pic.bf-wide img{width:100%;height:auto;max-height:100%;}
+.bf-pic.bf-duo img:first-child{height:226px;margin-right:-26px;} .bf-pic.bf-duo img:last-child{height:150px;position:relative;z-index:1;}
+.bf-tname{font-size:20px;font-weight:600;padding:20px 24px 2px;}
+.bf-tgo{font-size:14.5px;color:var(--muted);padding:0 24px 22px;}
+.bf-tile:hover .bf-tgo{color:var(--ink);}
+
+#sales{background:var(--sage);}
+.bf-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.bf-card{background:#fff;border-radius:14px;padding:30px 28px 30px;border:1px solid var(--line);display:flex;flex-direction:column;}
+.bf-card .bf-ci{height:120px;display:flex;align-items:center;margin-bottom:18px;}
+.bf-card .bf-ci img{height:112px;width:auto;}
+.bf-card .bf-ci.bf-duo img:first-child{height:112px;margin-right:-14px;} .bf-card .bf-ci.bf-duo img:last-child{height:76px;align-self:flex-end;margin-bottom:6px;}
+.bf-card .bf-ci svg{width:112px;height:112px;}
+.bf-card h3{font-size:21px;margin-bottom:8px;}
+.bf-card p{margin:0;}
+.bf-contact{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:40px;padding-top:32px;border-top:1px solid var(--line);}
+.bf-contact .bf-k{font-size:14px;color:var(--muted);}
+.bf-contact a.bf-t{font-size:22px;font-weight:600;color:var(--ink);text-decoration:none;}
+.bf-contact .bf-sep{width:1px;height:36px;background:var(--line);}
+
+#reviews .bf-head{margin-bottom:36px;}
+#guide{background:#fff;padding-bottom:0;}
+.bf-guides{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.bf-gd{display:flex;flex-direction:column;gap:6px;text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:22px 22px 24px;color:var(--body);}
+.bf-gd b{color:var(--ink);font-size:17px;font-weight:600;} .bf-gd span{font-size:14.5px;}
+.bf-gd b::after{content:' →';font-weight:400;}
+.bf-gd:hover{border-color:var(--ink);}
+.bf-rev{flex-wrap:wrap;gap:4px 18px;} .bf-rev .bf-ri{white-space:nowrap;} .bf-rev .bf-stars{letter-spacing:0;}
+.bf-scores{display:flex;flex-wrap:wrap;gap:16px;margin:-12px 0 36px;}
+.bf-score{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink);background:var(--sage);border-radius:12px;padding:14px 22px 14px 18px;line-height:1.35;}
+.bf-score .bf-g{width:30px;height:30px;flex:0 0 auto;}
+.bf-score b{font-size:24px;} .bf-score small{font-size:13px;color:var(--muted);}
+.bf-score .bf-stars{color:#f5b400;font-size:15px;}
+.bf-score:hover{background:var(--sage2);}
+.bf-quotes{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.bf-quote{margin:0;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;}
+.bf-qs{color:#f5b400;letter-spacing:.1em;font-size:15px;margin-bottom:10px;}
+.bf-quote p{font-size:15.5px;color:var(--ink);margin:0 0 16px;flex:1;}
+.bf-quote footer{font-size:14px;font-weight:600;color:var(--ink);} .bf-quote footer span{font-weight:400;color:var(--muted);}
+.bf-more{margin:28px 0 0;} .bf-more a{color:var(--ink);font-weight:500;}
+
+#faq{background:#fff;padding-top:0;}
+#faq .bf-head{text-align:center;margin-left:auto;margin-right:auto;}
+.bf-faq{max-width:820px;margin:0 auto;border-top:1px solid var(--line);}
+.bf-root details{border-bottom:1px solid var(--line);}
+.bf-root summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:22px 2px;font-size:18px;font-weight:600;color:var(--ink);}
+.bf-root summary::-webkit-details-marker{display:none;}
+.bf-root summary::after{content:'+';font-weight:400;font-size:26px;line-height:1;color:var(--muted);}
+.bf-root details[open] summary::after{content:'–';}
+.bf-root details p{margin:0 2px 24px;max-width:44em;}
+
+.bf-last{background:var(--ink);color:#fff;text-align:center;padding:88px 0;}
+.bf-last h2{color:#fff;font-size:52px;margin-bottom:10px;}
+.bf-last p{font-size:19px;margin:0 0 30px;color:#d6e0da;}
+.bf-last .bf-btns{justify-content:center;}
+.bf-last .bf-btn.bf-pri{background:#fff;color:var(--ink);border-color:#fff;} .bf-last .bf-btn.bf-pri:hover{background:var(--sage);}
+.bf-last .bf-btn.bf-sec{color:#fff;border-color:#fff;} .bf-last .bf-btn.bf-sec:hover{background:#fff;color:var(--ink);}
+.bf-last .bf-under path{stroke:#e8846f;}
+.bf-foot{background:#f6f6f4;color:var(--muted);font-size:13px;}
+.bf-foot .bf-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:28px;padding-bottom:28px;}
+
+@media (max-width:1279px){
+  .bf-hero p.bf-sub{display:none;}
+  .bf-hero .bf-line{font-size:22px;}
+}
+/* tablet */
+@media (max-width:1023px){
+  .bf-in{padding:0 28px;}
+  .bf-hero{min-height:480px;}
+  .bf-hero p.bf-sub{display:none;}
+  .bf-grid{grid-template-columns:repeat(2,1fr);}
+  .bf-cards{grid-template-columns:1fr;} .bf-quotes{grid-template-columns:1fr 1fr;}
+  .bf-guides{grid-template-columns:1fr 1fr;} .bf-perks ul{grid-template-columns:1fr 1fr;}
+  .bf-card{flex-direction:row;gap:24px;align-items:center;} .bf-card .bf-ci{flex:0 0 140px;margin:0;justify-content:center;}
+}
+/* phone */
+@media (max-width:767px){
+  body{font-size:15px;}
+  .bf-in{padding:0 18px;}
+  .bf-top .bf-in{grid-template-columns:1fr;height:60px;}
+  .bf-top nav{display:none;} .bf-top .bf-logo{justify-self:center;} .bf-top .bf-logo img{height:22px;}
+  .bf-top .bf-tools{display:none;}
+  .bf-bar{font-size:12.5px;}
+  .bf-hero{background:#c9d1c2 url('https://cdn.shopify.com/s/files/1/0720/7695/1854/files/black-friday-2026-banner-mobile.jpg?v=1793741757&width=1080') center top/100% auto no-repeat;min-height:0;max-height:none;aspect-ratio:auto;display:block;padding-top:70vw;}
+  .bf-hero .bf-in,.bf-hero .bf-copy{position:static;} .bf-hero .bf-in{padding:0 18px;}
+  .bf-hero .bf-copy{padding:0 0 40px;text-align:center;}
+  .bf-hero .bf-rev,.bf-hero h1,.bf-hero .bf-line,.bf-hero p.bf-sub,.bf-hero .bf-btns{position:static;width:auto;white-space:normal;}
+  .bf-hero .bf-rev{justify-content:center;margin:0 0 10px;}
+  .bf-hero .bf-line{margin:8px 0 14px;}
+  .bf-hero p.bf-sub{display:block;margin:0 0 20px;}
+  .bf-rev{font-size:12.5px;margin-bottom:12px;}
+  .bf-hero h1{font-size:40px;}
+  .bf-line{font-size:22px;margin:10px 0 16px;}
+  .bf-hero p.bf-sub{font-size:16px;margin-bottom:22px;}
+  .bf-btns .bf-btn{flex:1 1 auto;justify-content:center;}
+  .bf-gift .bf-in{font-size:15px;padding-top:14px;padding-bottom:14px;}
+  section.bf-blk{padding:64px 0;}
+  .bf-head h2{font-size:30px;}
+  .bf-head p{font-size:15.5px;}
+  .bf-grid{grid-template-columns:1fr 1fr;gap:12px;}
+  .bf-how{grid-template-columns:1fr;gap:6px;margin:-8px 0 28px;} .bf-how li.bf-plus{width:auto;font-size:24px;} .bf-how li{padding:14px 16px;} .bf-how .bf-sym{width:46px;height:46px;font-size:24px;} .bf-how b{font-size:16px;}
+  .bf-cd .bf-in{gap:8px;padding:10px 12px;} .bf-cdl{width:100%;text-align:center;font-size:13.5px;margin:0;} .bf-cdu{padding:4px 8px;} .bf-cdu b{font-size:17px;}
+  .bf-gift{padding:36px 0;} .bf-gift h2{font-size:23px;} .bf-gifts{gap:12px;} .bf-gifts .bf-gc{flex-basis:100%;} .bf-gc{min-height:0;gap:14px;padding:14px 16px;} .bf-gc img{width:80px;height:64px;} .bf-gc .bf-two{width:80px;} .bf-gc .bf-two img{width:54px;height:64px;} .bf-gc .bf-two img+img{margin-left:-28px;}
+  .bf-perks ul{gap:14px 10px;padding:18px 0;}
+  .bf-guides{grid-template-columns:1fr;}
+  .bf-pic{height:170px;padding:16px 12px 0;} .bf-pic img{height:144px;}
+  .bf-pic.bf-duo img:first-child{height:96px;margin-right:-8px;} .bf-pic.bf-duo img:last-child{height:62px;}
+  .bf-pic img{max-width:none;}
+  .bf-tname{font-size:15.5px;padding:14px 14px 0;line-height:1.25;}
+  .bf-tgo{font-size:13px;padding:4px 14px 16px;}
+  .bf-card{flex-direction:column;align-items:flex-start;gap:0;padding:24px 22px;} .bf-card .bf-ci{flex:none;height:96px;margin-bottom:12px;justify-content:flex-start;} .bf-card .bf-ci img{height:92px;}
+  .bf-contact .bf-sep{display:none;}
+  .bf-contact a.bf-t{font-size:19px;}
+  .bf-root summary{font-size:16px;padding:18px 2px;}
+  .bf-quotes{grid-template-columns:1fr;}
+  .bf-score{flex:1 1 100%;}
+  .bf-last{padding:64px 0;} .bf-last h2{font-size:36px;} .bf-last p{font-size:16px;}
+}
+
+.bf-root{font-family:inherit;}
+</style>
+<div class="bf-root">
+
+
+<div class="bf-cd" data-cd data-end="2026-12-01T04:59:59Z" role="timer" aria-live="off"><div class="bf-in">
+ <span class="bf-cdl">Black Friday Unlocked ends in</span>
+ <span class="bf-cdu"><b data-cd-d>0</b><small>days</small></span><span class="bf-cdu"><b data-cd-h>00</b><small>hrs</small></span><span class="bf-cdu"><b data-cd-m>00</b><small>min</small></span><span class="bf-cdu"><b data-cd-s>00</b><small>sec</small></span>
+</div></div>
+<script>(function(){var el=document.querySelector('[data-cd]');if(!el)return;var end=Date.parse(el.getAttribute('data-end'));
+function p(n){return (n<10?'0':'')+n;}
+function t(){var ms=end-Date.now();if(ms<=0){el.style.display='none';return false;}var s=Math.floor(ms/1000);
+el.querySelector('[data-cd-d]').textContent=Math.floor(s/86400);el.querySelector('[data-cd-h]').textContent=p(Math.floor(s%86400/3600));
+el.querySelector('[data-cd-m]').textContent=p(Math.floor(s%3600/60));el.querySelector('[data-cd-s]').textContent=p(s%60);return true;}
+if(t()){var iv=setInterval(function(){if(!t())clearInterval(iv);},1000);}})();</script>
+<section class="bf-hero" aria-labelledby="h1"><div class="bf-in"><div class="bf-copy">
+ <p class="bf-rev"><span class="bf-ri"><span class="bf-stars" aria-hidden="true">★</span> 4.9 on Google</span><span class="bf-ri"><span class="bf-stars" aria-hidden="true">★</span> 4.8 on Trustpilot</span><span class="bf-ri">14+ years</span></p>
+ <h1 id="h1">Black Friday <em class="bf-hl">Unlocked</em></h1>
+ <p class="bf-line">Now through <em>Cyber Monday<svg class="bf-under" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C 50 4, 120 6, 197 3"/></svg></em></p>
+ <p class="bf-sub">Our best pricing of the year is live. Popular models sell out fast.</p>
+ <div class="bf-btns"><a class="bf-btn bf-pri" href="#shop">Shop the Sale <span aria-hidden="true">→</span></a><a class="bf-btn bf-sec" href="#sales">Talk to Sales</a></div>
+</div></div></section>
+
+<section class="bf-gift" aria-labelledby="h-gift"><div class="bf-in">
+ <h2 id="h-gift">A complimentary gift with every sauna and cold plunge</h2>
+ <div class="bf-gifts">
+  <div class="bf-gc"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/51_0c59d6b3-1433-4b05-b74a-e8fa8b59d3c0.png?v=1763666142&width=500" alt="Salus Bluetooth sauna speaker" loading="lazy"><p><b>Salus sauna speaker</b><span>With every outdoor traditional sauna</span></p></div>
+  <div class="bf-gc"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/RitualKit_Ladle_AromaWater_Speaker.png?v=1791381340&width=500" alt="Salus Ritual Kit: sauna ladle, aroma waters and speaker" loading="lazy"><p><b>Ritual Kit</b><span>Ladle, aroma water and speaker with every luxury sauna and contrast therapy bundle</span></p></div>
+  <div class="bf-gc"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/products/acc-ir-002.png?v=1681452294&width=400" alt="Wooden sauna backrest" loading="lazy"><p><b>Wooden backrest</b><span>With every indoor traditional and infrared sauna</span></p></div>
+  <div class="bf-gc"><span class="bf-two"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/products/acc-ir-002.png?v=1681452294&width=400" alt="Two wooden sauna backrests" loading="lazy"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/products/acc-ir-002.png?v=1681452294&width=400" alt="" loading="lazy"></span><p><b>Two wooden backrests</b><span>With every hybrid sauna</span></p></div>
+  <div class="bf-gc"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/SaunaImages-NEW_15_610d0f0b-a9de-48b3-b321-9774289f691a.png?v=1787074214&width=400" alt="White Premier cold plunge chiller" loading="lazy"><p><b>Chiller upgrade</b><span>Premier 1 HP chiller with Wi-Fi app, with every cold plunge</span></p></div>
+ </div>
+</div></section>
+<div class="bf-perks"><div class="bf-in"><ul>
+ <li><b>Real people, 5-star service</b><span>since 2013</span></li>
+ <li><b>Free curbside shipping</b><span>to the mainland US</span></li>
+ <li><b>Pay over time</b><span>with Affirm or Synchrony</span></li>
+ <li><b>Buy now, deliver later</b><span>we can hold your sauna until you're ready</span></li>
+</ul></div></div>
+
+<section class="bf-blk" id="shop" aria-labelledby="h-shop"><div class="bf-in">
+ <div class="bf-head"><h2 id="h-shop">Every model has its own Black Friday price</h2><p>Explore the catalog for unique discounts on every model.</p></div>
+ <ul class="bf-how"><li><span class="bf-sym" aria-hidden="true">$</span><p><small>Infrared saunas</small><b>Deals on every model</b></p></li><li class="bf-plus" aria-hidden="true">+</li><li><span class="bf-sym" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.5c.6 3.2-1.4 5-3 6.9C7.6 11 6.5 12.6 6.5 15a5.5 5.5 0 0 0 11 0c0-2.3-1-4-2.2-5.3-.2 1.4-.9 2.5-2 3 .5-3.6-.3-7.4-1.3-10.2Z" fill="currentColor"/></svg></span><p><small>Traditional saunas</small><b>Save on the sauna, save on the upgrades</b></p></li><li class="bf-plus" aria-hidden="true">+</li><li><span class="bf-sym" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><rect x="3.5" y="9" width="17" height="4" rx="1"/><path d="M5 13v7.5h14V13M12 9v11.5M12 9c-1.5-3.5-5.5-4.5-6-2.2C5.6 8.6 9 9 12 9Zm0 0c1.5-3.5 5.5-4.5 6-2.2.4 1.8-3 2.2-6 2.2Z"/></svg></span><p><small>Every sauna</small><b>A complimentary gift on top</b></p></li></ul>
+ <div class="bf-grid"><a class="bf-tile" href="https://www.salussaunas.com/collections/outdoor-saunas?utm_source=website&utm_medium=landing-page&utm_campaign=black-friday-2026"><span class="bf-pic"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/salus-governor-king-front-glass-cutout.webp?width=700" alt="Salus Governor King Front Glass outdoor sauna" loading="lazy"></span><span class="bf-tname">Outdoor saunas</span><span class="bf-tgo">See sale prices <b aria-hidden="true">→</b></span></a><a class="bf-tile" href="https://www.salussaunas.com/collections/indoor-saunas?utm_source=website&utm_medium=landing-page&utm_campaign=black-friday-2026"><span class="bf-pic"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/Sauna_Transparent_PNGs_1.png?v=1774469857&width=700" alt="Salus Ally traditional indoor sauna" loading="lazy"></span><span class="bf-tname">Indoor saunas</span><span class="bf-tgo">See sale prices <b aria-hidden="true">→</b></span></a><a class="bf-tile" href="https://www.salussaunas.com/collections/infrared-saunas?utm_source=website&utm_medium=landing-page&utm_campaign=black-friday-2026"><span class="bf-pic"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/Sauna_PNGs_1_61002575-6c99-4e13-a5d2-2dd9a1cbf2b9.png?v=1775842593&width=700" alt="Salus Element full spectrum infrared sauna" loading="lazy"></span><span class="bf-tname">Infrared saunas</span><span class="bf-tgo">See sale prices <b aria-hidden="true">→</b></span></a><a class="bf-tile" href="https://www.salussaunas.com/collections/hybrid-sauna-v2?utm_source=website&utm_medium=landing-page&utm_campaign=black-friday-2026"><span class="bf-pic"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/Sauna_PNGs_1_3b787040-0405-46d2-8e2f-a035c8187fbd.png?v=1774472513&width=700" alt="Salus Grand Renew hybrid outdoor sauna" loading="lazy"></span><span class="bf-tname">Hybrid saunas</span><span class="bf-tgo">See sale prices <b aria-hidden="true">→</b></span></a><a class="bf-tile" href="https://www.salussaunas.com/collections/cold-plunges?utm_source=website&utm_medium=landing-page&utm_campaign=black-friday-2026"><span class="bf-pic bf-wide"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/salus-cold-plunge-marble.webp?width=800" alt="Cold plunge with a marble top and wood slat sides" loading="lazy"></span><span class="bf-tname">Cold plunges</span><span class="bf-tgo">See sale prices <b aria-hidden="true">→</b></span></a><a class="bf-tile" href="https://www.salussaunas.com/collections/contrast-therapy-bundles?utm_source=website&utm_medium=landing-page&utm_campaign=black-friday-2026"><span class="bf-pic"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/salus-contrast-bundle-sauna-cold-plunge.webp?width=800" alt="Salus outdoor sauna with a cedar cold plunge, steps and chiller" loading="lazy"></span><span class="bf-tname">Contrast therapy bundles</span><span class="bf-tgo">See sale prices <b aria-hidden="true">→</b></span></a></div>
+</div></section>
+
+<section class="bf-blk" id="sales" aria-labelledby="h-sales"><div class="bf-in">
+ <div class="bf-head"><h2 id="h-sales">Want more than the sale price? Talk to our team.</h2><p>Our sales team can put together special pricing on what the website can't show.</p></div>
+ <div class="bf-cards">
+  <article class="bf-card"><div class="bf-ci"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/hive-mini-tume-web-768x768_1.webp?v=1775831350&width=500" alt="HUUM Hive Mini sauna heater" loading="lazy"></div><div><h3>Discounted heater upgrades</h3><p>On traditional saunas. Ask which heater fits your sauna and your space.</p></div></article>
+  <article class="bf-card"><div class="bf-ci"><svg viewBox="0 0 112 112" aria-hidden="true"><g fill="none" stroke="#1f3a33" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><path d="M10 34h54v42H10z"/><path d="M64 48h20l14 14v14H64z"/><circle cx="28" cy="80" r="8" fill="#eef2eb"/><circle cx="82" cy="80" r="8" fill="#eef2eb"/><path d="M20 46h28M20 56h20"/></g></svg></div><div><h3>Delivery options</h3><p>Free curbside freight to the mainland US. Ask about specialized delivery options.</p></div></article>
+  <article class="bf-card"><div class="bf-ci"><img src="https://cdn.shopify.com/s/files/1/0720/7695/1854/files/salus-contrast-bundle-sauna-cold-plunge.webp?width=800" alt="Salus outdoor sauna with a cedar cold plunge and chiller" loading="lazy"></div><div><h3>Contrast therapy bundles</h3><p>Pair a sauna with a cold plunge for bundle pricing. New to it? Read our <a href="https://www.salussaunas.com/pages/cold-plunge-guide">cold plunge guide</a>.</p></div></article>
+ </div>
+ <div class="bf-contact">
+  <div><div class="bf-k">Call our team</div><a class="bf-t" href="tel:+18882870111">(888) 287-0111</a></div><span class="bf-sep" aria-hidden="true"></span>
+  <div><div class="bf-k">Email</div><a class="bf-t" href="mailto:sales@salussaunas.com">sales@salussaunas.com</a></div>
+ </div>
+</div></section>
+
+<section class="bf-blk" id="guide" aria-labelledby="h-guide"><div class="bf-in">
+ <div class="bf-head"><h2 id="h-guide">Not sure which sauna fits?</h2><p>Start with our guides, or call our team and we'll help you choose.</p></div>
+ <div class="bf-guides">
+  <a class="bf-gd" href="https://www.salussaunas.com/pages/home-sauna-buyers-guide"><b>Home sauna buyer's guide</b><span>Traditional, infrared or hybrid: what to know before you buy</span></a>
+  <a class="bf-gd" href="https://www.salussaunas.com/blogs/blog/sauna-sizing-2-4-6-person"><b>Which size do I need?</b><span>2, 4 or 6 person, and how much space each one takes</span></a>
+  <a class="bf-gd" href="https://www.salussaunas.com/blogs/blog/traditional-vs-infrared-vs-hybrid-saunas"><b>Traditional, infrared or hybrid?</b><span>How the three types of heat compare</span></a>
+  <a class="bf-gd" href="https://www.salussaunas.com/blogs/blog/electrical-requirements-for-infrared-and-traditional-saunas"><b>What power do I need?</b><span>Electrical requirements for infrared and traditional saunas</span></a>
+ </div>
+</div></section>
+<section class="bf-blk" id="reviews" aria-labelledby="h-rev"><div class="bf-in">
+ <div class="bf-head"><h2 id="h-rev">What our customers say</h2><p>Real reviews from Salus owners, 14+ years in.</p></div>
+ <div class="bf-scores">
+  <a class="bf-score" href="https://www.salussaunas.com/pages/reviews"><svg class="bf-g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.6 13.2l7.9 6.2C12.4 13.7 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 7l7.4 5.7c4.3-4 6.9-9.9 6.9-17.2z"/><path fill="#FBBC05" d="M10.5 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.2C1 16.5 0 20.1 0 24s1 7.5 2.6 10.8l7.9-6.2z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.3 0-11.6-4.2-13.5-9.9l-7.9 6.2C6.6 42.6 14.6 48 24 48z"/></svg><span><b>4.9</b> <span class="bf-stars" aria-hidden="true">★★★★★</span><br><small>305 Google reviews</small></span></a>
+  <a class="bf-score" href="https://www.trustpilot.com/review/www.salussaunas.com"><svg class="bf-g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#00B67A" d="M24 2l5.6 17.2H48l-14.9 10.6 5.7 17.2L24 36.4 9.2 47l5.7-17.2L0 19.2h18.4z"/></svg><span><b>4.8</b> <span class="bf-stars" aria-hidden="true">★★★★★</span><br><small>76 Trustpilot reviews</small></span></a>
+ </div>
+ <div class="bf-quotes">
+  <blockquote class="bf-quote"><div class="bf-qs" aria-label="5 out of 5 stars">★★★★★</div><p>“This is hands down the best company to buy from. I purchased my sauna over three years ago and have never had a single issue.”</p><footer>Michael S. <span>· Google</span></footer></blockquote>
+  <blockquote class="bf-quote"><div class="bf-qs" aria-label="5 out of 5 stars">★★★★★</div><p>“Great customer service which is very hard to get now days… The company mailed us a new glass without cost which we were surprised and we are very thankful for that!”</p><footer>Jade A. <span>· Google</span></footer></blockquote>
+  <blockquote class="bf-quote"><div class="bf-qs" aria-label="5 out of 5 stars">★★★★★</div><p>“Absolutely amazing customer service. Without a doubt the best customer service from George on the construction/assembly side and Sam on the electrical/connectivity side.”</p><footer>David B. <span>· Google</span></footer></blockquote>
+  <blockquote class="bf-quote"><div class="bf-qs" aria-label="5 out of 5 stars">★★★★★</div><p>“2nd purchase from Salus. Jonathan was fantastic to work with.”</p><footer>Don H. <span>· Google</span></footer></blockquote>
+ </div>
+ <p class="bf-more"><a href="https://www.salussaunas.com/pages/reviews">Read all reviews <span aria-hidden="true">→</span></a></p>
+</div></section>
+
+<section class="bf-blk" id="faq" aria-labelledby="h-faq"><div class="bf-in">
+ <div class="bf-head"><h2 id="h-faq">Questions people ask before buying</h2></div>
+ <div class="bf-faq">
+  <details open><summary>Will it arrive in time?</summary><p>Infrared saunas ship within a few business days and usually arrive in 7 to 10 days. Traditional sauna lead times vary by model and are listed on each product page. Buying as a gift or not ready yet? We can hold your sauna until you are. <a href="https://www.salussaunas.com/blogs/blog/sauna-delivery-installation-timeline">Delivery and installation timeline</a></p></details>
+  <details><summary>How does shipping work?</summary><p>Free curbside freight shipping to the mainland US, wherever a 53-foot truck can reach. Cabin and hybrid saunas ship flatbed and get a shipping quote. White glove delivery is available on request. <a href="https://www.salussaunas.com/policies/shipping-policy">Shipping policy</a></p></details>
+  <details><summary>Can I pay over time?</summary><p>Yes. Choose Affirm at checkout, or call us at (888) 287-0111 to apply with Synchrony, starting at 0% APR over 18 months. <a href="https://www.salussaunas.com/pages/sauna-financing">Financing options</a></p></details>
+  <details><summary>Will I need an electrician?</summary><p>It depends on the model and its heater. Each product page lists the requirements in its Electrical tab, and our guide explains the options: <a href="https://www.salussaunas.com/blogs/blog/electrical-requirements-for-infrared-and-traditional-saunas">electrical requirements</a>.</p></details>
+  <details><summary>What's the warranty?</summary><p>Traditional and hybrid saunas: 5 years on the wood, the heater and the controls. Infrared saunas: coverage is listed on each product page. <a href="https://www.salussaunas.com/pages/sauna-warranty">Warranty details</a></p></details>
+  <details><summary>Can I assemble it myself?</summary><p>Most customers do, with two people. Infrared saunas go together in a few hours; the largest outdoor models can take a weekend. Each product page lists the time.</p></details>
+ </div>
+</div></section>
+
+<section class="bf-last" aria-labelledby="h-last"><div class="bf-in">
+ <h2 id="h-last">Black Friday <em class="bf-hl">Unlocked</em></h2>
+ <p>Ends Monday, November 30.</p>
+ <div class="bf-btns"><a class="bf-btn bf-pri" href="#shop">Shop the Sale <span aria-hidden="true">→</span></a><a class="bf-btn bf-sec" href="#sales">Talk to Sales</a></div>
+</div></section>
+
+
+</div>
+
+{% schema %}
+{
+  "name": "Black Friday 2026 landing",
+  "settings": []
+}
+{% endschema %}
+
