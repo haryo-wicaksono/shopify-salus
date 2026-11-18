@@ -1,3 +1,4 @@
+{%- unless product.metafields.custom.enable_request_quote == true -%}
 {% comment %}
 Affirm Promotional Messaging Snippet
 Usage: {% render 'affirm-messaging' %}
@@ -45,3 +46,4 @@ Usage: {% render 'affirm-messaging' %}
     setTimeout(() => observer.disconnect(), 10000);
   });
 </script>
+{%- endunless -%}
