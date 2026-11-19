@@ -6,8 +6,7 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
-{
+ */{
   "sections": {
     "homepage_hero_carousel_iKVfwn": {
       "type": "homepage-hero-carousel",
@@ -25,7 +24,7 @@
             "show_stars": false,
             "show_house_icon": false,
             "reviews_text": "★ 4.9 on Google · ★ 4.8 on Trustpilot · 14+ years",
-            "headline": "Black Friday <em>Unlocked</em>",
+            "headline": "Black Friday <em>Unlocked</em><span class=\"bf-upto\" style=\"display:block;font-family:'Kaushan Script',cursive;font-weight:400;font-style:normal;color:#C8322B;font-size:clamp(24px,0.4em,46px);line-height:1.15;margin-top:0.08em;transform:rotate(-2deg);letter-spacing:0\">Up to $4,000 off</span>",
             "mobile_headline": "",
             "strike_prefix": "",
             "strike_text": "",
