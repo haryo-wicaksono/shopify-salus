@@ -3,7 +3,7 @@
   in the top-left corner of product card images. CSS only.
 {%- endcomment -%}
 <style>
-  .discount__price{background-color:{{ section.settings.sale_color }} !important;color:#fff !important;}
+  .discount__price{background-color:{{ section.settings.sale_color }} !important;color:#fff !important;border-color:#fff !important;}
   {%- if section.settings.show_sold_out %}
   product-card.card:has(.product-label--sold-out) .card__media::after{
     content:"Sold out";position:absolute;top:12px;left:12px;z-index:3;
