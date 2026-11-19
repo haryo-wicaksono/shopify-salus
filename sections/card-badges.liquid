@@ -1,0 +1,30 @@
+{%- comment -%}
+  Store-wide badge styles: red savings tag ("$1,000 off") and a "Sold out" tag
+  in the top-left corner of product card images. CSS only.
+{%- endcomment -%}
+<style>
+  .discount__price{background-color:{{ section.settings.sale_color }} !important;color:#fff !important;}
+  {%- if section.settings.show_sold_out %}
+  product-card.card:has(.product-label--sold-out) .card__media::after{
+    content:"Sold out";position:absolute;top:12px;left:12px;z-index:3;
+    background:{{ section.settings.sold_out_color }};color:#fff;
+    font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;line-height:1;
+    padding:7px 12px;border-radius:999px;letter-spacing:.01em;pointer-events:none;
+  }
+  @media (max-width:767px){
+    product-card.card:has(.product-label--sold-out) .card__media::after{top:8px;left:8px;font-size:11px;padding:5px 9px;}
+  }
+  {%- endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Product card badges",
+  "settings": [
+    { "type": "color", "id": "sale_color", "label": "Savings tag color", "default": "#C8322B" },
+    { "type": "checkbox", "id": "show_sold_out", "label": "Show Sold out tag on product images", "default": true },
+    { "type": "color", "id": "sold_out_color", "label": "Sold out tag color", "default": "#1F1F1F" }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}
