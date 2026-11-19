@@ -2642,6 +2642,14 @@
         "enabled": true,
         "label": "Black Friday Unlocked ends in"
       }
+    },
+    "card_badges": {
+      "type": "card-badges",
+      "settings": {
+        "sale_color": "#C8322B",
+        "show_sold_out": true,
+        "sold_out_color": "#1F1F1F"
+      }
     }
   },
   "order": [
@@ -2649,6 +2657,7 @@
     "announcement",
     "header",
     "bf_countdown_bar",
+    "card_badges",
     "sales_popup_kNEhy3",
     "checkout_page_exit_popup_naxcJ7",
     "checkout_page_exit_popup_Dtdibk",
