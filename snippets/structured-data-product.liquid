@@ -18,6 +18,8 @@
   endif
 -%}
 
+{%- comment -%} Quote-only products (custom.enable_request_quote) get no Product JSON-LD: without offers it is invalid, and offers would expose the price. {%- endcomment -%}
+{%- unless product.metafields.custom.enable_request_quote == true -%}
 <script type="application/ld+json">
   {
     "@context": "http://schema.org",
@@ -36,8 +38,7 @@
     "brand": {
       "@type": "Brand",
       "name": {{ product.vendor | json }}
-    }
-    {%- unless product.metafields.custom.enable_request_quote == true -%},
+    },
     "offers": [
       {%- for variant in product.variants -%}
         {
@@ -123,6 +124,8 @@
           }
         }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
-    ]{%- endunless -%}
+    ]
   }
 </script>
+
+{%- endunless -%}
