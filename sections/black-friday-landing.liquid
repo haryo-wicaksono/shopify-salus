@@ -205,15 +205,29 @@ section.bf-blk{padding:96px 0;}
 <div class="bf-root">
 
 
-<div class="bf-cd" data-cd data-end="2026-12-01T04:59:59Z" role="timer" aria-live="off"><div class="bf-in">
+<div class="bf-cd" data-cd data-end="2027-01-01T04:59:59Z" role="timer" aria-live="off"><div class="bf-in">
  <span class="bf-cdl">Black Friday Unlocked ends in</span>
  <span class="bf-cdu"><b data-cd-d>0</b><small>days</small></span><span class="bf-cdu"><b data-cd-h>00</b><small>hrs</small></span><span class="bf-cdu"><b data-cd-m>00</b><small>min</small></span><span class="bf-cdu"><b data-cd-s>00</b><small>sec</small></span>
 </div></div>
-<script>(function(){var el=document.querySelector('[data-cd]');if(!el)return;var end=Date.parse(el.getAttribute('data-end'));
+<script>(function(){
+/* Phases (New York time): 1 = Black Friday through Cyber Monday (Nov 30), 2 = extended (Dec 1-25), 3 = final days (Dec 26-31). */
+var P1=Date.parse('2026-12-01T04:59:59Z'),P3=Date.parse('2026-12-26T05:00:00Z'),END=Date.parse('2027-01-01T04:59:59Z');
+function ph(n){return n<=P1?1:(n<P3?2:(n<=END?3:0));}
+var TXT={2:{cd:'Black Friday Extended · ends in',pre:'Extended through ',em:'December 31',last:'Extended through Thursday, December 31.'},
+3:{cd:'Final days · Black Friday pricing ends in',pre:'Final days: ends ',em:'December 31',last:'Final days: ends Thursday, December 31.'}};
+var done=0;
+function apply(k){if(k===done||!TXT[k])return;var x=TXT[k],ok=true;
+ var l=document.querySelector('.bf-cdl');if(l)l.textContent=x.cd;else ok=false;
+ var line=document.querySelector('.bf-line');if(line&&line.firstChild){line.firstChild.nodeValue=x.pre;var em=line.querySelector('em');if(em&&em.firstChild)em.firstChild.nodeValue=x.em;}else ok=false;
+ var lp=document.querySelector('.bf-last p');if(lp)lp.textContent=x.last;else ok=false;
+ if(ok)done=k;}
+var el=document.querySelector('[data-cd]');
 function p(n){return (n<10?'0':'')+n;}
-function t(){var ms=end-Date.now();if(ms<=0){el.style.display='none';return false;}var s=Math.floor(ms/1000);
+function t(){var now=Date.now(),k=ph(now);apply(k);if(!k){if(el)el.style.display='none';return false;}if(!el)return true;
+var s=Math.floor(((k===1?P1:END)-now)/1000);
 el.querySelector('[data-cd-d]').textContent=Math.floor(s/86400);el.querySelector('[data-cd-h]').textContent=p(Math.floor(s%86400/3600));
 el.querySelector('[data-cd-m]').textContent=p(Math.floor(s%3600/60));el.querySelector('[data-cd-s]').textContent=p(s%60);return true;}
+document.addEventListener('DOMContentLoaded',function(){apply(ph(Date.now()));});
 if(t()){var iv=setInterval(function(){if(!t())clearInterval(iv);},1000);}})();</script>
 <section class="bf-hero" aria-labelledby="h1"><div class="bf-in"><div class="bf-copy">
  <p class="bf-rev"><span class="bf-ri"><span class="bf-stars" aria-hidden="true">★</span> 4.9 on Google</span><span class="bf-ri"><span class="bf-stars" aria-hidden="true">★</span> 4.8 on Trustpilot</span><span class="bf-ri">14+ years</span></p>
