@@ -36,6 +36,17 @@ var TXT={2:{cd:'Black Friday Extended · ends in',hero:'Extended through <em>Dec
 3:{cd:'Final days · Black Friday pricing ends in',hero:'Final days: ends <em>December 31</em>'}};
 function hero(k){var x=TXT[k];if(!x)return;document.querySelectorAll('.homepage-hero-carousel__description p').forEach(function(q){if(/Cyber Monday/.test(q.textContent))q.innerHTML=x.hero;});}
 document.addEventListener('DOMContentLoaded',function(){hero(ph(Date.now()));});
+/* Klaviyo sale popup (form VzcmXk): its headline is an image and its last line says Nov 30; swap both from phase 2. */
+var KL={2:{img:'https://cdn.shopify.com/s/files/1/0720/7695/1854/files/bf-popup-headline-extended.png?v=1795204931',alt:'Black Friday Unlocked. Extended through December 31',ends:'Extended through Thursday, December 31.'},
+3:{img:'https://cdn.shopify.com/s/files/1/0720/7695/1854/files/bf-popup-headline-final-days.png?v=1795204931',alt:'Black Friday Unlocked. Final days: ends December 31',ends:'Final days: ends Thursday, December 31.'}};
+var OLD='b72f9096',OLDTXT='Ends Monday, November 30.',k0=ph(Date.now());
+function popup(root,x){if(root.matches&&root.matches('img[src*="'+OLD+'"]')){root.src=x.img;root.alt=x.alt;root.removeAttribute('srcset');}
+ if(root.querySelectorAll)root.querySelectorAll('img[src*="'+OLD+'"]').forEach(function(i){i.src=x.img;i.alt=x.alt;i.removeAttribute('srcset');});
+ if((root.textContent||'').indexOf(OLDTXT)<0)return;var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n;
+ while((n=w.nextNode())){if(n.nodeValue.indexOf(OLDTXT)>-1)n.nodeValue=n.nodeValue.replace(OLDTXT,x.ends);}}
+if(KL[k0]&&window.MutationObserver){new MutationObserver(function(ms){ms.forEach(function(m){
+ if(m.type==='attributes'){if((m.target.getAttribute('src')||'').indexOf(OLD)>-1)popup(m.target,KL[k0]);return;}
+ m.addedNodes.forEach(function(a){if(a.nodeType===1)popup(a,KL[k0]);});});}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['src']});}
 var el=document.querySelector('[data-bfcd]');if(!el)return;var lab=el.querySelector('.bfcd-l'),cur=1;
 function p(n){return (n<10?'0':'')+n;}
 function t(){var now=Date.now(),k=ph(now);if(!k){el.hidden=true;return false;}
