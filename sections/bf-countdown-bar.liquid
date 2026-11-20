@@ -1,6 +1,8 @@
 {%- comment -%}
   Black Friday 2026 countdown bar, shown under the header on every page.
   Hidden on /pages/black-friday (the landing has its own) and after the end date.
+  Phases (New York time): 1 = Black Friday, counts to Cyber Monday (Nov 30); 2 = extended (Dec 1-25) and
+  3 = final days (Dec 26-31), both count to Dec 31. From phase 2 the home hero line also changes.
 {%- endcomment -%}
 {%- unless template.suffix == 'black-friday' or section.settings.enabled == false -%}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap">
@@ -20,16 +22,25 @@
   .bfcd-go{display:none;}
 }
 </style>
-<a class="bfcd-bar" href="/pages/black-friday?utm_source=website&utm_medium=countdown-bar&utm_campaign=black-friday-2026" data-bfcd data-end="2026-12-01T04:59:59Z" hidden>
+<a class="bfcd-bar" href="/pages/black-friday?utm_source=website&utm_medium=countdown-bar&utm_campaign=black-friday-2026" data-bfcd data-end="2027-01-01T04:59:59Z" hidden>
  <span class="bfcd-in">
   <span class="bfcd-l">{{ section.settings.label | escape }}</span>
   <span class="bfcd-u"><b data-bfcd-d>0</b><small>days</small></span><span class="bfcd-u"><b data-bfcd-h>00</b><small>hrs</small></span><span class="bfcd-u"><b data-bfcd-m>00</b><small>min</small></span><span class="bfcd-u"><b data-bfcd-s>00</b><small>sec</small></span>
   <span class="bfcd-go">Shop the Sale <span aria-hidden="true">→</span></span>
  </span>
 </a>
-<script>(function(){var el=document.querySelector('[data-bfcd]');if(!el)return;var end=Date.parse(el.getAttribute('data-end'));
+<script>(function(){
+var P1=Date.parse('2026-12-01T04:59:59Z'),P3=Date.parse('2026-12-26T05:00:00Z'),END=Date.parse('2027-01-01T04:59:59Z');
+function ph(n){return n<=P1?1:(n<P3?2:(n<=END?3:0));}
+var TXT={2:{cd:'Black Friday Extended · ends in',hero:'Extended through <em>December 31</em>'},
+3:{cd:'Final days · Black Friday pricing ends in',hero:'Final days: ends <em>December 31</em>'}};
+function hero(k){var x=TXT[k];if(!x)return;document.querySelectorAll('.homepage-hero-carousel__description p').forEach(function(q){if(/Cyber Monday/.test(q.textContent))q.innerHTML=x.hero;});}
+document.addEventListener('DOMContentLoaded',function(){hero(ph(Date.now()));});
+var el=document.querySelector('[data-bfcd]');if(!el)return;var lab=el.querySelector('.bfcd-l'),cur=1;
 function p(n){return (n<10?'0':'')+n;}
-function t(){var ms=end-Date.now();if(ms<=0){el.hidden=true;return false;}var s=Math.floor(ms/1000);
+function t(){var now=Date.now(),k=ph(now);if(!k){el.hidden=true;return false;}
+if(k!==cur&&TXT[k]){cur=k;if(lab)lab.textContent=TXT[k].cd;hero(k);}
+var s=Math.floor(((k===1?P1:END)-now)/1000);
 el.querySelector('[data-bfcd-d]').textContent=Math.floor(s/86400);el.querySelector('[data-bfcd-h]').textContent=p(Math.floor(s%86400/3600));
 el.querySelector('[data-bfcd-m]').textContent=p(Math.floor(s%3600/60));el.querySelector('[data-bfcd-s]').textContent=p(s%60);return true;}
 if(t()){el.hidden=false;var iv=setInterval(function(){if(!t())clearInterval(iv);},1000);}})();</script>
