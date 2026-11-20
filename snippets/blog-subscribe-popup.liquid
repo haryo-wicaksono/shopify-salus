@@ -17,9 +17,9 @@
 
 {%- assign bsp_endpoint = 'https://salussaunas.app.n8n.cloud/webhook/blog/subscribe' -%}
 
-{%- comment -%} Paused during Black Friday 2026 so only the sale popup shows; comes back on its own Dec 1. {%- endcomment -%}
+{%- comment -%} Paused during Black Friday 2026 (extended through Dec 31) so only the sale popup shows; comes back on its own Jan 1. {%- endcomment -%}
 {%- assign bsp_today = 'now' | date: '%Y%m%d' | plus: 0 -%}
-{%- if bsp_today < 20261118 or bsp_today > 20261130 -%}{%- assign bsp_on = true -%}{%- else -%}{%- assign bsp_on = false -%}{%- endif -%}
+{%- if bsp_today < 20261118 or bsp_today > 20261231 -%}{%- assign bsp_on = true -%}{%- else -%}{%- assign bsp_on = false -%}{%- endif -%}
 {%- if bsp_on and template.name == 'blog' or bsp_on and template.name == 'article' -%}
 {%- unless customer and customer.accepts_marketing -%}
 <div id="blog-subscribe-popup" class="bsp" hidden>
