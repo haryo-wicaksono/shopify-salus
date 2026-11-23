@@ -3,28 +3,38 @@
   Hidden on /pages/black-friday (the landing has its own) and after the end date.
   Phases (New York time): 1 = Black Friday, counts to Cyber Monday (Nov 30); 2 = extended (Dec 1-25) and
   3 = final days (Dec 26-31), both count to Dec 31. From phase 2 the home hero line also changes.
+  Nov 23 (Mark/Freddy): red bar, "Black Friday Sale ends in" (no "Unlocked"), light sweep, glowing label, pulsing dot.
+  The label is fixed in the code now; the Text setting is no longer used.
 {%- endcomment -%}
 {%- unless template.suffix == 'black-friday' or section.settings.enabled == false -%}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap">
 <style>
-.bfcd-bar{display:block;background:#1f3a33;color:#fff;text-decoration:none;font-family:'Poppins',Helvetica,Arial,sans-serif;}
-.bfcd-bar:hover{background:#25443c;color:#fff;}
-.bfcd-in{display:flex;align-items:center;justify-content:center;gap:14px;padding:12px 24px;flex-wrap:wrap;max-width:1240px;margin:0 auto;}
-.bfcd-l{font-size:15px;font-weight:500;letter-spacing:.01em;margin-right:6px;}
-.bfcd-u{display:inline-flex;align-items:baseline;gap:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:5px 10px;}
-.bfcd-u b{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;min-width:1.3em;text-align:center;line-height:1.2;}
-.bfcd-u small{font-size:12px;color:#c9d6cf;}
-.bfcd-go{font-size:14px;font-weight:500;margin-left:6px;text-decoration:underline;text-underline-offset:3px;}
+.bfcd-bar{display:block;background:#C8322B;color:#fff;text-decoration:none;font-family:'Poppins',Helvetica,Arial,sans-serif;position:relative;overflow:hidden;isolation:isolate;}
+.bfcd-bar:hover{background:#9E1F19;color:#fff;}
+.bfcd-bar::after{content:"";position:absolute;inset:0 auto 0 -40%;width:30%;z-index:-1;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-18deg);animation:bfcdSweep 4.5s ease-in-out infinite;}
+@keyframes bfcdSweep{0%,35%{left:-40%}75%,100%{left:120%}}
+.bfcd-in{display:flex;align-items:center;justify-content:center;gap:12px;padding:13px 24px;flex-wrap:wrap;max-width:1240px;margin:0 auto;}
+.bfcd-l{display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:500;letter-spacing:.01em;margin-right:6px;}
+.bfcd-l strong{font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:17px;animation:bfcdGlow 1.6s ease-in-out infinite alternate;}
+@keyframes bfcdGlow{from{text-shadow:0 0 4px rgba(255,255,255,.25)}to{text-shadow:0 0 14px rgba(255,255,255,.85)}}
+.bfcd-dot{width:9px;height:9px;border-radius:50%;background:#fff;flex:none;animation:bfcdPulse 1.4s infinite;}
+@keyframes bfcdPulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.75)}100%{box-shadow:0 0 0 10px rgba(255,255,255,0)}}
+.bfcd-u{display:inline-flex;align-items:baseline;gap:4px;background:#fff;border:1px solid #fff;border-radius:8px;padding:5px 10px;}
+.bfcd-u b{font-size:20px;font-weight:700;color:#9E1F19;font-variant-numeric:tabular-nums;min-width:1.3em;text-align:center;line-height:1.2;}
+.bfcd-u small{font-size:12px;color:#7a6a66;}
+.bfcd-go{font-size:14px;font-weight:700;margin-left:10px;background:#fff;color:#C8322B;padding:7px 16px;border-radius:999px;}
 @media (max-width:767px){
   .bfcd-in{gap:8px;padding:10px 12px;}
-  .bfcd-l{width:100%;text-align:center;font-size:13.5px;margin:0;}
+  .bfcd-l{width:100%;justify-content:center;font-size:13.5px;margin:0;}
+  .bfcd-l strong{font-size:14.5px;}
   .bfcd-u{padding:4px 8px;} .bfcd-u b{font-size:17px;}
   .bfcd-go{display:none;}
 }
+@media (prefers-reduced-motion:reduce){.bfcd-bar::after,.bfcd-l strong,.bfcd-dot{animation:none;}}
 </style>
 <a class="bfcd-bar" href="/pages/black-friday?utm_source=website&utm_medium=countdown-bar&utm_campaign=black-friday-2026" data-bfcd data-end="2027-01-01T04:59:59Z" hidden>
  <span class="bfcd-in">
-  <span class="bfcd-l">{{ section.settings.label | escape }}</span>
+  <span class="bfcd-l"><span class="bfcd-dot" aria-hidden="true"></span><strong>Black Friday Sale</strong> ends in</span>
   <span class="bfcd-u"><b data-bfcd-d>0</b><small>days</small></span><span class="bfcd-u"><b data-bfcd-h>00</b><small>hrs</small></span><span class="bfcd-u"><b data-bfcd-m>00</b><small>min</small></span><span class="bfcd-u"><b data-bfcd-s>00</b><small>sec</small></span>
   <span class="bfcd-go">Shop the Sale <span aria-hidden="true">→</span></span>
  </span>
@@ -32,8 +42,8 @@
 <script>(function(){
 var P1=Date.parse('2026-12-01T04:59:59Z'),P3=Date.parse('2026-12-26T05:00:00Z'),END=Date.parse('2027-01-01T04:59:59Z');
 function ph(n){return n<=P1?1:(n<P3?2:(n<=END?3:0));}
-var TXT={2:{cd:'Black Friday Extended · ends in',hero:'Extended through <em>December 31</em>'},
-3:{cd:'Final days · Black Friday pricing ends in',hero:'Final days: ends <em>December 31</em>'}};
+var TXT={2:{cd:'<span class="bfcd-dot" aria-hidden="true"></span><strong>Black Friday Extended</strong> ends in',hero:'Extended through <em>December 31</em>'},
+3:{cd:'<span class="bfcd-dot" aria-hidden="true"></span><strong>Final days</strong> Black Friday pricing ends in',hero:'Final days: ends <em>December 31</em>'}};
 function hero(k){var x=TXT[k];if(!x)return;document.querySelectorAll('.homepage-hero-carousel__description p').forEach(function(q){if(/Cyber Monday/.test(q.textContent))q.innerHTML=x.hero;});}
 document.addEventListener('DOMContentLoaded',function(){hero(ph(Date.now()));});
 /* Klaviyo sale popup (form VzcmXk): its headline is an image and its last line says Nov 30; swap both from phase 2. */
@@ -50,7 +60,7 @@ if(KL[k0]&&window.MutationObserver){new MutationObserver(function(ms){ms.forEach
 var el=document.querySelector('[data-bfcd]');if(!el)return;var lab=el.querySelector('.bfcd-l'),cur=1;
 function p(n){return (n<10?'0':'')+n;}
 function t(){var now=Date.now(),k=ph(now);if(!k){el.hidden=true;return false;}
-if(k!==cur&&TXT[k]){cur=k;if(lab)lab.textContent=TXT[k].cd;hero(k);}
+if(k!==cur&&TXT[k]){cur=k;if(lab)lab.innerHTML=TXT[k].cd;hero(k);}
 var s=Math.floor(((k===1?P1:END)-now)/1000);
 el.querySelector('[data-bfcd-d]').textContent=Math.floor(s/86400);el.querySelector('[data-bfcd-h]').textContent=p(Math.floor(s%86400/3600));
 el.querySelector('[data-bfcd-m]').textContent=p(Math.floor(s%3600/60));el.querySelector('[data-bfcd-s]').textContent=p(s%60);return true;}
@@ -62,7 +72,7 @@ if(t()){el.hidden=false;var iv=setInterval(function(){if(!t())clearInterval(iv);
   "name": "Black Friday countdown",
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "Show countdown bar", "default": true },
-    { "type": "text", "id": "label", "label": "Text", "default": "Black Friday Unlocked ends in" }
+    { "type": "text", "id": "label", "label": "Text", "default": "Black Friday Sale ends in" }
   ],
   "enabled_on": { "groups": ["header"] }
 }
