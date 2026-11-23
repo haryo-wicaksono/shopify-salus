@@ -1,6 +1,9 @@
 {%- comment -%}
-  Store-wide badge styles: red savings tag ("$1,000 off") and a "Sold out" tag
-  in the top-left corner of product card images. CSS only.
+  Store-wide badge styles: savings tag and a "Sold out" tag on product card images.
+  Black Friday 2026 highlight (Nov 23, Mark/Freddy, v4): "Black Friday Deal" tag, price in red, "Save $X" tag and
+  delivery/shipping tags in the review-stars green, old price black, cream gift note, Black Friday Gift box framed,
+  "Black Friday / Save $X" tag on card images and product photos, manuals moved into the Support accordion.
+  Runs until Dec 31 2026 11:59 pm ET, then does nothing. Re-applies when the theme re-renders prices (variants, filters).
 {%- endcomment -%}
 <style>
   .discount__price{background-color:{{ section.settings.sale_color }} !important;color:#fff !important;border-color:#fff !important;}
@@ -16,6 +19,56 @@
   }
   {%- endif %}
 </style>
+<script>(function(){
+var END=Date.parse('2027-01-01T04:59:59Z'),P1=Date.parse('2026-12-01T04:59:59Z');
+if(Date.now()>END)return;
+var st=document.createElement('style');st.textContent="\n\n  .bfx-deal{display:inline-block;background:#C8322B;color:#fff;font:700 13px/1 Poppins,Helvetica,Arial,sans-serif;\n    padding:7px 11px;border-radius:5px;letter-spacing:.02em;margin:0 0 10px}\n  .price--on-sale .price__current{color:#C8322B!important}\n  /* v4 (Freddy, Nov 23): Save $X, delivery and shipping tags = rectangles (6 px), text 500, in the green of the review stars (#1F8A81); old price black */\n  .price--on-sale .discount__price{background:#1F8A81!important;color:#fff!important;border-color:#1F8A81!important;border-radius:6px!important;font-weight:700!important;padding-left:12px!important;padding-right:12px!important}\n  body .product-info .product-info__delivery>p,body .product-ext-tags>span,body .product-ext-tags>span.free-shipping-tag,body .product-ext-tags>span.pd-delivery{background-color:#1F8A81!important;border-color:#1F8A81!important;color:#fff!important;border-radius:6px!important;font-weight:500!important}\n  .price--on-sale .price__was{color:#000!important;text-decoration-color:#000!important;opacity:1!important}\n  /* manual + spec sheet buttons move into the Support accordion; a link under the description opens it */\n  .download-link-wrapper.bfx-moved{display:none!important}\n  .bfx-doclink{display:block;width:max-content;margin-top:6px;text-decoration:underline;text-underline-offset:3px}\n  .bfx-docs{margin:0 0 16px}\n  .bfx-docs ul{list-style:none!important;padding:0!important;margin:8px 0 0!important;display:flex;flex-wrap:wrap;gap:10px}\n  .bfx-docs li{margin:0!important;padding:0!important;list-style:none!important}\n  .bfx-docs li::before,.bfx-docs li::marker{content:none!important;display:none!important}\n  body .bfx-docs ul li a{display:inline-flex;align-items:center;gap:8px;border:1px solid #1B413E;color:#1B413E!important;border-radius:6px;padding:8px 16px!important;text-decoration:none!important;font-weight:600;font-size:15px;white-space:nowrap}\n  .bfx-docs a img{width:18px;height:18px;margin:0}\n  .price--on-sale .discount__price,.price--on-sale .price__current,.price--on-sale .price__was{white-space:nowrap}\n  .price--on-sale .price__default{display:flex;flex-wrap:wrap;align-items:center;row-gap:6px}\n  .bfx-note{display:flex;gap:10px;align-items:flex-start;background:#FBF6EC;border-left:3px solid #C29A4B;border-radius:8px;\n    color:#2b2a28;font:400 14.5px/1.5 Poppins,Helvetica,Arial,sans-serif;padding:10px 14px;margin:12px 0 4px}\n  .bfx-note::before{content:\"\";flex:none;width:18px;height:18px;margin-top:2px;background:#1f3a33;-webkit-mask:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 7h-2.2A3 3 0 0 0 12 3.8 3 3 0 0 0 6.2 7H4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1Zm-5-1.5A1.5 1.5 0 1 1 15 8.5h-2V7a1.5 1.5 0 0 1 2-1.5ZM9 5.5A1.5 1.5 0 0 1 11 7v1.5H9a1.5 1.5 0 0 1 0-3ZM11 19H7v-7h4Zm0-9H5V9h6Zm6 9h-4v-7h4Zm2-9h-6V9h6Z'/%3E%3C/svg%3E\") center/contain no-repeat;mask:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 7h-2.2A3 3 0 0 0 12 3.8 3 3 0 0 0 6.2 7H4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1Zm-5-1.5A1.5 1.5 0 1 1 15 8.5h-2V7a1.5 1.5 0 0 1 2-1.5ZM9 5.5A1.5 1.5 0 0 1 11 7v1.5H9a1.5 1.5 0 0 1 0-3ZM11 19H7v-7h4Zm0-9H5V9h6Zm6 9h-4v-7h4Zm2-9h-6V9h6Z'/%3E%3C/svg%3E\") center/contain no-repeat}\n  .bfx-note b{font-weight:700;color:#1f3a33}\n  .product-sidebar .bfx-note,sticky-atc-panel .bfx-note,sticky-atc-panel .bfx-deal{display:none!important}\n\n  .gpo-element.bf-gift{position:relative;border:2px solid #C29A4B!important;border-radius:14px;background:#FBF6EC!important;\n    padding:16px 16px 12px!important;margin:18px 0 8px!important}\n  .gpo-element.bf-gift>.gpo-label .label-content{color:#1f3a33;font-weight:800;text-transform:uppercase;letter-spacing:.07em}\n  .gpo-element.bf-gift>.gpo-label .label-content::before{content:\"\";display:inline-block;width:18px;height:18px;margin:0 8px -3px 0;background:#C8322B;-webkit-mask:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 7h-2.2A3 3 0 0 0 12 3.8 3 3 0 0 0 6.2 7H4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1Zm-5-1.5A1.5 1.5 0 1 1 15 8.5h-2V7a1.5 1.5 0 0 1 2-1.5ZM9 5.5A1.5 1.5 0 0 1 11 7v1.5H9a1.5 1.5 0 0 1 0-3ZM11 19H7v-7h4Zm0-9H5V9h6Zm6 9h-4v-7h4Zm2-9h-6V9h6Z'/%3E%3C/svg%3E\") center/contain no-repeat;mask:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 7h-2.2A3 3 0 0 0 12 3.8 3 3 0 0 0 6.2 7H4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1Zm-5-1.5A1.5 1.5 0 1 1 15 8.5h-2V7a1.5 1.5 0 0 1 2-1.5ZM9 5.5A1.5 1.5 0 0 1 11 7v1.5H9a1.5 1.5 0 0 1 0-3ZM11 19H7v-7h4Zm0-9H5V9h6Zm6 9h-4v-7h4Zm2-9h-6V9h6Z'/%3E%3C/svg%3E\") center/contain no-repeat}\n  .gpo-element.bf-gift::before{content:\"Black Friday only\";position:absolute;top:-12px;right:14px;background:#C8322B;color:#fff;\n    font:700 11px/1 Poppins,Helvetica,Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase;padding:6px 10px;border-radius:999px}\n  .gpo-element.bf-gift .custom-variant-card{border-color:#C29A4B!important;background:#fff!important}\n  .gpo-element.bf-gift .card-free-badge{color:#1f3a33!important;font-weight:700!important}\n\n  product-card .card__media{position:relative}\n  product-card .price--on-sale .discount__price{display:none!important}  /* the image tag already says Save $X */\n  product-card .price--on-sale .price__current{margin-right:12px}\n  .bfx-corner{position:absolute;top:12px;right:12px;z-index:3;background:#C8322B;color:#fff;border:2px solid #fff;text-align:center;\n    font:800 15px/1 Poppins,Helvetica,Arial,sans-serif;padding:7px 11px 8px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.18);pointer-events:none}\n  .bfx-corner small{display:block;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;opacity:.92}\n  @media (max-width:767px){.bfx-corner{top:8px;right:8px;font-size:13px;padding:6px 8px 7px}}\n  /* size follows the card image width (cards are 130 px wide on a small phone, 350+ on a tablet), so the tag never covers too much of the photo */\n  /* Save tag over the product page photos (same tag as the cards, a bit bigger) */\n  .media-gallery__viewer{position:relative}\n  .bfx-corner--pdp{top:16px;right:16px;font-size:20px;padding:9px 15px 11px;border-radius:10px}\n  .bfx-corner--pdp small{font-size:12px}\n  @media (max-width:767px){.bfx-corner--pdp{top:10px;right:10px;font-size:15px;padding:7px 10px 8px}.bfx-corner--pdp small{font-size:10px}}\n  @supports (font-size:1cqi){\n    product-card .card__media{container-type:inline-size}\n    product-card .bfx-corner{font-size:clamp(10.5px,6.4cqi,15px);padding:.45em .7em .52em;top:clamp(6px,4cqi,12px);right:clamp(6px,4cqi,12px);border-radius:clamp(5px,3.5cqi,8px)}\n    product-card .bfx-corner small{font-size:.63em;margin-bottom:.2em}\n  }\n  ";document.head.appendChild(st);
+var PDP=document.body.classList.contains('template--product');
+function save(r){var c=r.querySelector('.price__current[data-base-price-cents]'),w=r.querySelector('.price__was[data-base-compare-cents]');if(!c||!w)return 0;return Math.max(0,(+w.dataset.baseCompareCents)-(+c.dataset.basePriceCents));}
+function money(c){return '$'+Math.round(c/100).toLocaleString('en-US');}
+function setText(el,t){if(el&&el.textContent!==t)el.textContent=t;}
+function tagHTML(s){return '<small>Black Friday</small>Save '+money(s);}
+function left(){var now=Date.now(),s=Math.max(0,Math.floor(((now<=P1?P1:END)-now)/1000));return Math.floor(s/86400)+'d '+Math.floor(s%86400/3600)+'h '+Math.floor(s%3600/60)+'m';}
+function apply(){
+ if(PDP){
+  var main=null;
+  document.querySelectorAll('.price--on-sale').forEach(function(pr){
+   if(pr.closest('product-card'))return;
+   var s=save(pr);var d=pr.querySelector('.discount__price');if(d&&s)setText(d,'Save '+money(s));
+   if(!pr.querySelector('.bfx-deal')){var t=document.createElement('div');t.innerHTML='<span class="bfx-deal">Black Friday Deal</span>';pr.insertBefore(t,pr.querySelector('.price__default'));}
+   if(!main&&!pr.closest('sticky-atc-panel')&&!pr.closest('.product-sidebar'))main=pr;
+  });
+  if(main&&document.querySelector('.gpo-element.bf-gift')&&!main.querySelector('.bfx-note')){var n=document.createElement('p');n.className='bfx-note';n.innerHTML='<span>Includes a <b>complimentary Black Friday gift</b>. Sale ends in <b data-bfx-left>'+left()+'</b>.</span>';main.appendChild(n);}
+  var v=document.querySelector('.product-media .media-gallery__viewer'),sv=main?save(main):0,ct=v&&v.querySelector('.bfx-corner');
+  if(v&&sv){if(!ct){ct=document.createElement('span');ct.className='bfx-corner bfx-corner--pdp';v.appendChild(ct);}if(ct.innerHTML!==tagHTML(sv))ct.innerHTML=tagHTML(sv);}else if(ct)ct.remove();
+  var sup=[].slice.call(document.querySelectorAll('details.disclosure')).filter(function(x){var m=x.querySelector('summary');return m&&/^\s*Support\s*$/i.test(m.textContent);})[0];
+  var wraps=[].slice.call(document.querySelectorAll('.download-link-wrapper:not(.bfx-moved)'));
+  if(sup&&wraps.length&&!sup.querySelector('.bfx-docs')){
+   var seen={},links=[];wraps.forEach(function(w){w.querySelectorAll('a[href]').forEach(function(a){if(!seen[a.href]){seen[a.href]=1;links.push(a);}});});
+   if(links.length){
+    var box=document.createElement('div');box.className='bfx-docs';
+    box.innerHTML='<p><strong>Owner’s manual and spec sheet</strong></p><ul>'+links.map(function(a){var i=a.querySelector('img');return '<li><a href="'+a.href+'" target="_blank" rel="noopener">'+(i?i.outerHTML:'')+a.textContent.trim()+'</a></li>';}).join('')+'</ul>';
+    var c=sup.querySelector('.disclosure__content');if(c)c.prepend(box);
+    sup.id='product-support';wraps.forEach(function(w){w.classList.add('bfx-moved');});
+    var more=document.querySelector('.product-accordion-scroll-link');
+    if(!document.querySelector('.bfx-doclink')){var l=document.createElement('a');l.href='#product-support';l.className='bfx-doclink';l.textContent='Owner’s manual & spec sheet';
+     l.addEventListener('click',function(e){e.preventDefault();sup.open=true;sup.scrollIntoView({behavior:'smooth',block:'start'});});
+     if(more){var mc=getComputedStyle(more);l.style.fontSize=mc.fontSize;l.style.color=mc.color;l.style.fontWeight=mc.fontWeight;l.style.fontFamily=mc.fontFamily;more.after(l);}
+     else{var dd=document.querySelector('.product-details__text');if(dd)dd.appendChild(l);}}
+   }
+  }
+ }
+ document.querySelectorAll('product-card.card').forEach(function(card){
+  var pr=card.querySelector('.price--on-sale'),media=card.querySelector('.card__media'),b=media&&media.querySelector('.bfx-corner'),s=pr?save(pr):0;
+  if(pr&&s){var d=pr.querySelector('.discount__price');if(d)setText(d,'Save '+money(s));}
+  if(media&&s){if(!b){b=document.createElement('span');b.className='bfx-corner';media.appendChild(b);}if(b.innerHTML!==tagHTML(s))b.innerHTML=tagHTML(s);}else if(b)b.remove();
+ });
+ document.querySelectorAll('[data-bfx-left]').forEach(function(el){setText(el,left());});
+}
+var q=0;function later(){if(q)return;q=setTimeout(function(){q=0;apply();},150);}
+function start(){apply();new MutationObserver(later).observe(document.body,{childList:true,subtree:true});setInterval(function(){document.querySelectorAll('[data-bfx-left]').forEach(function(el){setText(el,left());});},30000);}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();</script>
 
 {% schema %}
 {
