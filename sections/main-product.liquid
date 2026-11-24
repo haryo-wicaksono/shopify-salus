@@ -779,11 +779,10 @@ Thank you!
                     {% render 'icon-star' %}
                   </span>
                 {% endif %}
-                {% if block.settings.reviews_text != blank %}
-                  <a href="#product-page-reviews">
-                    <p class="product-page-section-header__reviews-text">{{ block.settings.reviews_text }}</p>
-                  </a>
-                {% endif %}
+                {%- comment -%} Nov 24 (Brandon, approved by Freddy): same text and link on every product page; the Reviews Text setting is no longer used {%- endcomment -%}
+                <a href="/pages/reviews">
+                  <p class="product-page-section-header__reviews-text">Read our reviews →</p>
+                </a>
               </div>
 
             {%- when 'title' -%}
