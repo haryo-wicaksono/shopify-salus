@@ -852,14 +852,17 @@ Thank you!
               </div>
 
             {% when 'delivery' %}
-              {% if block.settings.delivery != blank %}
+              {%- comment -%} Free Shipping always shows; the delivery time only when the product has one (Nov 24, Freddy) {%- endcomment -%}
+              {% if true %}
                 <div
                   class="product-info__block product-info__block--sm product-info__delivery flex"
                 >
+                  {% if block.settings.delivery != blank %}
                   <p>
                     {{ block.settings.delivery | append: ' Delivery' }}
                   </p>
-                  {% assign free_shipping_text = product.metafields.custom.product_tag_free_shipping %}
+                  {% endif %}
+                  {% assign free_shipping_text = product.metafields.custom.product_tag_free_shipping | default: 'Free Shipping' %}
                   <p>{{ free_shipping_text }}</p>
                   {% if block.settings.stock_left != blank %}
                     <div
