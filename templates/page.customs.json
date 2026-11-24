@@ -108,6 +108,14 @@
             "wide": true
           }
         },
+        "photo_10": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/04-gallery-10-walnut-backlit-benches.webp",
+            "caption": "Dark wood interior with backlit two-tier benches",
+            "wide": false
+          }
+        },
         "photo_2": {
           "type": "photo",
           "settings": {
@@ -186,6 +194,7 @@
         "step_installation",
         "step_enjoy",
         "photo_1",
+        "photo_10",
         "photo_2",
         "photo_3",
         "photo_4",
